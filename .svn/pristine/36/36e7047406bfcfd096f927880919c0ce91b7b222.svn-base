@@ -1,0 +1,14 @@
+<template name="singJoinWXQ-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip' >点接通客服，在客服会话中输入数字“1”，即可加微信客服微好友，并完成任务领取奖金。</text>
+    <view class='buttonView-vip'>
+      <button catchtap="joinWXQdialogTap" class='bottom-btn-yellow5-vip'
+                 open-type='contact' form-type='submit'  
+  session-from='{"open_param":"signJoinFuliQunClick"}'
+      
+      >接通客服</button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

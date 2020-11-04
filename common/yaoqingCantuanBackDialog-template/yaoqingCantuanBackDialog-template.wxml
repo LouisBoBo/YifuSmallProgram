@@ -1,0 +1,11 @@
+<template name="yaoqingCantuanBackDialog-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip' >如您已邀请2位好友参团，请点完成任务。并赠送您1次提现机会。</text>
+    <view class='buttonView-vip'>
+      <button catchtap="yaoQingCanTuanBackDiaologTap" class='bottom-btn-yellow5-vip'
+                  form-type='submit'>完成任务</button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template> 

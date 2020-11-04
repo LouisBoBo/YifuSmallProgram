@@ -1,0 +1,647 @@
+/* pages/sign/withdrawLimit/withdrawLimit.wxss */
+@import "../../../common/limitQuotas-template/limitQuotas.wxss";
+/* @import "../signLingYTemp/signLingYTemp.wxss"; */
+@import "../../sign/signLingYTemp/signLingYTemp.wxss";
+@import "../../../common/Member-template/guidebecome_member";
+.baseview{
+  width: 100%;
+  height: 1rpx;
+}
+.bottom-view{
+  width: 100%;
+  height:120rpx;
+  color: white;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  border-top: 0.5px solid #c5c5c5;
+  background: white;
+}
+.bottom-view button{
+  height:120rpx;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+.bottom-view-text{
+  height:90rpx;
+  color: #FFFFFF;
+  background-color: #FF3F8B;
+  border-radius: 4px;
+  margin: 15rpx 20rpx;
+  font-size: 35rpx;
+  text-align: center;
+  line-height: 90rpx;
+}
+::-webkit-scrollbar{
+  height: 0;
+  width: 0;
+  color: transparent;
+}
+.view-all-normal{
+  display: flex;
+  flex-direction: column;
+  background-color : #E782FC;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0rpx;
+  overflow: hidden;
+}
+.view-all-normal-mad{
+  display: flex;
+  flex-direction: column;
+  background-color : #8813E2;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 120rpx;
+  overflow: hidden;
+}
+.view-top{
+  width: 100%;
+  height: 610rpx;
+  display: flex;
+  flex-direction: column;
+  background-size: 100% 100%;
+}
+.view-top-mad{
+  width: 100%;
+  height: 1100rpx;
+  display: flex;
+  flex-direction: column;
+  background-size: 100% 100%;
+}
+.view-top-money-out{
+  width: 95%;
+  height: 140rpx;
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+}
+.view-top-money{
+  width: 100%;
+  height: 140rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-size: 100% 100%;
+}
+.view-sum{
+  height: 140rpx;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 9rpx;
+  align-self: center;
+}
+.text-sum_1{
+  font-size: 45rpx;
+  color: #FD052E;
+  font-weight: bold;
+}
+.text-sum_2{
+  font-size: 30rpx;
+  color: #FD052E;
+  font-weight: bold;
+}
+.text-to-withdraw{
+  font-size: 32rpx;
+  color: #FFFFFF;
+  padding: 14rpx 46rpx;
+  padding-bottom: 16rpx;
+  background-color: #F31838;
+  border-radius: 3px;
+  align-self: center;
+}
+.view-yidou{
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
+.text-yidou{
+  height: 40rpx;
+  font-size: 24rpx;
+  color: #FFFFFF;
+  background-color: rgba(0,0,0,0.4);
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  flex: 4;
+  text-align: center;
+  border-radius: 25rpx;
+  flex-wrap: nowrap;
+  line-height: 40rpx;
+  padding-top: 2rpx;
+  vertical-align: middle;
+}
+.text-edu{
+  height: 36rpx;
+  font-size: 24rpx;
+  color: #FFFFFF;
+  border : 1px solid #FFFFFF;
+  border-radius: 25rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  flex: 3;
+  text-align: center;
+  line-height: 36rpx;
+}
+.mad-count{
+ font-size: 34rpx;
+ color: white;
+ margin-top: 110rpx;
+ margin-bottom: -60rpx;
+ align-self: center;
+}
+.mad-count-lotterynumber{
+  color: #FFF400;
+}
+.luck-pan-view{
+  width: 570rpx;
+  height:570rpx;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  margin-top : 25rpx;
+  position: relative;
+}
+.luck-pan{
+  width: 570rpx;
+  height: 570rpx;
+  align-self: center;
+}
+.luck-zhizhen{
+  width: 250rpx;
+  height: 250rpx;
+  position: absolute;
+  top: 160rpx;
+  left: 160rpx;
+}
+.list{
+  width: 95%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 20rpx;
+  margin-top: 5rpx;
+  position: relative;
+}
+.list-top-image{
+  width: 180px;
+  height: auto;
+  align-self: center;
+  margin-top: 40rpx;
+  margin-bottom: 20rpx;
+}
+.list-scoll{
+  height:301px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10rpx;
+}
+.list-scoll-cover{
+  height:301px;
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10rpx;
+  background-color: rgba(0,0,0,0.0);
+  position:absolute;
+  top:0;
+  left: 0;
+  margin-top: 100rpx;
+}
+.list-item{
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: white;
+  border-top: 0.5px solid #C5C5C5;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+}
+.list-item image{
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  align-self: center;
+}
+.user-name{
+  font-size: 12px;
+  color: #7D7D7D; 
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+.user-content{
+  font-size: 12px;
+  color: #7D7D7D; 
+  margin-right: 20rpx;
+}
+.user-money{
+  font-size: 14px;
+  color: #FF3F8B; 
+  position: absolute;
+  right: 20rpx;
+}
+
+
+
+
+
+.notEnoughYidou-root {
+  width:580rpx;
+  background-color: #FD215A;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.notEnough-dialog-title{
+  align-self: center;
+  font-size: 36rpx;
+  color: #FDCC21;
+  margin-top: 35rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.notEnough-dialog-content{
+  align-self: center;
+  font-size: 30rpx;
+  color: #FFFFFF;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.bottom-btn{
+  width:100%;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  margin-top: 60rpx;
+  margin-bottom: 40rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  
+}
+.bottom-getYuE{
+  /* height: 80rpx;
+   width: 520rpx; 
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #FD215A;
+  background-color: #FDCC21;
+  border-radius: 3px;
+  margin-left: 10rpx; */
+  /* margin-right: 30rpx; */
+
+  width:520rpx;
+  height: 80rpx;
+  margin-top: 40rpx;
+  margin-bottom: 40rpx;
+  margin-right: 30rpx;
+  border-radius: 3px;
+  color: #FD215A;
+  background-color: #FDCC21;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  text-align: center;
+}
+.bottom-btn-left{
+  height: 80rpx;
+  width: 250rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #FD215A;
+  background-color: white;
+  border-radius: 3px;
+  margin-right: 10rpx;
+}
+.bottom-btn-rigth{
+  height: 80rpx;
+  width: 250rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #FD215A;
+  background-color: #FDCC21;
+  border-radius: 3px;
+  margin-left: 10rpx;
+}
+.icon-close{
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  padding: 20rpx;
+}
+.icon-close-luck{
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  padding: 20rpx;
+  background-color: rgba(255, 0, 76, 0);
+  background-size: 40rpx 40rpx;
+  background-repeat:no-repeat;
+  border:none;
+}
+button[class="icon-close-luck"]::after {
+  border: 0;
+} 
+
+.bottom-btn-yellow{
+  width:520rpx;
+  height: 80rpx;
+  margin-top: 60rpx;
+  margin-bottom: 40rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  border-radius: 3px;
+  color: #FD215A;
+  background-color: #FDCC21;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  text-align: center;
+}
+
+.isWarnIconView{
+  width:520rpx;
+  height: 30rpx;
+  margin-top: 60rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+.isWarnIconView image{
+  width:30rpx;
+  height: 30rpx;
+}
+.isWarnIconView text{
+  height: 30rpx;
+  line-height: 30rpx;
+  color: #AE0531;
+  font-size: 24rpx;
+}
+
+
+.redPacket-root{
+  width:550rpx;
+  background-color: #FD215A;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.icon-noRedPacket{
+  width: 80rpx;
+  height: 80rpx;
+  margin-top: 100rpx;
+  align-self: center;
+  margin-bottom: 30rpx;
+}
+.redPacket-dialog-content{
+  align-self: center;
+  font-size: 40rpx;
+  color: white;
+  font-weight: 600;
+}
+.bottom-btn-top1{
+  width: 420rpx;
+  height: 80rpx;
+  margin-top: 40rpx;
+  align-self: center;
+  font-size: 36rpx;
+  color: #FD215A;
+  background-color: #FDCC21;
+  line-height: 80rpx;
+  border-radius: 3px;
+  text-align: center;
+}
+.bottom-btn-top{
+  width: 420rpx;
+  height: 80rpx;
+  margin-top: 100rpx;
+  margin-bottom: 50rpx;
+  align-self: center;
+  font-size: 36rpx;
+  color: #FD215A;
+  background-color: #FDCC21;
+  line-height: 80rpx;
+  border-radius: 3px;
+  text-align: center;
+}
+.bottom-btn-bottom{
+  width: 420rpx;
+  height: 80rpx;
+  margin-top: 0rpx;
+  margin-bottom:80rpx;
+  align-self: center;
+  font-size: 36rpx;
+  color: #FD215A;
+  background-color: white;
+  line-height: 80rpx;
+  border-radius: 3px;
+  text-align: center;
+}
+.bottom-btn-bottom1{
+  margin-top: 60rpx;
+}
+.bottom-btn-newbottom{
+  width: 420rpx;
+  height: 80rpx;
+  margin-top: 0rpx;
+  margin-bottom:80rpx;
+  align-self: center;
+  font-size: 36rpx;
+  color: #FD215A;
+  background-color: white;
+  line-height: 80rpx;
+  border-radius: 3px;
+  text-align: center;
+  background-size: 420rpx 80rpx;
+  background-repeat:no-repeat;
+  border:none;
+}
+button[class="bottom-btn-newbottom"]::after {
+  border: 0;
+} 
+.openRedPacket-root{
+  width:550rpx;
+  height: 710rpx;
+  background-color: #FD215A;
+  border-radius: 10rpx;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.icon-openRedPacket{
+  width: 160rpx;
+  height: 160rpx;
+  margin-top: 240rpx;
+  align-self: center;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.openRedPacke-content1{
+  align-self: center;
+  font-size: 38rpx;
+  color: white;
+  font-weight: 600;
+  margin-top: 50rpx;
+}
+.openRedPacke-content2{
+  align-self: center;
+  font-size:30rpx;
+  color: white;
+  margin-top: 20rpx;
+}
+
+.redPacketOpened-title{
+  align-self: center;
+  font-size: 58rpx;
+  color: #FDCC21;
+  margin-top: 80rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  font-weight: 600;
+}
+
+.redPacketOpened-content{
+  align-self: center;
+  font-size: 30rpx;
+  color: #FFFFFF;
+  margin-top: 20rpx;
+  margin-left: 50rpx;
+  margin-right: 50rpx;
+}
+.redPacketOpened-view{
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+}
+.redPacketOpened-Img{
+  align-self: center;
+  margin-top: 40rpx;
+  margin-bottom: -50rpx;
+  width: 400rpx;
+}
+.redPacketOpened-money{
+  align-self: center;
+  margin-top: 150rpx;
+  position: absolute;
+  font-size: 35rpx;
+}
+.icon-madOpenRedPacket{
+  width: 160rpx;
+  height: 160rpx;
+  bottom: 100rpx;
+  align-self: center;
+  position: absolute
+}
+.madOpenRedPacke-content1{
+  align-self: center;
+  font-size: 46rpx;
+  font-weight: 600;
+  color: #FDE128;
+  margin-top: 200rpx;
+}
+.madOpenRedPacke-content2{
+  align-self: center;
+  font-size: 46rpx;
+  font-weight: 600;
+  color: #FDE128;
+}
+.madOpenRedPacke-content3{
+  align-self: center;
+  font-size:30rpx;
+  color: white;
+  margin-top: 20rpx;
+}
+.madRedPacket-top-image{
+  width:240rpx;
+  height: 240rpx;
+  top: -100rpx;
+  align-self: center;
+  position: absolute;
+}
+.madRedPacketOpened-title{
+  align-self: center;
+  font-size: 58rpx;
+  color: #FDCC21;
+  margin-top: 130rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  font-weight: 600;
+}
+
+.obtain_yidou_image{
+  width:180rpx;
+  height: 80rpx;
+  margin-top: 60rpx;
+  align-self: center;
+}
+.obtain-yidou-title{
+  align-self: center;
+  font-size: 36rpx;
+  color: #FDCC21;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.obtain-yidou-content{
+  align-self: center;
+  font-size: 30rpx;
+  color: #FFFFFF;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  margin-top: 5rpx;
+}
+.obtainMadDialogTop{
+  margin-top: 80rpx;
+  opacity: 0;
+}
+.obtainMadDialog-top-image{
+  width:280rpx;
+  height: 250rpx;
+  top: -140rpx;
+  align-self: center;
+  position: absolute;
+}
+
+
+.balanceLotteryOver-edu{
+  color: #FDCC21;
+  font-weight: bold;
+}
+
+.quotas-view{
+  position: fixed;
+  top: 260rpx;
+  right:0;
+}
+
+.quotas-view image {
+  width: 75rpx;
+  height: 170rpx;
+}

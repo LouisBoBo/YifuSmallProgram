@@ -1,0 +1,132 @@
+<!-- 引导成为会员 -->
+<template name="guidebecome_member">
+  <form bindsubmit="guidebecomememberTap" report-submit='true'>
+    <image class='closeimage-newluckimg' src="{{Upyun}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeNewLuckImage'></image>
+    <view class='showTixianView_upperlimit-wallet'>
+      <image class='newuser-thirty-wallet' wx:if="{{guidebecomeMemberImage=='免费领'}}" src="{{Upyun}}small-iconImages/heboImg/becomeMember_freeling.png" mode="widthFix"></image>
+      <image class='newuser-thirty-wallet' wx:elif="{{guidebecomeMemberImage=='单独购买'}}" src="{{Upyun}}small-iconImages/heboImg/becomeMember_gobuy.png" mode="widthFix"></image>
+      <image class='newuser-thirty-wallet' wx:elif="{{guidebecomeMemberImage=='特价参团'}}" src="{{Upyun}}small-iconImages/heboImg/becomeMember_fight.png" mode="widthFix"></image>
+      <image class='newuser-thirty-wallet' wx:elif="{{guidebecomeMemberImage=='完成任务'}}" src="{{Upyun}}small-iconImages/heboImg/finish_signtask_shopping.png" mode="widthFix"></image>
+      <button open-type='' class="button_confrim_upperlimit-wallet" form-type='submit'>
+      </button>
+    </view>
+  </form>
+</template>
+
+<!-- 引导加好友 -->
+<template name="guideInvit_friends">
+  <form bindsubmit="guideInvit_friendsTap" report-submit='true'>
+    <image class='closeimage-newluckimg' src="{{Upyun}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeInvitImage'></image>
+    <view class='showTixianView_upperlimit-invit'>
+      <image class='invitfriends_image' src="{{Upyun}}small-iconImages/heboImg/newestluck_invitBecomeMember.png" mode="widthFix"></image>
+      <button class="discription-wenhao" bindtap="wenhaoTap"></button>
+      <view class="invitfriends_view">
+        <view class="invitfriends_add">
+          <block wx:key wx:for="{{invitfriendslist}}" wx:for-item="item" wx:key="key">
+            <image class="invitfriends_view_add" src='{{item}}'></image>
+          </block>
+        </view>
+        <text class="invitfriends_time">{{time}}后失效</text>
+      </view>
+      <button open-type='share' class="button_confrim_upperlimit-invit" form-type='submit'>
+      </button>
+    </view>
+  </form>
+</template>
+
+<!-- 引导买提现券 -->
+<template name="guideTixian_coupon">
+  <form bindsubmit="guideInvit_friendsTap" report-submit='true'>
+    <image class='closeimage-newluckimg' src="{{Upyun}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeTixianCoupon'></image>
+    <view class='showTixianView_upperlimit-coupon'>
+      <image class='invitfriends_image' src="{{Upyun}}small-iconImages/heboImg/{{tixian_count>0?'secondguidetixian_moneycoupon.png':'firstguidetixian_moneycoupon.png'}}" mode="widthFix"></image>
+
+      <view class="invitfriends_coupon">
+        <text class="invitfriends_tixiantime">{{time}}后失效</text>
+      </view>
+      <button open-type='' class="button_confrim_upperlimit-invit" bindtap="tixiancouponTap"></button>
+    </view>
+  </form>
+</template>
+
+<!-- 引导买免拼卡 -->
+<template name="guideFreefight_coupon">
+  <form bindsubmit="guideInvit_friendsTap" report-submit='true'>
+    <image class='closeimage-newluckimg' src="{{Upyun}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeFreeFightCoupon'></image>
+    <view class='showTixianView_upperlimit-coupon'>
+      <image class='invitfriends_image' src="{{Upyun}}small-iconImages/heboImg/free_fightting.png" mode="widthFix"></image>
+      <view class="freeFght_coupon">
+        <text class="invitfriends_time">{{time}}后失效</text>
+      </view>
+      <button open-type='' class="button_confrim_upperlimit-invit" bindtap="freeFightcouponTap"></button>
+    </view>
+  </form>
+</template>
+
+<!-- 引导买发货卡 -->
+<template name="guidedeliver_coupon">
+  <form bindsubmit="guideInvit_friendsTap" report-submit='true'>
+    <image class='closeimage-newluckimg' src="{{Upyun}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeInvitImage'></image>
+    <view class='showDeliverView_upperlimit-coupon'>
+      <image class='invitfriends_image' wx:if="{{guidedeliverCouponImg==1}}" src="{{Upyun}}small-iconImages/heboImg/deliver goods.png" mode="widthFix"></image>
+      <image class='invitfriends_image' wx:elif="{{guidedeliverCouponImg==2}}" src="{{Upyun}}small-iconImages/heboImg/deliver_nogoods.png" mode="widthFix"></image>
+      
+      <button open-type='' class="button_confrim_upperlimit-member1" bindtap="fight_deliver_lingtap"></button>
+      <button open-type='' class="button_confrim_upperlimit-member2" bindtap="fight_deliver_memebertap"></button>
+    </view>
+  </form>
+</template>
+
+<!-- 免拼卡发货 -->
+<template name="guide_fight_deliver">
+  <form bindsubmit="guideInvit_friendsTap" report-submit='true'>
+    <image class='closeimage-newluckimg' src="{{Upyun}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeInvitImage'></image>
+    <view class='showTixianView_upperlimit-invit'>
+      <view class="guideview" style="{{(free_num<2 || send_num<2)?'height: 630rpx':'height: 630rpx'}}">
+        <text class="guideview_title">温馨提示</text>
+        <text class="guideview_text">该商品需要<text class="import_text">3</text>张{{is_deliver?'发货卡':'免拼卡'}}即可{{is_deliver?'':'免拼'}}发货</text>
+        <text class="guideview_text">您已有<text class="import_text">{{is_deliver?send_num:free_num}}</text>张还差<text class="import_text">{{is_deliver?(3-send_num>0?(3-send_num):0):(3-free_num>0?(3-free_num):0)}}</text>张</text>
+        <view class="guideview_invitfriends">
+          <view class="invitfriends_add">
+            <block wx:key wx:for="{{cardslist}}" wx:for-item="item" wx:key="key">
+              <image class="invitfriends_view_add" bindtap="fight_deliver_lingtap" src='{{item}}'></image>
+            </block>
+          </view>
+        </view>
+
+        <image class="guideview_image1" src="{{Upyun}}small-iconImages/heboImg/{{is_deliver?'continue_ling_delivergoods.png':'continue_ling_freefightting.png'}}" mode="widthFix" bindtap="fight_deliver_lingtap"></image>
+        <!-- <image class="guideview_image2" wx:if="{{free_num >= 2}}" src="{{Upyun}}small-iconImages/heboImg/{{is_deliver?'direct_ling_becomeMember.png':'direct_fight_becomeMember.png'}}" mode="widthFix" bindtap="fight_deliver_memebertap"></image> -->
+      </view>
+    </view>
+  </form>
+</template>
+
+<!-- 免费领未领到引导购买发货卡 -->
+<template name="guide_fight_deliver_buy">
+  <form bindsubmit="guideInvit_friendsTap" report-submit='true'>
+    <image class='closeimage-newluckimg' src="{{Upyun}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeInvitImage'></image>
+    <view class='showTixianView_upperlimit-invit'>
+      <view class="guideview" style="{{send_num<2?(send_num>0?'height: 800rpx':'height: 550rpx'):'height: 800rpx'}}">
+        <text class="guideview_title">温馨提示</text>
+        <text class='guideview_text' >本次免费领未领到哦</text>
+
+        <text class='guideview_text' wx:if="{{send_num > 0}}">{{(isVip > 0 && isVip != 3)?'您可以预存会员后直接免费发货哦':'您可以使用发货卡免费发货'}}</text>
+        <text class='guideview_text' wx:if="{{send_num == 0}}">{{(isVip > 0 && isVip != 3)?'您可以预存会员后':'您可以使用新人专享的发货卡'}}</text>
+        <text class='guideview_text' wx:if="{{send_num == 0}}">直接免费发货哦</text>
+
+        <text class="guideview_text" style="margin-top: 50rpx;" wx:if="{{send_num>0}}">该商品需要<text class="import_text">3</text>张{{is_deliver?'发货卡':'免拼卡'}}即可发货</text>
+        <text class="guideview_text" style="margin-top: 10rpx;" wx:if="{{send_num>0}}">您已有<text class="import_text">{{is_deliver?send_num:free_num}}</text>张还差<text class="import_text">{{is_deliver?(3-send_num>0?(3-send_num):0):(3-free_num>0?(3-free_num):0)}}</text>张</text>
+        <view class="guideview_invitfriends" wx:if="{{send_num>0}}">
+          <view class="invitfriends_add">
+            <block wx:key wx:for="{{cardslist}}" wx:for-item="item" wx:key="key">
+              <image class="invitfriends_view_add" bindtap="fight_deliver_lingtap" src='{{item}}'></image>
+            </block>
+          </view>
+        </view>
+
+        <image class="guideview_image1" wx:if="{{isVip ==0 || isVip == 3}}" src="{{Upyun}}small-iconImages/heboImg/{{send_num < 1?'first_ling_delivergoods.png':'continue_ling_delivergoods.png'}}" mode="widthFix" bindtap="fight_deliver_lingtap"></image>
+        <image class="guideview_image1" wx:else src="{{Upyun}}small-iconImages/heboImg/direct_deliver_becomeMember.png" mode="widthFix" bindtap="fight_deliver_memebertap"></image>
+      </view>
+    </view>
+  </form>
+</template>

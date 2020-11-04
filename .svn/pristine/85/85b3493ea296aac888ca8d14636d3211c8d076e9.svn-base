@@ -1,0 +1,48 @@
+.v-out {
+  display: flex;
+  flex-direction: row;
+  border: 2rpx solid #dcdcdc;
+  background-color: #fff;
+  height: 40rpx;
+  width: 164rpx;
+  align-items: center;
+}
+
+.v-style {
+  display: flex;
+  justify-content: center;
+  height: 30rpx;
+  width: 40rpx;
+}
+
+.image-style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30rpx;
+  width: 30rpx;
+}
+
+.line {
+  height: 40rpx;
+  width: 2rpx;
+  background-color: #dcdcdc;
+}
+
+.v-style-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30rpx;
+  width: 80rpx;
+}
+
+.image-style image {
+  height: 100%;
+  width: 100%;
+}
+
+.buy-num {
+  font-size: 25rpx;
+  color: #3e3e3e;
+}

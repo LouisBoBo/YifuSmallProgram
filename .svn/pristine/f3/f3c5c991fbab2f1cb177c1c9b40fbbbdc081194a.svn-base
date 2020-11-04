@@ -1,0 +1,31 @@
+<template name="open-Discount">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>{{oneYuanDiscriptionTitle}}</text>
+
+    <text class='notEnough-dialog-content1' wx:if="{{oneYuanDiscriptionTitle == '疯抢返还说明'}}">疯抢费已全额退款至你衣蝠账号的可提现余额中，可直接提现或用来购买商品。</text>
+    <text class='notEnough-dialog-content1' wx:elif="{{oneYuanDiscriptionTitle == '余额抵扣说明'}}">退还的疯抢费与赚钱任务赢得的可提现余额，均可全额抵扣商品价哦。</text>
+    <text class='notEnough-dialog-content1' wx:elif="{{oneYuanDiscriptionTitle == '本轮未抢中哦'}}">疯抢费已原路退还至你的支付账号。1-2个工作日内到账。请注意查收。</text>
+    <text class='notEnough-dialog-content1' wx:elif="{{oneYuanDiscriptionTitle == '拼团疯抢费已返还'}}">因在规定时间内参团人数不足，你的拼团未成功。拼团疯抢费已返还至你衣蝠账号的可提现余额，可以立即提现或用来购买商品哦。</text>
+    <text class='notEnough-dialog-content1' wx:elif="{{oneYuanDiscriptionTitle == '疯抢退款说明'}}">疯抢费已原路退还至你的支付账号。1-2个工作日内到账。请注意查收。</text>
+
+    <text class='notEnough-dialog-content2' wx:if="{{oneYuanDiscriptionTitle == '余额抵扣说明'}}"></text>
+    <text class='notEnough-dialog-content2' wx:elif="{{oneYuanDiscriptionTitle == '疯抢返还说明' || oneYuanDiscriptionTitle == '拼团疯抢费已返还'}}">累计已退{{moneyDiscount}}元</text>
+
+    <text class='notEnough-dialog-content' wx:if="{{oneYuanDiscriptionTitle == '余额抵扣说明'}}"></text>
+    <text class='notEnough-dialog-content' wx:elif="{{oneYuanDiscriptionTitle == '疯抢返还说明' || oneYuanDiscriptionTitle == '拼团疯抢费已返还'}}">(可全额抵扣商品价格)</text>
+
+    <view class='buttonView' wx:if="{{oneYuanDiscriptionTitle == '余额抵扣说明'}}">
+       <text catchtap="getMoneyBtn" class='bottom-btn-yellow'>去赚余额</text>
+    </view>
+    <view class='buttonView' wx:else>
+      <text catchtap="getYiDouBtn" class='bottom-btn-yellow2' wx:if="{{oneYuanDiscriptionTitle == '本轮未抢中哦'}}">再抢一轮</text>
+      <text catchtap="getYiDouBtn" class='bottom-btn-yellow2' wx:elif="{{oneYuanDiscriptionTitle == '拼团疯抢费已返还'}}">查看订单</text>
+      <text catchtap="getYiDouBtn" class='bottom-btn-yellow2' wx:else>知道了</text>
+
+      <text catchtap="getYueBtn" class='bottom-btn-yellow1' wx:if="{{oneYuanDiscriptionTitle == '本轮未抢中哦'}}">退款进度</text>
+      <text catchtap="getRefundSchedule" class='bottom-btn-yellow1' wx:elif="{{oneYuanDiscriptionTitle == '疯抢退款说明'}}">退款进度</text>
+      <text catchtap="getYueBtn" class='bottom-btn-yellow1' wx:else>查看余额</text>
+    </view>
+    <image catchtap="closeYiDouBtn" class='icon-close' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

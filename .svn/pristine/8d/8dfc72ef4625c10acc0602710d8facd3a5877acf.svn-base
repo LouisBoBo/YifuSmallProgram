@@ -1,0 +1,41 @@
+<!--pages/shouye/detail/centsIndianaRecord/centsIndianaRecord.wxml-->
+<!-- 一分抽奖 抽奖记录 -->
+<!-- <import src="../../../common/listIndianaItem-template/listIndianaItemTemplate.wxml" /> -->
+<import src="../../../common/toastTest/toastTest.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<view class='list-all' wx:if="{{!no_data}}">
+  <block wx:for='{{datalist}}'>
+     <view class='v-item' catchtap='shoplist_tap' data-tapindex="{{index}}"> 
+
+      <view class='top-gray-line'></view>
+      <view class='periods-announce-time'>
+        <view class='periods'>第{{item.issue_code}}期</view>
+        <view class='announce-time'>
+          <text class='announce-time-name' >{{item.n_otime_title}}</text>
+          <text class='announce-time-value'>{{item.n_otime}}</text>
+        </view>
+      </view>
+      <view class='content'>
+        <image class='content-image' mode='aspectFill' src="{{item.show_shop_pic}}"></image>
+        <view class='content-mid'>
+          <text class='content-shop-name'>{{item.shop_name}}</text>
+          <text class='content-person-time'>本期参与：<text class='person'>{{item.virtual_num+item.num}}</text>人次</text>
+        </view>
+        <text class='content-go-details'>查看详情 ></text>
+        <text wx:if="{{item.ing}}" class='content-rigth-bottom1'>进行中</text>
+        <text wx:if="{{item.yjx}}" class='content-rigth-bottom2'>已揭晓</text>
+        <text wx:if="{{item.tuikuan}}" class='content-rigth-bottom3'>已退款</text>
+        <image wx:if="{{item.zhongjiang}}"  class='content-rigth-bottom4' src="{{Upyun}}small-iconImages/gx/congratulation_zj.png"></image>
+      </view>
+      <view class='bottom' wx:if="{{item.isBottomShow}}">
+        <text class='bottom-luck-user'><text class='luck-user'>获奖者:</text>{{item.in_name}}</text>
+        <text class='bottom-luck-number'>中奖号码:{{item.in_code}}</text>
+      </view>
+     </view> 
+  </block>
+</view>
+<view wx:if="{{no_data}}" class='no-data'>
+  <image mode='widthFix' src="{{Upyun}}small-iconImages/gx/circle_no_data.png"></image>
+  <text>亲，您还未参与抽奖哦~</text>
+</view>

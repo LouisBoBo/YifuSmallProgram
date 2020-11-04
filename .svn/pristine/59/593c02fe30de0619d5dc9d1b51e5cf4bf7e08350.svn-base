@@ -1,0 +1,11 @@
+<block wx:key wx:for="{{cardList}}" wx:for-index="index">
+  <view class='supportCardView'>
+    <view class="slogan">
+      <image class='slogan-img' src="/iconImages/{{cardList[index]}}.png"></image>
+      <text class="slogan-text">{{cardList[index]}}</text>
+    </view>
+    <view class="more">
+      <text class="more-text">储蓄卡</text>
+    </view>
+  </view>
+</block>

@@ -1,0 +1,43 @@
+.notEnoughYidou-root {
+  width: 580rpx;
+  background-color: #fff;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.notEnough-dialog-title {
+  align-self: center;
+  font-size: 36rpx;
+  color: black;
+  margin-top: 35rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.notEnough-dialog-content2{
+  font-size: 28rpx;
+  color: #666;
+  margin-top: 0rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.notEnough-dialog-content1{
+  font-size: 30rpx;
+  color: #ff3f8b;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.bottomview{
+  height: 50rpx;
+}
+.icon-close {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 15rpx;
+  padding: 20rpx;
+}

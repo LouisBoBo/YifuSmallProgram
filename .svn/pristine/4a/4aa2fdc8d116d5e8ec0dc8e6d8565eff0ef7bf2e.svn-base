@@ -1,0 +1,56 @@
+.open-yifu-root-tx {
+  width: 580rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20rpx;
+}
+
+.open-yifu-text {
+  align-self: center;
+  font-size: 32rpx;
+  color: rgb(66, 66, 66);
+  margin-left: 50rpx;
+  margin-right: 50rpx;
+}
+
+.open-yifu-text-red {
+  font-size: 36rpx;
+  color: #ff3f8b;
+  font-weight: bold;
+}
+
+/* .open-yifu-root image {
+  width: 270rpx;
+  height: 240rpx;
+  align-self: center;
+  margin-top: 30rpx;
+} */
+
+.open-yifu-bottom-btn {
+  height: 80rpx;
+  width: 520rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #fff;
+  background-color: #ff3f8b;
+  border-radius: 3px;
+  align-self: center;
+  margin-top: 40rpx;
+  margin-bottom: 40rpx;
+}
+.img-close-tx{
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 500rpx
+}
+
+
+.img-app-icon{
+  width: 270rpx;
+  height: 240rpx;
+  align-self: center  
+}
+

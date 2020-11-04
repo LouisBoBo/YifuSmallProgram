@@ -1,0 +1,14 @@
+<view class="all-view">
+
+  <image class="img-top" src="{{Upyun}}/small-iconImages/qingfengpic/guide_vip_top.png"></image>
+
+
+
+  <!-- <image class="img-btn" src="{{Upyun}}/small-iconImages/qingfengpic/guide_vip_btn.png"></image> -->
+
+    <button class='img-btn'  open-type='contact' animation ="{{animationMiddleHeaderItem}}" style="background-image:url('{{Upyun}}/small-iconImages/qingfengpic/guide_vip_btn.png');" session-from='{"open_param":"GetFreeVipCard"}' ></button>
+
+
+                  <!-- <button open-type='contact' class="button_confrim" session-from='{"open_param":"PurchaseVIP"}' show-message-card='true' send-message-title='{{item.orderShops[0].shop_name}}' send-message-img='{{upyconfig}}/{{item.orderShops[0].new_shop_pic}}!280'> -->
+
+</view>

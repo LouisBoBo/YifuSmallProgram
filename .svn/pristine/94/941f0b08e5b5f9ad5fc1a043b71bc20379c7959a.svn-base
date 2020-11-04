@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "会员免费领",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50,
+  "backgroundTextStyle": "dark"
+}

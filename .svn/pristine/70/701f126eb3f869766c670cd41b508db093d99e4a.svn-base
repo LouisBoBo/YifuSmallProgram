@@ -1,0 +1,8 @@
+<!--pages/mine/member/member.wxml-->
+<view>
+  <image class='membertype' src="{{Upyun}}/small-iconImages/heboImg/member_type.jpg"></image>
+  <view class='spaceview'></view>
+  <form bindsubmit="membersubmit" report-submit='true'>
+      <button class='memberopen' open-type="" form-type='submit'>立即开通会员</button>
+  </form>
+</view>

@@ -1,0 +1,74 @@
+/* pages/sign/newYiHDXQ/newYiHDXQ.wxss */
+
+.all-view {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #fc03de;
+}
+
+.top-view {
+  width: 100%;
+  height: 1010rpx;
+  background-size: cover;
+}
+
+.bottom-view {
+  align-self: center;
+  width: 100%;
+  height: 120rpx;
+  color: white;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  border-top: 0.5px solid #c5c5c5;
+  background: white;
+}
+
+.bottom-view-text {
+  height: 90rpx;
+  color: #fff;
+  background-color: #ff3f8b;
+  border-radius: 4px;
+  margin: 15rpx 20rpx;
+  font-size: 35rpx;
+  text-align: center;
+  line-height: 90rpx;
+}
+
+.text-text {
+  font-size: 30rpx;
+  color: #f2dafd;
+  margin-top: 20rpx;
+  /* margin-left: 30rpx;
+  margin-right: 30rpx; */
+}
+
+.bot-view {
+  display: flex;
+  flex-direction: column;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  padding-bottom: 135rpx;
+}
+
+.shuoming-shuoming {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.line {
+  width: 255rpx;
+  height: 1rpx;
+  background-color: #f2dafd;
+}
+
+.shuoming-text {
+  font-size: 37rpx;
+  color: #f2dafd;
+  font-weight: bold;
+}

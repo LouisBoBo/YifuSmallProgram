@@ -1,0 +1,30 @@
+<view class="addressContainer">
+  <block wx:for="{{datalist}}" wx:for-item="address">
+   <view wx:if="{{address.is_default}}" class='address'>
+      <view class='left-address' bindtap='addressTap' data-address='{{address}}'>
+        <view class='defaultAddress-name-phone'>
+          <text class='name'>{{address.consignee}}</text>
+          <text class='phone'>{{address.phone}}</text>
+        </view>
+        <view class='defaultAddress-area'>{{address.addressDetail}}{{address.address}}</view>
+      </view>
+      <view class='edit' bindtap='editAddress' data-address='{{address}}'>编辑</view>
+    </view>
+    <view wx:else class='address'>
+      <view class='left-address' bindtap='addressTap' data-address='{{address}}'>
+        <view class='name-phone'>
+          <text class='name'>{{address.consignee}}</text>
+          <text class='phone'>{{address.phone}}</text>
+        </view>
+        <view class='area'>{{address.addressDetail}}{{address.address}}</view>
+      </view>
+      <view class='edit' bindtap='editAddress' data-address='{{address}}'>编辑</view>
+    </view>
+  </block>
+</view>
+
+
+
+<view class='addAddress' bindtap='newAddressTap'>
+  <text class='addAddress-text'>添加新地址</text>
+</view>

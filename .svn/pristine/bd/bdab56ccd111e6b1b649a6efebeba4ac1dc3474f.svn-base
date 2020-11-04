@@ -1,0 +1,52 @@
+<import src="../../../common/limitQuotas-template/limitQuotas.wxml" />
+
+<view class='headView'>
+  <view class='yidou_imgView'>
+    <image class='yidou_img' mode='aspectFit' src='{{Upyun}}small-iconImages/ad_pic/yidou.png'></image>
+  </view>
+  <text class='yidou_text'>当前可用衣豆</text>
+  <text class='yidou_num'>{{peas}}</text>
+  <text class='yidou_num_freeze'>（冻结衣豆:{{peas_free}}）</text>
+</view>
+
+<view class='line'></view>
+
+<view class='sectionTitle'>
+  <block wx:for='{{topData}}' wx:key='item'>
+    <view class='top-bar-out' data-type="{{item._id}}" data-index='{{index}}' catchtap='onTapClick'>
+      <view class="top-bar-item{{index==activityIndex?'-active':''}}">{{item.name}}</view>
+      <view wx:if="{{index==2?false:true}}" class='center-line'></view>
+    </view>
+  </block>
+</view>
+
+<view class='bottom-line'></view>
+
+<view wx:if='{{activityIndex==2}}' class='remindTitle'>订单签收7天后衣豆才解冻喔～</view>
+<view wx:if='{{datalist[0]}}' class='section'>
+  <block wx:for='{{datalist}}'>
+    <view class='section-cell'>
+      <view class='cell-left'>
+        <text>{{item.p_name}}</text>
+        <text class='cell-left-time'>{{item.add_date}}</text>
+      </view>
+      <text class='cell-right'>{{item.num}}</text>
+    </view>
+  </block>
+</view>
+<view wx:else>
+  <view class="emptyView">亲，暂时没有相关数据哦</view>
+</view>
+
+
+<view class='bottomButton' bindtap='bottomButtonTap'>
+  <text class='bottomButton-text'>获取衣豆</text>
+</view>
+
+<view class='remindView' bindtap='remindTap'>
+  <image class='remindView-image' mode="widthFix" src="{{Upyun}}//small-iconImages/invite_friends/衣豆说明.png"></image>
+</view>
+<!-- 衣豆说明弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{remindShow}}">
+  <template is='yidouRemindtemplate' data='{{Upyun}}'></template>
+</view>

@@ -1,0 +1,21 @@
+/* pages/mine/member/member.wxss */
+.membertype{
+  height: 100%;
+  width: 100%;
+}
+.spaceview{
+  height: 80rpx;
+  width: 100%;
+}
+.memberopen{
+  position: fixed;
+  bottom: 0rpx;
+  height: 80rpx;
+  width: 100%;
+  background-color: #ff3f8b;
+  color: white;
+  text-align: center;
+  font-size: 34rpx;
+  z-index: 100;
+  border-radius: 0;
+}

@@ -1,0 +1,43 @@
+.showTixianView_upperlimit {
+  width: 646rpx;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+} 
+.newuser-thirty{
+  width: 600rpx;
+}
+.closeimage-newhongbao{
+  position: absolute;
+  margin-top: -45rpx;
+  margin-left: 280rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+.icon-close_upperlimit {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  padding: 20rpx;
+}
+
+.getmoney_button{
+  width: 200rpx;
+  height: 200rpx;
+  position: absolute;
+  bottom:130rpx;
+  left: 230rpx;
+}
+.button_confrim_upperlimit {
+  opacity: 0;
+  background-color: green;
+  width: 100%;
+  height: 250px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}

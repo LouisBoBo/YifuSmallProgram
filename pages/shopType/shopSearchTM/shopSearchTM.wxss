@@ -1,0 +1,33 @@
+@import "../wxSearchTM/wxSearchTM.wxss";
+
+.wxSearch-section {
+  background-color: #fff;
+  padding: 5px 0px 5px 10px;
+  border: 1px #eee solid;
+  /* position: fixed;
+    width: 100%; */
+  position: fixed;
+  flex: none;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.wxSearch-pancel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.wxSearch-input {
+  flex: 8;
+  background-color: #eee;
+  padding: 5px 10px;
+}
+
+.wxSearch-button {
+  flex: 1;
+  border: none !important;
+   color: darkgray !important; 
+  background-color: red;
+}

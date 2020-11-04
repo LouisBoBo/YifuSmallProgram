@@ -1,0 +1,12 @@
+<template name="ninthHongbao-template">
+  <form bindsubmit="ninthHongbaoSubmit" report-submit="true">
+    <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip'>90元红包已存入您的账户。</text>
+
+    <button catchtap="VipDialog" class='bottom-btn-yellow5-vip' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'>我知道了</button>
+
+    <button class='icon-close-vip' form-type='submit' style="background-image:url('/iconImages/icon_close.png');"></button>
+  </view>
+  </form>
+</template>

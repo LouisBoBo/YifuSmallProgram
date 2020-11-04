@@ -1,0 +1,136 @@
+.notEnoughYidou-root {
+  width: 580rpx;
+  background-color: #fff;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.count-money{
+  font-size: 50rpx;
+  color: #ff3f8b;
+  font-weight: bold
+}
+
+.title{
+  display: flex;
+  flex-direction: row;
+  margin-top: 35rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  align-self: center;
+}
+.notEnough-dialog-title {
+  align-self: center;
+  font-size: 45rpx;
+  color: #010101;
+  margin-top: 35rpx;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
+.notEnough-dialog-image{
+  margin-top: 40rpx;
+  height: 40rpx;
+  width: 40rpx;
+}
+.notEnough-content-image{
+   margin-top: 70rpx;
+   margin-bottom: 70rpx;
+  height: 40rpx;
+  width: 40rpx;
+  align-self: center;
+}
+.notEnough-content-image2{
+   margin-top: 70rpx;
+   margin-bottom: 60rpx;
+  height: 40rpx;
+  width: 40rpx;
+  align-self: center;
+}
+.notEnough-dialog-content1 {
+  align-self: center;
+  font-size: 45rpx;
+  color: #010101;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  text-align: justify;
+}
+
+notEnough-dialog-content3{
+  align-self: center;
+  font-size: 70rpx;
+  color: #ff3f8b;
+  font-weight: 600;
+}
+.notEnough-dialog-content2 {
+  align-self: center;
+  font-size: 70rpx;
+  color: #fd215a;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.bottom-btn {
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  margin-top: 60rpx;
+  margin-bottom: 40rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.bottom-btn-left {
+  height: 80rpx;
+  width: 250rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #fd215a;
+  background-color: white;
+  border-radius: 3px;
+  margin-right: 10rpx;
+}
+
+.bottom-btn-rigth {
+  height: 80rpx;
+  width: 250rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #fd215a;
+  background-color: #fdcc21;
+  border-radius: 3px;
+  margin-left: 10rpx;
+}
+
+.icon-close {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  padding: 20rpx;
+}
+
+.buttonView {
+  display: flex;
+  flex-direction: row;
+}
+
+.bottom-btn-yellow5 {
+  display: flex;
+  flex-direction: column;
+  width: 450rpx;
+  height: 80rpx;
+  margin-bottom: 70rpx;
+  border-radius: 8px;
+  color: #fff;
+  background-color: #ff3f8b;
+  border: 2rpx solid #ff3f8b;
+  font-size: 35rpx;
+  justify-content: center;
+  text-align: center;
+}

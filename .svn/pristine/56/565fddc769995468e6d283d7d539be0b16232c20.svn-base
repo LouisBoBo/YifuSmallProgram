@@ -1,0 +1,31 @@
+<import src="../../../../common/toastTest/toastTest.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+<form bindsubmit="saveAddress" report-submit="true" bindreset="updateDefaultAddress">
+  <view class='section'>
+    <text class='headTitle'>收件人姓名</text>
+    <input name="name" type="text" value='{{consignee}}'></input>
+  </view>
+
+  <view class='section'>
+    <text class='headTitle'>手机号码</text>
+    <input name="tel" type="number" value='{{telphone}}'></input>
+  </view>
+
+  <view class='section'>
+    <text class='headTitle'>省-市-区</text>
+    <picker class="pickerView" mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{addressIndex}}" range="{{multiArray}}">
+      <view class="picker">
+        {{multiArray[0][addressIndex[0]]}}{{multiArray[1][addressIndex[1]]}}{{multiArray[2][addressIndex[2]]}}
+      </view>
+    </picker>
+  </view>
+
+  <view class='section2'>
+    <textarea name="detail" placeholder='详细地址' value='{{detailAddress}}' placeholder-style="color:gainsboro;"></textarea>
+  </view>
+
+  <button formType="submit" type="default" plain="true">保存</button>
+  <button wx:if='{{is_editAddress==1}}' formType="delete" type="default" plain="true" bindtap='deleteAddress'>删除</button>
+  <button wx:if='{{is_default==0&&is_editAddress==1}}' formType="reset" type="default" plain="true">设置成默认地址</button>
+</form>

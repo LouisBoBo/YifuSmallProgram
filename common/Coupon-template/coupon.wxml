@@ -1,0 +1,19 @@
+<template name="coupon">
+  <view class='maniView' wx:for-item="item">
+    <image class='coupon_backview' wx:if="{{item.invalid}}" src='{{Upyun}}/small-iconImages/heboImg/youhuiquan_shixiao_bg.png'></image>
+    <image class='coupon_backview' wx:else src='{{Upyun}}/small-iconImages/heboImg/youhuiquan_bg.png'></image>
+
+    <view class='coupon_content'>
+      <view class='coupon_content_head'>
+        <text class='coupon_content_head-title{{item.invalid?"_Invalid":""}}'>￥ <text class='coupon_content_head-title-import{{item.invalid?"_Invalid":""}}'>{{item.c_price}}</text> 元</text>
+        <text class='coupon_content_head-content{{item.invalid?"_Invalid":""}}'>(满{{item.c_cond}}元可用)</text>
+        <text class='coupon_content_head-time'>使用时间:{{item.time}}</text>
+      </view>
+     
+      <view class='coupon_content_use' bindtap='useCouponTap' wx:if="{{!item.invalid}}">使用</view>
+      <image class='coupon_content_invalid' wx:if="{{item.invalid}}" src='{{Upyun}}/small-iconImages/heboImg/{{item.is_use==1?"yinzhang_yiguoqi":"yinzhang_yishiyong"}}.png'></image>
+    </view>
+  </view>
+</template>
+
+

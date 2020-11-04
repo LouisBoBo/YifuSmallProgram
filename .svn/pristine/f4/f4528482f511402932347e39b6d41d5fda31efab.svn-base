@@ -1,0 +1,194 @@
+<import src="../../../../common/qutfitItem-template/qutfitItem.wxml" />
+<import src="../../../../common/toastTest/toastTest.wxml" />
+<import src="../../../../common/signfinish-template/signfinish.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+<view class='sweet'>
+  <view class='public-line-f0f0f0'>
+  </view>
+  <view class='selection-top'>
+    <image src='{{head_pic}}' class='top-head'></image>
+    <view class='top-tv'>
+      <view class='public-14-3e3e3e'>
+        {{detailData.nickname}}
+      </view>
+      <view class='location-time'>
+        <view class='public-12-a8a8a8'>{{detailData.location?detailData.location:'来自喵星'}}</view>
+        <view class='public-12-a8a8a8' id='top-time'>{{detailData.send_time}}</view>
+      </view>
+    </view>
+    <!-- <image src='{{isAttentionUrl}}' bindtap='addFriendClick' class='top-right-pic'></image> -->
+  </view>
+  <view class='selection-pic'>
+    <block wx:for='{{detailListData}}'>
+      <view class='pic-item' bindtap='shopRecommentClick' data-code='{{item.shop_code}}'>
+        <image class='item-image' src='{{item.pic_url}}' mode='widthFix'></image>
+        <view class='image-tags-all' wx:if='{{index==0}}'>
+          <block wx:for='{{imageTagsData}}'>
+            <view wx:if='{{item.deal_direction==1}}' class='temp-temp' data-name='{{item.name}}' data-label_id='{{item.label_id}}' data-code='{{item.shop_code}}' bindtap='imageTagsClick' style="position:absolute;top:{{item.top_y}};margin-left:{{item.left_x}};">
+              <text class='temp-tv'>sss{{item.name}}sss</text>
+              <image class='temp-image' src="{{Upyun}}{{item.direction==0?'small-iconImages/zzq/issue_tag.png':'small-iconImages/zzq/issue_tag_right.png'}}"></image>
+              <text class='temp-tv2'>{{item.name}}</text>
+              <image wx:if='{{item.label_type==0}}' class="temp-image-buy{{item.direction==0?'-right':''}}" src='{{Upyun}}small-iconImages/zzq/issue_tag_buy.png'></image>
+            </view>
+            <view wx:if='{{item.deal_direction==2}}' class='temp-temp' data-name='{{item.name}}' data-label_id='{{item.label_id}}' data-code='{{item.shop_code}}' bindtap='imageTagsClick' style="position:absolute;top:{{item.top_y}};right:{{item.left_x}};">
+              <text class='temp-tv'>sss{{item.name}}sss</text>
+              <image class='temp-image' src="{{Upyun}}{{item.direction==0?'small-iconImages/zzq/issue_tag.png':'small-iconImages/zzq/issue_tag_right.png'}}"></image>
+              <text class='temp-tv2'>{{item.name}}</text>
+              <image wx:if='{{item.label_type==0}}' class="temp-image-buy{{item.direction==0?'-right':''}}" src='{{Upyun}}small-iconImages/zzq/issue_tag_buy.png'></image>
+            </view>
+            <view wx:if='{{item.deal_direction==3}}' class='temp-temp' data-name='{{item.name}}' data-label_id='{{item.label_id}}' data-code='{{item.shop_code}}' bindtap='imageTagsClick' style="position:absolute;bottom:{{item.top_y}};margin-left:{{item.left_x}};margin-bottom:{{item.label_type==1?'40rpx':'60rpx'}};">
+              <text class='temp-tv'>sss{{item.name}}sss</text>
+              <image class='temp-image' src="{{Upyun}}{{item.direction==0?'small-iconImages/zzq/issue_tag.png':'small-iconImages/zzq/issue_tag_right.png'}}"></image>
+              <text class='temp-tv2'>{{item.name}}</text>
+              <image wx:if='{{item.label_type==0}}' class="temp-image-buy{{item.direction==0?'-right':''}}" src='{{Upyun}}small-iconImages/zzq/issue_tag_buy.png'></image>
+            </view>
+            <view wx:if='{{item.deal_direction==4}}' class='temp-temp' data-name='{{item.name}}' data-label_id='{{item.label_id}}' data-code='{{item.shop_code}}' bindtap='imageTagsClick' style="position:absolute;bottom:{{item.top_y}};right:{{item.left_x}};margin-bottom:{{item.label_type==1?'40rpx':'60rpx'}};">
+              <text class='temp-tv'>sss{{item.name}}sss</text>
+              <image class='temp-image' src="{{Upyun}}{{item.direction==0?'small-iconImages/zzq/issue_tag.png':'small-iconImages/zzq/issue_tag_right.png'}}"></image>
+              <text class='temp-tv2'>{{item.name}}</text>
+              <image wx:if='{{item.label_type==0}}' class="temp-image-buy{{item.direction==0?'-right':''}}" src='{{Upyun}}small-iconImages/zzq/issue_tag_buy.png'></image>
+            </view>
+          </block>
+        </view>
+        <view wx:if='{{item.shop_code}}' class='item-tv'>
+          <view class='item-tv-left'>
+            <view class='public-14-ffffff'>
+              {{item.shop_name}}
+            </view>
+            <view class='item-tv-left-bottom'>
+              <view class='public-14-ffffff'>
+                {{item.shop_se_price}}
+              </view>
+              <view class='public-12-ffffff' id='shop-price'>
+                {{item.shop_price}}
+              </view>
+            </view>
+          </view>
+          <view class='public-14-ffffff' id='item-to-buy'>
+            立即购买
+          </view>
+        </view>
+      </view>
+    </block>
+    <view wx:if='detailData.content' class='public-14-3e3e3e' id='top-content'>
+      {{detailData.content}}
+    </view>
+  </view>
+  <view class='selection-tags' wx:if='{{tagsData.length>0}}'>
+    <block wx:for='{{tagsData}}'>
+      <view class='public-12-7d7d7d' id='item-tags' data-tagdata='{{item}}' bindtap='tagsClick'>{{item.name}}</view>
+    </block>
+  </view>
+  <view class='selection-shopRecomment' wx:if='{{shopRecommentData.length>0}}'>
+    <view class='public-line-f0f0f0' id='shop-tag-line'></view>
+    <scroll-view scroll-x='{{true}}' class='shop-scroll'>
+      <view class='shop-recomment'>
+        <block wx:for='{{shopRecommentData}}'>
+          <view class="shop-item{{index==shopRecommentData.length-1?'-last':''}}" bindtap='shopRecommentClick' data-code="{{index==20?'':item.shop_code}}">
+            <view class='shop-item-pic' wx:if='{{index<20}}'>
+              <image mode='aspectFill' src='{{item.pic_url}}' class='shop-item-image'></image>
+              <view class='shop-item-suppley'>
+                <text class='public-12-ffffff' id='shop-item-suppley-tv'>{{item.supp_label}}</text>
+              </view>
+            </view>
+            <view class='shop-item-more' wx:if='{{index==20}}'>
+              <view class='more-recomment-tv'>
+                <view class='public-12-7d7d7d'>
+                  更多
+                </view>
+                <view class='public-12-7d7d7d'>
+                  推荐
+                </view>
+              </view>
+              <view class='public-12-7d7d7d' id='recomment-arrow'>
+                >
+              </view>
+            </view>
+            <view wx:if='{{index<20}}' class='public-12-7d7d7d' id='shop-item-price'>{{item.shop_se_price}}</view>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+  <view class='selection-share'>
+    <view class='public-line-f0f0f0' style='height:15rpx' id='share-top-line'>
+    </view>
+    <view class='share-center'>
+      <view class='public-14-3e3e3e' id='share-tv'>
+        分享话题
+      </view>
+      <view class='share-wx'>
+        <view class='share-cover'>
+          <image class='bottom-center-wx' src='{{Upyun}}small-iconImages/zzq/icon_wx.png'> </image>
+          <button class="weixin-share-icon-btn" open-type="share"></button>
+        </view>
+        <view class='public-12-a8a8a8' id='share-tv-wx'>
+          微信群
+        </view>
+      </view>
+
+       <view class='share-wx2'>
+        <view class='share-cover'>
+          <image class='bottom-center-wx' src='{{Upyun}}small-iconImages/zzq/icon_friends.png'> </image>
+          <button class="weixin-share-icon-btn" open-type="share"></button>
+        </view>
+        <view class='public-12-a8a8a8' id='share-tv-wx'>
+          微信好友
+        </view>
+      </view>
+    </view>
+    <view class='public-line-f0f0f0' style='height:15rpx'>
+    </view>
+  </view>
+  <view class='selection-evaluate' wx:if='{{evaluateAllData.length>0}}'>
+    <view class='public-14-c5c5c5' id='evaluate-title'>
+      所有{{detailData.comment_count}}条评论
+    </view>
+    <view class='evaluate-all'>
+      <block wx:for='{{evaluateAllData}}'>
+        <view class='evaluate-item' wx:if='{{index<=4}}'>
+          <text class='public-14-ff3f8b'>{{item.nickname}}: <text class='public-14-7d7d7d'>{{item.content}}</text> </text>
+        </view>
+      </block>
+    </view>
+    <view class='public-line-f0f0f0' style='height:15rpx'></view>
+  </view>
+
+
+  <view class='selection-themeRecommend' >
+    <view class='public-16-ff3f8b' id='theme-recommend-tv'>
+      相关推荐
+    </view>
+    <view class="out" wx:if='{{col1.length>0}}'>
+      <view class="item_l">
+        <view wx:for="{{col1}}" wx:key="item">
+          <view  class='in_item' bindtap='itemTap' data-theme_id='{{item.theme_id}}'>
+            <template is='qutfit_item' data='{{item,Upyun}}'></template>
+          </view>
+        </view>
+      </view>
+
+      <view class="item_r">
+        <view wx:for="{{col2}}" wx:key="item">
+          <view  class='in_item' bindtap='itemTap' data-theme_id='{{item.theme_id}}'>
+            <template is='qutfit_item' data='{{item,Upyun}}'></template>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+<!-- 浏览手势提示弹窗  -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{scanTipsShow}}">
+  <template is='scan_tips' data='{{Upyun}}'></template>
+</view>
+<!-- 赚钱任务完成弹窗  -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{signFinishShow}}">
+  <template is='sign-finish-dialog' data='{{Upyun,signFinishDialog}}'></template>
+</view>
+<!-- 右边浏览提示 -->
+<view class='selection-touch-look' wx:if='{{is_look}}'>
+  <image class="image-touch-look" mode='widthFix' src='{{Upyun}}small-iconImages/zzq/touch_look.png'></image>
+</view>

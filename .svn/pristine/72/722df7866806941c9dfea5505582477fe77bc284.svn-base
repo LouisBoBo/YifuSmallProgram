@@ -1,0 +1,144 @@
+<!--pages/shouye/fightDetail/fightDetail.wxml-->
+<import src="../../../common/FightShop-template/FightShop.wxml" />
+<import src="../../../common/FightShop-template/FightShopSuccess.wxml" />
+<import src="../../../common/toastTest/toastTest.wxml" />
+<import src="../detail/detail-list-template/list-template.wxml" />
+<import src="../../../common/Authorization-template/Authorization-template" />
+<import src="../../../common/SuspensionHongBao-template/SuspensionHongBao.wxml" />
+
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<!-- <view class='share-MC' catchtouchmove="preventTouchMove" wx:if="{{showShareMC}}"></view> -->
+<view wx:if="{{showFightData}}">
+
+  <view class='mainview' wx:if="{{isJoinGroup == 'true'}}">
+    <!-- 拼团信息 -->
+    <view>
+      <block wx:key wx:for="{{shopList}}" wx:for-item="item">
+        <view class='fightview'>
+          <view class='fightview-title'>
+            <view class='fightview-title-text'>{{item.type==1?'拼团发起人：':'拼团参与人：'}}</view>
+            <image class='fightview-title-image' src='{{item.user_portrait}}'></image>
+            <image class='fightview-tuanzhang-image' wx:if="{{item.type == 1}}" src='{{Upyun}}/small-iconImages/heboImg/tuanZhang.png'></image>
+            <view class='fightview-title-content'>{{item.user_name}}</view>
+          </view>
+          <view class='fightview-content'>{{item.add_time}}</view>
+        </view>
+        <template is="fightShop" data="{{item,Upyun,isTM}}"></template>
+      </block>
+    </view>
+
+    <!-- <view class='headView'>
+    <view class='headView-time'>
+      <text class='headView-time-text'> 剩余: </text>
+      <text class='headView-time-numbertext'>{{clock_hr}}</text>
+      <text class='headView-time-text'> 时 </text>
+      <text class='headView-time-numbertext'>{{clock_min}}</text>
+      <text class='headView-time-text'> 分 </text>
+      <text class='headView-time-numbertext'>{{clock_ss}}</text>
+      <text class='headView-time-text'> 秒 </text>
+    </view>
+    <view class='headView-invite'>
+      <text class='headView-invite-numbertext'>还差<text class='headView-invite-number'>{{short_num}}</text>人，任选<text class='headView-invite-import'>下列任意商品</text>即可<text class='headView-invite-import'>一键参团</text>！</text>
+    </view>
+    <view class='bottomview'></view>
+  </view> -->
+
+    <!-- 参团商品 -->
+    <view>
+      <view class='shop-recommend-tv'>参团钜惠商品</view>
+      <!-- <scroll-view scroll-x="{{true}}" class="scroll-title{{isRecommendFix?'-fix':''}}">
+      <view class='recomment-title'>
+        <block wx:for="{{recommendTitleData}}">
+          <view class='recomment-title-out' style='width:{{screenWidth/4}}px;' bindtap='recommendTitleClick' data-id='{{item.id}}' data-index='{{index}}' data-name='{{item.type_name}}'>
+            <image src="{{item.link}}{{currentTab==index?'1':''}}.png" class='recomment-title-icon'>
+            </image>
+            <view class="recomment-title-name{{currentTab==index?'-select':''}}">
+              {{item.type_name}}
+            </view>
+          </view>
+        </block>
+      </view>
+    </scroll-view> -->
+      <view class='selection'>
+        <template is='listTemplate' data='{{recommendListData,Upyun,listItemHeight,listItemWidth,supply_isShow,freeling_isshow}}'></template>
+      </view>
+    </view>
+
+    <view class='headView'>
+      <view class='bottomview'></view>
+      <!-- <view class='headView-time'>
+      <text class='headView-time-text'> 剩余: </text>
+      <text class='headView-time-numbertext'>{{clock_hr}}</text>
+      <text class='headView-time-text'> 时 </text>
+      <text class='headView-time-numbertext'>{{clock_min}}</text>
+      <text class='headView-time-text'> 分 </text>
+      <text class='headView-time-numbertext'>{{clock_ss}}</text>
+      <text class='headView-time-text'> 秒 </text>
+    </view> -->
+      <view class='headView-invite'>
+        <text class='headView-invite-numbertext1'>还差<text class='headView-invite-number'>{{short_num}}</text>人，<text class='headView-invite-import'>任选商品</text>都可<text class='headView-invite-import'>一键参团</text>！</text>
+      </view>
+
+    </view>
+
+  </view>
+  <view class='mainview' wx:else>
+    <view class='headView2'>
+      <view class='headView-time' wx:if="{{isVip==1}}">
+        <text class='headView-time-text'> 剩余: </text>
+        <text class='headView-time-numbertext'>{{clock_hr}}</text>
+        <text class='headView-time-text'> 时 </text>
+        <text class='headView-time-numbertext'>{{clock_min}}</text>
+        <text class='headView-time-text'> 分 </text>
+        <text class='headView-time-numbertext'>{{clock_ss}}</text>
+        <text class='headView-time-text'> 秒 </text>
+      </view>
+      <view class='headView-invite'>
+        <text class='headView-invite-numbertext'>还差<text class='headView-invite-number'>{{short_num}}</text>人，快邀请好友一起来免费领商品吧。</text>
+      </view>
+      <view class='headView-notes'>
+        <view class='headView-notes-title'>拼团须知：</view>
+        <view class='headView-notes-content'>*邀请好友 *好友免费领 *团长免费领</view>
+      </view>
+    </view>
+
+    <!-- 拼团信息 -->
+    <view>
+      <block wx:key wx:for="{{shopList}}" wx:for-item="item" wx:for-index="index">
+        <view class='fightview'>
+          <view class='fightview-title'>
+            <view class='fightview-title-text'>{{item.type==1?'拼团发起人：':'拼团参与人：'}}</view>
+            <image class='fightview-title-image' src='{{item.user_portrait}}'></image>
+            <image class='fightview-tuanzhang-image' wx:if="{{item.type == 1}}" src='{{Upyun}}/small-iconImages/heboImg/tuanZhang.png'></image>
+            <view class='fightview-title-content'>{{item.user_name}}</view>
+          </view>
+          <view class='fightview-content'>{{item.add_time}}</view>
+        </view>
+        <template is="fightShop" data="{{item,Upyun,isTM,index}}"></template>
+      </block>
+    </view>
+
+    <!-- 拼团状态 -->
+    <view class='footview' wx:if="{{showFootview && isJoinGroup == false}}">
+      <text class='footview-invite' bindtap='inviteFriendTap' wx:if="{{fightSuccess_fail_status == '1' || fightSuccess_fail_status == '2'}}">邀请好友免费领</text>
+      <text class='footview-invite-over' bindtap='inviteFriendTap' wx:else>拼团已结束</text>
+    </view>
+
+  </view>
+
+  <!-- 悬浮红包 -->
+  <view wx:if="{{suspensionHongBao_isShow}}">
+    <template is="suspensionHongBao" data="{{Upyun,SmallRedHongBao,xuanfuanimationMiddleHeaderItem}}"></template>
+  </view>
+
+  <!-- 拼团成功、失败弹框提示 -->
+  <view class="drawer_screen_withdraw" wx:if="{{fightSuccess_fail_isShow && isJoinGroup == false}}" catchtouchmove="preventTouchMove">
+    <template is="fightSuccess" data="{{Upyun,orderlist,orderimage,short_num,fightSuccess_fail_status,isFirst_New}}"></template>
+  </view>
+
+  <!-- 3-50元红包弹窗 -->
+  <view class="drawer_screen_withdraw5" catchtouchmove="preventTouchMove" wx:if="{{upperGoYiFuShow}}">
+    <template is="Authorization" data='{{upyconfig,animationMiddleHeaderItem,fightHongBao}}'></template>
+  </view>
+</view>

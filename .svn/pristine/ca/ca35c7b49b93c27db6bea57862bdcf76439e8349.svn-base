@@ -1,0 +1,26 @@
+<!--pages/sign/RobotShare/RobotShare.wxml-->
+<import src="../../../common/toastTest/toastTest.wxml" />
+<import src="../../../common/CanvasShare-template/canvasShare.wxml" />
+
+<template is="toast" data="{{ ..._toast_ }}" />
+<view class="all-view-rob">
+
+  <text class="text1" >欢迎使用群机器人，点击</text>
+  <text class="text1" style="margin-top: 35rpx">下方按钮，即可自动分享</text>
+  <text class="text1" style="margin-top: 35rpx">当日新款给自己的微信群</text>
+
+    <text class="text2" wx:if="{{needShareCount == 5}}">今日可分享<text style="color: #ff002a;font-size: 52rpx">{{needShareCount}}</text>次</text>
+
+
+  <text class="text2" wx:elif="{{needShareCount == 0}}">恭喜完成分享。你可继续分享其他群</text>
+
+  <text class="text2" wx:else>今日可再分享<text style="color: #ff002a; font-size: 52rpx">{{needShareCount}}</text>次，请继续分享。</text>
+
+  <button class="text3 font-size: 37rpx" open-type="{{buttonOpenType}}"  bindgetuserinfo='onclickLogin' >分享微信群</button>
+
+  <text class="text4">群友点击即绑定成为您的下级，消费即可得到10%奖励金</text>
+
+  <view>
+    <template is="CanvasviewTemplate"></template>
+  </view>
+</view>

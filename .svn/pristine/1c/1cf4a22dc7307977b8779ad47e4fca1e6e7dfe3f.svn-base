@@ -1,0 +1,20 @@
+<template name="wallet-head">
+  <view class="newheadview">
+    <text class='newheadview-text1'>可提现收益</text>
+    <text class='newheadview-text2'>{{extract}}</text>
+  </view>
+  <!-- <view class='headview' wx:else>
+    <view class='headview-left'>
+      <view class='headview-left-yue'>
+        <text class='headview-left-yue-text1'>我的余额</text>
+        <text class='headview-left-yue-text2'>{{balance}}</text>
+      </view>
+    </view>
+    <view class='headview-left'>
+      <view class='headview-left-yue'>
+        <text class='headview-left-yue-text1'>可提现现金</text>
+        <text class='headview-left-yue-text2'>{{extract}}</text>
+      </view>
+    </view>
+  </view> -->
+</template>

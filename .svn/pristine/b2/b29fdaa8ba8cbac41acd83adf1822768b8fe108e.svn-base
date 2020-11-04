@@ -1,0 +1,203 @@
+
+var util = require('../../../../utils/util.js');
+import config from "../../../../config.js";
+var app = getApp();
+var banks = [];
+var showType = "";//选择的提现方式
+var money = "";//选择的提现金额
+var select_cartid = "";//选择的银行卡
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    ForwardSuccessShow: false,
+    bankCardTitle: "",
+    bankCards: [],
+    Upyun: config.Upyun,
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    new app.ToastPannel();
+    var bankCardTitle = "";
+    showType = options.showtype;
+    money = options.money;
+
+    if (showType == 'addCard')//添加银行卡
+    {
+      bankCardTitle = "支持银行卡";
+    } else {//选择银行卡
+      bankCardTitle = "选择提现到哪张银行卡";
+    }
+    this.setData({
+      bankCardTitle: bankCardTitle
+    })
+
+    this.findCardInfoHttp();
+  },
+
+  //获取绑定的银行卡列表
+  findCardInfoHttp: function () {
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+    var url = config.Host + 'wallet/findMyBankCard?' + config.Version + '&token=' + token;
+    util.http(url, this.handleData);
+  },
+  handleData: function (data) {
+    if (data.status == 1) {
+      banks = data.bankCards;
+      for(var i=0;i<banks.length;i++)
+      {
+        var bank = banks[i];
+        if(bank.bank_name == '招商银行')
+        {
+          bank.bank_title = 'zhaoshang_bank';
+        } else if (bank.bank_name == '工商银行'){
+          bank.bank_title = 'gongshang_bank';
+        } else if (bank.bank_name == '光大银行') {
+          bank.bank_title = 'guangda_bank';
+        } else if (bank.bank_name == '建设银行') {
+          bank.bank_title = 'jianshe_bank';
+        } else if (bank.bank_name == '交通银行') {
+          bank.bank_title = 'jiaotong_bank';
+        } else if (bank.bank_name == '农业银行') {
+          bank.bank_title = 'nongye_bank';
+        } else if (bank.bank_name == '浦发银行') {
+          bank.bank_title = 'pufa_bank';
+        } else if (bank.bank_name == '邮政银行') {
+          bank.bank_title = 'youzhen_bank';
+        } else if (bank.bank_name == '中国银行') {
+          bank.bank_title = 'zhongguo_bank';
+        } else if (bank.bank_name == '中信银行') {
+          bank.bank_title = 'zhongxin_bank';
+        }else{
+          bank.bank_title = 'zhongguo_bank';
+        }
+      }
+
+      if (showType == 'selectCard')//选择银行卡
+      {
+        this.setData({
+          bankCards: banks
+        });
+      } else {
+        this.http_getwxOpenid();
+      }
+    }
+  },
+
+  //获取是否绑定微信
+  http_getwxOpenid: function () {
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+    var url = config.Host + 'wallet/getWxOpenid?' + config.Version + '&token=' + token;
+    util.http(url, this.getwxOpenid);
+  },
+  getwxOpenid: function (data) {
+    if (data.status == 1 && data.data == 1) {//授权过
+      var wxbanks = {};
+      var nickname = data.wxOpenId;
+
+      wxbanks.bank_name = "微信支付";
+      wxbanks.bank_no = nickname.length > 4 ? (nickname.substring(nickname.length - 4)) : nickname;
+      banks.push(wxbanks);
+    }
+
+    this.setData({
+      bankCards: banks
+    });
+  },
+  cardAddtap: function () {
+    wx.navigateTo({
+      url: 'addCard',
+    })
+  },
+
+  //选择的银行卡
+  selectCardTap: function (e) {
+    if (showType == 'selectCard')//选择银行卡
+    {
+      select_cartid = e.currentTarget.dataset.item.id;
+      this.http_passWord();//设置银行卡密码
+    }
+  },
+
+  //设置银行卡密码
+  http_passWord: function (){
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+    var url = config.Host + 'wallet/setWalletPwd?' + config.Version + '&token=' + token + '&payment_pwd=' + '111111';
+    util.http(url, this.handleSetPwdData);
+  },
+  handleSetPwdData:function(data){
+    if (data.status == 1) {
+      this.http_CashData();
+    }else{
+      this.http_CashData();
+    }
+  },
+  //提现到银行卡
+  http_CashData: function () {
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+    var url = config.Host + 'wallet/bankDepositAdd?' + config.Version + '&token=' + token + '&pwd=' + '111111' + '&money=' + money + '&bank_id=' + select_cartid;
+    util.http(url, this.handleCashData);
+  },
+  handleCashData: function (data) {
+    if (data.status == 1) {
+      var pages = getCurrentPages();
+      var prevPage = pages[pages.length - 2];  //上一个页面
+
+      // prevPage.setData({
+      //   ForwardSuccessShow:true
+      // })
+
+
+      
+      if (wx.getStorageSync("NOT_FIRST_TIXIAN_SUCCESS") == true) { //非第一次提现成功
+        prevPage.setData({
+          showTXgoSign: true
+        })
+      } else { //第一次提现成功
+        prevPage.setData({
+          ForwardSuccessShow: true
+        })
+        wx.setStorageSync("NOT_FIRST_TIXIAN_SUCCESS", true)
+      }
+
+
+      prevPage.http_getwalletData();//刷新钱包数据
+      
+      wx.navigateBack({})
+    } else {
+      this.showToast(data.message, 2000);
+    }
+  },
+  //继续去赚钱任务
+  forwardsuccesstap: function () {
+    this.setData({
+      ForwardSuccessShow: false,
+    })
+    //赚钱任务
+    wx.navigateTo({
+      url: '../../../sign/sign',
+    })
+  },
+  closeBtn: function () {
+    this.setData({
+      ForwardSuccessShow: false
+    })
+  },
+})

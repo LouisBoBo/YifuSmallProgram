@@ -1,0 +1,13 @@
+<!--pages/mine/wallet/accountDetail/RefundDetail.wxml-->
+<view>
+  <block wx:key wx:for="{{dataList}}" wx:for-item="item">
+    <view class='supportCardView' bindtap='selectCardTap' data-item="{{item}}">
+      <view class="slogan">
+        <text class="slogan-text">{{item.tittle}}</text>
+      </view>
+      <view class="more">
+        <text class="more-text">{{item.content}}</text>
+      </view>
+    </view>
+  </block>
+</view>

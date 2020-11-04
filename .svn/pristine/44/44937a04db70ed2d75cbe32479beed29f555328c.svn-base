@@ -1,0 +1,44 @@
+<template name="sign_item_temp">
+
+
+  <view class='wai-view'>
+    <view class="view-item" bindtap="bindItemViewTap" data-postid="{{item.index}}" data-posclass="{{item.task_class}}">
+
+      <view class='myjiangli'>
+        <image class='mytaskicon' src="{{Upyun}}{{item.taskIcon}}"></image>
+        <text class='mytaskname' style='font-weight:{{item.taskNameFontWeight}};color:{{item.taskNameColor}}'>{{item.taskName}}</text>
+      </view>
+
+
+      <!-- <image class='jiatixian' mode='widthFix' src='{{Upyun}}small-iconImages/qingfengpic/but_tixianedu.png' bindtap='andTX'></image> -->
+
+      <!--整个奖励最外层 -->
+      <view class='myalljiangli'>
+        <!--奖励文字的父布局  -->
+        <view class='jiangli-all-text'>
+          <!--奖励文字上面部分  -->
+          <view class='jiangliutext-top'>
+            <text class='jiahao' wx:if="{{item.showJia}}" style='color:{{item.jiangliColor}}'>+</text>
+            <text class='jaingli_count' style='color:{{item.jiangliColor}};font-weight:bold' wx:if="{{item.showJiangliCount}}">{{item.jingliCount}}</text>
+            <text class='jianglidanwei' style='color:{{item.jiangliColor}}' wx:if="{{item.showDanwei}}">{{item.jiangliDanWei}}</text>
+          </view>
+          <!--奖励文字下面部分  -->
+          <text class='jianglidanwei' style='color:{{item.jiangliColor}}; font-size: {{item.showJiangliContentFontSize}}' wx:if="{{item.showJiangliContent}}">{{item.jiangliContent}}</text>
+        </view>
+      </view>
+      <!--右边尖括号  -->
+      <image class='icon-goo' mode='widthFix' src="{{Upyun}}small-iconImages/ad_pic/icon_more.png"></image>
+      <!--已完成图标  -->
+			            <image class='view-comlpte' mode='widthFix' src='{{Upyun}}small-iconImages/ad_pic/icon_completed.png' wx:if="{{item.complete}}" style='left: {{item.jiangliConetLeft}}' />
+
+
+    </view>
+
+    <image class='img-task-tou' mode='widthFix' src='{{Upyun}}{{item.tasktouImg}}' style='width: {{item.tasktouImgWidth}}' wx:if="{{item.showZhiShiTou}}"></image>
+
+
+
+
+
+  </view>
+</template>

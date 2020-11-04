@@ -1,0 +1,63 @@
+<!-- <template name="listTemplate">
+ <view class='selection'>
+    <view class='list-all'>
+      <block wx:for='{{datalist}}'>
+        <view class='v-item'   >
+        <form bindsubmit="toShopDetailClick" report-submit="true" data-code='{{item.shop_code}}'>
+          <view class='image-item'>
+            <image mode="widthFix" src='{{Upyun}}{{item.cut_shop_code}}/{{item.shop_code}}/{{item.def_pic}}'>
+            </image>
+          </view>
+          <view class='v-bottom'>
+            <view class="v-suppley" wx:if="{{item.supp_label}}">
+              <text class='tv-suppley'>{{item.supp_label}}</text>
+            </view>
+            <view class='v-text'>
+              <text class='tv-name'>{{item.shop_name}}</text>
+              <view class='tv-price-all'>
+                <text class='tv-price'>￥{{item.shop_se_price}}</text>
+                <text class='tv-price-shoppe'>专柜价￥{{item.shop_price}}</text>
+              </view>
+              <text class='tv-kickback'>返{{item.shop_se_price}}元=0元</text>
+            </view>
+
+          </view>
+          <button class='button' form-type='submit'></button>
+          </form>
+        </view>
+      </block>
+    </view>
+  </view>
+</template> -->
+
+<template name="listTemplate">
+  <view class='selection'>
+    <view class='list-all'>
+      <block wx:for='{{datalist}}'>
+        <view class='v-item'>
+          <form bindsubmit="toShopDetailClick" report-submit="true" data-code='{{item.shop_code}}'>
+            <view class='image-item'>
+              <image mode="widthFix" src='{{Upyun}}{{item.cut_shop_code}}/{{item.shop_code}}/{{item.def_pic}}'>
+              </image>
+            </view>
+            <view class='v-bottom'>
+              <!-- <view class="v-suppley" wx:if="{{item.supp_label}}">
+                <text class='tv-suppley'>{{item.supp_label}}</text>
+              </view> -->
+              <view class='v-text'>
+                <!-- <text class='tv-kickback'>{{item.supp_label}}</text> -->
+                <text class='tv-name'>{{item.shop_name}}</text>
+                <view class='tv-price-all'>
+                  <text class='tv-price'>￥{{item.shop_se_price}}</text>
+                  <text class='tv-price-shoppe'>原价￥{{item.shop_price}}</text>
+                </view>
+              </view>
+
+            </view>
+            <button class='button' form-type='submit'></button>
+          </form>
+        </view>
+      </block>
+    </view>
+  </view>
+</template>

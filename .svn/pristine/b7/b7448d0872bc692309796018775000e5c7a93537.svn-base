@@ -1,0 +1,142 @@
+.list-all {
+  padding-left: 2%;
+  padding-right: 2%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background: #F0F0F0;
+  padding-top: 8px;
+}
+
+.v-item {
+  position: relative;
+  width: 49%;
+  margin-bottom: 8rpx;
+}
+
+
+.image-item image {
+  height: 100%;
+  width: 100%;
+}
+
+.v-bottom {
+  width: 100%;
+  position: absolute;
+  bottom: 6rpx;
+  display: flex;
+  flex-direction: column;
+  margin-top: 15rpx;
+  background-color: #FFF;
+}
+
+/* .v-text {
+  margin-top: 15rpx;
+  background-color: #FFF;
+  width: 100%;
+  opacity: 1; */
+  /* position: absolute;
+  bottom: 10rpx;  */
+  /* display: flex;
+  flex-direction: column;
+} */
+
+/* .v-suppley {
+  width: 100%;
+    display: flex;
+  justify-content: center;
+} */
+
+/* .tv-suppley {
+  
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  opacity: 0.7;
+  background-color: #000;
+ display: flex;
+ border-radius: 18rpx;
+  justify-content: center;
+  align-items: center;
+  height: 36rpx;
+
+  padding-right: 10px;
+  padding-left: 10px;
+  color: #fff;
+  font-size: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+} */
+
+.tv-name {
+  margin-top: 5px;
+  margin-left: 5px;
+  color: #3E3E3E;
+  font-size: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tv-price-all {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 3px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.tv-price {
+  font-size: 10px;
+  color: #ff3f8b;
+}
+.tv-take-part-all{
+  margin-top: 2px;
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 47rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+}
+.tv-take-part-num{
+  width:56%;
+  height: 47rpx;
+  display: flex;
+  flex-direction: column;
+
+  margin-right: 5rpx;
+  margin-bottom: 2rpx;
+  margin-top: 2rpx;
+}
+.tv-take-part-num text{
+  font-size: 9px;
+  color: #ff3f8b;
+  text-align:left;
+  margin-bottom: 4rpx;
+}
+.tv-take-part-num-progress{
+  width: 100%;
+  height: 10rpx;
+  border-radius :2px;
+}
+.tv-take-part-btn{
+  font-size: 10px;
+  color: #ff3f8b;
+  width: 34%;
+  height: 45rpx;
+  border-radius: 3px;
+  border:1px solid #FF3F8B;    /*边框*/
+  text-align: center;        /*文字水平居中对齐*/
+  line-height: 45rpx;        /*设置文字行距等于div的高度*/
+}
+
+/* .tv-price-shoppe {
+  font-size: 10px;
+  color: #a8a8a8;
+} */
+
+

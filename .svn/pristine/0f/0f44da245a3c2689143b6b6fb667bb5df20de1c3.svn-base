@@ -1,0 +1,87 @@
+/* pages/mine/addMemberCard/addMemberCard.wxss */
+
+.swiper {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #f7f7f7;
+}
+
+.le-img {
+  width: 100%;
+  display: block;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+  border-radius: 6px;
+}
+
+.le-img.le-active {
+  transform: scale(1);
+}
+
+.bottomContainer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  height: 100rpx;
+  border-top: 1rpx solid #eee;
+  display: flex;
+  flex-direction: row;
+}
+
+.paytext {
+  font-size: 30rpx;
+  color: #ff3f8b;
+  width: 60%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottomContainer .bottmButton {
+  position: absolute;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  text-align: center;
+  color: white;
+  font-size: 30rpx;
+  background-color: #ff3f8b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.money-view {
+  padding-left: 40rpx;
+  padding-right: 40rpx;
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.money-count {
+  font-size: 30rpx;
+  color: black;
+}
+
+.money-count-tuikuan {
+  margin-left: 40rpx;
+  font-size: 30rpx;
+  color: #5e5e5e;
+}
+.tips-view{
+  display: flex;
+  flex-direction: column
+}
+.tips-view-text{
+
+  margin-top: 15rpx;
+  margin-left: 40rpx;
+  font-size: 25rpx;
+  color: #5e5e5e;
+}

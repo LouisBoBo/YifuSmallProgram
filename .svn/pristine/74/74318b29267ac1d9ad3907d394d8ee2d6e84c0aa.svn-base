@@ -1,0 +1,12 @@
+<template name="suspensionHongBao">
+  <view class='custom'>
+    <view class='v-custom'>
+      <form bindsubmit="signHongBaosubmit" report-submit="true">
+        <image class='custom-icon' src= '{{SmallRedHongBao}}'> </image>
+        <view class='custom-list'>
+          <button class='hongbao_upperlimit' open-type="" form-type='submit'></button>
+        </view>
+      </form>
+    </view>
+  </view>
+</template>

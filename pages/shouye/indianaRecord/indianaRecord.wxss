@@ -1,0 +1,120 @@
+.selectTitle {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background: white;
+  position: fixed;
+  top: 0;
+  height: 80rpx;
+}
+
+.bigview {
+  margin-top: 90rpx;
+}
+
+.select {
+  font-size: 34rpx;
+  color: #ff3f8b;
+  width: 30%;
+  text-align: center;
+  height: 70rpx;
+  /* line-height: 15px;   */
+  margin-left: 10%;
+  margin-right: 10%;
+  border-bottom: 0rpx solid #ff3f8b;
+}
+
+.default {
+  font-size: 34rpx;
+  margin: 0 auto;
+  /* padding: 15px; */
+}
+
+.baseview {
+  height: 260rpx;
+  width: 100%;
+}
+
+.spaceview {
+  width: 100%;
+  height: 20rpx;
+  background: #eee;
+}
+
+.titleview {
+  width: 100%;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.stageview {
+  font-size: 30rpx;
+  color: #666;
+  margin-left: 20rpx;
+}
+
+.timeview {
+  margin-right: 20rpx;
+  margin-top: -37rpx;
+  float: right;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.lineview {
+  background: #eee;
+  margin-top: 15rpx;
+  height: 0.5px;
+}
+
+.headimage {
+  margin: 10rpx 20rpx 50rpx 20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50rpx;
+}
+
+.contentview {
+  margin-top: -170rpx;
+  margin-left: 150rpx;
+}
+
+.winner {
+  font-size: 30rpx;
+  color: #ff3f8b;
+  height: 40rpx;
+}
+.in_name{
+  font-size: 30rpx;
+  color: #666;
+}
+.participate {
+  font-size: 26rpx;
+  color: #666;
+  height: 40rpx;
+}
+.activecount{
+  font-size: 26rpx;
+  color: #ff3f8b;
+}
+.luckcode {
+  font-size: 26rpx;
+  color: #666;
+  height: 40rpx;
+}
+
+.moreview {
+  float: right;
+  margin-top: -120rpx;
+  margin-right: 20rpx;
+  height: 60rpx;
+  font-size: 30rpx;
+  color: #666;
+}
+
+.bigimageview {
+  height: 3600rpx;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
+}

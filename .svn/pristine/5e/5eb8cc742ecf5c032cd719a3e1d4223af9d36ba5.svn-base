@@ -1,0 +1,2 @@
+<!--pages/sign/webViewTest/webViewTest.wxml-->
+<web-view src="https://www.52yifu.wang/view/download/8.html"></web-view>

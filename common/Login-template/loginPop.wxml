@@ -1,0 +1,13 @@
+<template name="login-fail">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>登录失败</text>
+
+    <text class='notEnough-dialog-content1' wx:if="{{login_discribution == '请尝试再次登录。'}}">{{login_discribution}}</text>
+    <text class='notEnough-dialog-content22' wx:else>{{login_discribution}}</text>
+
+    <view class='buttonView' wx:if="{{login_discribution == '请尝试再次登录。'}}">
+      <text catchtap="loginAgainSubmit" class='bottom-btn-yellow5'>{{login_buttontitle}}</text>
+    </view>
+    <image catchtap="closeLoginPop" class='icon-close' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

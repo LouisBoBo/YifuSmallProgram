@@ -1,0 +1,70 @@
+<import src="../../../../common/listHomeTemplate/listtemplate.wxml" />
+<view class='viewContainer'>
+<view class='item'>
+  <view class='item-top-pic' style='width:{{screenWidth}}px;height:{{screenWidth}}px;'>
+    <image mode='aspectFill' style='width:{{screenWidth}}px;height:{{screenWidth}}px;' class='item-pic' src='{{Upyun}}{{shop.collocation_pic}}'></image>
+
+    <view class='left-tag' style='position: absolute;top:{{taglist[0].shop_y}};right:{{taglist[0].shop_x}};'>
+      <view class='tv-name' bindtap='tagClick' data-code='{{taglist[0].shop_code}}' style='z-index:{{index==0?10:1}};'>
+        <text class='name-cover'>sssss{{taglist[0].shop_name}}sssss</text>
+        <view class='v-cover'>
+          <image src='{{Upyun}}small-iconImages/zzq/icon_left_tag.png' class='long-tag-iv'></image>
+          <image src='{{Upyun}}small-iconImages/zzq/icon_shop_cart.png' class='long-cart-iv'></image>
+          <view class='name'>
+            <text>{{taglist[0].shop_name}}</text>
+          </view>
+        </view>
+        <view class='v-frist-notice' wx:if='{{index==0}}'>
+          <image wx:if='{{scanTipsShow}}' class='frist-notice' src='{{Upyun}}small-iconImages/zzq/shoushi_match.png'></image>
+        </view>
+      </view>
+      <view class='tv-price'>
+        <image src='{{Upyun}}small-iconImages/zzq/icon_price.png' class='tag-price-iv'></image>
+        <text class='price'>￥{{taglist[0].shop_se_price}}</text>
+      </view>
+    </view>
+    <view class='right-tag' style='position:absolute;top:{{taglist[1].shop_y}};left:{{taglist[1].shop_x}};'>
+      <view class='tv-price2'>
+        <image src='{{Upyun}}small-iconImages/zzq/icon_price.png' class='tag-price-iv'></image>
+        <text class='price'>￥{{taglist[1].shop_se_price}}</text>
+      </view>
+      <view class='tv-name2' bindtap='tagClick' data-code='{{taglist[1].shop_code}}'>
+        <text class='name-cover'>sssss{{taglist[1].shop_name}}sssss</text>
+        <view class='v-cover'>
+          <image src='{{Upyun}}small-iconImages/zzq/icon_right_tag.png' class='long-tag-iv'></image>
+          <image src='{{Upyun}}small-iconImages/zzq/icon_shop_cart.png' class='long-cart-iv2'></image>
+          <view class='name2'>
+            <text>{{taglist[1].shop_name}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class='head-name'>
+  <text>{{shop.collocation_name}}</text>
+  <text class='head-time'>{{shop.add_time}}</text>
+</view>
+<view class='head-title'>
+  <text>{{shop.collocation_remark}}</text>
+</view>
+<view class='section-title'>
+  <text class='section-title-text'>相关商品</text>
+</view>
+<view class='sectionTitle'>
+  <block wx:for='{{topData}}' wx:key='item'>
+    <view class='top-bar-out' data-index='{{index}}' catchtap='onTapClick'>
+      <view class="top-bar-item{{index==activityIndex?'-active':''}}">{{item.name}}</view>
+    </view>
+  </block>
+</view>
+
+<view wx:if="{{datalist[0]}}" class="shopContainer">
+  <template is="listTemplate" data="{{datalist,Upyun}}" />
+</view>
+<view wx:else>
+  <view class="emptyView">暂无数据</view>
+</view>
+
+</view>

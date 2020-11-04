@@ -1,0 +1,39 @@
+<!--pages/sign/signActiveShop/signActivityShop.wxml-->
+
+<import src="../../../common/toptap.wxml" />
+<import src="../../shouye/specialDetail/FlowWater-template.wxml" />
+<import src="../../../common/toastTest/toastTest.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<image wx:if="{{!isNotScan}}" class='task-explain-icon' src="{{UpyunConfig}}small-iconImages/qingfengpic/but_tast_shuoming.png" bindtap='taskExplainTap'></image>
+
+<view class='v-out'>
+  <view>
+    <view class='head-pic' wx:if='{{isShowHeadPic}}'>
+      <image mode="widthFix" class='head-pic-image' src='{{UpyunConfig}}{{shopsbanner}}'></image>
+    </view>
+  </view>
+
+  <view>
+    <template is='topbar' data='{{topData,activityIndex}}'></template>
+  </view>
+
+  <view class='first_list'>
+    <block wx:for="{{shoplist}}" wx:for-item="item">
+      <template is="flowWater" data="{{item,UpyunConfig,showSub}}" />
+    </block>
+  </view>
+</view>
+
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{explainDialogShow}}">
+  <view class="explain-root">
+    <view class='explain-top'>
+      <text class='explain-top-title'>任务说明</text>
+      <image catchtap="explain_dialog_close" class='icon-close' src="{{UpyunConfig}}small-iconImages/gx/iconwhiteclose.png"></image>
+    </view>
+    <text class='explain-title-red'>{{explainDialogRedText}}</text>
+    <text class='explain-title'>购买温馨提示</text>
+    <text class='explain-content'>活动商品价格为最优惠价格，购买时不能使用余额、积分、优惠券。由于抢购人数较多，商品库存有限，请及时下单，以免心爱的美衣被抢光喔～</text>
+    <text  class='bottom-btn' catchtap="explain_dialog_close">立即浏览美衣</text>
+  </view>
+</view>

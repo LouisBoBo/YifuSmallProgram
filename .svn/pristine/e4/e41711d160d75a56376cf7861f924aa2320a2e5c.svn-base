@@ -1,0 +1,70 @@
+<import src="../addReduce-template/addReduce.wxml" />
+<template name="sku">
+  <!-- <view class='dialog_mask'></view> -->
+  <form bindsubmit="buyToOrder" report-submit="true">
+    <view class="dialog {{ showDialog ? 'dialog--show' : '' }}">
+      <view wx:if='{{showDialog}}' class="dialog__mask" bindtap="toggleDialog" catchtouchmove='preventTouchMove' />
+      <view class="dialog__container" catchtouchmove='preventTouchMove'>
+        <view class="sku-top">
+
+          <form bindsubmit="closeClick" report-submit="true">
+            <image bindtap="closeSkuDialog" class="image-close" src="../../../iconImages/icon_close.png"></image>
+            <button class="close-confirms" formType="submit"></button>
+          </form>
+          <view class='shop-pic'>
+            <!-- {{picLink}} -->
+            <!-- <image class="image-sku" src="{{stockPicData[colorIndex]}}"></image> -->
+
+            <image class="image-sku" src="{{stockImage}}"></image>
+          </view>
+          <view class="sku-shop">
+            <text class="sku-name">{{shop_name}}</text>
+            <text class="sku-price" wx:if="{{isfreeLingClick}}"></text>
+            <text class="sku-price" wx:else>￥{{stockPrice}}</text>
+          </view>
+        </view>
+
+        <block wx:for="{{stockNameData}}" wx:for-index="stockindex" wx:key="key">
+          <view class="sku-attr">
+            <text class='tv-style'>{{item}}</text>
+            <view class="attr-list">
+              <block wx:for='{{stockColorSizeData[stockindex]}}' wx:key="key">
+                <!-- <view class='single-out'>
+                  <text class="single{{(index==selectIndexs[stockindex])?'-select':''}}" data-id="{{item.id}}" data-index='{{index}}' data-stockindex="{{stockindex}}" bindtap='selectColorSizeClick'><text class='spacename'>{{spaceName}}</text>{{item.name}}<text class='spacename'>{{spaceName}}</text></text>
+                </view> -->
+
+                <view class='single-out'>
+                  <form bindsubmit="selectClick" report-submit="true">
+                    <button class="single{{(index==selectIndexs[stockindex])?'-select':''}}" data-id="{{item.id}}" data-index='{{index}}' data-stockindex="{{stockindex}}" bindtap='selectColorSizeClick' formType="submit"><text class='spacename'>{{spaceName}}</text>{{item.name}}<text class='spacename'>{{spaceName}}</text></button>
+                  </form>
+                </view>
+              </block>
+            </view>
+          </view>
+
+          <!-- <view class="sku-attr" wx:if="{{stockSizeData.length>0 && stockindex > 0 }}">
+        <text class='tv-style'>{{item}}</text>
+        <view class="attr-list">
+          <block wx:for='{{stockSizeData}}'>
+            <view class='single-out'>
+              <view class="single{{index==sizeIndex?'-select':''}}" data-id="{{item.id}}" data-index='{{index}}'bindtap='selectSizeClick'>{{item.name}}</view>
+            </view>
+          </block>
+        </view>
+      </view>   -->
+        </block>
+
+        <view class="sku-attr">
+          <text class='tv-style'>数量</text>
+          <view class="add-reduce">
+            <template is='addReduce' data='{{Upyun,buyCount}}'></template>
+            <view class='stock-count'>库存{{stockCount}}件</view>
+          </view>
+        </view>
+        <view class='sku-bottm'>
+          <button class="button-confrimss" formType="submit">确定</button>
+        </view>
+      </view>
+    </view>
+  </form>
+</template>

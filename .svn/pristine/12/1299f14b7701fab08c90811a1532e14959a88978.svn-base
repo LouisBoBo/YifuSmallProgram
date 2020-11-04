@@ -1,0 +1,22 @@
+<view>
+  <view class='head'>
+    <view class='headtitle'>
+      <text class="headtitle-text">头像</text>
+    </view>
+    <view class='headimage'>
+      <image class="head-img" bindtap="testclick" src="{{headpic}}"></image>
+      <image class="more-img" src="/iconImages/icon_more.png"></image>
+    </view>
+  </view>
+  <block wx:key wx:for="{{datalist}}" wx:for-item="item" wx:for-index="index" wx:key="key"  >
+    <view class='other' bindtap='moretap' data-index="{{index}}">
+      <view class='headtitle'>
+        <text class="headtitle-text">{{item}}</text>
+      </view>
+      <view class='other-more'>
+        <text class="more-text">{{morelist[index]}}</text>
+        <image class="other-more-img" src="/iconImages/icon_more.png"></image>
+      </view>
+    </view>
+  </block>
+</view>

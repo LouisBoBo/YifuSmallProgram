@@ -1,0 +1,903 @@
+// pages/listHome/order/confirm/confirm.js
+
+import config from '../../../../config';
+var util = require('../../../../utils/util.js');
+var publicUtil = require('../../../../utils/publicUtil.js');
+var WxNotificationCenter = require('../../../../utils/WxNotificationCenter.js');
+
+var app = getApp();
+var is_t = 1; //开团标识 1开团  2参团
+var orderitem; //订单详情数据
+var oneBuyCouponId;
+var isNewTM;
+var payCallBackCount;
+var zeroPay = false; //单独购买 是否是不需要支付的订单
+var isTM_Advertisement = false; //是否为特价广告商品
+var is_submitOrder ;//是否可以提交订单
+
+// var shouYePage;// 免费抽奖
+
+var vip_free = 0//是否是免费抢（1免费抢）
+
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+
+    Upyun: config.Upyun,
+    // 地址信息
+    address: '',
+    phone: '',
+    consignee: '',
+    address_id: '',
+    shopData: {},
+    showZeroBuyRemind: false,
+    shopTotalMoney: 0, //商品总金额
+    discountMoney: 0, //余额抵扣
+    payMoney: 0, //实付款
+    discountNum: 0, //专柜折扣
+    banlance_redpacked_show: false, //体验抽奖红包是否显示
+    totalAccount: 0, //支付金额（跳转抽奖界面需要的参数）
+    buyType: 0, //下单类型  0.普通商品  1.夺宝商品(1分钱和原价两种：通过flag判断 1.1分钱) 2.活动商品 9/10 一元购拼团
+    order_code: '', //支付的订单编号
+    dataurl: '', //1元购下单链接
+    wxcx_shop_group_price: '',
+    roll_code: '' //拼团团号
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    new app.ToastPannel();
+    oneBuyCouponId = undefined
+    isNewTM = options.isTM;
+    isTM_Advertisement = options.isTM_Advertisement;
+    // shouYePage = options.shouYePage
+    vip_free = options.vip_free
+
+    this.setData({
+      vip_free: vip_free
+    })
+
+    payCallBackCount = 0;
+    WxNotificationCenter.addNotification("deleteAddress", this.httpAddress, this)
+    zeroPay = false;
+    console.log("接收到的参数是testData=" + options.shopData);
+    var shopData = JSON.parse(options.shopData);
+    if (options.buyType != undefined)
+      this.setData({
+        buyType: options.buyType,
+        wxcx_shop_group_price: options.wxcx_shop_group_price,
+      })
+
+    this.setData({
+      isTM: options.isTM,
+      shop_type: options.shop_type != undefined ? options.shop_type : '',
+      shopData: shopData,
+      shopTotalMoney: (shopData.shopPrice * shopData.shopNum).toFixed(2),
+      discountNum: (shopData.shopPrice / shopData.shopOldPrice * 10).toFixed(2),
+      isFirst: options.isFirst != undefined ? options.isFirst : '',
+      isNew: options.isNew != undefined ? options.isNew : '',
+      is_redHongBao: options.is_redHongBao != undefined ? options.is_redHongBao : '',
+      vip_type: options.vip_type != undefined ? options.vip_type : ""
+    })
+
+
+    // 修改商品支付价格
+    if (this.data.buyType == 0) { // 普通商品
+      var dataUrl = config.Host + "order/addOrderAgo?" + config.Version + "&token=" + app.globalData.user.userToken;
+      util.http(dataUrl, this.MaxMoneyAndRate)
+    } else if (this.data.buyType == 9) //0元购
+    {
+      shopData.shopOldPrice = shopData.shopPrice;
+      shopData.shopPrice = '0.01';
+      this.setData({
+        shopData: shopData,
+        payMoney: shopData.shopPrice,
+        shopTotalMoney: (shopData.shopPrice * shopData.shopNum).toFixed(1),
+      })
+    } else if (this.data.buyType == 10) //1元购
+    {
+      // var se_price = app.globalData.oneYuanValue * 1;
+      var se_price = (this.data.wxcx_shop_group_price * 1).toFixed(1);
+      shopData.shopOldPrice = shopData.shopPrice;
+      shopData.shopPrice = se_price;
+
+
+      if (vip_free == 1){ //免费抽
+
+        this.setData({
+          shopData: shopData,
+          payMoney: "0.0",
+          shopTotalMoney: (shopData.shopPrice * shopData.shopNum).toFixed(2),
+        })
+
+
+      }else{
+        this.setData({
+          shopData: shopData,
+          payMoney: (this.data.vip_type > 0 && (is_t == 1 || is_t == 2)) ? "0.0" : shopData.shopPrice,
+          shopTotalMoney: (shopData.shopPrice * shopData.shopNum).toFixed(2),
+        })
+
+
+        // if (is_t >= 2 || (!this.data.vip_type > 0 && is_t == 1)) {
+
+        this.getProxCoup(shopData.shopPrice, isNewTM == 1 ? 4 : 3);
+
+      // }
+
+      }
+
+
+
+
+
+    } else {
+      if (this.data.shopData.flag) // 一分钱夺宝
+        this.setData({
+          payMoney: 0.01,
+          shopTotalMoney: (this.data.shopData.shopPrice * this.data.shopData.shopNum).toFixed(2),
+        })
+      else
+        this.setData({
+          payMoney: (this.data.shopData.shopPrice * this.data.shopData.shopNum).toFixed(2),
+          shopTotalMoney: (this.data.shopData.shopPrice * this.data.shopData.shopNum).toFixed(2),
+        })
+    }
+
+    publicUtil.getBalanceNum(this.redpacked_show);
+
+    //是否有拼团
+    if (options.roll_code != undefined) {
+      is_t = this.data.is_redHongBao == 'true' ? 3 : 2; //2参团 3从首页3进来的参团
+      this.setData({
+        roll_code: options.roll_code
+      })
+    } else {
+      is_t = 1; //开团
+    }
+  },
+
+  //获取最新优惠券
+  getProxCoup: function (payMoney, is_roll) {
+    var that = this;
+    var dataUrl = config.Host + "coupon/wxcxMatchCoupon" +
+      "?token=" + app.globalData.user.userToken +
+      "&" + config.Version +
+      "&result=:" + payMoney +
+      "&is_roll=" + is_roll;
+
+    var tongji_url = "default";
+    var tongji_parameter = "default"
+    var mUrl = dataUrl + "";
+
+    if (mUrl) {
+      var tepm = mUrl.split("?");
+      tongji_url = mUrl.split("?")[0]
+      tongji_url = tongji_url.replace(config.Host, "");
+      tongji_url = tongji_url.replace(config.PayHost, "")
+      tongji_url = tongji_url.replace("//", "/")
+
+      tongji_parameter = mUrl.substring(mUrl.indexOf("?") + 1, mUrl.length - 1)
+
+      if (!tongji_url) {
+        tongji_url = "default"
+      }
+      if (!tongji_parameter) {
+        tongji_parameter = "default"
+      }
+    }
+
+    dataUrl = util.Md5_httpUrl(dataUrl);
+    wx.request({
+      url: dataUrl,
+      method: 'GET',
+      //请求传参
+      data: {},
+      header: {
+        "Content-Type": "json"
+      },
+      success: function (res) {
+
+        if (res.data.coupon) {
+          oneBuyCouponId = res.data.coupon.id;
+          console.log("优惠券" + res.data)
+
+          var couponPayMoney = (Number(payMoney) - Number(res.data.coupon.c_price)).toFixed(2);
+          that.setData({
+
+            payMoney: couponPayMoney > 0 ? couponPayMoney : 0.01,
+            couponPrice: Number(res.data.coupon.c_price).toFixed(2),
+            showCoupon: true
+
+          })
+        } else {
+          oneBuyCouponId = undefined;
+
+          that.setData({
+            showCoupon: false
+          })
+        }
+
+
+        app.mtj.trackEvent('i_f_success_count', {
+          i_f_name: tongji_url,
+        });
+
+
+      },
+
+      complete: function (res) { },
+
+      fail: function (error) {
+
+        app.mtj.trackEvent('i_f_error_count', {
+          i_f_name: tongji_url,
+          // i_f_from: "10",
+        });
+      }
+    })
+  },
+
+
+
+  redpacked_show: function (isRedpackedShow) {
+    // console.log("getBalanceNum_boolean", isShowRed)
+    this.setData({
+      banlance_redpacked_show: isRedpackedShow
+    });
+  },
+  banlanceRedpacked: function () {
+    wx.navigateTo({
+      url: '../../../sign/withdrawLimit/withdrawLimit?isBalanceLottery=true',
+    });
+  },
+
+  // 我的余额数据
+  myMoney: function (data) {
+    var discountMoney = Math.min(this.data.discountMoney, data.balance);
+    var shopTotalMoney = (shopData.shopPrice * shopData.shopNum);
+    discountMoney = discountMoney > shopTotalMoney ? shopTotalMoney : discountMoney;
+
+    this.setData({
+      discountMoney: discountMoney.toFixed(2),
+      payMoney: (this.data.shopData.shopPrice * this.data.shopData.shopNum - discountMoney).toFixed(2),
+      shopTotalMoney: shopTotalMoney.toFixed(2),
+    })
+  },
+  MaxMoneyAndRate: function (data) {
+    var dataUrl = config.Host + "wallet/myWallet?" + config.Version + "&token=" + app.globalData.user.userToken;
+    var discountMoney = Math.min(data.maxMoney, this.data.shopData.shopPrice * this.data.shopData.shopNum * data.maxRate);
+
+    this.setData({
+      discountMoney: discountMoney.toFixed(2),
+    })
+    // util.http(dataUrl, this.myMoney)//钱包余额已经不能用了
+
+
+    this.top_shopHttp();
+  },
+
+  //获取可抵扣余额
+  top_shopHttp: function () {
+    var that = this;
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+    var oldurl = config.Host + 'order/getZeroOrderDeductible?' + config.Version + '&token=' + token;
+    util.http(oldurl, that.discount_data);
+  },
+
+  discount_data: function (data) {
+    if (data.status == 1) {
+
+      // var deduction = data.deduction > 0 ? data.deduction : "0.1";
+      // var reduceMoney = this.data.shopData.shopPrice * deduction > data.order_deduction ? data.order_deduction : this.data.shopData.shopPrice * deduction;
+
+      var reduceMoney = this.data.shopData.shopPrice > data.one_not_use_price ? data.one_not_use_price : this.data.shopData.shopPrice;
+
+
+      var totalMoney = this.data.shopData.shopPrice * this.data.shopData.shopNum;
+
+      //模拟数据
+      // totalMoney = 20;
+      // reduceMoney = 50;
+
+      var discountMoney = (this.data.buyType == 10 || this.data.buyType == 9) ? '0.00' : (reduceMoney > 0 ? reduceMoney : '0.00');
+
+
+      var shop_deduction = Number(data.shop_deduction) > 1 ? 1.0 : data.shop_deduction;//抵扣比例
+      var dikouMoney = 0;
+      //最多可抵扣
+      var d1 = this.data.shopData.shopPrice * shop_deduction;
+      if (Number(discountMoney) > d1) {
+        dikouMoney = d1
+      } else {
+        dikouMoney = discountMoney
+      }
+
+      //广告特卖商品单独处理
+      //可抵扣不满15的，不管商品价格多少，全部抵扣掉。
+      //可抵扣超过15元的，最多抵扣15元
+      var paymoney
+      if (isTM_Advertisement == 'true') {
+
+        if (Number(dikouMoney) < 15) {
+          dikouMoney = dikouMoney;
+        } else {
+          //最多抵扣15元
+          dikouMoney = dikouMoney > totalMoney ? totalMoney : dikouMoney;
+          if (Number(dikouMoney) > 15) {
+            dikouMoney = 15
+          }
+
+        }
+
+      }
+      
+      //  else {
+      //   discountMoney = dikouMoney
+      // }
+
+      paymoney = (totalMoney - dikouMoney).toFixed(2);
+
+      if (this.data.buyType != 0) {
+        paymoney = paymoney <= 0 ? '0.01' : paymoney;
+      }
+
+
+      //重新复制优惠抵扣(仅展示用)
+      var newDiscountMoney = this.data.shopData.shopOldPrice - this.data.shopData.shopPrice + Number(dikouMoney);
+
+
+      this.setData({
+        newDiscountMoney: newDiscountMoney.toFixed(2),
+        discountMoney: (dikouMoney * 1).toFixed(2),
+        // discountMoney: (discountMoney * 1).toFixed(2),
+
+        payMoney: paymoney,
+        shopTotalMoney: Number(this.data.shopData.shopOldPrice).toFixed(2),
+        // shopTotalMoney: (totalMoney * 1).toFixed(2),
+
+      })
+
+      // if (is_t >= 2 || (!this.data.vip_type > 0 && is_t == 1)) {
+      this.getProxCoup(paymoney, isNewTM == 1 ? 2 : 1);
+      // }
+    }
+  },
+
+  // 选择地址
+  toChooseAddre: function (event) {
+    wx.setStorageSync('address_id', this.data.address_id)
+    wx.navigateTo({
+      url: '../address/chooseAddress',
+    })
+  },
+
+  // 获取 微信 地址
+  toChooseWXAddreess: function (e) {
+    var that = this;
+    wx.showModal({
+      title: '',
+      content: '是否使用微信地址',
+      confirmText: "确认",
+      cancelText: "不使用",
+      success: function (res) {
+        if (res.confirm) {
+          wx.chooseAddress({
+            success: function (res) {
+              console.log(JSON.stringify(res))
+              var detail = res.provinceName + res.cityName + res.countyName + res.detailInfo;
+              var dataUrl = config.Host + "address/insert?" + config.Version + "&token=" + app.globalData.user.userToken + "&consignee=" + res.userName + "&address=" + detail + "&phone=" + res.telNumber + '&province=0&city=0&&area=0'; //+ "&province=" + province + "&city=" + city + "&area=" + area;//"&street=0";
+              util.http(dataUrl, that.result)
+            },
+            fail: function (err) {
+              console.log(JSON.stringify(err))
+            }
+          })
+        } else if (res.cancel) {
+          wx.navigateTo({
+            url: '../address/chooseAddress',
+          })
+        }
+      }
+    })
+  },
+  result: function (data) {
+    this.showToast(data.message, 2000);
+  },
+
+  // 提交订单
+  submitOrder: function (e) {
+    if (!is_submitOrder)//如果当前正在提交订单则不能重复提交
+    {
+      return;
+    }
+    wx.showLoading({
+      title: "请稍后",
+      mask: true
+    })
+
+    console.log('%%%%%%%%%%%%%%%%%%' + e.detail.formId);
+    util.httpPushFormId(e.detail.formId);
+
+    var message = e.detail.value.message;
+    if (this.data.address == undefined) {
+      this.showToast('地址不能为空', 2000);
+    } else if (this.data.buyType == 1) { //夺宝商品下单
+      var dataUrl = config.Host + "treasures/addTreasures?" + config.Version + "&token=" + app.globalData.user.userToken + '&message=' + message + '&address_id=' + this.data.address_id + '&num=' + this.data.shopData.shopNum + '&t=' + this.data.shopData.flag + '&shop_code=' + this.data.shopData.shopCode;
+      util.http(dataUrl, this.confirmorderResult)
+    } else if (this.data.buyType == 2) { //活动商品下单
+      var dataUrl = config.Host + "order/addOrder/activity?" + config.Version + "&token=" + app.globalData.user.userToken + '&message=' + message + '&address_id=' + this.data.address_id + '&shop_num=' + this.data.shopData.shopNum + '&stocktype_id=' + this.data.shopData.stock_type_id + '&shop_code=' + this.data.shopData.shopCode + '&rollCode=0';
+      util.http(dataUrl, this.confirmorderResult)
+
+    } else if (this.data.buyType == 10 || this.data.buyType == 9) //1元订单
+    {
+
+
+      // if (this.data.buyType == 10 && shouYePage == 'ThreePage'){//免费抽。单独处理
+        if ( vip_free == 1) {//免费抽。单独处理
+
+
+        var result = this.data.shopData.shopNum + '^' + this.data.shopData.shopCode + '^' + this.data.shopData.stock_type_id; 
+
+        var dataUrl = config.Host + "order/addOrderVipFreeBuy?" +
+          config.Version +
+          "&token=" + app.globalData.user.userToken +
+          '&message=' + message +
+          '&result=' + result +
+          '&address_id=' + this.data.address_id +
+          '&vip_type=' + this.data.vip_type
+
+        util.http(dataUrl, this.confirmorderResult);
+        this.setData({
+          dataurl: dataUrl
+        });
+
+        return;
+
+      }
+
+      // is_t = this.data.roll_code?'2':'1';//1开团  2参团
+      var result = this.data.shopData.shopNum + '^' + this.data.shopData.shopCode + '^' + this.data.shopData.stock_type_id; //'1^1AAC163181121^30075^0';
+
+      var dataUrl = config.Host + "order/addOrderListPT?" +
+        config.Version +
+        "&token=" + app.globalData.user.userToken +
+        '&message=' + message +
+        '&result=' + result +
+        '&address_id=' + this.data.address_id +
+        '&t=' + is_t +
+        '&couponid=' + (oneBuyCouponId ? oneBuyCouponId : "") +
+        '&vip_type=' + this.data.vip_type
+
+      if (is_t >= 2) //参团
+      {
+        dataUrl = config.Host + "order/addOrderListPT?" +
+          config.Version +
+          "&token=" + app.globalData.user.userToken +
+          '&message=' + message +
+          '&result=' + result +
+          '&address_id=' + this.data.address_id +
+          '&t=' + is_t +
+          '&roll_code=' + this.data.roll_code +
+          '&couponid=' + (oneBuyCouponId ? oneBuyCouponId : "") +
+          "&is_First=" + this.data.isFirst + "&is_New=" + this.data.isNew +
+          '&vip_type=' + this.data.vip_type
+      }
+
+      util.http(dataUrl, this.confirmorderResult);
+      this.setData({
+        dataurl: dataUrl
+      });
+    } else {
+      //单个商品下单cartIds传个任意参数
+
+      var is_be = '0';
+      if (this.data.discountMoney != 0)
+        is_be = '1';
+
+      var result = this.data.shopData.shopNum + '^' + this.data.shopData.shopCode + '^' + this.data.shopData.stock_type_id; //'1^1AAC163181121^30075^0';
+
+      var dataUrl;
+
+      if (isTM_Advertisement) {
+
+
+
+        dataUrl = config.Host + "order/addOrderListV160302?" + config.Version + "&token=" + app.globalData.user.userToken + '&message=' + message + '&result=' + result + '&address_id=' + this.data.address_id + '&is_be=' + is_be + '&cartIds=174185' +
+          "&ad_sale=" + "1" + '&shop_type=' + this.data.shop_type
+  
+          ;
+
+
+
+      } else {
+
+        dataUrl = config.Host + "order/addOrderListV160302?" + config.Version + "&token=" + app.globalData.user.userToken + '&message=' + message + '&result=' + result + '&address_id=' + this.data.address_id + '&is_be=' + is_be + '&cartIds=174185'
+
+          +
+          '&shop_type=' + this.data.shop_type
+          + '&couponid=' + (oneBuyCouponId ? oneBuyCouponId:'0')
+
+          ;
+      }
+
+      is_submitOrder = false;
+      util.http(dataUrl, this.confirmorderResult)
+    }
+  },
+
+
+  // 提交订单结果
+  confirmorderResult: function (data) {
+    wx.hideLoading()
+    this.data.order_code = order_code;
+    var that = this;
+    if (data.status == 1) {
+      this.setData({
+        totalAccount: data.price,
+        roll_code: data.roll_code,
+        isNew: data.isNew,
+        isFirst: data.isFirst,
+        tips: data.tips != undefined ? data.tips : "",
+      })
+
+      // wxpaycx / wapUinifiedOrder 单个;wxpaycx / wapUinifiedOrderList 多个
+      var payUrl = 'wxpaycx/wapUinifiedOrderList?';
+      if (data.url == 1 || this.data.buyType == 1)
+        payUrl = 'wxpaycx/wapUinifiedOrder?';
+
+      var order_code = data.order_code;
+      if (this.data.buyType == 1) {
+        order_code = data.data.order_code;
+      } else if (this.data.buyType == 10 || this.data.buyType == 9) {
+        //保存当前1元下单的链接
+        wx.setStorageSync("oneYuanOrderUrl", this.data.dataurl);
+        wx.setStorageSync("oneYuan_order_code", order_code);
+        wx.setStorageSync("order_shop_data", this.data.shopData);
+        wx.setStorageSync("wxcx_shop_group_price", this.data.wxcx_shop_group_price);
+        var oneYuanOrderUrl = wx.getStorageSync("oneYuanOrderUrl");
+        this.setData({
+          order_code: order_code
+        })
+
+        if (vip_free == 1){ //免费抽一次
+          wx.redirectTo({
+            url : "../oneBuyLuckPan/oneBuyLuckPanIOS?" + "order_code=" + this.data.order_code
+            +"&shouYe3Free=" + true
+          })
+
+          return
+        }
+
+        //是会员免费疯抢时不用支付
+        if (data.vipBuy == 1) {
+          if (this.data.roll_code) {
+            wx.showLoading({
+              title: "请稍后",
+              mask: true
+            })
+            this.gotoFightSuccess(); //是否拼团成功
+          } else {
+            wx.redirectTo({
+              url: "../../../shouye/fightDetail/fightDetail?" + "order_code=" + that.data.order_code + "&code=" + that.data.roll_code + "&isTM=" + that.data.isTM + "&isFirst=" + this.data.isFirst + "&isNew=" + this.data.isNew + "&tips=" + this.data.tips,
+            })
+          }
+          return;
+        }
+      } else if (this.data.buyType == 0) { //普通订单
+
+        this.getOrderList(order_code); //获取订单详情数据
+
+        if (data.price <= 0) {
+          zeroPay = true;
+          return
+        }
+      }
+
+      wx.login({
+        success: res => {
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId, 3rd_session
+          if (res.code) {
+            var dataUrl = config.PayHost + payUrl + config.Version + "&token=" + app.globalData.user.userToken + '&order_code=' + order_code + '&order_name=我的' + '&code=' + res.code;
+            util.http(dataUrl, that.orderPayResult)
+          } else {
+            is_submitOrder = true;
+            console.log('获取用户登录态失败！' + res.errMsg)
+            that.showToast('获取用户登录态失败！' + res.errMsg, 2000);
+          }
+        }
+      })
+
+    } else {
+      is_submitOrder = true;
+      this.showToast(data.message, 2000);
+    }
+  },
+
+  //订单详情数据
+  getOrderList: function (order_code) {
+    var token = app.globalData.user.userToken;
+    var url = config.Host + 'order/getOrderDetialByGcodeOrOcode?token=' + token + config.Version + '&order_code=' + order_code;
+    console.log(url);
+    util.http(url, this.httpOrderdata);
+  },
+
+  httpOrderdata: function (data) {
+    if (data.status == 1) {
+      orderitem = data.order;
+      var orderShops = orderitem.orderShops;
+      var shop_from = orderShops.shop_from;
+      var last_time = orderShops.last_time;
+      var issue_status = orderShops.issue_status;
+      var orderstaus = orderShops[0].status;
+      var change = orderShops.change;
+      var item = orderShops;
+      var orderstatus = "";
+      var ordershopstatus = "";
+      var shop_pic = "";
+      var shopcode = "";
+      var newshopname = "";
+      var pay_money = "";
+      var shop_price = "";
+      var orderButtonStatus = [];
+
+      for (var j = 0; j < orderShops.length; j++) {
+        shop_pic = orderShops[j].shop_pic;
+        shopcode = orderShops[j].shop_code;
+        shop_price = orderShops[j].shop_price;
+        newshopname = orderShops[j].shop_name;
+        pay_money = pay_money;
+        shop_from = shop_from;
+
+        orderShops[j].shop_price = shop_price.toFixed(1);
+        if (shop_pic != null) {
+          //商品图片
+          var newcode = shopcode.substr(1, 3);
+          var new_pic = newcode + '/' + shopcode + '/' + shop_pic;
+
+          //商品名称
+          if (newshopname.length > 9) {
+            newshopname = newshopname.substr(0, 9) + '... ';
+          }
+          orderShops[j]["new_shop_pic"] = new_pic;
+          orderShops[j]["new_shopname"] = newshopname;
+        }
+      }
+      orderitem.orderstatus = "待发货";
+      wx.setStorageSync("orderitem", orderitem);
+
+
+
+      if (this.data.buyType == 0) { //单独购买实付款价格是0的无须支付 直接跳至订单详情
+        if (zeroPay) {
+          wx.redirectTo({
+            url: '../../../mine/order/orderDetail/orderDetail?isNormalBuy=' + 'true'
+          })
+
+        }
+      }
+    }
+  },
+
+  // 支付
+  //   appId: "wxeb7839c8cbeef680"
+  // nonceStr: "zr73uq589vbk59tlntcri8a1dgxkk44w"
+  // package: "prepay_id=wx2017112416500900940db3290184964231"
+  // paySign: "2DADDBA31784C2D2271FA0343A1B10AD"
+  // signType: "MD5"
+  // timeStamp: 1511858924066
+  orderPayResult: function (data) {
+    
+    var that = this;
+    if (data.status == 1) {
+      var xml = data.xml;
+      wx.requestPayment({
+        'timeStamp': xml.timeStamp + "",
+        'nonceStr': xml.nonceStr,
+        'package': xml.package,
+        'signType': xml.signType,
+        'paySign': xml.paySign,
+        'success': function (res) {
+          if (that.data.buyType == 1) {
+            var fdStart = that.data.order_code.indexOf("G");
+            var dataUrl = '';
+            if (fdStart == 0) { //表示strCode是以ssss开头；
+              dataUrl = config.PayHost + 'treasures/getPayCodeList?' + config.Version + "&token=" + app.globalData.user.userToken + '&g_code=' + that.data.order_code + '&pay_type=2';
+            } else { //表示strCode不是以ssss开头
+              dataUrl = config.PayHost + 'treasures/getPayCode?' + config.Version + "&token=" + app.globalData.user.userToken + '&order_code=' + that.data.order_code + '&pay_type=2';
+            }
+            util.http(dataUrl, that.getInCode)
+          } else if (that.data.buyType == 10 || that.data.buyType == 9) {
+            if (that.data.roll_code) {
+              wx.showLoading({
+                title: "请稍后",
+                mask: true
+              })
+              that.getrollCountHttp(); //是否拼团成功
+            } else {
+
+              wx.redirectTo({
+                url: "../../../shouye/fightDetail/fightDetail?" + "order_code=" + that.data.order_code + "&code=" + that.data.roll_code + "&isTM=" + that.data.isTM + "&isFirst=" + this.data.isFirst + "&isNew=" + this.data.isNew + "&tips=" + this.data.tips,
+              })
+            }
+          } else if (that.data.buyType == 0) {
+
+            if (orderitem) {
+              wx.redirectTo({
+                url: '../../../mine/order/orderDetail/orderDetail?isNormalBuy=' + 'true'
+              })
+            }
+          } else
+            wx.redirectTo({
+              url: '../../../sign/withdrawLimit/withdrawLimit?isFromPaySuccess=true&totalAccount=' + that.data.totalAccount,
+            })
+
+          wx.setStorage({
+            key: 'payPrice',
+            data: that.data.totalAccount,
+          })
+
+          is_submitOrder = true;
+        },
+        'fail': function (res) {
+          if (is_t >= 2) //如果是参团
+          {
+            that.showToast('支付失败,你已放弃本次拼团', 2000);
+            is_t = 1;
+          } else {
+            that.showToast('支付失败', 2000);
+            is_t = 1;
+          }
+          is_submitOrder = true;
+        }
+      })
+    } else {
+      is_submitOrder = true;
+      that.showToast(data.message, 2000);
+    }
+  },
+  // 获取夺宝的参与号码
+  getInCode: function (data) {
+    if (data.status == 1) {
+      console.log('InCode:' + data.data);
+      wx.setStorage({
+        key: 'InCode',
+        data: data.data,
+      })
+      // wx.switchTab({ url: "../../../sign/sign", })// 跳转到 tabBar 页面，并关闭其他所有非 tabBar 页面
+      util.backToSignPager('../../../sign/sign');
+    } else
+      wx.navigateBack({})
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    is_submitOrder = true;
+    if (this.data.address == undefined || this.data.address == '') {
+      this.httpAddress();
+    }
+
+  },
+  httpAddress: function () {
+    var dataUrl = config.Host + "address/queryDefault?" + config.Version + "&token=" + app.globalData.user.userToken;
+    util.http(dataUrl, this.addressData)
+  },
+  // 地址数据
+  addressData: function (data) {
+
+    var phone = data['address']['phone'];
+    var address = data['address']['address'];
+    var consignee = data['address']['consignee'];
+    if (address == undefined) {
+      address = '',
+        phone = '',
+        consignee = ''
+    }
+
+    this.setData({
+      phone: phone,
+      address: address,
+      consignee: consignee,
+      address_id: 0
+    });
+  },
+
+  getrollCountHttp: function () {
+    var dataUrl = config.Host + "order/queryOrderRollByRedis?" + config.Version + "&token=" + app.globalData.user.userToken + '&order_code=' + this.data.order_code;
+    util.http(dataUrl, this.rollCountData)
+  },
+  rollCountData: function (data) {
+    payCallBackCount++;
+    var that = this;
+    if (data.status == 1) { //支付回调成功
+      // wx.hideLoading();
+      // if (is_t >= 2) //如果是参团跳转到疯抢
+      // {
+      //   wx.setStorageSync("oneYuan_order_code", that.data.order_code);
+      //   var url = "";
+      //   if (that.data.tips == 1 || that.data.tips == 2)
+      //   {
+      //     url = "../../../shouye/fightDetail/fightDetail?" + "order_code=" + that.data.order_code + "&code=" + that.data.roll_code + "&isTM=" + that.data.isTM + "&isFirst=" + this.data.isFirst + "&isNew=" + this.data.isNew + "&tips=" + this.data.tips
+      //   }else{
+      //     url = "../oneBuyLuckPan/oneBuyLuckPanIOS?" + "order_code=" + that.data.order_code + "&FightSuccess=true"
+      //   }
+
+      //   wx.redirectTo({
+      //     url:url ,
+      //   })
+
+      // } else {
+      //   wx.redirectTo({
+      //     url: "../../../shouye/fightDetail/fightDetail?" + "order_code=" + that.data.order_code + "&code=" + that.data.roll_code + "&isTM=" + that.data.isTM + "&isFirst=" + this.data.isFirst + "&isNew=" + this.data.isNew + "&tips=" + this.data.tips,
+
+      //   })
+      // }
+
+      that.gotoFightSuccess();
+    } else {
+      if (payCallBackCount <= 4) {
+        //每隔1秒请求一次
+        setTimeout(function () {
+          that.getrollCountHttp();
+        }, 1000)
+      } else { //支付回调不成功跳转到订单列表
+        wx.hideLoading();
+        wx.redirectTo({
+          url: '../../../mine/order/order?indexid=' + 0,
+        })
+      }
+    }
+  },
+  //拼团成功的处理
+  gotoFightSuccess: function () {
+    wx.hideLoading();
+    if (is_t >= 2) //如果是参团跳转到疯抢
+    {
+      wx.setStorageSync("oneYuan_order_code", this.data.order_code);
+      var url = "";
+      if (this.data.tips == 1 || this.data.tips == 2) {
+        url = "../../../shouye/fightDetail/fightDetail?" + "order_code=" + this.data.order_code + "&code=" + this.data.roll_code + "&isTM=" + this.data.isTM + "&isFirst=" + this.data.isFirst + "&isNew=" + this.data.isNew + "&tips=" + this.data.tips
+      } else {
+        url = "../oneBuyLuckPan/oneBuyLuckPanIOS?" + "order_code=" + this.data.order_code + "&FightSuccess=true"
+      }
+
+      wx.redirectTo({
+        url: url,
+      })
+
+    } else {
+      wx.redirectTo({
+        url: "../../../shouye/fightDetail/fightDetail?" + "order_code=" + this.data.order_code + "&code=" + this.data.roll_code + "&isTM=" + this.data.isTM + "&isFirst=" + this.data.isFirst + "&isNew=" + this.data.isNew + "&tips=" + this.data.tips,
+
+      })
+    }
+  },
+  zeroBuyRemind_show: function () {
+    this.setData({
+      showZeroBuyRemind: true
+    })
+  },
+  bindTapcCloseShareTX: function () {
+    this.setData({
+      showZeroBuyRemind: false
+    })
+  }
+
+})

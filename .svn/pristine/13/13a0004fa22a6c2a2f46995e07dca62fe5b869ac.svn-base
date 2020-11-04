@@ -1,0 +1,10 @@
+<template name="sign-getvip">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip' >成为衣蝠会员才可以做任务赚现金哦。</text>
+    <view class='buttonView-vip'>
+      <text catchtap="goToGetVip" class='bottom-btn-yellow5-vip'>了解如何成为会员</text>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

@@ -1,0 +1,143 @@
+.notEnoughYidou-root {
+  width:570rpx;
+  background-color: #FFFFFF;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.notEnough-dialog-title{
+  align-self: center;
+  font-size: 36rpx;
+  color: black;
+  margin-top: 35rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.notEnough-dialog-content1{
+  align-self: center;
+  font-size: 24rpx;
+  color: #a8a8a8;
+  margin-top: 10rpx;
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+  text-align: justify;
+}
+
+.notEnough-dialog-content2{
+  align-self: center;
+  font-size: 34rpx;
+  color: #FD215A;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.notEnough-dialog-content{
+  align-self: center;
+  font-size: 30rpx;
+  color: #FD215A;
+  margin-top: 0rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.bottom-btn{
+  width:100%;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  margin-top: 60rpx;
+  margin-bottom: 40rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  
+}
+.bottom-btn-left{
+  height: 80rpx;
+  width: 250rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #FD215A;
+  background-color: white;
+  border-radius: 3px;
+  margin-right: 10rpx;
+}
+.bottom-btn-rigth{
+  height: 80rpx;
+  width: 250rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #FD215A;
+  background-color: #FDCC21;
+  border-radius: 3px;
+  margin-left: 10rpx;
+}
+.icon-close{
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  padding: 20rpx;
+}
+.bottom-btn-yellow{
+  width:520rpx;
+  height: 80rpx;
+  margin-top: 60rpx;
+  margin-bottom: 40rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  border-radius: 3px;
+  color: #FFFFFF;
+  background-color: #ff3f8b;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  text-align: center;
+}
+.successimage{
+  width: 570rpx;
+  height: 710rpx;
+  align-self: center;
+}
+
+
+.tixianview_discription_upperlimit {
+  margin:10rpx;
+  color: #666;
+  font-size: 30rpx;
+}
+.tixianview_discription_upperlimit_noTitle {
+  margin-left:40rpx;
+  margin-right: 40rpx;
+  margin-bottom: 0rpx;
+  margin-top: 15rpx;
+  color: #666;
+  font-size: 30rpx;
+}
+
+.tixianview_binding_upperlimit {
+  /* margin: 10rpx; */
+  text-align: center;
+  line-height: 80rpx;
+  overflow: hidden;
+  background-color: #ff3f8b;
+  border-radius: 8rpx;
+  color: white;
+  font-size: 32rpx;
+  position: relative;
+   margin-left:40rpx;
+   margin-right: 40rpx;
+} 
+
+.button_confrim_upperlimit {
+  opacity: 0;
+  background-color: green;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0; 
+  
+}

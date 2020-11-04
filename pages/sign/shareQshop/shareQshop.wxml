@@ -1,0 +1,67 @@
+<!--pages/sign/shareQshop/shareQshop.wxml-->
+<import src="../../../common/listItemTemplate/listItemTemplate.wxml" />
+<import src="../../../common/signfinish-template/signfinish.wxml" />
+<import src="../../../common/toastTest/toastTest.wxml" />
+<import src="../../../common/CanvasShare-template/canvasShare.wxml" />
+
+<template is="toast" data="{{ ..._toast_ }}" />
+<view class="mainview">
+  <view class='share-q-shop' wx:if="{{!haveNoData}}">
+    <view class='shoplist'>
+      <!-- <block wx:for="{{listShop}}">
+        <view bindtap='shoplist_tap' class='shoplist_item'>
+          <image mode="widthFix" src="{{UpyunConfig}}{{item.cut_shop_code}}/{{item.shop_code}}/{{item.def_pic}}"></image>
+          <text class='shoplist_item_name'>{{item.shop_name}}</text>
+          <view class="shoplist_item-bottom">
+            <view class="shoplist_item_item_seprice">{{"￥"+item.shop_se_price}}</view>
+            <view class="shoplist_item_item_price">{{"专柜价"+item.shop_price}}</view>
+            <view class="shoplist_item_zero">{{"返"+item.shop_price+"元=0元"}}</view>
+          </view>
+        </view>
+        
+      </block> -->
+      <view class='list-all'>
+        <block wx:for='{{datalist}}'>
+          <view class='v-item' catchtap='shoplist_tap' data-shop_code="{{item.shop_code}}">
+            <template is='listItemTemplate' data='{{item,Upyun,supply_isShow}}'></template>
+
+            <image class="select_icon" catchtap="item_select" data-selectindex="{{index}}" src="{{Upyun}}/small-iconImages/ad_pic/{{selectindex===index?'wodexihao_fengge_icon_xuanzhong.png':'wodexihao_fengge_icon_weixuanzhong.png'}}"></image>
+
+          </view>
+        </block>
+      </view>
+
+    </view>
+
+
+
+  </view>
+  <view class='bottom-share-view-icon' wx:if="{{!haveNoData}}">
+    <view class='bottom-share-view-line'></view>
+    <!--  <text class="weixin-share-icon-text">分享到</text>
+  <image class="weixin-share-icon" bindtap="sharetap" src="{{Upyun}}/small-iconImages/gx/invite_icon_weixin.png"></image> -->
+    <view class="weixin-share-btn-share">
+      <image class="weixin-share-icon" src="{{Upyun}}small-iconImages/qingfengpic/icon_wechat_touming.png"></image>
+      <text class="weixin-share-icon-text">点我分享到微信群</text>
+    </view>
+  </view>
+
+
+  <view class='bottom-share-view-btn' wx:if="{{!haveNoData}}">
+    <button class="weixin-share-icon-btnX" catchtap="sharetap" open-type="{{selectindex<0?'':'share'}}" bindtap="bindTapSharexshop"></button>
+  </view>
+  <view class='no-data' wx:if="{{haveNoData}}">
+    <text>暂无相关商品哦~</text>
+
+  </view>
+
+  <view>
+    <template is="CanvasviewTemplate"></template>
+  </view>
+
+</view>
+
+<!-- 赚钱任务完成弹窗  -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{signFinishShow}}">
+  <template is='sign-finish-dialog' data='{{Upyun,signFinishDialog}}'></template>
+</view>

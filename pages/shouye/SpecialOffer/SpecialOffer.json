@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "特价商品",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "onReachBottomDistance": 50,
+  "navigationBarBackgroundColor": "#eee"
+}

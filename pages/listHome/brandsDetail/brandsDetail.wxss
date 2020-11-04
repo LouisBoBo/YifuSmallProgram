@@ -1,0 +1,59 @@
+@import "../../../common/listHomeTemplate/listtemplate.wxss";
+
+ .head-pic {
+  display: flex;
+}
+.list-all {
+   margin-top: 20rpx;
+}
+.head-pic image {
+  width: 100%;
+} 
+.head-title {
+  font-size: 30rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  margin-top: 20rpx;
+  text-align: justify;
+}
+.head-title text {
+  color: #a8a8a8;
+}
+
+.section-title {
+  text-align: center;
+   font-size: 32rpx; /* margin-top: 22rpx; */
+  margin: 22rpx 0;
+}
+
+.section-title-text {
+  position: relative;
+    color: #ff3f8b;
+}
+
+.section-title-text::before, .section-title-text::after {
+  display: block;
+  position: absolute;
+  content: "";
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 1px;
+  width: 50rpx;
+  background-color: #ff3f8b;
+}
+
+.section-title-text:before {
+  left: -58rpx;
+}
+
+.section-title-text:after {
+  right: -58rpx;
+}
+
+
+.emptyView {
+  padding-top: 50%;
+  text-align: center;
+  color: #666666;
+}

@@ -1,0 +1,30 @@
+/* pages/mine/wallet/accountDetail/RefundDetail.wxss */
+
+.supportCardView{ 
+   margin: 20rpx 30rpx 20rpx 30rpx;
+   height: 80rpx;
+   border-bottom: 1px solid #eee;
+ } 
+
+.slogan {
+  float: left;
+}
+
+.slogan-text {
+  vertical-align: middle;
+  margin-right: 10rpx;
+  margin-left: 20rpx;
+  color: #666;
+  font-size: 32rpx;
+}
+
+.more {
+  float: right;
+}
+
+.more-text {
+  vertical-align: middle;
+  margin-right: 10rpx;
+  color: #666;
+  font-size: 30rpx;
+}

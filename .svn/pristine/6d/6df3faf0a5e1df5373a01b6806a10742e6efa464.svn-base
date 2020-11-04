@@ -1,0 +1,11 @@
+<template name="RefundFail">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>温馨提示</text>
+    <text class='notEnough-dialog-content1'>因账号原因退款失败，款项已退入可提现余额，请您手动提现。</text>
+    
+    <view class='buttonView'>
+      <text catchtap="goTiXian" class='bottom-btn-yellow5'>立即去提现</text>
+    </view>
+    <image catchtap="closePop" class='icon-close' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

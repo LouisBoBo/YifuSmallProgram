@@ -1,0 +1,237 @@
+/* pages/shouye/fightDetail/fightDetail.wxss */
+@import "../../../common/FightShop-template/FightShop.wxss";
+@import "../../../common/FightShop-template/FightShopSuccess.wxss";
+@import "../detail/detail-list-template/list-template.wxss";
+.mainview{
+  overflow: hidden;
+}
+.headView-time {
+  margin-top: 40rpx;
+  margin-right: 180rpx;
+  margin-left: 180rpx;
+  height: 50rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+.headView-time-text {
+  font-size: 30rpx;
+  color: #666;
+  display: flex;
+  align-items: center;
+}
+
+.headView-time-numbertext {
+  background-color: black;
+  font-size: 30rpx;
+  color: white;
+  width: 50rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
+
+.headView-invite-text {
+  margin-top: 50rpx;
+  font-size: 30rpx;
+  color: #ff3f8b;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.headView-invite-image{
+  margin-left: 100rpx;
+  width: 30rpx;
+  height: 30rpx;
+  background-color: #ff3f8b;
+}
+.headView-invite-numbertext {
+  margin-top: 30rpx;
+  font-size: 32rpx;
+  color:rgb(62, 62, 62);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+}
+.headView-invite-import{
+  font-size: 32rpx;
+  color: #ff3f8b;
+}
+.headView-invite-number {
+  font-size: 40rpx;
+  color: #ff3f8b;
+  font-weight: 600;
+}
+
+.headView-notes {
+  margin-top: 50rpx;
+  height: 80rpx;
+  border-width: 1px 0 1px 0;
+  border-color: #f0f0f0;
+  border-style: solid;
+}
+
+.headView-notes-title {
+  float: left;
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  font-size: 28rpx;
+  color: rgb(62, 62, 62);
+}
+
+.headView-notes-content {
+  float: right;
+  margin-top: 20rpx;
+  margin-right: 20rpx;
+  font-size: 24rpx;
+  color: rgb(125, 125, 125);
+}
+
+.footview {
+  position: fixed;
+  bottom: 20rpx;
+  width: 100%;
+}
+
+.footview-invite {
+  background-color: #ff3f8b;
+  font-size: 32rpx;
+  color: white;
+  height: 70rpx;
+  border-radius: 5rpx;
+  bottom: 20rpx;
+  margin-left: 50rpx;
+  margin-right: 50rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footview-invite-over{
+  background-color: #666;
+  font-size: 32rpx;
+  color: white;
+  height: 70rpx;
+  border-radius: 5rpx;
+  bottom: 20rpx;
+  margin-left: 50rpx;
+  margin-right: 50rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fightview{
+  margin-top: 20rpx;
+  height: 80rpx;
+  border-width: 0rpx 0 1px 0;
+  border-color: #f0f0f0;
+  border-style: solid;
+}
+.fightview-title{
+  float: left;
+  display: flex;
+  flex-direction: row;
+}
+.fightview-title-text{
+  margin-top: 10rpx;
+  margin-left: 20rpx;
+  font-size: 28rpx;
+  color:rgb(62, 62, 62);
+}
+.fightview-title-image{
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 25rpx;
+}
+.fightview-tuanzhang-image{
+  margin-top: -10rpx;
+  margin-left: 210rpx;
+  width: 50rpx;
+  height: 30rpx;
+  border-radius: 15rpx;
+  position: absolute;
+}
+.fightview-title-content{
+  margin-top: 10rpx;
+  margin-left: 20rpx;
+  font-size: 24rpx;
+  color: #666;
+}
+.fightview-content{
+  float: right;
+  margin-top: 10rpx;
+  margin-right: 20rpx;
+  font-size: 24rpx;
+  color:rgb(125, 125, 125);
+}
+
+.footview-pay{
+  height: 40rpx;
+}
+.shopview-pay{
+  float: right;
+  font-size: 28rpx;
+  color: #666;
+  margin-right: 10rpx;
+  margin-bottom: 5rpx;
+}
+
+/* 推荐头 */
+
+.shop-recommend-tv {
+  margin-top: 20rpx;
+  font-size: 35rpx;
+  color: #ff3f8b;
+  display: flex;
+  justify-content: center;
+  font-weight: 570rpx;
+}
+
+.scroll-title {
+  overflow: auto;
+  /* margin-top: 20rpx; */
+  height: 70rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.recomment-title {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.recomment-title-out {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.recomment-title-icon {
+  height: 50rpx;
+  width: 50rpx;
+}
+
+.recomment-title-name {
+  font-size: 30rpx;
+  color: #989898;
+}
+
+.recomment-title-name-select {
+  font-size: 30rpx;
+  color: #222;
+}
+.bottomview{
+  margin: 20rpx 0 20rpx 0;
+  width: 100%;
+  height: 20rpx;
+  background: #f0f0f0;
+}

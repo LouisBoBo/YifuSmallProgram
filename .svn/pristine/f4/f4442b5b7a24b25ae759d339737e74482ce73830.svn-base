@@ -1,0 +1,613 @@
+<import src="../../../common/topbarLine-template/topbarLine.wxml" />
+<import src="../../../common/sku-template/sku.wxml" />
+<import src="../../../common/signfinish-template/signfinish.wxml" />
+<import src="../../../common/toastTest/toastTest.wxml" />
+<import src="../../../common/Upperlimit-template/Upperlimit.wxml" />
+<import src="../../../common/Discount-template/Discount.wxml" />
+<import src="../../../common/FightShop-template/OpenGroup.wxml" />
+<import src="../../../common/Authorization-template/Authorization-template" />
+<import src="detail-list-template/list-template.wxml" />
+
+
+<template is="toast" data="{{ ..._toast_ }}" />
+<view class='shop-detail-out' bindtouchstart="touchStart">
+  <!-- <scroll-view scroll-y='true' bindscroll='onScroll' style='height:{{screenHeight}}px;width:100%' lower-threshold='50' bindscrolltolower="toLoadMore"> -->
+  <view class='detail-all' bindtouchmove="touchMove" bindtouchend="touchEnd">
+    <view class='selection'>
+      <view class='head-top'>
+        <view class="head-view">
+          <image wx:if='{{shop.cut_shop_code}}' class='head-view-pic' style='width:{{screenWidth}}px;height:{{picHeight}}px;' src='{{Upyun}}{{shop.cut_shop_code}}/{{shop.shop_code}}/{{shop.def_pic}}!450'>
+          </image>
+          <view wx:if='{{isSignActiveShop}}' class='sales-count'>
+            <text class='already-tv'>已售{{shop.virtual_sales}}件/<text class='have-tv'>仅剩{{haveCounts}}件</text></text>
+          </view>
+        </view>
+        <view class='head-text'>
+          <text class='tv-shop-name'>{{shop.shop_name}}</text>
+          <view class='head-view-price'>
+            <text class='tv-shop-se-price'>￥{{shop_se_price}}</text>
+            <view class='shop-price-line'>
+              <text class='tv-shop-price'> 原价￥{{shop_price}}</text>
+            </view>
+            <text class='tv-shop-discount' wx:if="{{isShowFuWuchengluo == true}}">{{discount}}折</text>
+
+            <view wx:if='{{!isSignActiveShop}}' class="v-reduce-money" bindtap='moneyDiscountClick'>
+              <image class='v-reduce-money-mage' src='../../../iconImages/bg_discount.png'></image>
+              <text class='tv-shop-deduction'>余额可抵扣{{reduceMoney}}元</text>
+            </view>
+            <image class='tv-discouunt-mage' src='../../../iconImages/icon_question_mark.png' bindtap='moneyDiscountClick'></image>
+          </view>
+        </view>
+        <view class='head_line'>
+        </view>
+      </view>
+      <view class='head-bottom'>
+        <!-- <view class='head-bottom-supply' bindtap='suppClick'>
+          <text class='tv-suppply' wx:if='{{shop.supp_label}}'>{{shop.supp_label}} ></text>
+        </view> -->
+        <view class='bottom-image'>
+          <image mode="widthFix" class='bottom-image-pic' src='{{Upyun}}small-iconImages/fuwuchengnuo_new.png' />
+        </view>
+      </view>
+    </view>
+    <view class='selection'>
+      <view class="tobar{{isFixFlag?'-fix':''}}">
+        <template is='topbar' data='{{topData,activityIndex}}'></template>
+      </view>
+    </view>
+    <view class='selection' id='detail-parameter-evaluate'>
+      <view class="detail" wx:if='{{activityIndex==0?true:false}}'>
+        <view class='detail-images'>
+          <block wx:for="{{imagePathData}}">
+            <image style='width:{{screenWidth}}px;height:{{picHeight}}px;' class='detail-image' src='{{Upyun}}{{shop.cut_shop_code}}/{{shop.shop_code}}/{{item}}!450'>
+            </image>
+          </block>
+        </view>
+
+        <view wx:if='{{shop.cut_shop_code}}' class='parameter-size-consult'>
+          <view class='parameter-size-title'>
+            <image class='size-top-image' src='../../../iconImages/size_consult.png'></image>
+          </view>
+          <view class='size-notice'>
+            <text class='size-notice-tv'>温馨提示：手工测量平铺尺寸可能与实际尺寸相差1-3CM的误差，属于正常范围</text>
+          </view>
+          <view class='parameter-shop-size'>
+            <block wx:for='{{sizeData}}'>
+              <view class="size-rows{{index==0?'-is-zero':''}}{{index%2==1?'-is-single':''}}">
+                <block wx:for='{{item}}'>
+                  <view wx:if='{{item}}' class='size-single'>
+                    {{item}}
+                  </view>
+                </block>
+              </view>
+            </block>
+          </view>
+          <view class='parameter-image-consult'>
+            <image mode='widthFix' src='{{Upyun}}small-iconImages/size_from.png'></image>
+          </view>
+        </view>
+        <view wx:if='{{shop.cut_shop_code}}' class='parameter-shop-tags'>
+          <view class='parameter-size-title'>
+            <image class='size-top-image' src='../../../iconImages/shop_tags.png'></image>
+          </view>
+          <view wx:if='{{strLongTag}}' class='long-short-tag'>
+            <view class='long-tag'>{{strLongTag}}</view>
+            <view wx:if='{{fristShortTag}}' class='short-tag'>{{fristShortTag}}</view>
+          </view>
+          <view class='shop-tags'>
+
+            <block wx:for='{{shopTagData}}'>
+              <view class='tags-item-out'>
+                <view class='tags-item'>
+                  {{item.tag_name}}
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+        <view wx:if="{{typePageHide == 0 && isActiveShop == false}}">
+          <view wx:if='{{shop.cut_shop_code}}' class='shop-recommend-tv'>商品推荐</view>
+          <scroll-view wx:if='{{shop.cut_shop_code}}' scroll-x="{{true}}" class="scroll-title{{isRecommendFix?'-fix':''}}">
+            <view class='recomment-title'>
+              <block wx:for="{{recommendTitleData}}">
+                <view class='recomment-title-out' style='width:{{screenWidth/4}}px;' bindtap='recommendTitleClick' data-id='{{item.id}}' data-index='{{index}}' data-name='{{item.type_name}}'>
+                  <image src="{{item.link}}{{currentTab==index?'1':''}}.png" class='recomment-title-icon'>
+                  </image>
+                  <view class="recomment-title-name{{currentTab==index?'-select':''}}">
+                    {{item.type_name}}
+                  </view>
+                </view>
+              </block>
+            </view>
+          </scroll-view>
+          <!-- <view class='first_list' wx:if='{{recommendListData}}'>
+            <block wx:for="{{recommendListData}}" wx:for-item="item">
+              <template is="listTemplate" data="{{item,Upyun,listItemHeight,listItemWidth}}" />
+            </block>
+          </view> -->
+          <view class='selection'>
+            <template is='listTemplate' data='{{recommendListData,Upyun,listItemHeight,listItemWidth}}'></template>
+          </view>
+        </view>
+
+      </view>
+      <view class='parameter' wx:if='{{activityIndex==1?true:false}}'>
+        <view class='parameter-shopcode'>
+          <text class='tv-shopcode'>商品编号:{{shop.shop_code}}
+        </text>
+        </view>
+        <view class='parameter-size-consult'>
+          <view class='parameter-size-title'>
+            <image class='size-top-image' src='../../../iconImages/size_consult.png'></image>
+          </view>
+          <view class='size-notice'>
+            <text class='size-notice-tv'> 温馨提示：手工测量平铺尺寸可能与实际尺寸相差1-3CM的误差，属于正常范围。</text>
+
+          </view>
+          <view class='parameter-shop-size'>
+            <block wx:for='{{sizeData}}'>
+              <view class="size-rows{{index==0?'-is-zero':''}}{{index%2==1?'-is-single':''}}">
+                <block wx:for='{{item}}'>
+                  <view wx:if='{{item}}' class='size-single'>
+                    {{item}}
+                  </view>
+                </block>
+              </view>
+            </block>
+          </view>
+          <view class='parameter-image-consult'>
+            <image mode='widthFix' src='{{Upyun}}small-iconImages/size_from.png'></image>
+          </view>
+        </view>
+        <view class='parameter-shop-tags'>
+          <view class='parameter-size-title'>
+            <image class='size-top-image' src='../../../iconImages/shop_tags.png'></image>
+          </view>
+          <view wx:if='{{strLongTag}}' class='long-short-tag'>
+            <view class='long-tag'>{{strLongTag}}</view>
+            <view wx:if='{{fristShortTag}}' class='short-tag'>{{fristShortTag}}</view>
+          </view>
+          <view class='shop-tags'>
+
+            <block wx:for='{{shopTagData}}'>
+              <view class='tags-item-out'>
+                <view class='tags-item'>
+                  {{item.tag_name}}
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+        <view class='parameter-size-measure'>
+          <image mode='widthFix' class='size-top-image' src='{{Upyun}}system/shop_details.png'></image>
+        </view>
+      </view>
+      <view class='evaluate' wx:if='{{activityIndex==2?true:false}}'>
+        <view class='evaluate-progress'>
+          <view class='evaluate-top-tv'>商品好评率</view>
+          <view class='head_line2'>
+          </view>
+          <view class='progress-all'>
+            <view class="progress">
+              <!-- <canvas  class="cir" style="width:68px; height:68px;" canvas-id="canvasColor">
+              </canvas>
+              <view class="cc">{{progress_color}}</view>
+              <view class="progress-name">没有色差</view> -->
+              <view class="progress-type">没有色差</view>
+              <progress class='progress-long' percent="{{progress_color}}" stroke-width="8" activeColor='#ff3f8b' backgroundColor='#dcdcdc' />
+              <view class="progress-percent">{{progress_color+'%'}}</view>
+            </view>
+            <view class="progress">
+              <!-- <canvas class="cir" style="width:68px; height:68px;" canvas-id="canvasType">
+              </canvas>
+              <view class="cc">{{progress_type}}</view>
+              <view class="progress-name">版型好看</view> -->
+              <view class="progress-type">版型好看</view>
+              <progress class='progress-long' percent="{{progress_type}}" stroke-width="8" activeColor='#ff3f8b' backgroundColor='#dcdcdc' />
+              <view class="progress-percent">{{progress_type+'%'}}</view>
+            </view>
+            <view class="progress">
+              <!-- <canvas class="cir" style="width:68px; height:68px;" canvas-id="canvasWorkmanship">
+              </canvas>
+              <view class="cc">{{progress_work}}</view>
+              <view class="progress-name">做工不错</view> -->
+              <view class="progress-type">做工不错</view>
+              <progress class='progress-long' percent="{{progress_work}}" stroke-width="8" activeColor='#ff3f8b' backgroundColor='#dcdcdc' />
+              <view class="progress-percent">{{progress_work+'%'}}</view>
+            </view>
+            <view class="progress">
+              <!-- <canvas class="cir" style="width:68px; height:68px;" canvas-id="canvasCostPerformance">
+              </canvas>
+              <view class="cc">{{progress_cost}}</view>
+              <view class="progress-name">性价比好</view> -->
+              <view class="progress-type">性价比好</view>
+              <progress class='progress-long' percent="{{progress_cost}}" stroke-width="8" activeColor='#ff3f8b' backgroundColor='#dcdcdc' />
+              <view class="progress-percent">{{progress_cost+'%'}}</view>
+            </view>
+          </view>
+          <view class='head_line2' style='height:20rpx;width:100%;'>
+          </view>
+          <view class='evaluate-more'>
+            <view class='evaluate-top-tv'>
+              更多点评
+            </view>
+            <view class='evaluatte-more-item'>
+              <block wx:for='{{evaluateData}}'>
+                <view class='head_line2'>
+                </view>
+                <view class='evaluate-all'>
+                  <view class='evaluate-out'>
+                    <image wx:if='item.user_url' class='evaluate-head-pic' src='{{item.user_url}}'>
+                    </image>
+                    <view class='evaluate-right'>
+                      <view class='evaaluate-top'>
+                        <view class='name-time'>
+                          <view class='user-name'>
+                            {{item.user_name}}
+                          </view>
+                          <view class='evaluate-time'>
+                            {{item.add_date}}
+                          </view>
+                        </view>
+                        <view class='evaluate-grade'>
+                          {{item.comment_type}}
+                        </view>
+                        <view class='evaluate-star'>
+                          <view class='evaluate-star-select'>
+                            <block wx:for='{{item.star}}'>
+                              <view class='star'>
+                                <image class='start-pic' src="../../../iconImages/star_select.png">
+                                </image>
+                              </view>
+                            </block>
+                          </view>
+
+                          <view class='evaluate-star-normal'>
+                            <block wx:for='{{5-item.star}}'>
+                              <view class='star'>
+                                <image class='start-pic' src="../../../iconImages/star_normal.png">
+                                </image>
+                              </view>
+                            </block>
+                          </view>
+                        </view>
+                      </view>
+                      <view class='evaaluate-content'>
+                        <text class='evaaluate-content-tv'>{{item.content}}</text>
+                      </view>
+                      <view class='evalute-bottom'>
+                        颜色:{{item.shop_color}} 尺码: {{item.shop_size}}
+                      </view>
+                    </view>
+                  </view>
+                  <!--第一条评论图片 -->
+                  <view wx:if='{{item.pic_data}}' class='evaluate-pic'>
+                    <block wx:for='{{item.pic_data}}'>
+                      <image mode='aspectFill' class='evaluate-pic-image' src='{{Upyun}}{{item}}'></image>
+                    </block>
+                  </view>
+                  <!-- 卖家第一条回复 -->
+                  <view class='evaluate-frist-replay' wx:if='{{item.frist_replay}}'>
+                    <view class='evaluate-replay-name1'>
+                      [卖家回复]
+                    </view>
+                    <view class='evaluate-replay-content1'>
+                      {{item.frist_replay}}
+                    </view>
+                  </view>
+                  <!-- 追加评论和卖家回复 -->
+                  <view class='evaluate-judge-replay-out' wx:if='{{item.second_judge}}'>
+                    <view class='evaluate-judge-replay'>
+                      <view class='evaluate-replay-name2'>
+                        [追加评价]
+                      </view>
+                      <view class='evaluate-replay-content1'>
+                        {{item.second_judge}}
+                      </view>
+
+                    </view>
+                    <!--追加评论图片 -->
+                    <view wx:if='{{item.pic_data2}}' class='evaluate-pic2'>
+                      <block wx:for='{{item.pic_data2}}'>
+                        <image wx:if='{{item}}' mode='aspectFill' class='evaluate-pic-image2' src='{{Upyun}}{{item}}'></image>
+                      </block>
+                    </view>
+                    <!-- 卖家第二条回复 -->
+                    <view class='evaluate-second-replay' wx:if='{{item.second_replay}}'>
+                      <view class='evaluate-replay-name1'>
+                        [卖家回复]
+                      </view>
+                      <view class='evaluate-replay-content1'>
+                        {{item.second_replay}}
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </block>
+
+            </view>
+          </view>
+        </view>
+
+      </view>
+    </view>
+  </view>
+  <!-- </scroll-view> -->
+  <view class='selection'>
+    <view class='bottom_bar'>
+      <!-- <view class='bottom-left'>
+        <view class='bottom-left-pic'>
+          <image class='custerm-service-pic' src='../../../iconImages/icon_custerm_service.png'>
+          </image>
+        </view>
+        <view class='custerm-service-tv'>联系客服</view>
+        <view class='lin-custom'>
+          <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:0rpx; ">
+          </contact-button>
+          <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:0rpx; ">
+          </contact-button>
+      </view> -->
+      <!-- <view class='goTabView-horizontalline'></view> -->
+      <view class='goTabView' wx:if="{{isActiveShop == false}}" bindtap='gotabshouye'>
+        <image class='goTabView-image' src='{{Upyun}}small-iconImages/heboImg/detail_首页.png'></image>
+        <text class='goTabView-text'>首页</text>
+      </view>
+      <view class='goTabView-line' wx:if="{{isActiveShop == false}}"></view>
+      <view class='goTabView1' wx:if="{{isActiveShop == false}}" bindtap='gotabwode'>
+        <image class='goTabView-image1' src='{{Upyun}}small-iconImages/heboImg/detail_我的.png'></image>
+        <text class='goTabView-text1'>我的</text>
+      </view>
+      <view class='bottom-left' wx:if="{{bottomOneYuan == false}}" style="width: 100%;background-color: #FE9BC5;" bindtap='toBuyClick'>
+        <form bindsubmit="loginsubmit" report-submit='true'>
+          <button class='button_confrim_upperlimit1' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+        </form>
+        <text class='bottom-left-tv'>{{bottomBtnTv}}</text>
+        <text class='bottom-left-tv1'>{{bottomBtnTv1}}</text>
+      </view>
+      <view class='bottom-left' wx:else style="width: 50%;background-color: #FE9BC5;" bindtap='toBuyClick'>
+        <form bindsubmit="loginsubmit" report-submit='true'>
+          <button class='button_confrim_upperlimit1' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+        </form>
+        <text class='bottom-left-tv'>{{bottomBtnTv}}</text>
+        <text class='bottom-left-tv1'>{{bottomBtnTv1}}</text>
+      </view>
+
+      <view class='bottom-left' bindtap='oneBuyClick' wx:if="{{bottomOneYuan == false}}" style="width: 0%;background-color: #ff3f8b;">
+        <!-- <form bindsubmit="loginsubmit" report-submit='true'>
+          <button class='button_confrim_upperlimit2' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+        </form>
+        <text class='bottom-right-tv'>{{bottomOneBtnTv}}</text>
+        <text class='bottom-right-tv1'>{{bottomOneBtnTv1}}</text> -->
+      </view>
+      <view class='bottom-left' bindtap='oneBuyClick' wx:else style="width: 50%;background-color: #ff3f8b;">
+        <form bindsubmit="loginsubmit" report-submit='true'>
+          <button class='button_confrim_upperlimit2' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+        </form>
+        <text class='bottom-right-tv'>{{bottomOneBtnTv}}</text>
+        <text class='bottom-right-tv1'>{{bottomOneBtnTv1}}</text>
+      </view>
+
+    </view>
+  </view>
+</view>
+<view class='selection-sku'>
+  <template is='sku' data='{{Upyun,picLink,stockPicData,showDialog,shop_name,stockPrice,stockColorData,stockSizeData,stockColorSizeData,stockNameData,stockCount,colorIndex,sizeIndex,selectIndexs,buyCount,spaceName,stockImage}}'></template>
+</view>
+<view class='selection-no-data' wx:if='{{noDataFlag}}'>
+  <image class="image-no-data" src='{{Upyun}}small-iconImages/zzq/icon_image_default.png'></image>
+</view>
+<!-- 滑动浏览图标 -->
+<view class='selection-touch-look' wx:if='{{is_look}}'>
+  <image class="image-touch-look" mode='widthFix' src='{{Upyun}}small-iconImages/zzq/touch_look.png'></image>
+</view>
+<!-- 分享图标 -->
+<view wx:if='{{!isSignActiveShop}}' class='share-icon' bindtap='clickShare'>
+  <image mode='widthFix' class='share-icon-background' src='{{Upyun}}small-iconImages/zzq/icon_share.png'> </image>
+
+  <view class='share-icon-tv'>
+    <form bindsubmit="loginsubmit" report-submit='true'>
+      <button class='button_confrim_upperlimit' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+    </form>
+    <text>分享赢50元</text>
+  </view>
+</view>
+
+<!-- 分享弹窗-----------start -->
+<view class="selection-share {{ isShowShare? 'share--show' : ''}}">
+  <view class="share-out" catchtouchmove='preventTouchMove'>
+    <view class='share-top'>
+      <image src='{{sharePicLink}}'></image>
+    </view>
+    <view class='share-bottom' style='height:35%'>
+      <view class='bottom-top'>
+        <view class='bottom-top-tv1'>
+          分享美衣赢
+        </view>
+        <view class='bottom-top-tv2'>
+          50
+        </view>
+        <view class='bottom-top-tv3'>
+          元
+        </view>
+        <view class='bottom-top-tv1'>
+          提现额度
+        </view>
+        <view class='bottom-top-question' bindtap='toInviteFriendsClick'>
+          <image class='bottom-top-image' src='../../../iconImages/icon_question_mark.png'></image>
+        </view>
+      </view>
+
+      <view class='bottom-center'>
+        <view class='bottom-center-out-left'>
+          <view class='share-cover'>
+            <image class='bottom-center-wx' src='{{Upyun}}small-iconImages/qingfengpic/icon_wechat_touming.png'> </image>
+            <text class='share-tv'>点我分享到微信群</text>
+            <button class="weixin-share-icon-btn" open-type="share"></button>
+          </view>
+          <!-- <view class='bottom-center-tv'>微信</view> -->
+        </view>
+        <!-- <view class='bottom-center-out-right'>
+          <view class='share-cover'>
+            <image class='bottom-center-friends' src='{{Upyun}}small-iconImages/zzq/icon_friends.png'></image>
+            <button class="weixin-share-icon-btn" open-type="share"></button>
+          </view>
+          <view class='bottom-center-tv'>朋友圈</view>
+        </view> -->
+      </view>
+      <form bindsubmit="cancelShare" report-submit="true">
+        <view class='bottom-bottom'>
+          <button class="button-cancel" formType="submit">取消</button>
+        </view>
+      </form>
+    </view>
+  </view>
+</view>
+<!-- 分享弹窗-----------end -->
+
+<!-- 1元购分享弹窗-----------start -->
+<view class="selection-share {{ isOneShowShare? 'share--show' : ''}}">
+  <view class="share-out" catchtouchmove='preventTouchMove'>
+    <view class='share-bottom' style='height:25%'>
+
+      <view class='bottom-top-question' bindtap='cancelOneShare'>
+        <image class='bottom-top-image' src='../../../iconImages/icon_close.png'></image>
+      </view>
+
+      <view class='bottom-top'>
+        <view class='bottom-top-tv1'>
+          分享至任意微信群后即可{{isOneShowMoney}}元疯抢
+        </view>
+
+        <!-- <view class='bottom-top-question' bindtap='cancelOneShare'>
+          <image class='bottom-top-image' src='../../../iconImages/icon_close.png'></image>
+        </view> -->
+      </view>
+
+      <view class='bottom-center'>
+        <view class='bottom-center-out-left'>
+          <view class='share-cover'>
+            <image class='bottom-center-wx' src='{{Upyun}}small-iconImages/qingfengpic/icon_wechat_touming.png'> </image>
+            <text class='share-tv'>点我分享到微信群</text>
+            <button class="weixin-share-icon-btn" open-type="share"></button>
+          </view>
+        </view>
+      </view>
+
+      <!-- <form bindsubmit="cancelOneShare" report-submit="true">
+        <view class='bottom-bottom'>
+          <button class="button-cancel" formType="submit">取消</button>
+        </view>
+      </form> -->
+    </view>
+  </view>
+</view>
+<!-- 分享弹窗-----------end -->
+<!-- 参团提醒 -->
+<view class='join_group' wx:if='{{isShowJoinGroup}}'>
+  <view class='join_group-item'>
+    <image class='join_group-item-pic' src='{{userPic}}'></image>
+    <image class='fightview-tuanzhang-image' src='{{Upyun}}/small-iconImages/heboImg/tuanZhang.png'></image>
+    <image class='join_group-item-pic' src='../../../iconImages/fightwenhao.png'></image>
+    <view class='join_group-item-tv'>
+      <text class='join_group-item-tv-text'>还差<text class='join_group-item-tv-text-num'>{{rnum}}</text>人，快来参团吧！</text>
+    </view>
+  </view>
+</view>
+
+<!-- 开团提醒 -->
+<view wx:if='{{isShowOpenGroup}}'>
+  <template is="open-group" data='{{Upyun,userPic,openGroup_outTime}}'></template>
+</view>
+
+<!-- 顶部广告-----------start -->
+<!-- <view class='top-ad' wx:if='{{isSHowAdFlag}}'>
+  <swiper class='top-ad-swiper' indicator-dots="{{true}}" autoplay="{{true}}" interval="{{2000}}" duration="{{300}}" indicator-color='#fff' indicator-active-color='#ff3f8b'>
+    <block wx:for="{{adData}}">
+      <swiper-item>
+        <view class='top-ad-item'>
+          <image class='top-ad-item-pic' src='{{Upyun}}small-iconImages/ad_pic/{{item.link}}.png'></image>
+          <view class='top-ad-item-tv'>{{item.name}}</view>
+          <view class='award-open'>
+            <view class='top-ad-item-award'>
+              <view class='top-ad-item-award-add'>{{item.id==1?'+':''}}</view>
+              <view class='top-ad-item-award-num'>{{item.award}}</view>
+              <view class='top-ad-item-award-tv'>{{item.id==1?'元':''}}</view>
+            </view>
+            <view class='top-ad-item-open' wx:if='{{!isSignClose}}' bindtap='openSignClick'>打开</view>
+          </view>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+</view> -->
+<!-- 顶部广告-----------end -->
+
+<!-- 悬浮红包----------start -->
+<!-- <view class='red-packed' wx:if='{{isShowRedPacked}}'>
+  <image class='red-packed-image' src='{{Upyun}}small-iconImages/ad_pic/icon_balance_lottory_50.png' bindtap='redPackeClick'></image>
+</view> -->
+<!-- 悬浮红包----------end -->
+<!-- 分享出去的底部签到广告 ---------start----->
+<!-- <view class="selection-sign{{isShowSignBottomAd?'-show':''}}">
+  <image class='sign-ad-close' bindtap='signBottomAdCloseClick' src='{{Upyun}}small-iconImages/zzq/icon_close_white.png'> </image>
+  <view class='sign-ad'>
+    <image wx:if='{{signBottomLink}}' bindtap='openSignClick' class='sign-bottom-ad-image' src='{{Upyun}}small-iconImages/zzq/{{signBottomLink}}'></image>
+  </view>
+</view> -->
+<!-- 分享出去的底部签到广告 ---------end----->
+
+<!-- 浏览手势提示弹窗  -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{scanTipsShow}}">
+  <template is='scan_tips' data='{{Upyun}}'></template>
+</view>
+<!-- 赚钱任务完成弹窗  -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{signFinishShow}}">
+  <template is='sign-finish-dialog' data='{{Upyun,signFinishDialog}}'></template>
+</view>
+
+<!-- 余额抵扣弹窗  -->
+<!-- <view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{moneyDiscountShowFlag}}">
+  <template is='dialog-no-red-title' data='{{moneyDiscount}}'></template>
+</view> -->
+
+<!--新用户购买 弹窗  -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{isNewUserShow}}">
+  <template is='upperlimit' data='{{uppertittle,upperdistribution,upperbuttontitle}}'></template>
+</view>
+
+<!-- 第一次点击立即购买弹窗  -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{zeroBuyDialogShowFlag}}">
+  <template is='zero-buy' data='{{Upyun}}'></template>
+</view>
+
+<!-- 客服悬浮按钮 -->
+<view class='custom'>
+
+  <image animation="{{animationData}}" wx:if='{{isShowCustomTv}}' class='custom-tv' src='{{Upyun}}small-iconImages/zzq/icon_tv.png'>
+  </image>
+  <view class='v-custom'>
+    <image class='custom-icon' src='{{Upyun}}small-iconImages/zzq/icon_kefu.png'> </image>
+    <view class='custom-list'>
+      <button open-type='contact' send-message-path="{{contactMsgPaht}}" class="customerview-message-weapp" size="30" session-from="weapp" send-message-title='{{shop.shop_name}}' show-message-card='true' send-message-img='{{Upyun}}{{shop.cut_shop_code}}/{{shop.shop_code}}/{{shop.def_pic}}!180'
+        style="left:0rpx;" bindcontact='contactHandle'>
+      </button>
+      <!-- <button open-type='contact' send-message-path='/detail?shop_code={{shop.shop_code}}' class="customerview-message-weapp" size="30" session-from="weapp" send-message-title='{{shop.shop_name}}' show-message-card='true' send-message-img='{{Upyun}}{{shop.cut_shop_code}}/{{shop.shop_code}}/{{shop.def_pic}}!180'
+        style="left:0rpx; ">
+      </button> -->
+
+      <!-- <button open-type='contact' session-from='{"type": "image", "title": "点此进入", "url": "mp.weixin.qq.com ", "desc": "关注【芝麻小客服】获取更多粉丝福利", "img": "http://qq.com/test-not-found-img.png"}'> 图文消息，关注我们</button> -->
+
+    </view>
+  </view>
+
+</view>
+
+<!--余额抵扣弹框-->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{moneyDiscountShowFlag}}">
+  <template is='open-Discount' data='{{moneyDiscount,oneYuanDiscriptionTitle,oneyuanValue}}'></template>
+</view>
+
+<!-- 授权弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{loginupperGoYiFuShow}}">
+  <template is="Authorization" data='{{isUpperNotitle,uppertittle,loginupperdistribution,loginupperbuttontitle}}'></template>
+</view>

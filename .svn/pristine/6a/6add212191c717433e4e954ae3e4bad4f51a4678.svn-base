@@ -1,0 +1,3 @@
+<block wx:for="{{allBrandsData}}" wx:for-item="brand">
+    <view class='img'><image mode="widthFix" src="{{Upyun}}{{brand.pic}}" bindtap='onBrandTap' data-brand='{{allBrandsData[index]}}'></image></view>
+</block>

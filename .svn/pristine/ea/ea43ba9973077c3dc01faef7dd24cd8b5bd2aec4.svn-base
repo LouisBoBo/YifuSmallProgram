@@ -1,0 +1,120 @@
+@import "FlowWater-template.wxss";
+.headview {
+  height: 500rpx;
+  width: 100%;
+}
+.dis{
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 350rpx;
+  display: flex;
+  flex-direction: column;
+} 
+ .dis-title{
+  text-align: center;
+  color: white;
+  font-size: 34rpx;
+  width: 90%;
+  height: 80rpx;
+  margin-top: 150rpx;
+  margin-left: 5%;
+} 
+ .dis-content{
+  text-align: center;
+  color: white;
+  font-size: 30rpx;
+  width: 90%;
+  height: 80rpx;
+  margin-left: 5%;
+} 
+.dis-time{
+  text-align: center;
+  color: white;
+  font-size: 26rpx;
+  width: 90%;
+  height: 50rpx;
+  margin-left: 5%;
+}
+.discripton {
+  color: #666;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  margin-top: 10rpx;
+  line-height: 44rpx;
+  letter-spacing: 2px;
+  font-size: 28rpx;
+}
+
+.section2_line {
+  width: 50%;
+  height: 1px;
+  margin-left: 25%;
+  margin-top: 30rpx;
+  background: red;
+  position: relative;
+  top: 35rpx;
+  margin: 0 auto;
+  z-index: -99;
+}
+
+.cection2_text {
+  width: 26%;
+  height: 40rpx;
+  margin-left: 37%;
+  margin-top: 10rpx;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 32rpx;
+  color: red;
+  background: white;
+}
+
+.first_list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 1%;
+  margin-top: 20rpx;
+  margin-bottom: 1%;
+  background: #eee; 
+}
+
+.moreSpecial {
+  width: 40%;
+  height: 60rpx;
+  margin-left: 30%;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 40rpx;
+  color: white;
+  background: #ff3f8b;
+  border-radius: 8rpx;
+}
+
+.section3_text {
+  width: 26%;
+  height: 40rpx;
+  margin-left: 37%;
+  margin-top: 10rpx;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 32rpx;
+  color: red;
+  background: white;
+}
+
+.second_list {
+  display: flex;
+  flex-direction: column;
+  margin: 20rpx 10rpx 0 10rpx;
+}
+
+.second_list_image {
+  margin-bottom: 10rpx;
+  height: 500rpx;
+  width: 100%;
+}

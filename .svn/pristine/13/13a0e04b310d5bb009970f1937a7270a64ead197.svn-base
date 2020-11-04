@@ -1,0 +1,19 @@
+<template name="FightSuccess-goTiXian">
+  <!-- 拼团成功去提现 -->
+  <view class='fightView'>
+    <view class='fightView-shareimage'>
+      <image class='fightView-shareimage-image' src='{{Upyun}}/small-iconImages/heboImg/fight_gift@2x.png'></image>
+      <text class='fightView-shareimage-text'>恭喜拼单成功</text>
+      <text class='fightView-shareimage-text1'>现在可以去开启</text>
+      <text class='fightView-shareimage-text2'><text class='fightView-shareimage-importtext'>{{30-coupon}}</text>元提现啦!</text>
+      <text class='fightView-shareimage-button' bindtap='goToMoney'></text>
+      <text class='fightView-shareimage-buttontitle' bindtap='goToMoney'>去提现</text>
+
+      <form bindsubmit="fightsubmit" report-submit='true'>
+        <button class='tixiansubmit' open-type="" catchtap="goToMoney" form-type='submit'></button>
+      </form>
+
+    </view>
+    <image class='fightView-close' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closePop'></image>
+  </view>
+</template>

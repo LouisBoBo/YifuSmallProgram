@@ -1,0 +1,111 @@
+<template name="order-shopview">
+  <view class='orderconct' wx:if="{{item.orderShops.length>0}}">
+    <block wx:key wx:for="{{item.orderShops}}" wx:for-item="item2" wx:key="key">
+      <view class='baseview' bindtap='orderdetailTap' data-item="{{item}}" data-shopdata="{{item2}}">
+        <image class='headimage' wx:if="{{item.orderShops.length>0}}" src="{{upyconfig}}/{{item.orderShops[index].new_shop_pic}}"></image>
+        <image class='headimage' wx:else src="{{upyconfig}}/{{item.new_shop_pic}}"></image>
+        <view class='orderview'>
+          <view class='shopname' bindtap='moretap' data-index="{{index}}">
+            <text class="headtitle-text" wx:if="{{item.orderShops.length>0}}">{{item2.new_shopname}}</text>
+            <text class="headtitle-text" wx:else>{{item.new_shopname}}</text>
+            <text class="other-more-text" wx:if="{{isorderdetail=='false'}}">{{item.orderstatus}}</text>
+          </view>
+          <view class='color' bindtap='moretap' data-index="{{index}}">
+             <!-- <text class="headtitle-text" wx:if="{{item.orderShops[index].color.length>0 && item.isTM != 1}}">颜色:{{item.orderShops[index].color}} 尺码:{{item.orderShops[index].size}}</text>  -->
+             <!-- <text class="headtitle-text" wx:if="{{item.orderShops[index].color.length>0 && item.isTM == 1}}">{{item.orderShops[index].color}} {{item.orderShops[index].size}}</text> 
+            <text class="headtitle-text" wx:else> </text> -->
+
+            <!-- item.page4_shop = 1\2 item.isTM = 1 是特价商品 -->
+            <text class="headtitle-text" wx:if="{{item.page4_shop == 1 || item.page4_shop == 2 || item.isTM == 1}}">{{item.orderShops[index].color}} {{item.orderShops[index].size}}</text> 
+            <text class="headtitle-text" wx:else>颜色:{{item.orderShops[index].color}} 尺码:{{item.orderShops[index].size}}</text>
+
+            <text class="other-more-text" wx:if="{{item.orderShops.length>0 && isorderdetail=='false'}}">x{{item.orderShops[index].shop_num}}</text>
+            <text class="other-more-text" wx:if="{{(item.shop_from ==4 || item.shop_from ==6) && isorderdetail=='false'}}">x{{item.shop_num}}</text>
+          </view>
+          <view class='price' bindtap='moretap' data-index="{{index}}">
+            <!-- 需要显示原价的 -->
+            <view  wx:if='{{item.orderShops[index].original_price}}'>
+              <text class="headtitle-text" wx:if="{{item.orderShops.length>0}}"><text style='font-size: 26rpx'>原价</text>￥{{item.orderShops[index].original_price}}</text>
+            </view>
+            <!-- 需要显示单独购买价的 -->
+            <text class="headtitle-text" wx:elif="{{item.orderShops.length>0}}">￥{{item.orderShops[index].shop_price}}</text>
+
+            <text class="headtitle-text" wx:else>￥{{item.order_price}}</text>
+            <!-- 抵扣 -->
+            <view class="discount" wx:if="{{isorderdetail=='false'}}" data-item="{{item}}" catchtap='discountClick'>
+              <image class="discount-image" wx:if="{{ item.is_free !=4 &&  ((item.orderstatus == '疯抢未抢到' || item.orderstatus == '拼团失败')&& item.pay_status==1)}}" src='../../../iconImages/icon_question_mark.png' bindtap='moneyDiscountClick'></image>
+              <text class="discount-text" wx:if="{{ item.is_free !=4 &&  ((item.orderstatus == '疯抢未抢到' || item.orderstatus == '拼团失败')&& item.pay_status==1)}}">已退款</text>
+              <text class="discount-text" wx:elif="{{item.one_deductible > 0}}">已抵扣{{item.one_deductible}}元</text>
+
+             <text  wx:if='{{item.roll_name}}' class="discount-text" style='font-size: 28rpx;'>{{item.roll_name}}已参团，可立即免费领商品
+</text>
+          <!-- 处理预中奖 -->
+                          <!-- 新用户预中奖首单 24小前-->
+                         <!-- <text  wx:if='{{item.status==2&&item.whether_prize==2&&item.new_free==1}}' class="discount-text" style='font-size: 28rpx;font-weight: bold;  color: ff3f8b;'>会员免费领活动订单，新用户24小时后方可接通客服申请发货。</text> -->
+
+                         <!-- 新用户预中奖首单 24小后-->
+                         <!-- <text  wx:if='{{(item.status==17)&&item.whether_prize==2&&item.new_free==1}}' class="discount-text" style='font-size: 28rpx;font-weight: bold;  color: ff3f8b;'>会员免费领活动订单，请接通客服申请发货。</text> -->
+
+
+                         <!--非会员免费领只区分打卡  -->
+                         <!-- <text  wx:if='{{item.status==2&&item.whether_prize==2&&item.new_free==1 && clockIn == 0&&current_date=="newbie01"}}' class="discount-text" style='font-size: 28rpx;font-weight: bold;  color: ff3f8b;'>会员免费领订单，完成当天全部任务及提现后，可申请发货.</text> -->
+
+                         <!-- 2020-2-21 何波修改 -->
+
+                         <text  wx:if='{{item.new_free==13}}' class="discount-text" style='font-size: 28rpx;font-weight: bold;  color: ff3f8b;'>{{item.pay_money}}元已全额返还至钱包</text>
+
+                         <text  wx:elif='{{item.is_freeDelivery == 1}}' class="discount-text" style='font-size: 28rpx;font-weight: bold;  color: ff3f8b;'>会员免费领订单，可点下方免费发货</text>
+                         <text  wx:elif='{{item.status==2&&item.whether_prize==2&&item.new_free==1 && clockIn == 0 && isVip>0 && isVip!=3}}' class="discount-text" style='font-size: 28rpx;font-weight: bold;  color: ff3f8b;'>会员免费领订单，完成当天全部任务及提现后，可申请发货.</text>
+                         <text  wx:elif='{{item.status==2&&item.whether_prize==2&&item.new_free==1}}' class="discount-text" style='font-size: 28rpx;font-weight: bold;  color: ff3f8b;'>会员免费领订单，请点下方按钮申请发货。</text>
+
+
+  <!-- 会员预中奖 -->
+             <!-- <text  wx:if='{{(item.status==2||item.status==17)&&item.whether_prize==2&&item.new_free!=1}}' class="discount-text" style='font-size: 28rpx;font-weight: bold;  color: ff3f8b;'>商品超出{{vipMaxVipName}}可免费领的价格区间，请联系客服申请发货。</text> -->
+            <!-- 使用免拼卡、发货卡 待发货状态 -->
+            <text  wx:if='{{item.new_free==11&&item.shop_from==0&&item.whether_prize==9}}' class="discount-text" style='font-size: 28rpx;font-weight: bold;  color: ff3f8b;'>使用3张免拼卡</text>
+            <text  wx:if='{{item.new_free==12&&item.shop_from==0&&item.whether_prize==9}}' class="discount-text" style='font-size: 28rpx;font-weight: bold;  color: ff3f8b;'>使用3张发货卡</text>
+            </view>
+          </view>
+          <text class="sku-time" wx:if="{{item.shop_from == 0 && item.status < 3 && item.new_free == 0 && item.advance_sale_days > 0}}">发货时间：付款后{{item.advance_sale_days}}天内</text>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view class='orderconct' wx:else>
+    <view class='baseview' bindtap='orderdetailTap' data-item="{{item}}" data-shopdata="{{item2}}">
+      <image class='headimage' wx:if="{{item.orderShops.length>0}}" src="{{upyconfig}}/{{item.orderShops[index].new_shop_pic}}"></image>
+      <image class='headimage' wx:else src="{{upyconfig}}/{{item.new_shop_pic}}"></image>
+      <view class='orderview'>
+        <view class='shopname' bindtap='moretap' data-index="{{index}}">
+          <text class="headtitle-text" wx:if="{{item.orderShops.length>0}}">{{item2.new_shopname}}</text>
+          <text class="headtitle-text" wx:else>{{item.new_shopname}}</text>
+          <text class="other-more-text" wx:if="{{isorderdetail=='false'}}">{{item.orderstatus}}</text>
+        </view>
+        <view class='color' bindtap='moretap' data-index="{{index}}">
+          <text class="headtitle-text" wx:if="{{item.orderShops.length>0}}">颜色:{{item.orderShops[index].color}} 尺码:{{item.orderShops[index].size}}</text>
+          <text class="headtitle-text" wx:else> </text>
+
+          <text class="other-more-text" wx:if="{{item.orderShops.length>0 && isorderdetail=='false'}}">x{{item.orderShops[index].shop_num}}</text>
+          <text class="other-more-text" wx:if="{{(item.shop_from ==4 || item.shop_from ==6) && isorderdetail=='false'}}">x{{item.shop_num}}</text>
+        </view>
+        <view class='price' bindtap='moretap' data-index="{{index}}">
+          <text class="headtitle-text" wx:if="{{item.orderShops.length>0}}">原价￥{{item.orderShops[index].shop_price}}</text>
+          <text class="headtitle-text" wx:else>￥{{item.order_price}}</text>
+          <!-- 抵扣 -->
+          <view class="discount" wx:if="{{isorderdetail=='false'}}" data-item="{{item}}" catchtap='discountClick'>
+            <image class="discount-image" wx:if="{{(item.orderstatus == '疯抢未抢到' || item.orderstatus == '拼团失败' || item.one_deductible > 0)&&item.is_free !=4}}" src='../../../iconImages/icon_question_mark.png' bindtap='moneyDiscountClick'></image>
+            <text class="discount-text" wx:if="{{ item.is_free !=4 && ( item.orderstatus == '疯抢未抢到' || item.orderstatus == '拼团失败')}}">已退款</text>
+            <text class="discount-text" wx:elif="{{item.one_deductible > 0}}">已抵扣{{item.one_deductible}}元</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class='footview'>
+    <!-- 免费领订单倒计时 新用户第一天完成任务后显示申请发货 第二天直接显示申请发货-->
+    <text wx:if="{{item.shop_from==13&&item.status==2&&current_date && item.is_freeDelivery!=1}}" class="footview-time" style='font-size: 28rpx;font-weight: bold; color:#ff3f8b;'>剩余{{cutdowntime}}</text>
+    <text class="footview-text">共{{item.shop_num}}件商品  实付:￥{{item.pay_money}}</text>
+  </view>
+
+</template>

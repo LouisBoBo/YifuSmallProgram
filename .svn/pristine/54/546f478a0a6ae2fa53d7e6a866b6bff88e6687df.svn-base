@@ -1,0 +1,6 @@
+<template name="newYiListImag">
+
+  <image style='width: 100%;margin-bottom: 20rpx' src='{{Upyun}}{{item.url}}!560' mode='widthFix' bindtap="bindNewYiItemTap" data-postoptiontype="{{item.option_type}}"   data-postUrl="{{item.url}}"></image>
+</template>
+
+ <!-- bindtap="bindItemViewTap" data-postid="{{item.index}}" data-posclass="{{item.task_class}}" -->

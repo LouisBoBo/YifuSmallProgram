@@ -1,0 +1,148 @@
+/* pages/mine/myInviNumber/myselfQRcode.wxss */
+.messageToSeller {
+  /* height: 160rpx; */
+  align-items: center;
+  margin: 20rpx;
+  border: 1rpx solid #eee;
+  border-radius: 13rpx;
+  margin-bottom: 50rpx;
+}
+
+.bottmButton-view {
+  width: 90%;
+  height: auto;
+  background-color: #ff3f8b;
+  border-radius: 8rpx;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+textarea {
+  width: 100%;
+  height: auto;
+  padding: 25rpx 0;
+}
+
+.textarea-wrp {
+  padding: 0 25rpx;
+  background-color: #fff;
+  border: 1rpx solid #eee;
+  border-radius: 13rpx;
+  margin-bottom: 10rpx;
+  margin-top: 10rpx;
+}
+
+.page-section {
+  width: 100%;
+  height: auto;
+  margin-bottom: 60rpx;
+}
+
+.page-section:last-child {
+  margin-bottom: 0;
+}
+
+.page-section-title {
+  font-size: 35rpx;
+  height: auto;
+  color: black;
+  margin-bottom: 10rpx;
+}
+
+.myyqm-view {
+  align-self: center;
+  margin-top: 20rpx;
+  display: table-cell;
+  vertical-align: bottom;
+}
+
+.all-view {
+  /* margin-left: 30rpx;
+  margin-right: 30rpx; */
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.small-yqm {
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.weihao-imag {
+  margin-left: 8rpx;
+  height: 30rpx;
+  width: 30rpx;
+  /* background-color: #ff3f8b; */
+}
+.yqm-text{
+  color: #747474;
+  font-size: 28rpx
+}
+.my-yqm-text1{
+  color: black;
+  font-size: 33rpx;
+}
+.my-yqm-text2{
+  color: black;
+  font-size: 35rpx;
+  font-weight: bold;
+  margin-left: 10rpx;
+  margin-right: 10rpx
+}
+.my-yqm-text3{
+  color: #ff3f8b;
+  font-size: 30rpx;
+}
+
+.copy-imag {
+  margin-left: 8rpx;
+  height: 25rpx;
+  width: 25rpx;
+  /* background-color: #ff3f8b; */
+}
+
+.myyqm-view-has-sj {
+  align-self: center;
+  margin-top: 20rpx;
+  display: table-cell;
+  vertical-align: bottom;
+}
+.myyqm-sj{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  align-items:center;/*垂直居中*/
+  justify-content: center;/*水平居中*/  
+  display: flex;
+  flex-direction: column;
+}
+
+.basebigImg{
+  margin:0rpx 5% 20rpx 4%;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+}
+.qrcodeview{
+  display:flex; 
+  margin-top: -300rpx;
+  margin-bottom: 100rpx;
+  justify-content: center;
+}
+.qrcodeImg{
+  width: 200rpx;
+  height: 200rpx;
+}
+
+.testqrcodeview{
+  display:flex; 
+  flex-direction: column;
+  margin-top: 0rpx;
+  justify-content: center;
+  width: 323px;
+  height: 421px;
+}

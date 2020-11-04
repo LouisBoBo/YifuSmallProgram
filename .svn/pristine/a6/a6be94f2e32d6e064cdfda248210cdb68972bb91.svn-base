@@ -1,0 +1,87 @@
+/* pages/mine/sqfh/sqfh.wxss */
+page{
+  background: rgb(237, 237, 237);
+}
+.baseview{
+  background: rgb(237, 237, 237);
+  display: flex;
+  direction: row;
+  width: 100%;
+}
+.logoimage{
+  margin-left: 15rpx;
+  margin-top: 20rpx;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 8rpx;
+}
+.testimage{
+  margin-top: 50rpx;
+  margin-left: 10rpx;
+  width: 12rpx;
+  height: 20rpx;
+}
+.testview{
+  display: flex;
+  flex-direction: column;
+  margin: 20rpx 125rpx 40rpx 0rpx;
+  padding:20rpx 10rpx 20rpx 20rpx;
+  font-size: 31rpx;
+  width: 67%;
+  background: white;
+  border-radius: 4px;
+}
+.titleView{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  margin: 30rpx 130rpx 0 130rpx;
+  width: 480rpx;
+  height: 270rpx;
+  font-size: 32rpx;
+}
+.membertype{
+  /* padding-top: 30rpx; */
+  height: 100%;
+  width: 100%;
+}
+.spaceview{
+  height: 80rpx;
+  width: 100%;
+}
+.memberopen{
+  position: fixed;
+  bottom: 0rpx;
+  height: 80rpx;
+  width: 100%;
+  background-color: #ff3f8b;
+  color: white;
+  text-align: center;
+  font-size: 34rpx;
+  z-index: 100;
+  border-radius: 0;
+}
+.all-view{
+  display: flex;
+  flex-direction: column;
+  padding-top: 20rpx;
+  
+}
+
+.all-text-view{
+  display: flex;
+  flex-direction: column;
+  align-items: center
+}
+.all-text1{
+  color: black;
+  font-size: 35rpx;
+  padding-bottom: 7rpx;
+  padding-top: 7rpx;
+}
+.all-text2{
+  color: red;
+  font-size: 35rpx;
+  padding-bottom: 7rpx;
+  padding-top: 7rpx;
+}

@@ -1,0 +1,4 @@
+/* pages/mine/toexamine_test/toexamine_test.wxss */
+.toexamine_test{
+  width: 100%;
+}

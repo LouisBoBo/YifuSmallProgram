@@ -1,0 +1,59 @@
+<!--pages/mine/myInviNumber/myInviNumber.wxml-->
+<import src="../../../common/toastTest/toastTest.wxml" />
+<import src="../../../common/Discount-template/shareLogin.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<view class='all-view' wx:if="{{showSR}}">
+
+  <form bindsubmit="submitOrder" report-submit="true">
+
+
+    <view class="page-section">
+      <view class="page-section-title">填写邀请码</view>
+
+      <view class='small-yqm' bindtap='showYqmTips'>
+        <text class='yqm-text'>邀请码</text>
+        <image class='weihao-imag' src='../../../iconImages/icon_question_mark.png'></image>
+      </view>
+
+      <view class="textarea-wrp" name="message">
+        <textarea name="message" bindblur="bindTextAreaBlur" auto-height />
+      </view>
+    </view>
+
+
+    <button class='bottmButton-view' formType="submit">提交</button>
+
+
+  </form>
+  <view class='myyqm-view' bindtap='coyeUserID'>
+    <text class='my-yqm-text1'>我的邀请码</text>
+    <text class='my-yqm-text2'>{{user_id}}</text>
+    <text class='my-yqm-text3'>点击复制</text>
+    <image class='copy-imag' src='{{Upyun}}small-iconImages/qingfengpic/copy_icon.png'></image>
+
+  </view>
+</view>
+<view class='myyqm-sj' wx:if="{{showNoSR}}" >
+  <view class='myyqm-view-has-sj' bindtap='coyeUserID'>
+    <text class='my-yqm-text1'>我的邀请码</text>
+    <text class='my-yqm-text2'>{{user_id}}</text>
+    <text class='my-yqm-text3'>点击复制</text>
+    <image class='copy-imag' src='{{Upyun}}small-iconImages/qingfengpic/copy_icon.png'></image>
+
+  </view>
+</view>
+
+<view class="drawer_screen_withdraw" wx:if="{{showTips}}" catchtouchmove="preventTouchMove">
+  <view class='tips-view'>
+    <text class='my-yqm-text4'>什么是邀请码</text>
+    <text class='my-yqm-text5'>邀请码是衣蝠注册用户的序列号，可确定好友关系。</text>
+    <button class='bottmButton-view' bindtap='colseTips'>我知道了</button>
+  </view>
+</view>
+
+<view class='drawer_screen_withdraw' catchtouchmove="preventTouchMove" wx:if="{{showShareLogin}}">
+  <template is="shareLogin-template" data="{{Upyun}}"></template>
+</view>
+
+

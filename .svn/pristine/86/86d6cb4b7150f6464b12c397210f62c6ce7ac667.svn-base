@@ -1,0 +1,55 @@
+/* pages/mine/order/freeLingShare/freeLingShare.wxss */
+@import "../../../../common/FightShop-template/FightShopShare.wxss";
+@import "../../../../common/CanvasShare-template/canvasShare.wxss";
+.mainView{
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.spaceline{
+  margin-top: 20rpx;
+  width: 100%;
+  height: 1px;
+  background: #c5c5c5;
+}
+.share_shop{
+  display: flex;
+  flex-direction: column;
+  margin-top: 68rpx;
+}
+.share_shop_title{
+  margin: 0rpx 0 0rpx 0;
+  font-size: 34rpx;
+  font-weight: bold;
+  justify-content: center;
+  display: flex;
+  padding: 0 0 0 0;
+  line-height: 47rpx;
+}
+.shareCount{
+  font-size: 47rpx;
+  font-weight: bold;
+  color: red;
+  padding: 0 0 0 0;
+  line-height: 47rpx;
+}
+
+.share_shop_button{
+  width: 662rpx;
+  height: 97rpx;
+  align-self: center;
+  margin-top: 68rpx;
+  background-repeat:no-repeat;
+  border:none;
+  background-color: white;
+  background-size: 100% 100%;
+}
+.share_shop_discription{
+  margin-top: 20rpx;
+  font-size: 26rpx;
+  justify-content: center;
+  display: flex;
+  padding: 0 0 0 0;
+  line-height: 30rpx;
+  color: #7c7a7a;
+}

@@ -1,0 +1,383 @@
+/* sku选择 */
+
+.share-top {
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+
+.top-pic {
+  width: 100%;
+}
+
+.share-scroll-hint {
+  height: 340rpx;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.scroll-tv {
+  margin-top: 20rpx;
+  font-size: 25rpx;
+  color: #7d7d7d;
+}
+
+.scroll-tv-top {
+  margin-top: 20rpx;
+  font-size: 30rpx;
+  color: #3e3e3e;
+  text-align: center;
+}
+
+.scroll-pic {
+  width: 100%;
+  margin-top: 30rpx;
+}
+
+.bottom-image {
+  margin-top: 40rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.wx {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 140rpx;
+  align-items: center;
+  position: relative;
+  margin-right: 70rpx;
+}
+
+.wx-centes {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15rpx;
+  width: 140rpx;
+  align-items: center;
+}
+
+.wx-out {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: 110rpx;
+}
+
+.weixin-share-icon-btn {
+  width: 140rpx;
+  height: 200rpx;
+  opacity: 0;
+  position: absolute;
+  top: 0rpx;
+}
+
+.share-right-tv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  height: 34rpx;
+  width: 34rpx;
+  border-radius: 17rpx;
+  background-color: #ff3f8b;
+  color: #fff;
+  font-size: 22rpx;
+  right: 0rpx;
+}
+
+.wx-pic {
+  height: 100rpx;
+  width: 100rpx;
+}
+
+.wx-tv {
+  margin-top: 15rpx;
+  color: #ff3f8b;
+  display: flex;
+  font-size: 25rpx;
+  border: solid #ff3f8b 1px;
+  border-radius: 5rpx;
+  height: 50rpx;
+  width: 140rpx;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom-tv1 {
+  margin-top: 40rpx;
+  color: #ff3f8b;
+  font-size: 25rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom-tv2 {
+  margin-bottom: 40rpx;
+  color: #ff3f8b;
+  font-size: 25rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close {
+  height: 40rpx;
+  width: 40rpx;
+  position: absolute;
+  right: 15rpx;
+  top: 15rpx;
+}
+
+/* 以下为支付弹窗wxss */
+
+.dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.7);
+  /* display: none; */
+}
+
+.pay-out {
+  position: fixed;
+  bottom: 0;
+  /* width: 750rpx; */
+  width: 100%;
+  background: white;
+  transform: translateY(150%);
+  transition: all 0.4s linear;
+  z-index: 11;
+}
+
+.dialog--show .pay-out {
+  transform: translateY(0);
+}
+
+.pay {
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+
+.pay-v1 {
+  width: 100%;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 30rpx;
+  color: #3e3e3e;
+}
+
+.pay-line1 {
+  width: 100%;
+  height: 2rpx;
+  background-color: #e5e5e5;
+}
+
+.v1-right-need {
+  color: #ff3f8b;
+  font-size: 30rpx;
+}
+
+.bottm-pay {
+  width: 100%;
+  margin-bottom: 20rpx;
+  margin-top: 20rpx;
+  background-color: #ff3f8b;
+}
+
+.bottom-button-confrim {
+  background-color: #ff3f8b;
+  color: #fff;
+}
+
+/*整个赚钱说明的外层  */
+.share-sm {
+  width: 550rpx;
+  /* height: 450rpx; */
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 8rpx;
+
+  padding-bottom: 25rpx;
+}
+/*每条的外层  */
+.view-item-yugao-sm {
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  margin-top: 15rpx;
+  /* align-items: center; */
+}
+/*每条的序号  */
+.yugao-count-sm {
+  margin-right: 10rpx;
+  width: 40rpx;
+  height: 40rpx;
+  font-size: 26rpx;
+  color: #fff;
+  background-color: #ff3f8b;
+  border-radius: 50%;
+  text-align: center;
+  flex: none;
+}
+/*每条的具体文字  */
+.mingri-text-sm {
+  font-size: 30rpx;
+  color: #405f80;
+}
+.srcoll-vv{
+  width: 550rpx;
+  height: 450rpx;
+
+  display: flex;
+  flex-direction: column;
+}
+/* 以下下添加客服专用 */
+.notEnoughYidou-root {
+  width: 580rpx;
+  background-color: #fff;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+
+
+.notEnough-dialog-content1 {
+  align-self: center;
+  font-size: 30rpx;
+  color: #a8a8a8;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  text-align: justify;
+}
+
+.notEnough-dialog-content3 {
+  align-self: center;
+  font-size: 30rpx;
+  color: #a8a8a8;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  text-align: justify;
+}
+
+.jiqiName {
+  color: #ff3f8b;
+
+}
+
+.notEnough-dialog-content2 {
+  align-self: center;
+  font-size: 34rpx;
+  color: #fd215a;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.notEnough-dialog-content {
+  align-self: center;
+  font-size: 30rpx;
+  color: #fd215a;
+  margin-top: 0rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.bottom-btn {
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  margin-top: 60rpx;
+  margin-bottom: 40rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.bottom-btn-left {
+  height: 80rpx;
+  width: 250rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #fd215a;
+  background-color: white;
+  border-radius: 3px;
+  margin-right: 10rpx;
+}
+
+.bottom-btn-rigth {
+  height: 80rpx;
+  width: 250rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #fd215a;
+  background-color: #fdcc21;
+  border-radius: 3px;
+  margin-left: 10rpx;
+}
+
+.icon-close-shuoming{
+  height: 40rpx;
+  width: 40rpx;
+  position: absolute;
+  right: 10rpx;
+}
+
+.buttonView {
+  display: flex;
+  flex-direction: row;
+}
+
+.bottom-btn-yellow5 {
+  align-self: center;
+
+  width:450rpx;
+  height: 100%;
+  margin-top: 60rpx;
+  margin-bottom: 40rpx;
+  border-radius: 3px;
+  color: #fff;
+  background-color: #ff3f8b;
+  border: 2rpx solid #ff3f8b;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  text-align: center;
+}
+.first_g_title{
+  margin-top: 35rpx;
+  display: flex;
+  justify-content: center;
+
+}
+.notEnough-dialog-image{
+  height: 42rpx;
+  width: 42rpx;
+  margin-right: 10rpx;
+  align-self: center
+
+}
+.notEnough-dialog-title-first {
+  font-size: 33rpx;
+  color: black;
+  align-self: center
+
+}

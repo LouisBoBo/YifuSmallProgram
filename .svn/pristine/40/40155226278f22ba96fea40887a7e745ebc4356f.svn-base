@@ -1,0 +1,148 @@
+<import src="noorder-template.wxml" />
+<import src="order-shop-template.wxml" />
+<import src="orderHandle-template.wxml" />
+<import src="../../../common/toastTest/toastTest.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+<import src="../../../common/openYifu-template/openYifu.wxml" />
+<import src="../../../common/Discount-template/Discount.wxml" />
+<import src="../../../common/Refund-template/refundFail-template.wxml" />
+<import src="../../../common/FightSuccess-template/FightSuccess-goTiXian.wxml" />
+<import src="../../../common/FightSuccess-template/getJiQI" />
+<import src="../../../common/FightSuccess-template/FightSuccess" />
+<import src="../../../common/Member-template/member.wxml" />
+<import src="../../../common/Login-template/loginPop.wxml" />
+<import src="../../../common/FightSuccess-template/sqfh" />
+
+<view>
+  <view class='selectTitle'>
+    <block wx:key wx:for="{{titlelist}}">
+      <view class="{{currentTab==index?'select':'default'}}" data-current="{{index}}" bindtap="switchNav">
+        <text>{{item}}</text>
+        <!-- <form bindsubmit="loginsubmit" report-submit='true' wx:if="{{authSetting==false}}">
+          <button class='button_confrim_upperlimit' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+        </form> -->
+      </view>
+    </block>
+  </view>
+  <view class='mainview' wx:if="{{orderList.length>0}}">
+    <block wx:key wx:for="{{orderList}}" wx:for-item="item">
+      <template is="order-shopview" data="{{item,upyconfig,isorderdetail}}" />
+      <template is="orderHandleView" data="{{item,isShareOther}}" />
+      <view class='orderline' wx:if="{{item.orderButtonStatus.length>0}}" style='margin-top: 80rpx'></view>
+      <view class='orderline' wx:else style='margin-top: 20rpx'></view>
+    </block>
+  </view>
+  <view class='mainview' wx:else>
+    <template is="noorderBackview" data="{{upyconfig}}" />
+  </view>
+</view>
+
+
+
+<!-- 下载打开衣蝠APP弹框提示 -->
+<view class="drawer_screen_withdraw" wx:if="{{openYifuDialogShow}}" catchtouchmove="preventTouchMove" bindtap='closeToTX'>
+  <template is="open-yifu-dialog" data="{{Upyun}}"></template>
+</view>
+
+
+<!-- 下载打开衣蝠APP弹框提示 待疯抢专用-->
+<!-- <view class="drawer_screen_withdraw" wx:if="{{openYifuDialogShowFQ}}" catchtouchmove="preventTouchMove" bindtap='closeToTXFQ'>
+  <view class="open-yifu-root-tx">
+    <image class='img-close-tx' src="/iconImages/icon_close.png"></image>
+    <text class='open-yifu-text'>去<text class="open-yifu-text-red">衣蝠</text>APP疯抢</text>
+    <text class='open-yifu-text'>抢中几率翻一倍</text>
+    <image class='img-app-icon' src="{{Upyun}}small-iconImages/gx/open_yifu_dialog_icon.png" bindtap="previewImage"></image>
+    <text class='open-yifu-bottom-btn' catchtap="goAPPtx">去衣蝠APP</text>
+  </view>
+</view> -->
+
+
+
+
+
+
+
+
+<!-- 下载打开衣蝠APP弹框提示 -->
+
+<!--余额抵扣弹框-->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{moneyDiscountShowFlag}}">
+  <template is='open-Discount' data='{{moneyDiscount,oneYuanDiscriptionTitle,oneyuanValue}}'></template>
+</view>
+
+<!-- IOS引导下载APP -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showIOSdownload}}">
+  <image class='app-download' src="{{Upyun}}/small-iconImages/qingfengpic/guide_app4.png" catchtap="closeIOSdownload"></image>
+</view>
+
+
+<!-- 去疯抢提示 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{openYifuDialogShowFQ}}">
+  <view class="redPacket-root-tozhuanpan">
+    <!-- <text class='redPacket-dialog-tou{'>很遗憾！</text>
+    <text class='redPacket-dialog-content'>只差一点点哦，再眼明手快些把。</text> -->
+    <text class='redPacket-dialog-tou2{'>温馨提示</text>
+     <text class='redPacket-dialog-content-gozhuanpan'>1、因部分手机性能不足及网络延迟的原因，小程序的疯抢<text class='redPacket-dialog-content1'>转盘指针</text>会出现<text class='redPacket-dialog-content1'>点“停”后指针跳动</text>的问题。</text>
+    <text class='redPacket-dialog-content-gozhuanpan'>2、如您疯抢时出现指针跳动，可以<text class='redPacket-dialog-content1'>去衣蝠APP</text>疯抢，可完全<text class='redPacket-dialog-content1'>避免跳动</text>，大幅<text class='redPacket-dialog-content1'>提高抢中的机会</text>。</text>
+
+    <view class='buttonView'>
+      <text catchtap="dialogGoChoujiang" class='bottom-btn-yellow4'>去衣蝠APP</text>
+    </view>
+
+    <image catchtap="closeToTXFQ" class='icon-close' src="/iconImages/icon_close.png"></image>
+  </view>
+</view>
+
+<!-- 首次抽奖返回弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showFirstChoujiangBackDialog}}">
+  <view class="redPacket-root-tozhuanpan">
+    <!-- <text class='redPacket-dialog-tou{'>很遗憾！</text>
+    <text class='redPacket-dialog-content'>只差一点点哦，再眼明手快些把。</text> -->
+    <text class='redPacket-dialog-tou2{'>温馨提示</text>
+     <text class='redPacket-dialog-content-gozhuanpan'>1、因部分手机性能不足及网络延迟的原因，小程序的疯抢<text class='redPacket-dialog-content1'>转盘指针</text>会出现<text class='redPacket-dialog-content1'>点“停”后指针跳动</text>的问题。</text>
+    <text class='redPacket-dialog-content-gozhuanpan'>2、如您疯抢时出现指针跳动，可以<text class='redPacket-dialog-content1'>去衣蝠APP</text>疯抢，可完全<text class='redPacket-dialog-content1'>避免跳动</text>，大幅<text class='redPacket-dialog-content1'>提高抢中的机会</text>。</text>
+
+    <view class='buttonView'>
+      <text catchtap="colseFirstChouJiangBackDialog" class='bottom-btn-yellow4'>去衣蝠APP</text>
+    </view>
+
+    <image catchtap="colseFirstChouJiangBackDialog" class='icon-close' src="/iconImages/icon_close.png"></image>
+  </view>
+</view>
+
+<!-- 退款失败的弹窗 -->
+<view class='drawer_screen_withdraw' wx:if="{{openRefundFailShow}}">
+  <template is="RefundFail" data="{{Upyun}}"></template>
+</view>
+
+<!-- 拼单成功提示用户去提现的弹窗 -->
+<view class="drawer_screen_withdraw" wx:if="{{fightSuccess_fail_isShow}}" catchtouchmove="preventTouchMove">
+  <template is="FightSuccess-goTiXian" data="{{Upyun,coupon}}"></template>
+</view>
+
+<!-- 召唤机器人参团提示 -->
+<view class='drawer_screen_withdraw' wx:if="{{openGetJiqiDialog}}">
+  <template is="getJiQiDialog" data="{{Upyun,ptSuccessUserName}}"></template>
+</view>
+
+<!-- 召唤机器人拼团成功提示弹窗 -->
+<view class='drawer_screen_withdraw' wx:if="{{openFightSuccessShow}}">
+  <template is="open-FightSuccess" data="{{Upyun,ptSuccessUserName}}"></template>
+</view>
+
+
+<!-- 申请发货弹窗 -->
+<view class='drawer_screen_withdraw' wx:if="{{sqFHshow}}">
+  <template is="open-sqfh" data="{{Upyun,clickWhether_prize,sqfhData,supName,clickStatus}}"></template>
+</view>
+
+
+<!-- 首次抽奖返回会员红包弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{upperMemberYiFuShow}}">
+  <template is="Member" data='{{upyconfig}}'></template>
+</view>
+
+<!-- 登录失败弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{loginfailYiFuShow}}">
+  <template is="login-fail" data='{{upyconfig,login_discribution,login_buttontitle}}'></template>
+</view>

@@ -1,0 +1,32 @@
+.member_upperlimit {
+  width: 640rpx;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  margin-top: -50rpx;
+}
+
+.member_HongBao{
+  height: 718rpx;
+  width: 100%;
+}
+
+.closeimage-memberhongbao{
+  margin-top: 40rpx;
+  margin-left: 0rpx;
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.button_member_upperlimit {
+  opacity: 0;
+  background-color: green;
+  width: 80%;
+  height: 150rpx;
+  position: absolute;
+  bottom: 150rpx;
+  left: 10%;
+}
+

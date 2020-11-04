@@ -1,0 +1,16 @@
+<template name="getHongBaoSuccess">
+  <form bindsubmit="sharesubmit" report-submit='true'>
+    <view class="notEnoughYidou-root">
+      <text class='notEnough-dialog-title'>恭喜你</text>
+      <text class='notEnough-dialog-content1'>领到<text class='notEnough-dialog-contentimport'>30元</text>余额红包，</text>
+      <text class='notEnough-dialog-content1'>可用来购买商品或提现。</text>
+      <text class='notEnough-dialog-content1'>分享微信群后立即到账。</text>
+      <view class='buttonView'>
+        <text catchtap="getFight" class='bottom-btn-yellow'>存入我的账户</text>
+        <button class='button_confirm' open-type="share" form-type='submit' catchtap='su'></button>
+      </view>
+      <image catchtap="closeThirtyHongBao" class='icon-close' src="/iconImages/icon_close.png"></image>
+    </view>
+  </form>
+
+</template>

@@ -1,0 +1,25 @@
+<!--开始： 弹框层 分享X件商品 -->
+<template name="share_x_shop_template">
+  <view class="share-x-out-root">
+    <image class='top-title-a-image2' bindtap="bindTapcCloseShare" src="/iconImages/icon_close.png"></image>
+
+
+        <view class='shareshop-swiper-item-view-one'>
+
+
+          <text class='content-text-title'>温馨提示</text>
+
+    
+    <text class='content-text-new'>分享微信群，邀请家人，朋友或同事来衣蝠。</text>
+
+        </view>
+
+
+    <view class="weixin-share-btn-share">
+      <image class="weixin-share-icon" src="{{Upyun}}small-iconImages/qingfengpic/icon_wechat_touming.png"></image>
+      <text class="weixin-share-icon-text">点我分享到微信群</text>
+      <button class="weixin-share-icon-btnX" catchtap="sharetap" open-type="share"></button>
+    </view>
+  </view>
+</template>
+<!--结束： 弹框层 分享X件商品 -->

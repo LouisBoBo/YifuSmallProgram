@@ -1,0 +1,51 @@
+<!--pages/mine/addMemberCard/addMemberCard.wxml-->
+<swiper class='swiper' previous-margin='70px' next-margin='70px' bindchange="swiperChange" style='height:{{swiperH}};'>
+  <swiper-item wx:for='{{imgList}}' wx:key=''>
+    <image class='le-img {{nowIdx==index?"le-active":""}}' bindload='getHeight' src='{{item}}' style='height:{{swiperH}};'></image>
+  </swiper-item>
+</swiper>
+
+
+<view class='money-view'>
+  <text class='money-count'>会员费</text>
+  <text class='money-count'>￥19.9</text>
+
+</view>
+
+
+
+
+<text class='money-count-tuikuan'>30日后无条件退款</text>
+
+
+
+<view style='width: 100%;height:15rpx;background-color: #F7F7F7;margin-top: 20rpx;'></view>
+
+<view class='money-view'>
+  <text class='money-count'>支付方式</text>
+  <text class='money-count'>微信支付</text>
+
+</view>
+
+<view class='tips-view' style='width: 100%;height:600rpx;background-color: #F7F7F7;margin-top: 20rpx;'>
+
+
+  <text style='margin-top: 20rpx;font-size: 30rpx;margin-left:40rpx; color: #5e5e5e'>会员权益</text>
+  <text class='tips-view-text'>1.每日可免费拼团疯抢<text style='color: #ff3f8b'>19.9</text>元以下商品<text style='color: #ff3f8b'>1</text>次</text>
+  <text class='tips-view-text'>2.30日内购买任意商品可全额抵扣会员费</text>
+  <text class='tips-view-text'>3.独享赚钱小任务，月赚千元零花钱</text>
+  <text class='tips-view-text'>4.会员购衣，专享超低折扣</text>
+
+
+
+</view>
+
+
+<!-- 底部视图 -->
+<view class='bottomContainer'>
+  <text class='paytext'>总价：¥19.9</text>
+  <view class='bottmButton'>
+    <view>开通并支付</view>
+    <button class='button-confrim' formType="submit"></button>
+  </view>
+</view>

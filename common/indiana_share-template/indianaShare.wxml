@@ -1,0 +1,111 @@
+<import src="../addReduce-template/addReduce.wxml" />
+<!-- 夺宝分享 -->
+<template name="indianaShare">
+  <view class='share' catchtouchmove='preventTouchMove'>
+    <image mode='widthFix' class='top-pic' src='{{Upyun}}small-iconImages/zzq/indiana_share_top.png'>
+    </image>
+    <view class='share-top' catchtouchmove='preventTouchMove'>
+      <scroll-view class='share-scroll'  scroll-y='true'>
+        <view class='scroll-tv tv1'>
+          1.每分享3次给微信群或好友（只可分享给不同群或好友，否则只记1次），即可以1分钱参与原价2元的抽奖。分享次数越多，参与次数越多，你的中奖率就越高。
+        </view>
+        <view class='scroll-tv tv2'>
+          2.你更可得到分享邀请来的新好友账户余额与提现成功金额25%的奖励。每位好友最高100元余额，50元提现。
+        </view>
+        <image mode='widthFix' class='scroll-pic' src='{{Upyun}}small-iconImages/zzq/indiana_share_list.png'></image>
+      </scroll-view>
+      <view class='share-bottom'>
+        <view class='bottom-image'>
+          <view class='wx'>
+            <view class='wx-out'>
+              <image class='wx-pic' src='{{Upyun}}small-iconImages/zzq/icon_wx.png'>
+              </image>
+              <view class='share-right-tv'>
+              <text class='share-tv-count'> {{shareCount}}</text>
+              </view>
+            </view>
+            <view class='wx-tv'>分享</view>
+            <button class="weixin-share-icon-btn" open-type="share"></button>
+          </view>
+
+          <view class='wx-centes' bindtap='centsBuyClick'>
+            <view class='wx-out'>
+              <image class='wx-pic' src='{{Upyun}}small-iconImages/zzq/indiana_centes_pic.png'>
+              </image>
+              <view class='share-right-tv'>
+                <text class='share-tv-count'> {{centsBuyCount}}</text> 
+              </view>
+            </view>
+            <view class='wx-tv'>1分钱抽奖</view>
+
+          </view>
+          <view class='wx-centes' bindtap='twoBuyClick'>
+            <view class='wx-out'>
+              <image class='wx-pic' src='{{Upyun}}small-iconImages/zzq/indiana_centes_pic.png'>
+              </image>
+            </view>
+            <view class='wx-tv'>2元抽奖</view>
+          </view>
+        </view>
+      </view>
+      <view class='bottom-tv1'>分享到3个群后，</view>
+      <view class='bottom-tv2'>拿到提现奖励的机率高达98%！</view>
+    </view>
+    <image class='close' src='{{Upyun}}small-iconImages/zzq/icon_close_red.png' bindtap='closeDialogClick'></image>
+  </view>
+</template>
+
+
+
+<!-- 夺宝支付 -->
+<template name='indianaPay' >
+  <view  class="dialog {{ isShowPayFlag ? 'dialog--show' : '' }}">
+    <view wx:if='{{isShowPayFlag}}' class="dialog__mask" bindtap="toggleDialog" catchtouchmove='preventTouchMove' />
+    <view class="pay-out" catchtouchmove='preventTouchMove'>
+      <view class='pay'>
+        <view class='pay-v1'>
+          <view class='v1-left'>结算</view>
+          <view class='v1-right' bindtap='payCancelClick'>取消</view>
+        </view>
+        <view class='pay-line1'>
+        </view>
+
+        <view class='pay-v1'>
+          <view class='v1-left'>参与次数</view>
+          <view class='v1-right'>
+            <template is='addReduce' data='{{Upyun,buyCount}}'></template>
+          </view>
+        </view>
+        <view class='pay-line1'>
+        </view>
+
+        <view class='pay-v1'>
+          <view class='v1-left'>应付总额</view>
+          <view class='v1-right'>￥{{payCountMoney}}</view>
+        </view>
+        <view class='pay-line1'>
+        </view>
+
+        <view class='pay-v1' wx:if='{{!isTwoPayFlag}}'>
+          <view class='v1-left'>分享抵扣</view>
+          <view class='v1-right'>-￥{{payShareDiscount}}</view>
+        </view>
+        <view class='pay-line1'wx:if='{{!isTwoPayFlag}}'>
+        </view>
+
+        <view class='pay-v1' wx:if='{{!isTwoPayFlag}}'>
+          <view class='v1-left'>还需支付</view>
+          <view class='v1-right-need'>￥{{payNeed}}</view>
+        </view>
+        <view class='pay-line1' wx:if='{{!isTwoPayFlag}}'>
+        </view>
+        <view class='bottm-pay'>
+          <button class="bottom-button-confrim" formType="submit" bindtap="buyToOrder">确定</button>
+        </view>
+      </view>
+
+
+    </view>
+  </view>
+
+</template>

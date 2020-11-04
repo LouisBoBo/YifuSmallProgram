@@ -1,0 +1,13 @@
+<template name="getJiQiDialog">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>温馨提示</text>
+    <text class='notEnough-dialog-content1'>无人参团，您要申请关闭拼团吗？拼团费会在2个工作日内退还至您的付款账户。</text>
+
+    <view class='buttonView'>
+      <text catchtap="callRobot" class='bottom-btn-yellow6'>申请关闭拼团</text>
+      <text catchtap="closeFight" class='bottom-btn-yellow5'>继续拼团</text>
+
+    </view>
+    <image catchtap="closeFight" class='icon-close' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

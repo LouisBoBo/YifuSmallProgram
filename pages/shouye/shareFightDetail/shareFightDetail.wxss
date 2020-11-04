@@ -1,0 +1,269 @@
+/* pages/shouye/shareFightDetail/shareFightDetail.wxss */
+@import "../../../common/FightShop-template/FightShopShare.wxss";
+@import "../../../common/Freelingkefu-template/Freelingkefu.wxss";
+
+.mainView{
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.fight_Share{
+  display: flex;
+  flex-direction: column;
+}
+.fight_Share_title{
+  margin: -30rpx 0 19rpx 0;
+  padding: 0;
+  line-height: 34rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  justify-content: center;
+  color: #e16051;
+  display: flex;
+}
+.fight_Share_view{
+  margin: 0rpx 0 28rpx 0;
+  width: 100%;
+  align-items: center;
+}
+.fight_Share_button{
+  /* width: 509rpx;
+  height: 87rpx;
+  background-color: #e16051;
+  border-radius: 60rpx;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center; */
+
+  width: 509rpx;
+  height: 87rpx;
+  margin: auto;
+  background-size: 509rpx 87rpx;
+  background-repeat:no-repeat;
+  border:none;
+  background-color: white;
+}
+.fight_Share_button::after{
+  border: 0;
+  border-radius: 0;
+}
+
+.fight_Share_view{
+  display: flex;
+  flex-direction: column;
+}
+
+.fight_Share_view_title1{
+  margin-top: 10rpx;
+  margin-left: 20rpx;
+  color: white;
+  font-size: 24rpx;
+  height: 40rpx;
+}
+.fight_Share_view_title2{
+  margin-top: 0rpx;
+  margin-left: 20rpx;
+  margin-bottom: 0rpx;
+  color: white;
+  font-size: 24rpx;
+  display: flex;
+  justify-content: center;
+  height: 40rpx;
+}
+.fight_Share_view_swiper{
+  margin-top: 10rpx;
+  height: 715rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+.fight_Share_view_swiper-image{
+  height: 100%;
+  width: 100%;
+}
+.fight_Share_view_button{
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  height: 70rpx;
+}
+.fight_Share_view_button_left{
+  display: flex;
+  margin-bottom: 10rpx;
+  height: 45rpx;
+  color: white;
+  border: 1px solid #f0f0f0;
+  border-top: 1px solid #f0f0f0;
+  font-size: 26rpx;
+  justify-content: center;
+  align-items: center;
+  float: left;
+  padding:0 10rpx;
+}
+.fight_Share_view_button_right{
+  display: flex;
+  margin-bottom: 10rpx;
+  height: 45rpx;
+  color: white;
+  border: 1px solid #f0f0f0;
+  border-top: 1px solid #f0f0f0;
+  font-size: 26rpx;
+  justify-content: center;
+  align-items: center;
+  float: right;
+  padding:0 10rpx;
+}
+.fight_list {
+  width: 95%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  background-color: white;
+  border-radius: 5px;
+  margin-top: 30rpx;
+  margin-bottom: 0rpx;
+  position: relative;
+}
+
+.list-scoll {
+  height: 301px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5rpx;
+}
+
+.list-scoll-cover {
+  height: 301px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5rpx;
+  background-color: rgba(0, 0, 0, 0.0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 100rpx;
+}
+
+.list-item {
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: white;
+  border-top: 0.5px solid #c5c5c5;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+}
+
+.list-item image {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  align-self: center;
+}
+
+.user-name {
+  font-size: 12px;
+  color: #7d7d7d;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+
+.user-content {
+  font-size: 12px;
+  color: #7d7d7d;
+  margin-right: 10rpx;
+  width: 300rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.user-money {
+  font-size: 14px;
+  color: #ff3f8b;
+  position: absolute;
+  right: 20rpx;
+}
+
+.drawer_screen_withdraw3{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.93);
+}
+
+
+.titleview{
+  margin-bottom: 19rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  line-height: 26rpx;
+}
+.titleview-image{
+  margin-top: 0;
+  height: 22rpx;
+  width: 26rpx;
+}
+.titleview-title{
+  display: flex;
+  justify-content: center;
+  font-size: 26rpx;
+  margin-left: 15rpx;
+  padding: 0;
+}
+.gitbaseview-view{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  width: 522rpx;
+  height: 926rpx;
+  border: 1px solid rgb(236, 145, 191);
+  border-radius: 30rpx;
+  position: relative;
+  background: #eee; 
+}
+.gitbaseview-view-loadimg{
+  height: 80rpx;
+  width: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.gitbaseview-image{
+  width: 522rpx;
+  height: 926rpx;
+  border: 1px solid rgb(236, 145, 191);
+  border-radius: 30rpx;
+  position: absolute;
+	justify-content: center;
+  align-content: center;
+	z-index: 99;
+  background: white;
+}
+.video{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 26rpx;
+}
+
+/* .right-item {
+  padding: 0;
+  background: #fbeeed;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+} */

@@ -1,0 +1,10 @@
+<template name="Member">
+  <form bindsubmit="memberSubmit" report-submit='true' data-type='开卡'>
+    <view class='member_upperlimit'>
+      <image class='member_HongBao'src="{{upyconfig}}small-iconImages/heboImg/member_HongBao.png!450"></image>
+      <image class='closeimage-memberhongbao' src="{{upyconfig}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeNewThirty'></image>
+    
+      <button class='button_member_upperlimit' open-type="" form-type='submit'></button>
+    </view>
+  </form>
+</template>

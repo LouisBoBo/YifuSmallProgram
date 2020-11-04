@@ -1,0 +1,75 @@
+<template name="fightSuccess">
+  <!-- 开团成功 -->
+  <view class='fightView' wx:if="{{fightSuccess_fail_status==1}}">
+    <view class='fightView-title'>
+      <image class='fightView-title-imagenew' wx:if="{{isFirst_New}}" src="{{Upyun}}/small-iconImages/heboImg/fight_Success.png"></image>
+      <image class='fightView-title-image' wx:else src="{{Upyun}}/small-iconImages/heboImg/fight_Success.png"></image>
+      <text class='fightView-title-text' wx:if="{{isFirst_New}}">  该团已满员，为您新开一团！</text>
+      <text class='fightView-title-text' wx:else>  开团成功！</text>
+    </view>
+    <view class='fightView-content'>还差
+      <!-- <text class='fightView-content-number'>{{short_num}}</text>人，赶快邀请好友来参团吧，拼团成功后即可1折疯抢带走商品！</view> -->
+       <text class='fightView-content-number'>{{short_num}}</text>人，拼团成功即可免费领商品，快邀请好友一起来免费领商品吧。</view>
+    <view class='fightView-share'>
+      <block wx:key wx:for="{{orderlist}}" wx:for-item="item" wx:for-index="index">
+        <view class="zw-tabs-item" data-index="{{index}}">
+          <image bindtap='sharetap' src="{{Upyun}}/{{orderimage[index]}}"> </image>
+          <text class='zw-tabs-item-text'>{{item}}</text>
+          <button class="weixin-share-icon-btn" bindtap='sharetap' open-type="share" data-index="{{index}}">
+          </button>
+        </view>
+        <button class="weixin-share-icon-btn" open-type="share" data-index="{{index}}">
+        </button>
+      </block>
+    </view>
+    <image class='fightView-close' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closeTap'></image>
+  </view>
+
+  <!-- 很遗憾人数已满 -->
+  <view class='fightView' wx:elif="{{fightSuccess_fail_status ==2}}">
+    <view class='fightView-title'>
+      <image class='fightView-title-image' src="{{Upyun}}/small-iconImages/heboImg/icon_remind.png"></image>
+      <text class='fightView-title-text'>很遗憾人数已满！</text>
+    </view>
+    <view class='fightView-content'>你参与的拼团已达到拼团人数哦！去尝试自己开个团吧！</view>
+    <image class='fightView-close' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closeTap' data-id='{{fightSuccess_fail_status}}'></image>
+  </view>
+
+  <!-- 拼团未成功 -->
+  <view class='fightView' wx:elif="{{fightSuccess_fail_status ==3}}">
+    <view class='fightView-title'>
+      <image class='fightView-title-image' src="{{Upyun}}/small-iconImages/heboImg/miyou_icon_close.png"></image>
+      <text class='fightView-title-text'>拼团未成功！</text>
+    </view>
+    <view class='fightView-content'>因在规定时间内参团人数不足，您的免费领拼团未成功，本次免费领资格失效。下次再来吧。</view>
+    <view class='fightView-shareimage'>
+      <image class='fightView-shareimage-image' src='{{Upyun}}/small-iconImages/heboImg/fight_gift@2x.png'></image>
+      <text class='fightView-shareimage-text'>衣蝠为您准备了20元可提现现金红包</text>
+      <!-- <text class='fightView-shareimage-button' bindtap='gotixianTap'></text> -->
+      <!-- <text class='fightView-shareimage-buttontitle' bindtap='gotixianTap'>去提现</text> -->
+      <text class='fightView-shareimage-button1' bindtap='gomoneyTap'></text>
+      <text class='fightView-shareimage-buttontitle1' bindtap='gomoneyTap'>去领钱</text>
+    </view>
+    <image class='fightView-close' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closeTap'></image>
+  </view>
+
+  <!-- 很遗憾拼团已过期 -->
+  <view class='fightView' wx:elif="{{fightSuccess_fail_status ==4}}">
+    <view class='fightView-title'>
+      <image class='fightView-title-image' src="{{Upyun}}/small-iconImages/heboImg/icon_remind.png"></image>
+      <text class='fightView-title-text'>很遗憾已过期！</text>
+    </view>
+    <view class='fightView-content'>你参与的拼团已过期！去尝试自己开个团吧！</view>
+    <image class='fightView-close' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closeTap' data-id='{{fightSuccess_fail_status}}'></image>
+  </view>
+
+  <!-- 机器人参团成功 -->
+  <view class='fightView' wx:elif="{{fightSuccess_fail_status ==5}}">
+    <view class='fightView-title'>
+      <image class='fightView-title-image' src="{{Upyun}}/small-iconImages/heboImg/fight_Success.png"></image>
+      <text class='fightView-title-text'>开团成功！</text>
+    </view>
+    <view class='fightView-content'>人数已满，还有团员未付款，请耐心等待团员付款。</view>
+    <image class='fightView-close' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closeTap' data-id='{{fightSuccess_fail_status}}'></image>
+  </view>
+</template>

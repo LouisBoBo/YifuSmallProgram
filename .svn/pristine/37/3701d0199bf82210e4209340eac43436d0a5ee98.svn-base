@@ -1,0 +1,844 @@
+function e(e) {
+    return e && e.__esModule ? e : {
+        default: e
+    };
+}
+
+var t = e(require("../../service/api")), a = e(require("../../utils/tip"));
+import config from '../../config';
+var util = require('../../utils/util.js');
+var app = getApp();
+var personData = {};
+Page({
+    data: {
+        Upyun: config.Upyun,
+        fromWhere: "",
+        questionIndex: 1,
+        currentSex: 2,
+        sexData: [ {
+            sex_value: 2,
+            sex_cont: "/images/recordW.png",
+            sex_cont_act: "/images/my_ghead_act.png",
+            sex_txt: "女性",
+            isSelect: !0
+        }, {
+            sex_value: 1,
+            sex_cont: "/images/recordM.png",
+            sex_cont_act: "/images/my_bhead_act.png",
+            sex_txt: "男性",
+            isSelect: !1
+        } ],
+        wxChatNo: "",
+        currentAge: "",
+        ageData: [ {
+            age_value: 1,
+            age_cont: "20-25",
+            isSelect: !1
+        }, {
+            age_value: 2,
+            age_cont: "26-30",
+            isSelect: !1
+        }, {
+            age_value: 3,
+            age_cont: "31-35",
+            isSelect: !1
+        }, {
+            age_value: 4,
+            age_cont: "36-40",
+            isSelect: !1
+        }, {
+            age_value: 5,
+            age_cont: "41-45",
+            isSelect: !1
+        }, {
+            age_value: 6,
+            age_cont: "46+",
+            isSelect: !1
+        } ],
+        jobArray: [ "计算机软件", "销售", "市场", "广告与公关", "采购", "产品", "IT人员", "研发人员", "HR与行政", "管理者与业主", "律师", "咨询师 ", "金融", "会计与审计", "设计师", "艺术与音乐", "影视与媒体", "建筑与工程 ", "医护人员", "服务人员", "教育与公益", " 政府与公立", "自由职业", "学生" ],
+        jobIndex: 0,
+        jobValue: "",
+        heightArray: [],
+        heightIndex: 0,
+        heightValue: "",
+        weightArray: [],
+        weightIndex: 0,
+        weightValue: "",
+        styleList: [],
+        styleListM: [ {
+            style_value: 1,
+            style_img: "8232e283-65be-11e9-9d05-8cec4b6dcce5.png",
+            style_name: "商务休闲",
+            isSelect: !1
+        }, {
+            style_value: 2,
+            style_img: "84fc98a9-65be-11e9-9d05-8cec4b6dcce5.png",
+            style_name: "时尚运动",
+            isSelect: !1
+        }, {
+            style_value: 3,
+            style_img: "87efae15-65be-11e9-9d05-8cec4b6dcce5.png",
+            style_name: "文艺清新",
+            isSelect: !1
+        } ],
+        styleListW: [ {
+            style_value: 1,
+            style_img: "37c5dfd9-65be-11e9-9d05-8cec4b6dcce5.png",
+            style_name: "商务休闲",
+            isSelect: !1
+        }, {
+            style_value: 2,
+            style_img: "509b9b2c-65be-11e9-9d05-8cec4b6dcce5.png",
+            style_name: "时尚运动",
+            isSelect: !1
+        }, {
+            style_value: 3,
+            style_img: "4634415f-65be-11e9-9d05-8cec4b6dcce5.png",
+            style_name: "文艺清新",
+            isSelect: !1
+        }, {
+            style_value: 4,
+            style_img: "761dd3c3-65be-11e9-9d05-8cec4b6dcce5.png",
+            style_name: "性感优雅",
+            isSelect: !1
+        } ],
+        selectedStyle: [],
+        colorList: [ {
+            color_value: 1,
+            color_cont: "绿色",
+            isSelect: !1
+        }, {
+            color_value: 2,
+            color_cont: "蓝色",
+            isSelect: !1
+        }, {
+            color_value: 3,
+            color_cont: "粉色",
+            isSelect: !1
+        }, {
+            color_value: 4,
+            color_cont: "紫色",
+            isSelect: !1
+        }, {
+            color_value: 5,
+            color_cont: "白色",
+            isSelect: !1
+        }, {
+            color_value: 6,
+            color_cont: "灰色",
+            isSelect: !1
+        }, {
+            color_value: 7,
+            color_cont: "黑色",
+            isSelect: !1
+        }, {
+            color_value: 8,
+            color_cont: "棕色",
+            isSelect: !1
+        }, {
+            color_value: 9,
+            color_cont: "酒红",
+            isSelect: !1
+        }, {
+            color_value: 10,
+            color_cont: "红色",
+            isSelect: !1
+        }, {
+            color_value: 11,
+            color_cont: "橘色",
+            isSelect: !1
+        }, {
+            color_value: 12,
+            color_cont: "黄色",
+            isSelect: !1
+        } ],
+        colorAllCan: !1,
+        necklineList: [ {
+            neckline_value: 1,
+            neckline_name: "圆领",
+            neckline_img: "de05219f-65c2-11e9-9d05-8cec4b6dcce5.png",
+            isSelect: !1
+        }, {
+            neckline_value: 2,
+            neckline_name: "立领",
+            neckline_img: "e55d94d8-65c2-11e9-9d05-8cec4b6dcce5.png",
+            isSelect: !1
+        }, {
+            neckline_value: 3,
+            neckline_name: "高领",
+            neckline_img: "ec0786b0-65c2-11e9-9d05-8cec4b6dcce5.png",
+            isSelect: !1
+        }, {
+            neckline_value: 4,
+            neckline_name: "V领",
+            neckline_img: "ee26fe54-65c2-11e9-9d05-8cec4b6dcce5.png",
+            isSelect: !1
+        } ],
+        necklineAllCan: !1,
+        sleeveList: [ {
+            sleeve_value: 1,
+            sleeve_name: "蝙蝠袖",
+            sleeve_img: "0d6faa38-65c3-11e9-9d05-8cec4b6dcce5.png",
+            isSelect: !1
+        }, {
+            sleeve_value: 2,
+            sleeve_name: "无袖",
+            sleeve_img: "16c61e5a-65c3-11e9-9d05-8cec4b6dcce5.png",
+            isSelect: !1
+        }, {
+            sleeve_value: 3,
+            sleeve_name: "泡泡袖",
+            sleeve_img: "18cc9938-65c3-11e9-9d05-8cec4b6dcce5.png",
+            isSelect: !1
+        }, {
+            sleeve_value: 4,
+            sleeve_name: "荷叶袖",
+            sleeve_img: "1b316dbf-65c3-11e9-9d05-8cec4b6dcce5.png",
+            isSelect: !1
+        } ],
+        sleeveAllCan: !1,
+        upperModel: [ {
+            upperModel_value: 1,
+            upperModel_cont: "紧身",
+            isSelect: !1
+        }, {
+            upperModel_value: 2,
+            upperModel_cont: "修身",
+            isSelect: !1
+        }, {
+            upperModel_value: 3,
+            upperModel_cont: "宽松",
+            isSelect: !1
+        } ],
+        upperModelAllCan: !1,
+        pantsModel: [ {
+            pantsModel_value: 1,
+            pantsModel_cont: "紧身",
+            isSelect: !1
+        }, {
+            pantsModel_value: 2,
+            pantsModel_cont: "修身",
+            isSelect: !1
+        }, {
+            pantsModel_value: 3,
+            pantsModel_cont: "宽松",
+            isSelect: !1
+        }, {
+            pantsModel_value: 4,
+            pantsModel_cont: "窄脚",
+            isSelect: !1
+        }, {
+            pantsModel_value: 5,
+            pantsModel_cont: "喇叭",
+            isSelect: !1
+        }, {
+            pantsModel_value: 6,
+            pantsModel_cont: "阔腿",
+            isSelect: !1
+        } ],
+        pantsModelAllCan: !1,
+        pantsLenth: [ {
+            pantsLenth_value: 1,
+            pantsLenth_cont: "九分",
+            isSelect: !1
+        }, {
+            pantsLenth_value: 2,
+            pantsLenth_cont: "七分",
+            isSelect: !1
+        }, {
+            pantsLenth_value: 3,
+            pantsLenth_cont: "五分",
+            isSelect: !1
+        }, {
+            pantsLenth_value: 4,
+            pantsLenth_cont: "超短",
+            isSelect: !1
+        } ],
+        pantsLenthAllCan: !1,
+        skirtLenth: [ {
+            skirtLenth_value: 1,
+            skirtLenth_cont: "九分",
+            isSelect: !1
+        }, {
+            skirtLenth_value: 2,
+            skirtLenth_cont: "七分",
+            isSelect: !1
+        }, {
+            skirtLenth_value: 3,
+            skirtLenth_cont: "五分",
+            isSelect: !1
+        }, {
+            skirtLenth_value: 4,
+            skirtLenth_cont: "超短",
+            isSelect: !1
+        } ],
+        skirtLenthAllCan: !1,
+        printingList: [ {
+            printing_value: 1,
+            printing_name: "满身印花",
+            printing_img: "180c361b-65bf-11e9-9d05-8cec4b6dcce5.png",
+            isSelect: !1
+        }, {
+            printing_value: 2,
+            printing_name: "碎花",
+            printing_img: "5000594d-65bf-11e9-9d05-8cec4b6dcce5.png",
+            isSelect: !1
+        }, {
+            printing_value: 3,
+            printing_name: "波点",
+            printing_img: "65a4f9e0-65bf-11e9-9d05-8cec4b6dcce5.png",
+            isSelect: !1
+        }, {
+            printing_value: 4,
+            printing_name: "横条纹",
+            printing_img: "70589a6c-65bf-11e9-9d05-8cec4b6dcce5.png",
+            isSelect: !1
+        }, {
+            printing_value: 5,
+            printing_name: "格纹",
+            printing_img: "7ac86e60-65bf-11e9-9d05-8cec4b6dcce5.png",
+            isSelect: !1
+        }, {
+            printing_value: 6,
+            printing_name: "迷彩",
+            printing_img: "85ac98d9-65bf-11e9-9d05-8cec4b6dcce5.png",
+            isSelect: !1
+        }, {
+            printing_value: 7,
+            printing_name: "豹纹",
+            printing_img: "8d059e20-65bf-11e9-9d05-8cec4b6dcce5.png",
+            isSelect: !1
+        } ],
+        printingAllCan: !1,
+        userImg: "",
+        hasMobile: !1,
+
+    },
+    onLoad: function(e) {
+        // this.initData(), e.fromWhere && this.setData({
+        //     fromWhere: e.fromWhere
+        // });
+
+        for (var a = [], n = 140; n < 220; n++) a.push(n);
+        this.setData({
+            heightArray: a
+        }), a = [];
+        for (var i = 40; i < 150; i++) a.push(i);
+        this.setData({
+            weightArray: a
+        })
+    },
+    onReady: function() {},
+    onShow: function() {},
+    initData: function() {
+
+        var e = this;
+        t.default.userRecord({
+            success: function(t) {
+                console.log(t), e.data.sexData.forEach(function(e) {
+                    e.sex_value == t.Data.Sex ? e.isSelect = !0 : e.isSelect = !1;
+                }), e.data.ageData.forEach(function(e) {
+                    e.age_cont == t.Data.AgeRange ? e.isSelect = !0 : e.isSelect = !1;
+                }), 2 == t.Data.Sex ? e.data.styleListW.forEach(function(e) {
+                    t.Data.Style.forEach(function(t) {
+                        e.style_name == t && (e.isSelect = !0);
+                    });
+                }) : e.data.styleListM.forEach(function(e) {
+                    t.Data.Style.forEach(function(t) {
+                        e.style_name == t && (e.isSelect = !0);
+                    });
+                }), "AllCan" == t.Data.NotLikeColor[0] ? e.setData({
+                    colorAllCan: !0
+                }) : e.data.colorList.forEach(function(e) {
+                    t.Data.NotLikeColor.forEach(function(t) {
+                        e.color_cont == t && (e.isSelect = !0);
+                    });
+                }), "AllCan" == t.Data.NotLikeNeckline[0] ? e.setData({
+                    necklineAllCan: !0
+                }) : e.data.necklineList.forEach(function(e) {
+                    t.Data.NotLikeNeckline.forEach(function(t) {
+                        e.neckline_name == t && (e.isSelect = !0);
+                    });
+                }), "AllCan" == t.Data.NotLikeSleeve[0] ? e.setData({
+                    sleeveAllCan: !0
+                }) : e.data.sleeveList.forEach(function(e) {
+                    t.Data.NotLikeSleeve.forEach(function(t) {
+                        e.sleeve_name == t && (e.isSelect = !0);
+                    });
+                }), "AllCan" == t.Data.NotLikeCostVersion[0] ? e.setData({
+                    upperModelAllCan: !0
+                }) : e.data.upperModel.forEach(function(e) {
+                    t.Data.NotLikeCostVersion.forEach(function(t) {
+                        e.upperModel_cont == t && (e.isSelect = !0);
+                    });
+                }), "AllCan" == t.Data.NotLikePantsVersion[0] ? e.setData({
+                    pantsModelAllCan: !0
+                }) : e.data.pantsModel.forEach(function(e) {
+                    t.Data.NotLikePantsVersion.forEach(function(t) {
+                        e.pantsModel_cont == t && (e.isSelect = !0);
+                    });
+                }), "AllCan" == t.Data.NotLikePantsLength[0] ? e.setData({
+                    pantsLenthAllCan: !0
+                }) : e.data.pantsLenth.forEach(function(e) {
+                    t.Data.NotLikePantsLength.forEach(function(t) {
+                        e.pantsLenth_cont == t && (e.isSelect = !0);
+                    });
+                }), 2 == t.Data.Sex && ("AllCan" == t.Data.NotLikeSkirtLength[0] ? e.setData({
+                    skirtLenthAllCan: !0
+                }) : e.data.skirtLenth.forEach(function(e) {
+                    t.Data.NotLikeSkirtLength.forEach(function(t) {
+                        e.skirtLenth_cont == t && (e.isSelect = !0);
+                    });
+                })), "AllCan" == t.Data.NotLikePrinting[0] ? e.setData({
+                    printingAllCan: !0
+                }) : e.data.printingList.forEach(function(e) {
+                    t.Data.NotLikePrinting.forEach(function(t) {
+                        e.printing_name == t && (e.isSelect = !0);
+                    });
+                }), e.setData({
+                    sexData: e.data.sexData,
+                    currentSex: t.Data.Sex,
+                    wxChatNo: t.Data.WechatNo,
+                    ageData: e.data.ageData,
+                    currentAge: t.Data.AgeRange,
+                    jobValue: t.Data.Job,
+                    heightValue: t.Data.Height,
+                    weightValue: t.Data.Weight,
+                    styleListW: e.data.styleListW,
+                    styleListM: e.data.styleListM,
+                    colorList: e.data.colorList,
+                    necklineList: e.data.necklineList,
+                    sleeveList: e.data.sleeveList,
+                    upperModel: e.data.upperModel,
+                    pantsModel: e.data.pantsModel,
+                    pantsLenth: e.data.pantsLenth,
+                    skirtLenth: e.data.skirtLenth,
+                    printingList: e.data.printingList,
+                    userImg: t.Data.UserFullBodyImgUrl
+                });
+            }
+        });
+        for (var a = [], n = 140; n < 220; n++) a.push(n);
+        this.setData({
+            heightArray: a
+        }), a = [];
+        for (var i = 40; i < 150; i++) a.push(i);
+        this.setData({
+            weightArray: a
+        }), t.default.getUserInfo({
+            success: function(t) {
+                t.Data.Mobile ? (wx.setStorageSync("hasMobile", !0), e.setData({
+                    hasMobile: !0
+                })) : (wx.setStorageSync("hasMobile", !1), e.setData({
+                    hasMobile: !1
+                }));
+            }
+        });
+    },
+    selectSex: function(e) {
+        var t = this;
+        this.data.sexData.forEach(function(a) {
+            a.sex_value == e.currentTarget.dataset.value ? (a.isSelect = !0, t.setData({
+                currentSex: a.sex_value
+            })) : a.isSelect = !1;
+        }), this.setData({
+            sexData: this.data.sexData
+        });
+    },
+    inputWxChatNo: function(e) {
+        this.setData({
+            wxChatNo: e.detail.value
+        });
+    },
+    selectAge: function(e) {
+        var t = this;
+        this.data.ageData.forEach(function(a) {
+            a.age_value == e.currentTarget.dataset.value ? (a.isSelect = !a.isSelect, t.setData({
+                currentAge: a.age_cont
+            })) : a.isSelect = !1;
+        }), this.setData({
+            ageData: this.data.ageData
+        });
+    },
+    selectJob: function(e) {
+        this.setData({
+            jobIndex: e.detail.value,
+            jobValue: this.data.jobArray[e.detail.value]
+        });
+    },
+    selectHeight: function(e) {
+        this.setData({
+            heightIndex: e.detail.value,
+            heightValue: this.data.heightArray[e.detail.value]
+        });
+    },
+    selectWeight: function(e) {
+        this.setData({
+            weightIndex: e.detail.value,
+            weightValue: this.data.weightArray[e.detail.value]
+        });
+    },
+    selectStyle: function(e) {
+        var t = void 0;
+        (t = 1 == this.data.currentSex ? this.data.styleListM : this.data.styleListW).forEach(function(t) {
+            t.style_value == e.currentTarget.dataset.value && (t.isSelect = !t.isSelect);
+        }), 1 == this.data.currentSex ? this.setData({
+            styleListM: t
+        }) : this.setData({
+            styleListW: t
+        });
+    },
+    selectColor: function(e) {
+        this.data.colorList.forEach(function(t) {
+            t.color_cont == e.currentTarget.dataset.cont && (t.isSelect = !t.isSelect);
+        }), this.setData({
+            colorList: this.data.colorList,
+            colorAllCan: !1
+        });
+    },
+    selectColorAllCan: function() {
+        this.data.colorAllCan ? this.setData({
+            colorAllCan: !1
+        }) : (this.data.colorList.forEach(function(e) {
+            e.isSelect = !1;
+        }), this.setData({
+            colorAllCan: !0,
+            colorList: this.data.colorList
+        }));
+    },
+    selectNeckline: function(e) {
+        this.data.necklineList.forEach(function(t) {
+            t.neckline_value == e.currentTarget.dataset.value && (t.isSelect = !t.isSelect);
+        }), this.setData({
+            necklineList: this.data.necklineList,
+            necklineAllCan: !1
+        });
+    },
+    selectNecklineAllCan: function() {
+        this.data.necklineAllCan ? this.setData({
+            necklineAllCan: !1
+        }) : (this.data.necklineList.forEach(function(e) {
+            e.isSelect = !1;
+        }), this.setData({
+            necklineAllCan: !0,
+            necklineList: this.data.necklineList
+        }));
+    },
+    selectSleeve: function(e) {
+        this.data.sleeveList.forEach(function(t) {
+            t.sleeve_value == e.currentTarget.dataset.value && (t.isSelect = !t.isSelect);
+        }), this.setData({
+            sleeveList: this.data.sleeveList,
+            sleeveAllCan: !1
+        });
+    },
+    selectSleeveAllCan: function() {
+        this.data.sleeveAllCan ? this.setData({
+            sleeveAllCan: !1
+        }) : (this.data.sleeveList.forEach(function(e) {
+            e.isSelect = !1;
+        }), this.setData({
+            sleeveAllCan: !0,
+            sleeveList: this.data.sleeveList
+        }));
+    },
+    selectUpperModel: function(e) {
+        this.data.upperModel.forEach(function(t) {
+            t.upperModel_value == e.currentTarget.dataset.value && (t.isSelect = !t.isSelect);
+        }), this.setData({
+            upperModel: this.data.upperModel,
+            upperModelAllCan: !1
+        });
+    },
+    selectUpperModelAllCan: function() {
+        this.data.upperModelAllCan ? this.setData({
+            upperModelAllCan: !1
+        }) : (this.data.upperModel.forEach(function(e) {
+            e.isSelect = !1;
+        }), this.setData({
+            upperModelAllCan: !0,
+            upperModel: this.data.upperModel
+        }));
+    },
+    selectPantsModel: function(e) {
+        this.data.pantsModel.forEach(function(t) {
+            t.pantsModel_value == e.currentTarget.dataset.value && (t.isSelect = !t.isSelect);
+        }), this.setData({
+            pantsModel: this.data.pantsModel,
+            pantsModelAllCan: !1
+        });
+    },
+    selectPantsModelAllCan: function() {
+        this.data.pantsModelAllCan ? this.setData({
+            pantsModelAllCan: !1
+        }) : (this.data.pantsModel.forEach(function(e) {
+            e.isSelect = !1;
+        }), this.setData({
+            pantsModelAllCan: !0,
+            pantsModel: this.data.pantsModel
+        }));
+    },
+    selectPantsLenth: function(e) {
+        this.data.pantsLenth.forEach(function(t) {
+            t.pantsLenth_value == e.currentTarget.dataset.value && (t.isSelect = !t.isSelect);
+        }), this.setData({
+            pantsLenth: this.data.pantsLenth,
+            pantsLenthAllCan: !1
+        });
+    },
+    selectPantsLenthAllCan: function() {
+        this.data.pantsLenthAllCan ? this.setData({
+            pantsLenthAllCan: !1
+        }) : (this.data.pantsLenth.forEach(function(e) {
+            e.isSelect = !1;
+        }), this.setData({
+            pantsLenthAllCan: !0,
+            pantsLenth: this.data.pantsLenth
+        }));
+    },
+    selectSkirtLenth: function(e) {
+        this.data.skirtLenth.forEach(function(t) {
+            t.skirtLenth_value == e.currentTarget.dataset.value && (t.isSelect = !t.isSelect);
+        }), this.setData({
+            skirtLenth: this.data.skirtLenth,
+            skirtLenthAllCan: !1
+        });
+    },
+    selectSkirtLenthAllCan: function() {
+        this.data.skirtLenthAllCan ? this.setData({
+            skirtLenthAllCan: !1
+        }) : (this.data.skirtLenth.forEach(function(e) {
+            e.isSelect = !1;
+        }), this.setData({
+            skirtLenthAllCan: !0,
+            skirtLenth: this.data.skirtLenth
+        }));
+    },
+    selectPrinting: function(e) {
+        this.data.printingList.forEach(function(t) {
+            t.printing_value == e.currentTarget.dataset.value && (t.isSelect = !t.isSelect);
+        }), this.setData({
+            printingList: this.data.printingList,
+            printingAllCan: !1
+        });
+    },
+    selectPrintingAllCan: function() {
+        this.data.printingAllCan ? this.setData({
+            printingAllCan: !1
+        }) : (this.data.printingList.forEach(function(e) {
+            e.isSelect = !1;
+        }), this.setData({
+            printingAllCan: !0,
+            printingList: this.data.printingList
+        }));
+    },
+    uploadImg: function() {
+        var e = this, t = this;
+        wx.chooseImage({
+            sizeType: [ "original", "compressed" ],
+            sourceType: [ "album", "camera" ],
+            success: function(a) {
+                e.setData({
+                    files: a.tempFilePaths[0]
+                }), wx.showLoading({
+                    title: "上传中···"
+                }), wx.getFileSystemManager().readFile({
+                    filePath: a.tempFilePaths[0],
+                    encoding: "base64",
+                    success: function(e) {
+                        // t._sendImg("data:image/png;base64," + e.data);
+                      t.setData({
+                        userImg: a.tempFilePaths[0]
+                      })
+                      wx.hideLoading();
+                    }
+                });
+            }
+        });
+    },
+    _sendImg: function(e) {
+        var a = this;
+        t.default.uploadImg({
+            method: "POST",
+            apiType: "Img",
+            query: {
+                file: e
+            },
+            success: function(e) {
+                console.log(e), a.setData({
+                    userImg: e.Data.ImageUrl
+                }), t.default.saveRecord({
+                    method: "POST",
+                    query: {
+                        UserFullBodyImgId: e.Data.ImageId
+                    },
+                    success: function(e) {
+                        console.log(e), wx.hideLoading();
+                    }
+                });
+            }
+        });
+    },
+    toNextQuestion: function() {
+        var e = this;
+        if (8 != this.data.questionIndex) {
+            var n = this.getQueryData();
+            
+            e.data.questionIndex = e.data.questionIndex + 1, e.setData({
+            questionIndex: e.data.questionIndex
+          });
+        } else {
+          
+          // this.uploadFile();
+
+          var persondata = JSON.stringify(personData);
+          var imagespath = this.data.userImg;
+
+          wx.navigateTo({
+            url: '/pages/serviceDemand/serviceDemand?' + "persondata=" + persondata + "&imageFile=" + imagespath,
+          })
+        }
+    },
+    uploadFile:function(){
+
+      var persondata = JSON.stringify(personData);
+
+      var imagespath = this.data.userImg;
+      
+      var token = "";
+      if (app.globalData.user != null) {
+        token = app.globalData.user.userToken;
+      }
+      var dataUrl = config.Host + "/userFiles/upload" +"?" + config.Version + '&token=' + token;
+
+      wx.uploadFile({
+        url: dataUrl,
+        filePath: imagespath,
+        name: 'file',
+        header: {
+          "Content-Type": "multipart/form-data" 
+        },
+        formData: {
+          jsonData: persondata
+        },
+        success: function (res) { 
+          if(res.data)
+          {
+
+          }
+        },
+        fail: function (res) { 
+          if (res.errMsg) {
+
+          }
+        },
+        complete: function (res) { },
+      })
+    },
+    getQueryData: function() {
+        var e = {};
+        if (1 == this.data.questionIndex) e.Sex = this.data.currentSex, e.WechatNo = this.data.wxChatNo, 
+        e.AgeRange = this.data.currentAge, e.Job = this.data.jobValue, e.Height = this.data.heightValue, 
+        e.Weight = this.data.weightValue; 
+        else if (2 == this.data.questionIndex) {
+            var t = [];
+            (1 == this.data.currentSex ? this.data.styleListM : this.data.styleListW).forEach(function(e) {
+                e.isSelect && t.push(e.style_name);
+            }), e.Style = t.join("|");
+        } else if (3 == this.data.questionIndex) {
+            var a = [];
+            this.data.colorAllCan ? e.NotLikeColor = "AllCan" : (this.data.colorList.forEach(function(e) {
+                e.isSelect && a.push(e.color_cont);
+            }), e.NotLikeColor = a.join("|"));
+        } else if (4 == this.data.questionIndex) {
+            var n = [], i = [];
+            this.data.necklineAllCan ? e.NotLikeNeckline = "AllCan" : (this.data.necklineList.forEach(function(e) {
+                e.isSelect && n.push(e.neckline_name);
+            }), e.NotLikeNeckline = n.join("|")), this.data.sleeveAllCan ? e.NotLikeSleeve = "AllCan" : (this.data.sleeveList.forEach(function(e) {
+                e.isSelect && i.push(e.sleeve_name);
+            }), e.NotLikeSleeve = i.join("|"));
+        } else if (5 == this.data.questionIndex) {
+            var s = [], l = [];
+            this.data.upperModelAllCan ? e.NotLikeCostVersion = "AllCan" : (this.data.upperModel.forEach(function(e) {
+                e.isSelect && s.push(e.upperModel_cont);
+            }), e.NotLikeCostVersion = s.join("|")), this.data.pantsModelAllCan ? e.NotLikePantsVersion = "AllCan" : (this.data.pantsModel.forEach(function(e) {
+                e.isSelect && l.push(e.pantsModel_cont);
+            }), e.NotLikePantsVersion = l.join("|"));
+        } else if (6 == this.data.questionIndex) {
+            var c = [];
+            if (this.data.pantsLenthAllCan ? e.NotLikePantsLength = "AllCan" : (this.data.pantsLenth.forEach(function(e) {
+                e.isSelect && c.push(e.pantsLenth_cont);
+            }), e.NotLikePantsLength = c.join("|")), 2 == this.data.currentSex) {
+                var o = [];
+                this.data.skirtLenthAllCan ? e.NotLikeSkirtLength = "AllCan" : (this.data.skirtLenth.forEach(function(e) {
+                    e.isSelect && o.push(e.skirtLenth_cont);
+                }), e.NotLikeSkirtLength = o.join("|"));
+            }
+        } else if (7 == this.data.questionIndex) {
+            var r = [];
+            this.data.printingAllCan ? e.NotLikePrinting = "AllCan" : (this.data.printingList.forEach(function(e) {
+                e.isSelect && r.push(e.printing_name);
+            }), e.NotLikePrinting = r.join("|"));
+        }
+      
+        personData = Object.assign(personData, e);
+        return e;
+    },
+    toLastQuestion: function() {
+        var e = this;
+        if (8 != this.data.questionIndex) {
+            var a = this.getQueryData();
+
+            // t.default.saveRecord({
+            //     method: "POST",
+            //     query: a,
+            //     success: function(t) {
+            //         e.data.questionIndex = e.data.questionIndex - 1, e.setData({
+            //             questionIndex: e.data.questionIndex
+            //         });
+            //     }
+            // });
+
+          e.data.questionIndex = e.data.questionIndex - 1, e.setData({
+            questionIndex: e.data.questionIndex
+          });
+        } else this.data.questionIndex = this.data.questionIndex - 1, this.setData({
+            questionIndex: this.data.questionIndex
+        });
+    },
+    getPhoneNumber: function(e) {
+        var a = this;
+      wx.navigateTo({
+        url: '/pages/serviceDemand/serviceDemand',
+      })
+        // if (console.log("显示"), e.detail.encryptedData) {
+        //     var n = {
+        //         encryptedData: e.detail.encryptedData,
+        //         iv: e.detail.iv
+        //     };
+        //     t.default.updateMobile({
+        //         method: "POST",
+        //         query: n,
+        //         success: function(e) {
+        //             wx.setStorageSync("hasMobile", !0), a.setData({
+        //                 hasMobile: !0
+        //             }), a.toNextQuestion();
+        //         }
+        //     });
+        // } else this.toNextQuestion();
+    },
+    // formSubmit: function(e) {
+    //     t.default.saveFormId({
+    //         method: "POST",
+    //         query: {
+    //             formId: e.detail.formId
+    //         },
+    //         success: function(e) {}
+    //     });
+    // },
+    onHide: function() {},
+    onUnload: function() {},
+    onPullDownRefresh: function() {},
+    onReachBottom: function() {},
+    onShareAppMessage: function() {}
+});

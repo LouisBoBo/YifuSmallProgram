@@ -1,0 +1,440 @@
+function e(e) {
+    return e && e.__esModule ? e : {
+        default: e
+    };
+}
+
+var t = e(require("../../service/api")), a = e(require("../../utils/tip"));
+import config from '../../config';
+var util = require('../../utils/util.js');
+var app = getApp();
+Page({
+    data: {
+        Upyun: config.Upyun,
+        imgBaseUrl: "https://oss.xiaoxingli.com/Material/",
+        userDemand: "",
+        uploadImg: [],
+        uploadIndex: 0,
+        sceneList: [ {
+            value: 1,
+            scene_img: "ec9bf49e-689c-11e9-9d05-8cec4b6dcce5.png",
+            query_value: "日常",
+            isSelect: !1
+        }, {
+            value: 2,
+            scene_img: "eeccc75c-689c-11e9-9d05-8cec4b6dcce5.png",
+            query_value: "约会",
+            isSelect: !1
+        }, {
+            value: 3,
+            scene_img: "f10341ec-689c-11e9-9d05-8cec4b6dcce5.png",
+            query_value: "运动",
+            isSelect: !1
+        }, {
+            value: 4,
+            scene_img: "07ef0f21-689d-11e9-9d05-8cec4b6dcce5.png",
+            query_value: "旅行",
+            isSelect: !1
+        }, {
+            value: 5,
+            scene_img: "09bf8bb9-689d-11e9-9d05-8cec4b6dcce5.png",
+            query_value: "商务",
+            isSelect: !1
+        }, {
+            value: 6,
+            scene_img: "0c5fd986-689d-11e9-9d05-8cec4b6dcce5.png",
+            query_value: "派对",
+            isSelect: !1
+        } ],
+        fullBudget: [ {
+            value: 1,
+            query_value: "￥0-500",
+            isSelect: !1
+        }, {
+            value: 2,
+            query_value: "￥500-1000",
+            isSelect: !1
+        }, {
+            value: 3,
+            query_value: "￥1000-1500",
+            isSelect: !1
+        }, {
+            value: 4,
+            query_value: "￥1500-3000",
+            isSelect: !1
+        }, {
+            value: 5,
+            query_value: "￥3000+",
+            isSelect: !1
+        }, {
+            value: 6,
+            query_value: "不限",
+            isSelect: !1
+        } ],
+        shoesBudget: [ {
+            value: 1,
+            query_value: "￥100-300",
+            isSelect: !1
+        }, {
+            value: 2,
+            query_value: "￥300-600",
+            isSelect: !1
+        }, {
+            value: 3,
+            query_value: "￥600-1000",
+            isSelect: !1
+        }, {
+            value: 4,
+            query_value: "￥1000-1500",
+            isSelect: !1
+        }, {
+            value: 5,
+            query_value: "￥1500+",
+            isSelect: !1
+        }, {
+            value: 6,
+            query_value: "不限",
+            isSelect: !1
+        } ],
+        ACCBudget: [ {
+            value: 1,
+            query_value: "￥0-100",
+            isSelect: !1
+        }, {
+            value: 2,
+            query_value: "￥100-500",
+            isSelect: !1
+        }, {
+            value: 3,
+            query_value: "￥500-1000",
+            isSelect: !1
+        }, {
+            value: 4,
+            query_value: "￥1000-1500",
+            isSelect: !1
+        }, {
+            value: 5,
+            query_value: "￥1500+",
+            isSelect: !1
+        }, {
+            value: 6,
+            query_value: "不限",
+            isSelect: !1
+        } ],
+        StylistTicketNum: 0,
+        disabledMatch: !0,
+        isMember: !1,
+        stylistId: 0,
+        hasMobile: !1,
+        moneyDiscountShowFlag:false,
+        oneYuanDiscriptionTitle:'提交成功'
+
+    },
+    onLoad: function(e) {
+        // if (this.setData({
+        //     isMember: wx.getStorageSync("IsMember")
+        // }), e.scene) {
+        //     var a = decodeURIComponent(e.scene), s = parseInt(a.split("&")[0].split("=")[1]), i = parseInt(a.split("&")[1].split("=")[1]);
+        //     this.setData({
+        //         stylistId: i
+        //     }), t.default.saveFromUserId({
+        //         method: "POST",
+        //         query: {
+        //             fromFansId: s
+        //         },
+        //         success: function(e) {
+        //             console.log(e);
+        //         }
+        //     }), t.default.checkComplete({
+        //         success: function(e) {
+        //             e.Data.IsComplete || wx.navigateTo({
+        //                 url: "/pages/mypage/personalRecord/personalRecord?fromWhere=serviceDemand"
+        //             });
+        //         }
+        //     });
+        // }
+
+        this.setData({
+          persondata: e.persondata,
+          imagespath: e.imageFile
+        })
+    },
+    onReady: function() {},
+    onShow: function() {
+        // this.fetchData();
+    },
+    fetchData: function() {
+        var e = this;
+        t.default.getUserInit({
+            success: function(t) {
+                e.setData({
+                    StylistTicketNum: t.Data.StylistTicketNum
+                });
+            }
+        }), t.default.getUserInfo({
+            success: function(t) {
+                t.Data.Mobile ? (wx.setStorageSync("hasMobile", !0), e.setData({
+                    hasMobile: !0
+                })) : (wx.setStorageSync("hasMobile", !1), e.setData({
+                    hasMobile: !1
+                }));
+            }
+        });
+    },
+    toCheckRecord: function() {
+        wx.navigateTo({
+            url: "/pages/mypage/personalRecord/personalRecord?fromWhere=serviceDemand"
+        });
+    },
+    inputDemand: function(e) {
+        this.setData({
+            userDemand: e.detail.value
+        });
+    },
+    uploadImg: function() {
+        var e = this;
+        this.setData({
+            uploadIndex: 0
+        });
+        var t = 3 - this.data.uploadImg.length;
+        wx.chooseImage({
+            count: t,
+            sizeType: [ "original", "compressed" ],
+            sourceType: [ "album", "camera" ],
+            success: function(t) {
+                console.log(t);
+                var a = t.tempFilePaths.length;
+                wx.showLoading({
+                    title: "上传中(" + e.data.uploadIndex + " / " + a + ")"
+                }), e._sendImg(t.tempFilePaths, a);
+            }
+        });
+    },
+    _sendImg: function(e, a) {
+        var s = this;
+        wx.getFileSystemManager().readFile({
+            filePath: e[this.data.uploadIndex],
+            encoding: "base64",
+            success: function(i) {
+                // t.default.uploadImg({
+                //     method: "POST",
+                //     apiType: "Img",
+                //     query: {
+                //         file: "data:image/png;base64," + i.data
+                //     },
+                //     success: function(t) {
+                //         s.data.uploadImg.push({
+                //             img_url: t.Data.ImageUrl,
+                //             img_id: t.Data.ImageId
+                //         }), s.data.uploadIndex++, s.setData({
+                //             uploadImg: s.data.uploadImg,
+                //             uploadIndex: s.data.uploadIndex
+                //         }), wx.showLoading({
+                //             title: "上传中(" + s.data.uploadIndex + " / " + a + ")"
+                //         }), s.data.uploadIndex < a ? s._sendImg(e, a) : setTimeout(function() {
+                //             wx.hideLoading();
+                //         }, 1e3);
+                //     }
+                // });
+            }
+        });
+    },
+    deleteImg: function(e) {
+        this.data.uploadImg.splice(e.currentTarget.dataset.index, 1), this.setData({
+            uploadImg: this.data.uploadImg
+        });
+    },
+    selectScene: function(e) {
+        var t = 0;
+        this.data.sceneList.forEach(function(e) {
+            e.isSelect && t++;
+        }), this.data.sceneList.forEach(function(s) {
+            e.currentTarget.dataset.value == s.value && (s.isSelect ? s.isSelect = !s.isSelect : t < 3 ? s.isSelect = !s.isSelect : a.default.toast("最多只能选择3个场景哦~"));
+        }), this.setData({
+            sceneList: this.data.sceneList
+        });
+    },
+    selectFullBudget: function(e) {
+        this.selectTag(this.data.fullBudget, e.currentTarget.dataset.value), this.setData({
+            fullBudget: this.data.fullBudget
+        });
+    },
+    selectShoesBudget: function(e) {
+        this.selectTag(this.data.shoesBudget, e.currentTarget.dataset.value), this.setData({
+            shoesBudget: this.data.shoesBudget
+        });
+    },
+    selectACCBudget: function(e) {
+        this.selectTag(this.data.ACCBudget, e.currentTarget.dataset.value), this.setData({
+            ACCBudget: this.data.ACCBudget
+        });
+    },
+    selectTag: function(e, t) {
+        e.forEach(function(e) {
+            t == e.value ? e.isSelect = !e.isSelect : e.isSelect = !1;
+        });
+    },
+    getSelectData: function(e) {
+        var t = void 0;
+        return e.forEach(function(e) {
+            e.isSelect && (t = e.query_value);
+        }), t;
+    },
+    checkRecord: function() {
+        // var e = this;
+        // 0 != this.data.StylistTicketNum ? (wx.showLoading({
+        //     title: "正在生成服务···",
+        //     mask: !0
+        // }), this.data.disabledMatch && new Promise(function(e, a) {
+        //     t.default.checkComplete({
+        //         success: function(t) {
+        //             t.Data.IsComplete ? e() : a();
+        //         }
+        //     });
+        // }).then(function(t) {
+        //     e.binginMatch();
+        // }).catch(function(t) {
+        //     a.default.toast("请先完善您的个人档案!"), e.setData({
+        //         disabledMatch: !0
+        //     });
+        // })) : a.default.toast("暂无搭配券!");
+        // e.binginMatch();
+
+      var e = {};
+      e.UserRemarks = this.data.userDemand;
+      var scenedata = [];
+      for (var i = 0; i < this.data.sceneList.length; i++) {
+        var data = this.data.sceneList[i];
+        if (data.isSelect) {
+          scenedata.push(data.query_value);
+        }
+      }
+      if (scenedata.length) {
+        e.Scene = scenedata.join("|")
+      }
+
+      if(this.data.imagespath.length >10)//如果有图片上传图片
+      {
+        this.uploadFile(e);
+      }else{
+        this.submitData(e);
+      }
+      
+    },
+    binginMatch: function() {
+        this.setData({
+            disabledMatch: !1
+        });
+        var e = {};
+        if (!this.data.userDemand) return a.default.toast("请先填写对搭配师说的内容!"), this.setData({
+            disabledMatch: !0
+        }), void this.setData({
+            disabledMatch: !0
+        });
+        e.UserRemarks = this.data.userDemand;
+        var s = [];
+        this.data.uploadImg.forEach(function(e) {
+            s.push(e.img_id);
+        }), e.UserRemarksId = s.join(",");
+        var i = [];
+
+        return this.data.sceneList.forEach(function(e) {
+            e.isSelect && i.push(e.query_value);
+        }), i.length ? (e.Scene = i.join("|"), 
+        this.getSelectData(this.data.fullBudget) && this.getSelectData(this.data.shoesBudget) && this.getSelectData(this.data.ACCBudget) ? (e.ClothesMoney = this.getSelectData(this.data.fullBudget), 
+        e.ShoesMoney = this.getSelectData(this.data.shoesBudget), e.AccessoriesMoney = this.getSelectData(this.data.ACCBudget), 
+        e.AssignStylistId = this.data.stylistId, console.log(e), 
+          void this.uploadFile(e)) : (a.default.toast("请先选择搭配预算!"), void this.setData({
+            disabledMatch: !0
+        }))) : (a.default.toast("请先选择搭配的场景!"), this.setData({
+            disabledMatch: !0
+        }), void this.setData({
+            disabledMatch: !0
+        }));
+    },
+
+    //上传图片数据
+    uploadFile: function (e) {
+      var that = this;
+      var data = JSON.parse(this.data.persondata);
+      var newData = Object.assign(data, e);
+      var persondata = JSON.stringify(newData);
+
+      var imagespath = this.data.imagespath;
+
+      var token = "";
+      if (app.globalData.user != null) {
+        token = app.globalData.user.userToken;
+      }
+      var dataUrl = config.Host + "/userFiles/upload" + "?" + config.Version + '&token=' + token;
+
+      wx.showLoading({
+        title: '正在上传数据...',
+      })
+      wx.uploadFile({
+        url: dataUrl,
+        filePath: imagespath,
+        name: 'file',
+        header: {
+          "Content-Type": "multipart/form-data"
+        },
+        formData: {
+          jsonData: persondata
+        },
+        success: function (res) {//上传成功
+          wx.hideLoading();
+          that.setData({
+            moneyDiscountShowFlag: true
+          })
+        },
+        fail: function (res) {//上传失败
+          wx.hideLoading();
+          a.default.toast("提交失败!")
+        },
+        complete: function (res) { },
+      })
+    },
+    //提交用户文档数据
+    submitData: function (e) {
+      var that = this;
+      var data = JSON.parse(this.data.persondata);
+      var newData = Object.assign(data, e);
+      var persondata = JSON.stringify(newData);
+
+      wx.showLoading({
+        title: '正在上传数据...',
+      })
+      util.submit_personalRecord(persondata,function(data){
+        wx.hideLoading();
+        if(data.status == 1)
+        {
+          that.setData({
+            moneyDiscountShowFlag: true
+          })
+        }else{
+          a.default.toast("提交失败!")
+        }
+      })
+    },
+    toGetTicket: function() {
+        0 == this.data.StylistTicketNum && wx.navigateTo({
+            url: "/pages/matchTicket/matchTicket?mode=2"
+        });
+    },
+    
+    closeYiDouBtn:function(){
+      this.setData({
+        moneyDiscountShowFlag:false
+      })
+    },
+    closeGogoTab:function(){
+      wx.switchTab({
+        url: '/pages/shouye/shouye',
+      })
+    },
+    onHide: function() {},
+    onUnload: function() {},
+    onPullDownRefresh: function() {},
+    onReachBottom: function() {},
+    onShareAppMessage: function() {}
+});

@@ -1,0 +1,24 @@
+<template name="listItemTemplate">
+  <view class='image-item'>
+    <image mode="widthFix" src='{{Upyun}}{{item.cut_shop_code}}/{{item.shop_code}}/{{item.def_pic}}'>
+    </image>
+  </view>
+  <view class='v-bottom'>
+    <!-- <view class="v-suppley" wx:if="{{item.supp_label}}">
+      <text class='tv-suppley'>{{item.supp_label}}</text>
+    </view> -->
+    <view class='v-text'>
+
+
+                <text class='tv-kickback'  wx:if="{{supply_isShow}}"  >{{item.supp_label}}</text>
+                <text class='tv-name-showsub' wx:if="{{supply_isShow}}"  >{{item.shop_name}}</text>
+
+                        <text class='tv-name'   wx:if="{{!supply_isShow}}">{{item.shop_name}}</text>
+
+      <view class='tv-price-all'>
+        <text class='tv-price'>￥{{item.shop_se_price}}</text>
+        <text class='tv-price-shoppe'>月销{{item.virtual_sales}}件</text>
+      </view>
+    </view>
+  </view>
+</template>

@@ -1,0 +1,34 @@
+<!--pages/mine/wallet/accountDetail/ForwardDetail.wxml-->
+<view>
+  <view class='status'>
+    <block wx:key wx:for="{{images}}">
+      <image class='status-image' src="{{Upyun}}/small-iconImages/heboImg/{{images[index]}}.png" style="margin: 20rpx 0rpx 20rpx {{index==0?'150':'0'}}rpx;"></image>
+      <view class='status-line' wx:if="{{index<2}}"></view>
+    </block>
+  </view>
+  <view class='statusTitle'>
+    <block wx:key wx:for="{{statustitles}}">
+      <text class='statusTitle-text' style="margin: 0rpx 50rpx 20rpx {{index==0?'100':'0'}}rpx;">{{statustitles[index]}}</text>
+    </block>
+  </view>
+  <view class='tixianview'>
+    <text class='handleStatus'><text class='space'>空</text>{{content}}<text class='space'>空</text></text>
+  </view>
+  
+  <block wx:key wx:for="{{dataList}}" wx:for-item="item">
+    <view class='supportCardView' bindtap='selectCardTap' data-item="{{item}}">
+      <view class="slogan">
+        <text class="slogan-text">{{item.tittle}}</text>
+      </view>
+      <view class="more">
+        <text class="more-text{{index==0?'-first':''}}">{{item.content}}</text>
+      </view>
+    </view>
+  </block>
+  <view class='errorview'>
+   <text class='Reasonview' wx:if="{{showtransfer_error==true}}">原因:{{transfer_error}}</text>
+  </view>
+  <view class='tixianagain' wx:if="{{tixianAgain==true}}" bindtap='tixiantap'>
+    <view>重新申请</view>
+  </view>
+</view>

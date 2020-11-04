@@ -1,0 +1,24 @@
+<template name="ThrityRedTX">
+  <view class="notEnoughYidou-root">
+    <view class='title'>
+      <text class='notEnough-dialog-title'>20元红包已入账</text>
+      <!-- <image class='notEnough-dialog-image' src='/iconImages/fight_Success.png'></image> -->
+    </view>
+
+    <image class='notEnough-content-image2' src='/iconImages/go_next_down.png'></image>
+    <text class='notEnough-dialog-new'>拼团任意商品立减 <text class='count-money'>{{lijianMoney}}</text> 元</text>
+    <text class='notEnough-dialog-new'>并可提现 <text class='count-money'>{{deTXmoney}}</text> 元</text>
+
+    <text></text>
+    <image class='notEnough-content-image' src='/iconImages/go_next_down.png'></image>
+    <!-- <view class='buttonView'>
+      <text catchtap="thirty_tap" class='bottom-btn-yellow5'>立即开启提现</text>
+    </view> -->
+
+    <form bindsubmit="tixiansubmit" report-submit='true'>
+      <view class='buttonView'>
+        <button class='bottom-btn-yellow5' open-type="" catchtap="thirty_tap" form-type='submit'>立即开启提现</button>
+      </view>
+    </form>
+  </view>
+</template>

@@ -1,0 +1,146 @@
+<!--pages/shouye/two-three-four.wxml-->
+<import src="../../common/toastTest/toastTest.wxml" />
+<import src="../../common/Redenvelopes-template/Redenvelopes.wxml" />
+<import src="../../common/Authorization-template/Authorization-template" />
+<import src="../../common/Discount-template/Discount.wxml" />
+<import src="../../common/GetHongBao-template/getHongBao" />
+<template is="toast" data="{{ ..._toast_ }}" />
+<import src="specialDetail/FlowWater-template.wxml" />
+<import src="../../common/HasJYJLdialog-template/HasJYJLdialog-template" />
+<import src="../../common/SuspensionHongBao-template/SuspensionHongBao.wxml" />
+
+<view wx:if="{{is_showPage}}">
+  <!-- 搜索 -->
+  <view class="search-container" wx:if="{{shouYePage == 'TwoPage'}}" style='background-color: rgba(238, 238, 238, {{aph}})'>
+    <image bindtap='typeTap' wx:if="{{typePageHide==0}}" class='typeimage' src='{{upyconfig}}/small-iconImages/heboImg/shopping_icon_fenlei_white.png'></image>
+    <input type="text" bindinput="searchInputEvent" bindfocus="wxSerchFocus" placeholder="输入宝贝搜索"></input>
+    <icon bindtap="searchClickEvent" type="search" size="20" />
+    <image class='moneyimage' bindtap='moneytap' wx:if="{{typePageHide==0}}" src='{{upyconfig}}/small-iconImages/heboImg/shopping_icon_zhuanqian_white.png'></image>
+  </view>
+
+  <view bindtouchstart="handletouchtart" bindtouchmove="handletouchmove" scroll-top="{{scroll_top}}">
+    <view class='shouyeview'>
+      <!-- 轮播 -->
+      <view class='headview' wx:if="{{shouYePage == 'FivePage'}}">
+        <image mode="widthFix" class='baseswiper-image' src="{{upyconfig}}/small-iconImages/heboImg/backGround_shoppingCoupon.jpg" data-item="{{item}}"></image>
+        <view class='baseview'>
+          <form bindsubmit="loginsubmit" report-submit='true'>
+            <text class='headview_hongbao8' catchtap='swipertap'>会员专享<text class='headview_hongbao8-import'>199<text class='headview_hongbao11-import'>元</text>购物券</text>已入账</text>
+            <text class='headview_time3' catchtap='swipertap'>{{clock_hr}}:{{clock_min}}:{{clock_ss}}分后过期</text>
+            <text class='headview_hongbao10' catchtap='swipertap'>以下商品用券<text class='headview_hongbao8-import'>免费领</text></text>
+          </form>
+        </view>
+      </view>
+      <view class='headview' wx:elif="{{shouYePage == 'FourPage'}}">
+        <image mode="aspectFill" class='swiper-image' wx:if="{{shouYePage == 'FourPage'}}" src="{{upyconfig}}/small-iconImages/heboImg/newest_bayuanHongBao.jpg" data-item="{{item}}"></image>
+        <image mode="aspectFill" class='swiper-image' wx:else src="{{upyconfig}}/small-iconImages/heboImg/red_bananer.jpg" bindtap='swipertap' data-item="{{item}}"></image>
+        <text class='headview_hongbao1' wx:if="{{shouYePage == 'FourPage' && is_shouTime}}">￥ <text class='headview_hongbao_import'>{{coupon}}</text></text>
+        <text class='headview_hongbao2' wx:if="{{shouYePage == 'FourPage' && is_shouTime}}">现金红包已入账</text>
+        <text class='headview_hongbao3' wx:if="{{shouYePage == 'FourPage' && is_shouTime}}">以下商品满{{cond}}元用红包立减<text class='headview_hongbao7-import'>{{coupon}}</text>元</text>
+        <text class='headview_time' wx:if="{{shouYePage == 'FourPage' && is_shouTime}}">{{clock_hr}}:{{clock_min}}:{{clock_ss}}后红包过期</text>
+      </view>
+      <view class='headview' wx:elif="{{shouYePage == 'ThreePage'}}">
+        <image mode="widthFix" class='baseswiper-image' src="{{upyconfig}}/small-iconImages/heboImg/backGround_shoppingCoupon.jpg" data-item="{{item}}"></image>
+        <view class='baseview'>
+          <form bindsubmit="loginsubmit" report-submit='true'>
+            <text class='headview_hongbao8' catchtap='swipertap'>会员专享<text class='headview_hongbao8-import'>199元购物券</text>已入账</text>
+            <text class='headview_time3' catchtap='swipertap'>{{clock_hr}}:{{clock_min}}:{{clock_ss}}分后过期</text>
+            <text class='headview_hongbao10' catchtap='swipertap'>以下商品用券低至<text class='headview_hongbao10-import'>0</text>
+            <text class='headview_hongbao11-import'>元</text></text>
+          </form>
+        </view>
+      </view>
+      <view class='headview' wx:elif="{{shouYePage == 'TwoPage'}}">
+        <swiper class='swiper' indicator-dots="true" autoplay="true" interval='5000'>
+          <block wx:key wx:for="{{swiperlist}}" wx:for-item="item" wx:key="key">
+            <swiper-item>
+              <image mode="widthFix" class='swiper-image' src="{{upyconfig}}/{{item.url}}" bindtap='swipertap' data-item="{{item}}"></image>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+
+      <!-- 菜单 -->
+      <view class='topTitleView' wx:if="{{shouYePage == 'ThreePage'}}">新人免费福利</view>
+      <float-tab wx:if="{{shouYePage != 'ThreePage' && shouYePage != 'FivePage'}}" items="{{tabs}}" fixedBar="{{isShowFloatTab}}" bindtabclick="clickTab" style="margin-top:{{shouYePage == 'FivePage'?'-20rpx':'0'}}" />
+
+      <!-- 热卖列表 -->
+      <view class='first_list'>
+        <block wx:for="{{shoplist}}" wx:for-item="item" wx:key="key">
+          <template is="flowWater" data="{{item,UpyunConfig,Coloropacity,curTabId,showSub,NotshowFightCount,shouYePage}}"></template>
+        </block>
+      </view>
+    </view>
+    <view class='spaceview' style='height:{{typePagebottomHeigh}}px'></view>
+  </view>
+
+  <view class='footview' wx:if="{{typePageHide==0}}">
+    <block wx:key wx:for="{{orderlist}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+      <view class="zw-tabs-item " bindtap='tabtap' data-index="{{index}}">
+        <image src="{{orderimage[index]}}"> </image>
+        <text class='zw-tabs-item-text'>{{item}}</text>
+      </view>
+    </block>
+  </view>
+</view>
+
+
+<!-- 悬浮红包 -->
+<view wx:if="{{suspensionHongBao_isShow && shouYePage != 'TwoPage'}}">
+  <template is="suspensionHongBao" data="{{Upyun,SmallRedHongBao,xuanfuanimationMiddleHeaderItem}}"></template>
+</view>
+
+<!--新衣节弹窗  -->
+<view class="drawer_screen_withdraw" wx:if="{{_showNewYI}}" catchtouchmove="preventTouchMove">
+  <view class='view-xinyijie'>
+    <image class='yi-close' src='{{Upyun}}small-iconImages/ad_pic/free_icon_close.png' bindtap='newYiCloseTap'></image>
+    <image class='yi-bg-img' mode='aspectFit' src='{{Upyun}}small-iconImages/ad_pic/bg_hdxq.png' bindtap='newYIxiangqingTap'></image>
+    <view class='view-newyi-go' bindtap='newYIgoTap'></view>
+  </view>
+</view>
+<!--新衣节弹窗  结束-->
+
+<!-- 获取8元红包提示弹窗 -->
+<view class='drawer_screen_withdraw' wx:if="{{getHongBaoSuccessShow}}">
+  <template is="getHongBaoSuccess" data="{{Upyun,coupon}}"></template>
+</view>
+
+<!-- 授权弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{upperGoYiFuShow}}">
+  <template is="Authorization" data='{{isUpperNotitle,uppertittle,loginupperdistribution,loginupperbuttontitle}}'></template>
+</view>
+
+<!--拼团失败返还弹框-->
+<!-- <view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{money_DiscountShowFlag}}">
+  <template is='open-Discount' data='{{moneyDiscount,oneYuanDiscriptionTitle,oneyuanValue}}'></template>
+</view> -->
+
+<!-- 3-50元红包弹窗 -->
+<!-- <view class="drawer_screen_withdraw3" catchtouchmove="preventTouchMove" wx:if="{{upperGoYiFuShow}}">
+  <template is="Authorization" data='{{upyconfig,animationMiddleHeaderItem}}'></template>
+</view> -->
+
+<!-- 已经授权过的用户有交易记录弹窗 -- 红色50元弹窗 -->
+<!-- <view class="drawer_screen_withdraw2" catchtouchmove="preventTouchMove" wx:if="{{hasJYJLdialog}}">
+  <template is="HasJYJLshow" data='{{upyconfig,animationMiddleHeaderItem}}'></template>
+</view> -->
+
+<!-- 新人15元红包弹窗 -->
+<!-- <view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{redHongbaoNewuserShow}}">
+  <template is="Authorization" data='{{upyconfig,animationMiddleHeaderItem,clickLogin,channel_type}}'></template>
+</view> -->
+
+<!-- 非新人有提现现金红包弹窗 -->
+<!-- <view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{upperGoYiFuShow_tixian &&!upperGoYiFuShow && !moneyDiscountShowFlag && !moneyTixianShowFlag && !guidefightCouponShow}}">
+  <template is="Authorization_tixian" data='{{upyconfig,redHongBaoImg,animationMiddleHeaderItem,clickLogin,channel_type,nRaffle_Money,time}}'></template>
+</view> -->
+
+<!-- 非新人无提现现金红包弹窗 -->
+<!-- <view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{upperGoYiFuShow_task &&!upperGoYiFuShow && !moneyDiscountShowFlag && !moneyTixianShowFlag && !guidefightCouponShow}}">
+  <template is="Authorization_taskReward" data='{{upyconfig,redHongBaoImg,animationMiddleHeaderItem,clickLogin,channel_type}}'></template>
+</view> -->
+
+<!-- 是会员红包 -->
+<!-- <view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{hasJYJLdialog && !moneyDiscountShowFlag && !moneyTixianShowFlag}}">
+  <template is="HasJYJLshow" data='{{upyconfig,animationMiddleHeaderItem}}'></template>
+</view> -->

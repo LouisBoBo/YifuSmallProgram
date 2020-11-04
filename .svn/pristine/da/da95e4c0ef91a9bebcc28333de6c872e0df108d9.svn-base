@@ -1,0 +1,5 @@
+<template name="forwardSuccess">
+  <view class="notEnoughYidou-root" >
+    <image class='successimage' src="{{Upyun}}/small-iconImages/qingfengpic/tixian_complete_new.png" catchtap="goGZH"></image>
+  </view>
+</template>

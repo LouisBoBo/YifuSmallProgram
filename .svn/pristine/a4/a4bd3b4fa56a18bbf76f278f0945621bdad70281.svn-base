@@ -1,0 +1,82 @@
+/* pages/listHome/order/address/choseAddress.wxss */
+
+.addressContainer {
+margin-bottom: 100rpx;
+}
+.addAddress {
+  position: fixed;
+	bottom: 20rpx;
+
+    display: block;
+    width: 100%;
+     margin-left: auto;
+    margin-right: auto; 
+     padding-left: 14px;
+    padding-right: 14px; 
+    box-sizing: border-box;
+    text-align: center;
+     line-height: 2.55555556; 
+    overflow: hidden;
+    background-color: white;
+     font-size: 30rpx;
+     border-radius:5px;
+
+}
+
+.addAddress-text {
+  display: flex;
+   flex-direction: column;
+justify-content: center;
+  border: 1rpx solid #ff3f8b;
+  border-radius:5px;
+  color: #ff3f8b;
+}
+
+.address {
+  border-bottom:1rpx solid #eee;
+  display: flex;
+     justify-content: space-between;   
+    align-items: center;  
+}
+.left-address {
+  width: 80%;
+  padding-right: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+.name-phone , .defaultAddress-name-phone{
+  display: flex;
+  justify-content: space-between;  
+  padding-top: 20rpx;
+  padding-left: 40rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 30rpx;
+}
+.name {
+  width: 50%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.area , .defaultAddress-area{
+  padding-left: 40rpx;
+  margin-bottom: 20rpx;
+  font-size: 30rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.defaultAddress-name-phone {
+  color: #ff3f8b;
+}
+.defaultAddress-area {
+  color: #ff3f8b;
+}
+.edit {
+  margin-right: 20rpx;
+  width: 100rpx;
+  text-align: right;
+  color: #ff3f8b;
+  font-size: 30rpx;
+}
+
+

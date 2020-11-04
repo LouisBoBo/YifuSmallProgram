@@ -1,0 +1,213 @@
+<view class="page">
+    <form bindsubmit="formSubmit" reportSubmit="true">
+        <view class="question_card">
+            <image class="card_bg" src="{{Upyun}}/small-iconImages/heboImg/personal_record1.png"></image>
+            <view bindtap="toLastQuestion" class="last_question" wx:if="{{questionIndex>1}}">〈  上一题</view>
+            <block wx:if="{{questionIndex==1}}">
+                <view class="card_title">基本信息</view>
+                <view class="card_cont">
+                    <!-- <view class="cont_item">
+                        <view class="cont_item_left sex_title">性别</view>
+                        <view class="cont_item_right">
+                            <view bindtap="selectSex" class="sex_item" data-value="{{item.sex_value}}" wx:for="{{sexData}}" wx:key="{{index}}">
+                                <image class="sex_icon" src="{{item.isSelect?item.sex_cont_act:item.sex_cont}}"></image>
+                                <view class="sex_cont">{{item.sex_txt}}</view>
+                            </view>
+                        </view>
+                    </view> -->
+                    <view class="cont_item_contact">
+                        <view class="contact_title">微信/手机</view>
+                        <input bindinput="inputWxChatNo" class="contact_input" placeholder="方便搭配师与您联系" placeholderStyle="color:#B6B6B6;" type="text" value="{{wxChatNo}}"></input>
+                    </view>
+                    <view class="cont_item" style="margin-top: 40rpx;">
+                        <view class="cont_item_left age_title">年龄</view>
+                        <view class="cont_item_right age_right">
+                            <view bindtap="selectAge" class="age_item {{item.isSelect?'active':''}}" data-value="{{item.age_value}}" wx:for="{{ageData}}" wx:key="{{index}}">{{item.age_cont}}</view>
+                        </view>
+                    </view>
+                    <view class="cont_item" style="margin-bottom: 30rpx;">
+                        <view class="cont_item_left">职业</view>
+                        <view class="cont_item_right">
+                            <picker bindchange="selectJob" class="pick_box" range="{{jobArray}}" value="{{jobIndex}}">
+                                <input class="pick" disabled="{{true}}" placeholder="请选择" placeholderStyle="color:#B6B6B6;" readonly="readonly" value="{{jobValue}}"></input>
+                            </picker>
+                            <image class="arrow_down" src="/iconImages/record_dowm.png"></image>
+                        </view>
+                    </view>
+                    <view class="cont_item" style="margin-bottom: 30rpx;">
+                        <view class="cont_item_left">
+                            <view>身高</view>
+                            <view style="font-size:24rpx;">（cm）</view>
+                        </view>
+                        <view class="cont_item_right">
+                            <picker bindchange="selectHeight" class="pick_box" range="{{heightArray}}" value="{{heightIndex}}">
+                                <input class="pick" disabled="{{true}}" placeholder="选择身高" placeholderStyle="color:#B6B6B6;" readonly="readonly" value="{{heightValue}}"></input>
+                            </picker>
+                            <image class="arrow_down" src="/iconImages/record_dowm.png"></image>
+                        </view>
+                    </view>
+                    <view class="cont_item" style="margin-bottom: 30rpx;">
+                        <view class="cont_item_left">
+                            <view>体重</view>
+                            <view style="font-size:24rpx;">（kg）</view>
+                        </view>
+                        <view class="cont_item_right">
+                            <picker bindchange="selectWeight" class="pick_box" range="{{weightArray}}" value="{{weightIndex}}">
+                                <input class="pick" disabled="{{true}}" placeholder="选择体重" placeholderStyle="color:#B6B6B6;" readonly="readonly" value="{{weightValue}}"></input>
+                            </picker>
+                            <image class="arrow_down" src="/iconImages/record_dowm.png"></image>
+                        </view>
+                    </view>
+                </view>
+            </block>
+            <block wx:if="{{questionIndex==2}}">
+                <view class="card_title">基本信息</view>
+                <view class="card_cont_two">
+                    <view class="card_cont_left">
+                        <view style="font-size:26rpx;">风格</view>
+                        <view style="font-size:24rpx;">(可多选)</view>
+                    </view>
+                    <view class="card_cont_right">
+                        <view bindtap="selectStyle" class="style_item" data-value="{{item.style_value}}" wx:for="{{currentSex==2?styleListW:styleListM}}" wx:key="{{index}}">
+                            <view class="img_box">
+                                <image class="style_img" src="https://oss.xiaoxingli.com/Material/{{item.style_img}}"></image>
+                                <image class="select_icon" hidden="{{!item.isSelect}}" src="/iconImages/shop_select.png"></image>
+                            </view>
+                            <view class="style_name">{{item.style_name}}</view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+            <block wx:if="{{questionIndex==3}}">
+                <view class="card_title">穿衣喜好</view>
+                <view class="card_cont_three">
+                    <view class="card_cont_title">以下颜色的衣服你<text class="specFont"> 不会买 </text>(可多选)</view>
+                    <view class="select_color">
+                        <image class="select_color_bg" src="https://oss.xiaoxingli.com/Material/d5207a3b-6593-11e9-9d05-8cec4b6dcce5.png"></image>
+                        <view bindtap="selectColor" class="click_block click_block_{{item.color_value}}" data-cont="{{item.color_cont}}" wx:for="{{colorList}}" wx:key="{{index}}">
+                            <image class="selected_icon" src="/iconImages/shop_select.png" wx:if="{{item.isSelect}}"></image>
+                        </view>
+                    </view>
+                    <view bindtap="selectColorAllCan" class="all_will">
+                        <view class="all_will_icon {{colorAllCan?'active':''}}"></view>
+                        <view class="all_will_cont">我都可以，无特殊要求</view>
+                    </view>
+                </view>
+            </block>
+            <block wx:if="{{questionIndex==4}}">
+                <view class="card_title">穿衣喜好</view>
+                <view class="card_cont_three">
+                    <view class="card_cont_title">以下领口你<text class="specFont"> 不喜欢 </text>(可多选)</view>
+                    <view class="select_neckline select_list">
+                        <view bindtap="selectNeckline" class="neckline_item select_cont" data-value="{{item.neckline_value}}" wx:for="{{necklineList}}" wx:key="{{index}}">
+                            <view class="image_box">
+                                <image class="neckline_img item_img" src="https://oss.xiaoxingli.com/Material/{{item.neckline_img}}"></image>
+                                <image class="select_icon" src="/iconImages/shop_select.png" wx:if="{{item.isSelect}}"></image>
+                            </view>
+                            <view class="neckline_name item_name">{{item.neckline_name}}</view>
+                        </view>
+                    </view>
+                    <view bindtap="selectNecklineAllCan" class="all_will" style="margin-bottom: 84rpx;">
+                        <view class="all_will_icon {{necklineAllCan?'active':''}}"></view>
+                        <view class="all_will_cont">我都可以，无特殊要求</view>
+                    </view>
+                    <view class="card_cont_title">以下袖口你<text class="specFont"> 不喜欢 </text>(可多选)</view>
+                    <view class="select_sleeve select_list">
+                        <view bindtap="selectSleeve" class="sleeve_item select_cont" data-value="{{item.sleeve_value}}" wx:for="{{sleeveList}}" wx:key="{{index}}">
+                            <view class="image_box">
+                                <image class="sleeve_img item_img" src="https://oss.xiaoxingli.com/Material/{{item.sleeve_img}}"></image>
+                                <image class="select_icon" src="/iconImages/shop_select.png" wx:if="{{item.isSelect}}"></image>
+                            </view>
+                            <view class="sleeve_name item_name">{{item.sleeve_name}}</view>
+                        </view>
+                    </view>
+                    <view bindtap="selectSleeveAllCan" class="all_will">
+                        <view class="all_will_icon {{sleeveAllCan?'active':''}}"></view>
+                        <view class="all_will_cont">我都可以，无特殊要求</view>
+                    </view>
+                </view>
+            </block>
+            <block wx:if="{{questionIndex==5}}">
+                <view class="card_title">穿衣喜好</view>
+                <view class="card_cont_three">
+                    <view class="card_cont_title">上衣版型你外出穿着<text class="specFont"> 很少 </text>(可多选)</view>
+                    <view class="select_upper select_list select_model">
+                        <view bindtap="selectUpperModel" class="upper_item select_item {{item.isSelect?'active':''}}" data-value="{{item.upperModel_value}}" wx:for="{{upperModel}}" wx:key="{{index}}">{{item.upperModel_cont}}</view>
+                    </view>
+                    <view bindtap="selectUpperModelAllCan" class="all_will" style="margin-bottom: 84rpx;">
+                        <view class="all_will_icon {{upperModelAllCan?'active':''}}"></view>
+                        <view class="all_will_cont">我都可以，无特殊要求</view>
+                    </view>
+                    <view class="card_cont_title">裤子版型你外出穿着<text class="specFont"> 很少 </text>(可多选)</view>
+                    <view class="select_sleeve select_list select_model">
+                        <view bindtap="selectPantsModel" class="sleeve_item select_item {{item.isSelect?'active':''}}" data-value="{{item.pantsModel_value}}" style="{{index<3?'margin-bottom: 35rpx;':'margin-bottom: 0;'}}" wx:for="{{pantsModel}}" wx:key="{{index}}">{{item.pantsModel_cont}}</view>
+                    </view>
+                    <view bindtap="selectPantsModelAllCan" class="all_will">
+                        <view class="all_will_icon {{pantsModelAllCan?'active':''}}"></view>
+                        <view class="all_will_cont">我都可以，无特殊要求</view>
+                    </view>
+                </view>
+            </block>
+            <block wx:if="{{questionIndex==6}}">
+                <view class="card_title">穿衣喜好</view>
+                <view class="card_cont_three">
+                    <view class="card_cont_title">裤子长度你<text class="specFont"> 不太喜欢 </text>(可多选)</view>
+                    <view class="select_pants select_list select_model">
+                        <view bindtap="selectPantsLenth" class="pants_item select_item {{item.isSelect?'active':''}}" data-value="{{item.pantsLenth_value}}" style="{{index<3?'margin-bottom: 35rpx;':'margin-bottom: 0;'}}" wx:for="{{pantsLenth}}" wx:key="{{index}}">{{item.pantsLenth_cont}}</view>
+                    </view>
+                    <view bindtap="selectPantsLenthAllCan" class="all_will" style="margin-bottom: 84rpx;">
+                        <view class="all_will_icon {{pantsLenthAllCan?'active':''}}"></view>
+                        <view class="all_will_cont">我都可以，无特殊要求</view>
+                    </view>
+                    <block wx:if="{{currentSex==2}}">
+                        <view class="card_cont_title">裙子长度你<text class="specFont"> 不太喜欢 </text>(可多选)</view>
+                        <view class="select_sleeve select_list select_model">
+                            <view bindtap="selectSkirtLenth" class="sleeve_item select_item {{item.isSelect?'active':''}}" data-value="{{item.skirtLenth_value}}" style="{{index<3?'margin-bottom: 35rpx;':'margin-bottom: 0;'}}" wx:for="{{skirtLenth}}" wx:key="{{index}}">{{item.skirtLenth_cont}}</view>
+                        </view>
+                        <view bindtap="selectSkirtLenthAllCan" class="all_will">
+                            <view class="all_will_icon {{skirtLenthAllCan?'active':''}}"></view>
+                            <view class="all_will_cont">我都可以，无特殊要求</view>
+                        </view>
+                    </block>
+                </view>
+            </block>
+            <block wx:if="{{questionIndex==7}}">
+                <view class="card_title">穿衣喜好</view>
+                <view class="card_cont_three">
+                    <view class="card_cont_title">以下印花你<text class="specFont"> 不喜欢 </text>(可多选)</view>
+                    <view class="select_printing select_list">
+                        <view bindtap="selectPrinting" class="printing_item select_cont" data-value="{{item.printing_value}}" style="{{index<4?'margin-bottom: 45rpx;':'margin-bottom: 0;'}}{{index==3?'margin-right: 0;':'margin-right: 14rpx;'}}" wx:for="{{printingList}}" wx:key="{{index}}">
+                            <view class="printing_image_box">
+                                <image class="printing_img item_img" src="https://oss.xiaoxingli.com/Material/{{item.printing_img}}"></image>
+                                <image class="select_icon" src="/iconImages/shop_select.png" wx:if="{{item.isSelect}}"></image>
+                            </view>
+                            <view class="printing_name item_name">{{item.printing_name}}</view>
+                        </view>
+                    </view>
+                    <view bindtap="selectPrintingAllCan" class="all_will" style="margin-bottom: 84rpx;">
+                        <view class="all_will_icon {{printingAllCan?'active':''}}"></view>
+                        <view class="all_will_cont">我都可以，无特殊要求</view>
+                    </view>
+                </view>
+            </block>
+            <block wx:if="{{questionIndex==8}}">
+                <view class="card_title">个人照片</view>
+                <view class="card_cont_eight">
+                    <view class="card_cont_title">你的生活照(最好是全身照)</view>
+                    <view bindtap="uploadImg" class="upload_img {{userImg?'has_img':''}}">
+                        <image class="upload_icon" src="/images/record_upload.png" wx:if="{{!userImg}}"></image>
+                        <image class="user_img" mode="widthFix" src="{{userImg}}" wx:if="{{userImg}}"></image>
+                        <view class="upload_txt" wx:if="{{!userImg}}">上传一张你的生活照吧</view>
+                    </view>
+                </view>
+            </block>
+            <!-- <button bindtap="toNextQuestion" class="next_btn" formType="submit" wx:if="{{questionIndex!=8}}">下一题</button> -->
+            <!-- <button bindgetphonenumber="getPhoneNumber" class="next_btn" formType="submit" openType="getPhoneNumber" wx:if="{{questionIndex==8&&!hasMobile}}">完成</button> -->
+            <!-- <button bindtap="toNextQuestion" class="next_btn" formType="submit" wx:if="{{questionIndex==8&&hasMobile}}">完成</button> -->
+            <button bindtap="toNextQuestion" class="next_btn" formType="submit">下一题</button>
+            <view class="progress_bar">
+                <view class="progress" style="width: {{questionIndex*12.5}}%"></view>
+            </view>
+        </view>
+    </form>
+</view>

@@ -1,0 +1,61 @@
+.notEnoughYidou-root-vip {
+  width: 580rpx;
+  background-color: #fff;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.notEnough-dialog-title-vip {
+  align-self: center;
+  font-size: 36rpx;
+  color: black;
+  margin-top: 35rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.notEnough-dialog-content1-vip {
+  align-self: center;
+  font-size: 30rpx;
+  color: #a8a8a8;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  text-align: justify;
+}
+.notEnough-dialog-content1-vip-import{
+  color: red;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+.icon-close-vip {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  padding: 20rpx;
+}
+
+.buttonView-vip {
+  display: flex;
+  flex-direction: row;
+}
+
+.bottom-btn-yellow5-vip {
+  width: 520rpx;
+  height: 80rpx;
+  margin-top: 60rpx;
+  margin-bottom: 40rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  border-radius: 3px;
+  color: #fff;
+  background-color: #ff3f8b;
+  border: 2rpx solid #ff3f8b;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  text-align: center;
+}

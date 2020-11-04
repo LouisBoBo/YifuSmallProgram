@@ -1,0 +1,176 @@
+/* pages/shouye/detail/centsIndianaRecord/centsIndianaRecord.wxss */
+
+::-webkit-scrollbar{
+  height: 0;
+  width: 0;
+  color: transparent;
+}
+
+.list-all {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+.top-gray-line{
+  height: 20rpx;
+  width: 100%;
+  background: #F0F0F0;
+}
+.periods-announce-time{
+  height: 70rpx;
+  background: white;
+  display: flex;
+  direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 25rpx;
+  padding-right: 25rpx;
+  border-bottom: 1px solid #F0F0F0;
+  
+}
+.periods{
+  color: #3E3E3E;
+  font-size:30rpx;
+}
+.announce-time{
+  display: flex;
+  direction: row;
+  flex-wrap: nowrap;
+}
+.announce-time-name{
+  color: #A8A8A8;
+  font-size:26rpx;
+  margin-right: 20rpx;
+}
+.announce-time-value{
+  color: #A8A8A8;
+  font-size:26rpx;
+}
+.content{
+  padding-left: 25rpx;
+  padding-right: 25rpx;
+  height:220rpx;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+.content-image{
+  width: 180rpx;
+  height: 180rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+.content-mid{
+  display: flex;
+  flex-direction: column;
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+}
+.content-shop-name{
+  margin-top: 30rpx;
+  color: #3E3E3E;
+  font-size:30rpx; 
+}
+.content-person-time{
+  color: #A8A8A8;
+  font-size:26rpx; 
+}
+.person{
+  color: #FF3F8B;
+  font-size:26rpx; 
+}
+.content-go-details{
+  color: #A8A8A8;
+  font-size:26rpx; 
+  position: absolute;
+  right: 25rpx;
+  margin-top: 30rpx;
+}
+
+.content-rigth-bottom1{
+  border: 1px solid #6DC264;
+  border-radius: 4px;
+  color: #6DC264;
+  font-size:26rpx; 
+  position: absolute;
+  right: 25rpx;
+  bottom: 20rpx;
+  padding: 6rpx 12rpx;
+}
+
+.content-rigth-bottom2{
+  border: 1px solid #FF3F8B;
+  border-radius: 4px;
+  color: #FF3F8B;
+  font-size:26rpx; 
+  position: absolute;
+  right: 25rpx;
+  bottom: 20rpx;
+  padding: 6rpx 12rpx;
+}
+.content-rigth-bottom3{
+  border: 1px solid #FF3F5A;
+  border-radius: 4px;
+  color: #FF3F5A;
+  font-size:26rpx; 
+  position: absolute;
+  right: 25rpx;
+  bottom: 20rpx;
+  padding: 6rpx 12rpx;
+
+}
+.content-rigth-bottom4{
+  position: absolute;
+  right: 25rpx;
+  bottom: 20rpx;
+  padding: 6rpx 12rpx;
+  width: 100rpx;
+  height: 50rpx;
+}
+.bottom{
+  background-color: #FDF6EB;
+  margin: 0 25rpx 25rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 70rpx;
+}
+.bottom-luck-user{
+  color: #3E3E3E;
+  font-size:30rpx; 
+  margin-left: 20rpx;
+}
+.luck-user{
+  color: #FF3F8B;
+  font-size:30rpx; 
+}
+.bottom-luck-number{
+  color: #A8A8A8;
+  font-size:26rpx; 
+  margin-right: 20rpx;
+}
+
+.no-data{
+  width: 100%;
+  height: 100%;
+  margin-bottom: 200rpx;
+  background: white;
+  position: fixed;
+  z-index: -999;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.no-data text{
+  font-size: 40rpx;
+  color : #A8A8A8;
+}
+.no-data image{
+  width: 150rpx;
+  margin-bottom: 100rpx;
+}

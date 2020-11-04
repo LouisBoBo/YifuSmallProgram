@@ -1,0 +1,34 @@
+<!--pages/sign/newYiHDXQ/newYiHDXQ.wxml-->
+<view class='all-view'>
+  <view class='top-view' style='background-image: url({{Upyun}}small-iconImages/ad_pic/bg_hdxq_shuoming.png)'>
+  </view>
+
+
+  <view class='bot-view'>
+
+    <view class='shuoming-shuoming'>
+      <view class='line'></view>
+      <text class='shuoming-text'>活动说明</text>
+      <view class='line'></view>
+    </view>
+
+
+    <!-- 活动说明  -->
+    <text class='text-text'>1.疯狂新衣节下单支付成功立即获得额度抽奖机会，抽奖次数为平日的两倍。</text>
+    <text class='text-text' style='color: #fff400;font-size: 25rpx'>例如：平日购买100元商品赠送衣豆可以抽奖10次，疯狂新衣节购买100元商品将可获赠20次抽奖机会。</text>
+
+    <text class='text-text'>2.疯狂新衣节当天使用抽奖次数抽奖的中奖率100%，衣豆抽奖为正常中奖概率。</text>
+
+
+    <text class='text-text'>3.疯狂新衣节使用抽奖机会抽奖获得的提现额度将到订单完结<text style='color: #fff400'>(不可退款退货)</text>才可解冻至可提现额度。</text>
+
+    <text class='text-text'>4.如果订单期间发生退款，疯狂新衣节当天所获得的所有冻结额度将会被扣除。</text>
+
+    <text class='text-text'>5.疯狂新衣节获得的抽奖机会<text style='color: #fff400'>务必全部使用完</text>，23:59以后将会自动取消当日所有订单获赠的抽奖机会。</text>
+
+
+    <view class='bottom-view'>
+      <text class='bottom-view-text' bindtap='newYIgoTap'>获取抽奖机会</text>
+    </view>
+  </view>
+</view>

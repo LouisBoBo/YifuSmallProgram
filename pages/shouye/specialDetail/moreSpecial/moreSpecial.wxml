@@ -1,0 +1,5 @@
+<view class='mainview'>
+  <block wx:for="{{collocationList}}" wx:for-item="item">
+    <image bindtap='second_list_tap' class='shopImage' wx:if="{{item.collocation_pic}}" src="{{UpyunConfig}}/{{item.collocation_pic}}" data-code="{{item.collocation_code}}"></image>
+  </block>
+</view>

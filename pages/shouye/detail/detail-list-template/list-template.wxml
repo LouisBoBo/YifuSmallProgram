@@ -1,0 +1,34 @@
+<template name="listTemplate">
+  <view class='selection'>
+    <view class='list-all'>
+      <block wx:for='{{recommendListData}}' wx:key="key">
+        <view class='v-item' style='height:{{listItemHeight}}px;width:{{listItemWidth}}px;' bindtap='recommendShopItemClick' data-shop_code='{{item.shop_code}}'>
+          <view class='image-item' style='height:{{listItemHeight}}px;width:{{listItemWidth}}px;'>
+            <image class='image-pic' src='{{Upyun}}{{item.def_pic}}'>
+            </image>
+          </view>
+          <view class='v-bottom'>
+            <view class='v-text'>
+                <text class='tv-kickback'  wx:if="{{supply_isShow}}"  >{{item.supp_label}}</text>
+                <text class='tv-name-showsub' wx:if="{{supply_isShow}}"  >{{item.shop_name}}</text>
+
+                <text class='tv-name' wx:if="{{!supply_isShow}}">{{item.shop_name}}</text>
+
+                <view class='tv-price-all' wx:if="{{freeling_isshow}}">
+                  <!-- <image class='first_list_item_img' src="{{Upyun}}small-iconImages/heboImg/small_freefight.png"></image> -->
+
+                  <text class='tv-price'> <text style='font-size:22rpx'>￥</text>{{item.assmble_price}}</text>
+                  <text class='tv-price-shoppe'>月销{{item.virtual_sales}}件</text>
+                </view>
+                <view class='tv-price-all' wx:else>
+                  <text class='tv-price'> <text style='font-size:22rpx'>￥</text>{{item.shop_se_price}}</text>
+                  <text class='tv-price-shoppe'>月销{{item.virtual_sales}}件</text>
+                </view>
+              </view>
+          </view>
+          <button class='button' form-type='submit'></button>
+        </view>
+      </block>
+    </view>
+  </view>
+</template>

@@ -1,0 +1,177 @@
+@import "wallet-template/wallet-template.wxss";
+@import "../../../common/Upperlimit-template/Upperlimit.wxss";
+@import "../../../common/openYifu-template/openYifu.wxss";
+@import "../../../common/Forward-template/Forward.wxss";
+@import "../../../common/openAppTXtemplate/openAppTXtemplate.wxss";
+
+page {
+  background-color: #eee;
+}
+
+.suspendview {
+  float: right;
+  margin-left: 692rpx;
+  margin-top: 10rpx;
+  position: fixed;
+}
+
+.suspendview-image {
+  height: 180rpx;
+  width: 60rpx;
+}
+
+.mainview {
+  background-color: white;
+}
+
+.tixianview {
+  margin-top: 30rpx;
+  margin-left: 5%;
+  width: 90%;
+  margin-right: 5%;
+  text-align: center;
+  line-height: 80rpx;
+  overflow: hidden;
+  background-color: #ff3f8b;
+  border-radius: 8rpx;
+  color: white;
+}
+.tixian_button{
+  background-color: #ff3f8b;
+  color: white;
+}
+.lineview {
+  margin-top: 30rpx;
+  width: 100%;
+  height: 20rpx;
+  background-color: #eee;
+}
+
+.otherview {
+  margin-top: 25rpx;
+}
+
+.listview {
+  border-bottom: 1px solid #eee;
+  width: 100%;
+  height: 90rpx;
+  margin-top: 30rpx;
+}
+
+.headtitle {
+  margin-left: 20rpx;
+  float: left;
+  color: #666;
+}
+
+.headtitle-image {
+  margin-left: 20rpx;
+  width: 60rpx;
+  height: 60rpx;
+  vertical-align: middle;
+}
+
+.headtitle-text {
+  margin-left: 20rpx;
+  vertical-align: middle;
+  font-size: 32rpx;
+}
+
+.more {
+  float: right;
+  margin-right: 20rpx;
+  margin-top: 8rpx;
+}
+
+.moreimgae {
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: middle;
+}
+
+.showTixianView {
+  width: 580rpx;
+  background-color: white;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 35rpx;
+}
+
+.icon-close {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  padding: 20rpx;
+}
+
+.tixianview_title {
+  margin-top: 50rpx;
+  text-align: center;
+  font-size: 34rpx;
+}
+
+.tixianview_discription {
+  margin: 20rpx;
+  color: #666;
+  font-size: 30rpx;
+}
+
+.tixianview_inputview {
+  margin: 0 20rpx 20rpx 20rpx;
+  border: 1rpx solid #f0f0f0;
+  border-radius: 8rpx;
+  height: 70rpx;
+}
+
+.tixianview_inputview-input {
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+  margin-top: 10rpx;
+  color: #a8a8a8;
+}
+
+.tixianview_binding {
+  margin: 20rpx;
+  text-align: center;
+  line-height: 80rpx;
+  overflow: hidden;
+  background-color: #ff3f8b;
+  border-radius: 8rpx;
+  color: white;
+  font-size: 32rpx;
+  position: relative;
+}
+
+.button-confrim {
+  opacity: 0;
+  background-color: green;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.app-download {
+  width: 100%;
+  height: 100%;
+}
+
+.successimage{
+  width: 570rpx;
+  height: 710rpx;
+  align-self: center;
+}
+.tixianupperlimit {
+  opacity: 0;
+  background-color: green;
+  height: 200px;
+  position: absolute;
+  bottom: 250rpx;
+  left: 20%;
+  right: 20%;
+}

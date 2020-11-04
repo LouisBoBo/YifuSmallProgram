@@ -1,0 +1,11 @@
+<template name="upperlimit">
+  <view class='showTixianView_upperlimit'>
+    <image catchtap="upperlimittap" class='icon-close_upperlimit' src="/iconImages/icon_close.png" bindtap='closetap'></image>
+    <text class="tixianview_title_upperlimit">{{uppertittle}}</text>
+    <text class="tixianview_discription_upperlimit{{isUpperNotitle?'_noTitle':''}}">{{upperdistribution}}</text>
+    <view class="tixianview_binding_upperlimit" bindtap='upperlimittap'>
+      <view>{{upperbuttontitle}}</view>
+      <button class='button_confrim_upperlimit' formType="submit"></button>
+    </view>
+  </view>
+</template>

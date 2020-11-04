@@ -1,0 +1,50 @@
+<import src="../../../common/listItemTemplateMyLove/listItemTemplateMyLove.wxml" />
+<import src="../../../common/signfinish-template/signfinish.wxml" />
+<import src="../../../common/toastTest/toastTest.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+  <view class='selectTitle'>
+  <text class = 'Top-text'>全部分类({{likeCount}})</text>
+    <text class = 'Top-text' wx:if='{{!haveNoData}}' bindtap='edtiorTap'>{{showEditer?'编辑':'取消'}}</text>
+
+  </view>
+
+<view class='share-q-shop' wx:if="{{!haveNoData}}">
+  <view class='shoplist'>
+
+    <view class='list-all'>
+      <block wx:for='{{datalist}}'>
+        <view class='v-item' catchtap='shoplist_tap' data-shop_code="{{item.shop_code}}">
+          <template is='listItemTemplateMyLove' data='{{item,Upyun,supply_isShow,showEditer}}'></template>
+
+          <image class="select_icon" catchtap="item_select" data-selectindex="{{index}}" src="{{Upyun}}/small-iconImages/ad_pic/{{item.selected?'wodexihao_fengge_icon_xuanzhong.png':'wodexihao_fengge_icon_weixuanzhong.png'}}" wx:if="{{!showEditer}}"></image>
+
+
+                    <!-- <image class="select_icon" catchtap="item_select" data-selectindex="{{index}}" src="{{Upyun}}/small-iconImages/ad_pic/{{selectindex===index?'wodexihao_fengge_icon_xuanzhong.png':'wodexihao_fengge_icon_weixuanzhong.png'}}"></image> -->
+
+        </view>
+      </block>
+    </view>
+
+  </view>
+
+</view>
+<view class='bottom-share-view-icon' wx:if='{{datalist.length>0&& !showEditer}}'>
+  <view class="weixin-share-btn-share-left">
+    <text class="weixin-share-icon-text-left"  bindtap='cancelTap' >取消</text> 
+  </view>
+
+  <view class="weixin-share-btn-share-right" >
+    <text class="weixin-share-icon-text-right"  bindtap='delShopTap'>删除</text> 
+  </view>
+</view>
+
+<view class='no-data' wx:if="{{haveNoData}}">
+  <text>暂无相关商品哦~</text>
+
+</view>
+
+<!-- 赚钱任务完成弹窗  -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{signFinishShow}}">
+ <template is='sign-finish-dialog' data='{{Upyun,signFinishDialog}}'></template>
+</view>

@@ -1,0 +1,17 @@
+
+<template name="Authorization">
+  <form bindsubmit="xianjinRedsubmit" report-submit='true'>
+    <view class='showTixianView_upperlimit'>
+      <!-- <image class='newuser-thirty'src="{{upyconfig}}small-iconImages/heboImg/newredhongbao_getnewuser_money.png!450"></image> -->
+
+      <image class='newuser-thirty'src="{{upyconfig}}small-iconImages/heboImg/newestredhongbao_getnewuser_ninetymoney.png!450"></image>
+      
+      <image class='getmoney_button' animation ="{{animationMiddleHeaderItem}}" src='{{upyconfig}}small-iconImages/heboImg/newestredhongbao_kai.png'></image>
+      <image class='closeimage-newhongbao' src="{{upyconfig}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeNewThirty'></image>
+    
+      <button class='button_confrim_upperlimit' wx:if="{{clickLogin && channel_type !=1}}" bindgetuserinfo='hongbaoclick' open-type="getUserInfo" form-type='submit' session-from='{"open_param":"NewUserRedHongbao"}' ></button>
+      <button class='button_confrim_upperlimit' wx:else bindgetuserinfo='hongbaoclick' form-type='submit' session-from='{"open_param":"NewUserRedHongbao"}' ></button>
+    </view>
+  </form>
+</template>
+

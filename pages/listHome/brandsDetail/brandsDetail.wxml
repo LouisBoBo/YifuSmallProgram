@@ -1,0 +1,23 @@
+<import src="../../../common/listHomeTemplate/listtemplate.wxml" />
+
+
+<view class='head-pic'>
+   <image wx:if="{{pic}}" mode="widthFix" class='head-pic-image' src="{{Upyun}}{{pic}}"></image> 
+    <!-- <image mode="aspectFill" class='head-pic-image' src="{{Upyun}}{{pic}}"></image> -->
+</view>
+
+<view class='head-title'>
+  <text>{{remark}}</text>
+</view>
+
+<view class='section-title'>
+  <text class='section-title-text'>优选精品</text>
+</view>
+
+ 
+<view wx:if="{{datalist[0]}}" class="shopContainer">
+  <template is="listTemplate" data="{{datalist,Upyun,showSub}}" />
+</view>
+<view wx:else>
+  <view class="emptyView">暂无数据</view>
+</view> 

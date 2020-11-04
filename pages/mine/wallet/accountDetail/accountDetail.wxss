@@ -1,0 +1,149 @@
+/* pages/mine/wallet/accountDetail/accountDetail.wxss */
+@import "../../../../common/toptap.wxss";
+
+
+.topbarall {
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  position: fixed;
+  flex: none;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin-top: 0;
+  padding-bottom: 20rpx;
+  z-index: 5;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.section {
+  margin-top: 70rpx;
+}
+.section-cell {
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+.cell-left {
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+  color: #3e3e3e;
+  font-size: 30rpx;
+}
+.cell-title {
+  margin-bottom: 10rpx;
+}
+.cell-left-time {
+  color: #a8a8a8;
+  font-size: 24rpx;
+}
+.cell-right {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20rpx;
+  color: #ff3f8b;
+  font-size: 30rpx;
+  text-align: right;
+}
+.cell-right-money {
+  margin-bottom: 10rpx;
+}
+.cell-right-detail {
+  color: #a8a8a8;
+  font-size: 24rpx;
+}
+.cell2-returnMoney {
+  margin-right: 40rpx;
+  font-size: 50rpx;
+  text-align: right;
+}
+.section-cell2-success {
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1rpx solid white;
+  background-color: #ff3f8b;
+  color: white;
+}
+.section-cell2 {
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1rpx solid white;
+  background-color: #f0f0f0;
+  color: white;
+}
+.cell2-left {
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+  font-size: 30rpx;
+}
+.cell2-left-time {
+  font-size: 24rpx;
+}
+.emptyView {
+  padding-top: 50%;
+  text-align: center;
+  font-size: 30rpx;
+  color: #666666;
+}
+
+.selection-sign {
+  z-index: 10;
+  width: 100%;
+  /* background:rgba(0, 0, 0, 0.7); */
+  position: fixed;
+  bottom: -20rpx;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(150%);
+  transition: all 0.4s linear;
+  height: 300rpx;
+}
+
+.selection-sign-show {
+  z-index: 10;
+  width: 100%;
+  position: fixed;
+  bottom: -20rpx;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(0);
+  transition: all 0.4s linear;
+  height: 300rpx;
+  background-color: red;
+}
+
+.sign-ad-close {
+  height: 50rpx;
+  width: 50rpx;
+  position: absolute;
+  right: 20rpx;
+  top: -60rpx;
+}
+.sign-ad {
+  width: 100%;
+  height: 300rpx;
+}
+.sign-ad image {
+  width: 100%;
+  height: 100%;
+}
+
+.sign-bottom-ad-image {
+  width: 100%;
+  height: 300rpx;
+}

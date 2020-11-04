@@ -1,0 +1,47 @@
+<!--开始： 弹框层 分享X件商品 -->
+<template name="share_x_shop_template">
+  <view class="share-x-out-root">
+    <image class='top-title-a-image1' mode="widthFix" src="{{Upyun}}small-iconImages/gx/top_200.png"></image>
+    <image class='top-title-a-image2' bindtap="bindTapcCloseShare" src="{{Upyun}}small-iconImages/zzq/icon_close_red.png"></image>
+
+    <swiper class='headview-swiper' indicator-color="#A8A8A8" indicator-active-color="#FF3F8B" indicator-dots="true" autoplay="{{false}}" interval='5000'>
+      <swiper-item class="shareshop-swiper-item">
+        <view class='shareshop-swiper-item-view-one'>
+          <scroll-view class='content-scoll' scroll-y="{{true}}">
+            <view class='content-scoll-view'>
+              <!-- <text class='content-text1' wx:if="{{shareXShopType_data!=3}}">1.分享美衣到微信群，除自己外的任意好友点击后，任务奖励即到账。</text>
+              <text class='content-text' wx:if="{{shareXShopType_data!=3}}">2.好友完成赚钱小任务，你可得好友账户余额与提现成功金额25%的奖励。每位好友最高100元余额，50元提现。</text> -->
+              <text class='content-text1' wx:if="{{shareXShopType_data!=3}}">1.分享邀请家人，朋友或同事来衣蝠。</text>
+              <text class='content-text' wx:if="{{shareXShopType_data!=3}}">2.好友每消费一次。你可得<text class='content-text-import'>2元提现现金</text>奖励。邀请越多奖励越多。</text>
+              
+              <text class='content-text1-new' wx:if="{{shareXShopType_data==3}}">1.分享邀请家人，朋友或同事来衣蝠。</text>
+              <text class='content-text' wx:if="{{shareXShopType_data==3}}">2.好友每消费一次。你可得<text class='content-text-import'>2元提现现金</text>奖励。邀请越多奖励越多。</text>
+              <text class='content-text'>3.分享到3个以上微信群，成功几率<text class='content-text-import'>提升200%</text>。</text>
+              <text class='content-text'>4.可以告诉你的好友，注册即可领<text class='content-text-import'>18元任务红包</text>，可微信提现哦。</text>
+            </view>
+            <!-- <view class='content-image'>
+              <image mode="widthFix" src="{{Upyun}}small-iconImages/gx/biaoge_2mini.png"></image>
+            </view> -->
+          </scroll-view>
+          <view class='content-text-bottom'>
+            <text class='content-text-bottom3'>分享到3个群后,</text>
+            <text class='content-text-bottom4'>拿到提现奖励的几率高达98%！</text>
+          </view>
+        </view>
+      </swiper-item>
+
+      <swiper-item class="shareshop-swiper-item">
+        <view class='shareshop-swiper-item-view-two'>
+          <image class='swiper-image' src="{{share_x_shop_swiper_img}}"></image>
+        </view>
+      </swiper-item>
+    </swiper>
+
+    <view class="weixin-share-btn-share">
+      <image class="weixin-share-icon" src="{{Upyun}}small-iconImages/qingfengpic/icon_wechat_touming.png"></image>
+      <text class="weixin-share-icon-text">点我分享到微信群</text>
+      <button class="weixin-share-icon-btnX" open-type="share"></button>
+    </view>
+  </view>
+</template>
+<!--结束： 弹框层 分享X件商品 -->

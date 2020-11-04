@@ -1,0 +1,24 @@
+<view>
+  <view class='shouyeview'>
+    <block wx:key wx:for="{{postlist}}" wx:for-item="item">
+      <view class='listview'>
+        <image mode="aspectFill" bindtap='imageTap' class='imageview' src="{{upyconfig}}/{{item.collocation_pic}}" data-code="{{item.collocation_code}}"></image>
+        <view class='discription' bindtap='imageTap' data-code="{{item.collocation_code}}">
+          <text class='discription-title'>{{item.collocation_name}}</text>
+          <text class='discription-content'>【{{item.collocation_name2}}】</text>
+        </view>
+        <view class="page-section-spacing">
+          <scroll-view class="scroll-view_H" scroll-x="true" bindscroll="scroll" style="width: 100%">
+            <block wx:key wx:for="{{item.shop_type_list[0].list}}" wx:for-item="item" wx:for-index="idx">
+              <view id="demo1" bindtap='shopTap' class="scroll-view-item_H" data-shop_code="{{item.shop_code}}">
+                <image mode="aspectFill" wx:if="{{item.new_def_pic}}" src="{{upyconfig}}/{{item.new_def_pic}}!382"></image>
+                <view class='scroll-view-item_H_name'>{{item.shop_name}}</view>
+                <view class='scroll-view-item_H_price'>{{"￥" + item.new_shop_se_price}}</view>
+              </view>
+            </block>
+          </scroll-view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

@@ -1,0 +1,135 @@
+/*最新----------------------------------  */
+
+.view-item {
+  position: relative;
+  display: flex;
+  /* margin-bottom: 10rpx; *//* background-color: #f9fbfe; */
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  width: 650rpx;
+  height: 100rpx;
+  flex-direction: row;
+  align-items: center;
+}
+
+.myjiangli {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.mytaskicon {
+  width: 75rpx;
+  height: 75rpx;
+  margin-left: 20rpx;
+}
+
+.mytaskname {
+  margin-left: 10rpx;
+  font-size: 28rpx;
+  /* color: #405f80; */
+}
+
+.myalljiangli {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  align-items: center; */
+
+  position: absolute;
+  right: 35rpx;
+  display:flex;
+  flex-direction:row;
+  justify-content: center
+}
+
+/* 奖励所有文字部分 */
+
+
+
+.jiahao {
+  font-size: 23rpx;
+  /* color: #ff3f8b; */
+}
+
+.jaingli_count {
+  font-size: 32rpx;
+  /* color: #ff3f8b; */
+}
+
+.jiangliutext-top {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  /* text-align: center;
+  vertical-align: bottom; */
+}
+
+.jianglidanwei {
+  font-size: 32rpx;
+  /* color: #ff3f8b; */
+}
+
+.icon-goo {
+
+  position: absolute;
+  right: 5rpx;
+  width: 35rpx;
+  height: 35rpx;
+}
+
+.jiangli_all_all {
+  display: flex;
+  flex-direction: column;
+  /* position: relative;  */
+  align-items: center;
+  justify-content: center;
+}
+.jiangli-all-text {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+
+.img-task-tou {
+
+  position: absolute;
+  top: -3rpx;
+  left: 100rpx; 
+  height: 40rpx;
+  /* margin-left: -650rpx */
+
+
+
+}
+
+.wai-view {
+  margin-bottom: 17rpx;
+  display: flex;
+  flex-direction: row;
+  width: 650rpx;
+  height: 100rpx;
+  position: relative;
+}
+.view-comlpte{
+  width: 85rpx;
+  height: 71rpx;
+  position: absolute;
+  right: 38rpx
+}
+
+/* 2018-11-4 何波修改 */
+.button_confrim_upperlimit1{
+  opacity: 0;
+  background-color: green;
+  width: 100%;
+  height: 100rpx;
+  position: absolute;
+  top: 0rpx;
+  left: 0;
+}

@@ -1,0 +1,397 @@
+<!--pages/mine/addMemberCard/addMemberCard.wxml-->
+
+<import src="../../../common/toastTest/toastTest.wxml" />
+
+<import src="../../../common/limitQuotas-template/limitQuotas.wxml" />
+<import src="../../../common/Complaint-template/Complaint.wxml" />
+
+
+<template is="toast" data="{{ ..._toast_ }}" />
+
+
+
+<view wx:if="{{!showendofpromotionDialog&&showMainPage}}">
+  <form bindsubmit="submitOrder" report-submit="true">
+
+  <!-- <view class='view-InviteFriends' wx:if='{{showInviteFriends}}' style='background-image: url({{Upyun}}small-iconImages/qingfengpic/InviteFriends_img2.jpg'
+catchtap = 'toInviteFriends'
+>
+
+      <image class='invite-friend-close' src="{{Upyun}}small-iconImages/heboImg/task_icon_close.png" 
+      
+      catchtap='closeInviteFriends'></image>
+    <form bindsubmit="loginsubmit" report-submit='true'>
+          <button class='button_confrim_upperlimit4-invfriend' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+        </form>
+  </view> -->
+
+  <view>
+
+    <swiper class='swiper' circular='true' current='{{current}}' previous-margin='70px' next-margin='70px' bindchange="swiperChange" style='height:{{swiperH}};'>
+
+      <swiper-item wx:for='{{vipList}}' wx:key="key">
+        <view class='view-item-swiper'>
+          <image mode='aspectFill' class='le-img {{nowIdx==index?"le-active":""}}' bindload='getHeight' src='{{Upyun}}{{item.url}}' style='height:{{swiperH}};'></image>
+
+
+          <text class='name-text' wx:if="{{nowIdx==index}}">{{item.cardName}}</text>
+
+          <view class='center-view' wx:if="{{nowIdx==index}}">
+            <text class='date-text'>{{item.days}}</text>
+            <text class='date-text'>{{item.substance}}</text>
+          </view>
+
+
+
+          <text style='font-size:{{item.allmoneyFontSize}}' class='date-text-allmoney' wx:if="{{nowIdx==index}}">{{item.userVipMoney}}</text>
+
+        </view>
+      </swiper-item>
+    </swiper>
+
+
+    <!-- <view class='jiantou-view' style='top: {{jiatoutop}}px'> -->
+    <image class='jiantou' style='top: {{jiatoutop}}px' src='{{Upyun}}small-iconImages/qingfengpic/vip_icon_jiantou_left.png' catchtap='bindLeftJiantou'></image>
+    <image class='jiantou' style='top:{{jiatoutop}}px;right:0' src='{{Upyun}}small-iconImages/qingfengpic/vip_icon_jiantou_right.png' catchtap='bindRightJiantou'></image>
+
+    <!-- </view> -->
+    <view wx:if="{{showZuanshiDJKtishi}}">
+        <text class="text-daojika-tishi">您已预存<text style="color: red;">{{zuanshiReMoney}}</text>元道具卡，仅需再预存<text style="color: red;">{{payPrice}}</text>元即可成为钻石会员</text>
+        <view style="width: 100%; height: 10rpx; background-color: #F7F7F7;"></view>
+    </view>
+
+  </view>
+
+
+
+
+  <view class='cent-view'>
+    <view class='money-view'>
+      <view class="top-fanhuan-view-yucun" bindtap='yucunTap'>
+        <text class='money-count' style="  margin-right: 10rpx;">{{payName}}</text>
+        <image class="weihao1-img" src="{{Upyun}}small-iconImages/qingfengpic/fightwenhao.png"></image>
+      </view>
+      <text class='money-count'>￥{{payPrice}}</text>
+    </view>
+
+    <view class="top-fanhuan-view" bindtap='txTishiTap'>
+
+
+      <text wx:if="{{vipList[nowIdx].vip_type != 7 && vipList[nowIdx].vip_type != 8 && vipList[nowIdx].vip_type != 9}}" class='money-count-tuikuan-top-fan'>{{vipList[nowIdx].punch_days}}日后可返还<text style='color: #ff3f8b;font-weight: bold'>￥{{vipList[nowIdx].return_money}}</text></text>
+
+      <text wx:else class='money-count-tuikuan-top-fan'>打卡15日可返<text style='color: #ff3f8b;font-weight: bold'>￥{{vipList[nowIdx].return_money}}</text></text>
+
+
+      <image class="weihao1-img" src="{{Upyun}}small-iconImages/qingfengpic/fightwenhao.png"></image>
+    </view>
+
+
+ 
+
+
+    <!-- <text  class='money-count-tuikuan' wx:else>{{cashabletime}}日后可申请提现。</text> -->
+
+    <view class='count-view' wx:if="{{showCount}}">
+      <text class='money-count'>数量</text>
+
+      <view class='view-count'>
+        <image class='img-jian' bindtap='jianCount' src='{{Upyun}}small-iconImages/qingfengpic/{{img_jian}}.png'></image>
+        <text class='vip-count'>{{vip_count}}</text>
+        <image class='img-jia' bindtap='jiaCount' src='{{Upyun}}small-iconImages/qingfengpic/{{img_jia}}.png'></image>
+      </view>
+    </view>
+
+
+
+    <view class="view-quanyi-money" wx:if="{{vipList[nowIdx].vip_type < 7}}">
+          <!-- <text class='money-count-tuikuan2' >预存{{one_price}}元成为钻石会员，享如下特权</text>
+          <text class='money-count-tuikuan2' >可预存多个会员，权益叠加</text> -->
+
+        <text class='money-count-tuikuan2'>预存{{vipList[nowIdx].vip_name}}卡，享如下特权</text>         
+        <text class='money-count-tuikuan2'>可预存多张，权益叠加</text>      
+    </view>
+    <view class="view-quanyi-money" wx:else >
+      <text class='money-count-tuikuan2' wx:if="{{vipList[nowIdx].vip_type == 7}}">预存{{one_price}}元赠送{{trialNum}}张提现卡，享如下特权</text>
+      <text class='money-count-tuikuan2' wx:if="{{vipList[nowIdx].vip_type == 7}}">可预存多张，权益叠加</text>
+      <text class='money-count-tuikuan2' wx:elif="{{vipList[nowIdx].vip_type == 8}}">预存{{one_price}}元赠送{{trialNum}}张发货卡，享如下特权</text>
+      <text class='money-count-tuikuan2' wx:elif="{{vipList[nowIdx].vip_type == 9}}">预存{{one_price}}元赠送{{trialNum}}张免拼卡，享如下特权</text>
+
+      <!-- <text class='money-count-tuikuan2' wx:else>可预存多张，权益叠加</text> -->
+      
+    </view>
+
+
+
+
+
+    <view class='count-view' wx:if="{{vipList[nowIdx].vip_type != 7 && vipList[nowIdx].vip_type != 8 && vipList[nowIdx].vip_type != 9}}">
+      <text class='money-count'>奖金</text>
+      <text class='money-count'>-￥{{fixMoney}}</text>
+    </view>
+
+
+  </view>
+
+
+
+
+<!-- 钻石会员权益 -->
+  <view wx:if="{{vipList[nowIdx].vip_type == 4}}" class='tips-view' style='width: 100%;background-color: #F7F7F7'>
+    <block wx:for="{{vipList[nowIdx].equity}}" wx:key="key" wx:for-item="vip" wx:for-index="zsIndex">
+
+      <view class="type7-quanyistr-view">
+
+        <!-- 未办过钻石的特权一文字 -->
+        <text wx:if="{{zsIndex== 0 && firstDiamondCard == 1}}" class="type7-quanyi-text">特权一 可立即提现<text style="color: red;">{{zaunshiTKX>0?zaunshiTKX:90}}</text>元到微信</text>
+
+        <!-- 已经办过钻石的特权一文字 -->
+        <text wx:else class="type7-quanyi-text">{{vip.equity_content}}</text>
+
+
+
+        <image class="type7-quanyi-img" bindtap="qunyiWenhaoTap" data-postitem="{{vip}}" wx:if="{{vip.showWen ==1}}" src="{{Upyun}}small-iconImages/qingfengpic/vip_wenhao2.png"></image>
+      </view>
+
+      <view wx:if="{{zsIndex== 0 && firstDiamondCard == 1}}" class="type4-quanyi1-image">
+        <view class="type4-quanyi1-image-item">
+          <image style="width:222rpx;height:313rpx" src="{{Upyun}}small-iconImages/qingfengpic/zuanshi_quanyi1_1.png"></image>
+          <text style="color: #313131; font-size: 27rpx;margin-top: 10rpx;">会员提现区</text>
+        </view>
+        <view class="type4-quanyi1-image-item">
+          <image style="width:222rpx;height:313rpx" src="{{Upyun}}small-iconImages/qingfengpic/zuanshi_quanyi1_2.png"></image>
+          <text style="color: #313131; font-size: 27rpx;margin-top: 10rpx;">提现{{zaunshiTKX}}元</text>
+        </view>
+        <view class="type4-quanyi1-image-item">
+          <image style="width:222rpx;height:313rpx" src="{{Upyun}}small-iconImages/qingfengpic/zuanshi_quanyi1_3.png"></image>
+          <text style="color: #313131; font-size: 27rpx;margin-top: 10rpx;">直接打入微信零钱</text>
+        </view>
+      </view>
+      <image wx:else class="type7quanyiImg" mode="widthFix" src='{{Upyun}}{{vip.equity_url}}'></image>
+    </block>
+    <!-- <view wx:if='{{vipList[nowIdx].vip_code && vipList[nowIdx].vip_type != 7 && vipList[nowIdx].vip_type != 8 && vipList[nowIdx].vip_type != 9}}' class='tips-view'>
+      <text style='margin-top: 40rpx;font-size: 32rpx;margin-left:20rpx; color: #5e5e5e'>今日剩余免费领商品次数：</text> -->
+      <!-- 正常的 (非至尊)-->
+      <!-- <text wx:if='{{vipList[nowIdx].arrears_price == 0&& vipList[nowIdx].num > 0 && vipList[nowIdx].vip_type != 6}}' class='tips-view-text'><text style='color: #ff3f8b'>{{vipList[nowIdx].num}}件{{vipList[nowIdx].price_section}}元</text>以下商品，每件<text style='color: #ff3f8b'>{{vipList[nowIdx].count}}次</text>。</text> -->
+
+
+      <!-- 正常的 至尊-->
+      <!-- <text wx:if='{{vipList[nowIdx].arrears_price == 0&& vipList[nowIdx].num > 0 && vipList[nowIdx].vip_type == 6}}' class='tips-view-text'><text style='color: #ff3f8b'>{{vipList[nowIdx].num}}件</text>任意价格商品，每件<text style='color: #ff3f8b'>{{vipList[nowIdx].count}}次</text>。</text> -->
+
+
+
+      <!-- 欠费 -->
+      <!-- <text wx:elif='{{vipList[nowIdx].arrears_price>0}}' style='margin-top: 10rpx;font-size: 32rpx;margin-left:20rpx; color: #ff3f8b'>此卡已欠费</text> -->
+      <!-- 次数为0 -->
+      <!-- <text wx:elif='{{vipList[nowIdx].count == 0}}' style='margin-top: 10rpx;font-size: 32rpx;margin-left:20rpx; color: #ff3f8b'>0次</text> -->
+
+    <!-- </view> -->
+
+  </view>
+
+
+
+  <!-- 其他会员权益 -->
+  <view wx:else class='tips-view' style='width: 100%;background-color: #F7F7F7'>
+    <block wx:for="{{vipList[nowIdx].equity}}" wx:key="key" wx:for-item="vip">
+      <view class="type7-quanyistr-view">
+
+
+
+        <text wx:if="{{vipList[nowIdx].vip_type == 7&&firstCashcard==1 && vip.index ==1 }}" class="type7-quanyi-text">特权二 保底<text style="color: red;">返还5元</text>，最高<text style="color: red;">70元</text></text>
+
+                <text wx:elif="{{vipList[nowIdx].vip_type == 7&&firstCashcard!=1 && vip.index ==1 }}" class="type7-quanyi-text">特权二 保底<text style="color: red;">返还25元</text>，最高<text style="color: red;">200元</text></text>
+
+        <text wx:else class="type7-quanyi-text">{{vip.equity_content}}</text>
+
+
+        <image class="type7-quanyi-img" bindtap="qunyiWenhaoTap" data-postitem="{{vip}}"  wx:if="{{vip.showWen == 1}}" src="{{Upyun}}small-iconImages/qingfengpic/vip_wenhao2.png"></image>
+      </view>
+      <image class="type7quanyiImg" mode="widthFix" src='{{Upyun}}{{vip.equity_url}}'></image>
+    </block>
+
+
+    <!-- <view wx:if='{{vipList[nowIdx].vip_code && vipList[nowIdx].vip_type != 7 && vipList[nowIdx].vip_type != 8 && vipList[nowIdx].vip_type != 9}}' class='tips-view'>
+
+      <text style='margin-top: 40rpx;font-size: 32rpx;margin-left:20rpx; color: #5e5e5e'>今日剩余免费领商品次数：</text> -->
+
+
+
+      <!-- 正常的 (非至尊)-->
+      <!-- <text wx:if='{{vipList[nowIdx].arrears_price == 0&& vipList[nowIdx].num > 0 && vipList[nowIdx].vip_type != 6}}' class='tips-view-text'><text style='color: #ff3f8b'>{{vipList[nowIdx].num}}件{{vipList[nowIdx].price_section}}元</text>以下商品，每件<text style='color: #ff3f8b'>{{vipList[nowIdx].count}}次</text>。</text> -->
+
+
+      <!-- 正常的 至尊-->
+      <!-- <text wx:if='{{vipList[nowIdx].arrears_price == 0&& vipList[nowIdx].num > 0 && vipList[nowIdx].vip_type == 6}}' class='tips-view-text'><text style='color: #ff3f8b'>{{vipList[nowIdx].num}}件</text>任意价格商品，每件<text style='color: #ff3f8b'>{{vipList[nowIdx].count}}次</text>。</text> -->
+
+
+
+      <!-- 欠费 -->
+      <!-- <text wx:elif='{{vipList[nowIdx].arrears_price>0}}' style='margin-top: 10rpx;font-size: 32rpx;margin-left:20rpx; color: #ff3f8b'>此卡已欠费</text> -->
+      <!-- 次数为0 -->
+      <!-- <text wx:elif='{{vipList[nowIdx].count == 0}}' style='margin-top: 10rpx;font-size: 32rpx;margin-left:20rpx; color: #ff3f8b'>0次</text>
+
+    </view> -->
+
+  </view>
+
+
+
+
+
+
+
+  <view style='width: 100%; height: 200rpx;   background-color: #f7f7f7'></view>
+
+  <!-- 客服悬浮按钮 -->
+  <view class='custom'>
+
+    <image animation="{{messageanimationData}}" wx:if='{{isShowCustomTv}}' class='custom-tv' src='{{Upyun}}small-iconImages/zzq/icon_tv.png'>
+    </image>
+    <view class='v-custom'>
+      <form bindsubmit="cancelShare" report-submit="true">
+        <image class='custom-icon' src='{{Upyun}}small-iconImages/zzq/icon_kefu.png'> </image>
+        <view class='custom-list'>
+          <button open-type='contact' formType="submit" size="30" style="left:0rpx;" bindcontact='contactHandle'>
+          </button>
+        </view>
+      </form>
+    </view>
+
+  </view>
+
+
+  <!-- 底部视图 -->
+  <!-- 补卡 -->
+  <view class='bottomContainer' wx:if="{{vipList[nowIdx].isOver}}">
+    <text class='paytext'>总价：¥{{payPrice}}</text>
+    <view class='bottmButton'>
+      <view>补足会员费</view>
+      <button class='button-confrim' formType="submit" open-type="getUserInfo" bindgetuserinfo='onclick'></button>
+    </view>
+  </view>
+  <!-- 开卡 -->
+  <view class='bottomContainer' wx:else>
+    <text class='paytext' style='width: 60%;'>限时特惠：¥{{payPrice}}  <text style='color: #5e5e5e; font-size: 25rpx;text-decoration:line-through;'> 原价¥{{original_price}}</text></text>
+    <view class='bottmButton' style='width: 40%;'>
+      <view>{{patBTname}}</view>
+      <button class='button-confrim' formType="submit" open-type="getUserInfo" bindgetuserinfo='onclick'></button>
+    </view>
+  </view>
+
+
+  <view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showTXtishi}}">
+    <view class="sign-finish-root">
+      <text class='sign-finish-content' style="margin-top: 30rpx;font-size: 34rpx;color: black;">提现说明</text>
+      <text class='sign-finish-content' style="margin-top: 20rpx">1、必须去赚钱小任务完成每天的必做任务后，才算当日打卡成功。</text>
+      <text class='sign-finish-content' style="margin-top: 30rpx">2、连续坚持{{vipList[nowIdx].punch_days}}天打卡成功没有中断，则{{vipList[nowIdx].punch_days}}天后的一周内返还{{vipList[nowIdx].return_money}}元。</text>
+      <text class='sign-finish-content' style="margin-top: 30rpx">3、返还的{{vipList[nowIdx].return_money}}元包含预存款{{one_price}}元。如预存款已被用于购买商品，则只返还差额的{{vipList[nowIdx].return_money - vipList[nowIdx].vip_price}}元。</text>
+      <text class='sign-finish-content' style="margin-top: 30rpx">4、若{{vipList[nowIdx].punch_days}}天打卡有中断，则不再返还。{{one_price}}元预存款可全额用于购买商品。</text>
+      <text class='sign-finish-content' style="margin-top: 30rpx">5、以上条款最终解释权归衣蝠平台所有。</text>
+
+
+      <text bindtap="colseShowTXtishi" class='bottom-btn-know'>确定</text>
+    </view>
+  </view>
+
+
+  <view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showTXKkaitongdialog}}">
+    <view class="sign-finish-root">
+      <text class='sign-finish-content' style="margin-top: 30rpx;font-size: 34rpx;color: black;">温馨提示</text>
+      <text class='sign-finish-content' style="margin-top: 20rpx">{{txkKTstr}}</text>
+      <text bindtap="colseShowTXtishi" class='bottom-btn-know'>确定</text>
+    </view>
+  </view>
+
+
+</form>
+</view>
+<view wx:elif="{{showMainPage}}">
+  <view class="showendofpromotionDialog">
+    <image class="showendofpromotionDialog_base" src="{{Upyun}}small-iconImages/heboImg/vipcard_promotionDialog.png" mode="widthFix"></image>
+    <button class='button_confrim_upperlimit1' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+  </view>
+</view>
+
+<!-- 模拟投诉界面 -->
+<view>
+  <template is="Complaint-template" data="{{Upyun,hideModal,animationData,secondimgData,secondtextData,thirdimgData,thirdtextData}}"></template>
+</view>
+
+<!-- 登录弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showLoginDialog &&!showendofpromotionDialog}}">
+  <template is='newChoujiangLogin' data='{{Upyun}}'></template>
+</view>
+
+
+<!-- 提现卡提示 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showTixiankaDialog}}">
+
+  <image class="tixiankatishi-img" bindtap="colseShowTXtishi" src='{{Upyun}}small-iconImages/qingfengpic/type7_start_tishi_new.png'>
+
+  </image>
+
+</view>
+
+<!-- 补全钻石卡提示 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showBuQaunZaunShi}}">
+  <template is='buquanZuanshiTemplate' data='{{Upyun,zuanshiDaoJishiStr}}'></template>
+</view>
+
+
+
+
+
+
+  <view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showPaySuccessDialog}}">
+    <view class="sign-pay-suc-root-view">
+
+      <text class='pay-suc-center-view-text-top'>购买成功</text>
+
+      <view class="pay-suc-center-view">
+       <text class='pay-suc-center-view-text'>商品总价：</text> 
+       <text class='pay-suc-center-view-text'>¥:{{paySucDialogData.originalVipPrice}}</text> 
+       </view>
+     
+      <view wx:if="{{paySucDialogData.vip_type == 4}}" class="pay-suc-center-view">
+       <text class='pay-suc-center-view-text'>道具卡抵扣:</text> 
+       <text class='pay-suc-center-view-text'>-¥:{{paySucDialogData.reduce_extract}}</text> 
+       </view>
+
+      <view  wx:if="{{paySucDialogData.vip_type == 4}}" class="pay-suc-center-view">
+       <text class='pay-suc-center-view-text' style="font-size: 30rpx; color: red">会员提现抵扣:</text> 
+       <text class='pay-suc-center-view-text'>-¥:{{paySucDialogData.unVipRaffleMoney}}</text> 
+       </view>
+
+       <view class="pay-suc-center-view">
+       <text class='pay-suc-center-view-text'>新人优惠:</text> 
+       <text class='pay-suc-center-view-text'>-¥:{{paySucDialogData.favorablePrice}}</text> 
+       </view>
+
+       <view class="pay-suc-center-view">
+       <text class='pay-suc-center-view-text' style="font-size: 29rpx; color: black">实付款:</text> 
+       <text class='pay-suc-center-view-text'  style="font-size: 29rpx; color: red">¥:{{paySucDialogData.actual_price}}</text> 
+       </view>
+      <!-- 首张钻石卡 -->
+      <!-- <text  wx:if="{{paySucDialogData.diamondNum == 0&&paySucDialogData.vip_type == 4}}" 
+      class='pay-suc-center-view-text-bot' style="margin-top: 30rpx">恭喜您成为钻石会员，尊享四大特权。<text
+       style="font-size: 30rpx;color: red;">{{paySucDialogData.actual_price}}元</text>已返还至您衣蝠钱包的余额，可全额用来购买任意美衣哦。</text> -->
+      <text  wx:if="{{paySucDialogData.diamondNum == 0&&paySucDialogData.vip_type == 4}}" 
+      class='pay-suc-center-view-text-bot' style="margin-top: 30rpx">注*钻石会员原价{{paySucDialogData.originalVipPrice}}元，您积累的<text class="import-text">{{paySucDialogData.unVipRaffleMoney}}元提现</text>到余额后，<text class="import-text">已被优先抵扣</text>，预存的<text class="import-text">{{paySucDialogData.actual_price}}元已返还</text>还至您的衣蝠钱包里，可全额用来购买任意商品。</text>
+      <text  wx:if="{{paySucDialogData.diamondNum == 0&&paySucDialogData.vip_type == 4}}" 
+      class='pay-suc-center-view-text-bot' style="margin-top: 30rpx">您已是会员，接下来完成任务后去提现不再受<text class="import-text">15.00元</text>金额限制，直接打入微信零钱。<text class="import-text">任务每天都会更新</text>，祝您好运。</text>
+      <!-- 第二张张钻石卡 -->
+      <text wx:elif="{{paySucDialogData.diamondNum == 1 && paySucDialogData.vip_type == 4}}" 
+        class='pay-suc-center-view-text-bot' style="margin-top: 30rpx">恭喜您拥有2张钻石会员卡，可免费领取一件原价199元美衣。<text style="font-size: 30rpx;color: red;">{{paySucDialogData.actual_price}}元</text>已返还至您衣蝠钱包的余额，可全额用来购买任意美衣哦。</text>
+      <!-- 道具卡 -->
+      <text wx:else class='pay-suc-center-view-text-bot' style="margin-top: 30rpx">恭喜您得到一张{{paySucDialogData.vip_name}}，尊享两大特权。<text style="font-size: 30rpx;color: red;">{{paySucDialogData.actual_price}}元</text>已返还至您衣蝠钱包的余额，可全额用来购买任意美衣哦。</text>
+
+                <image wx:if="{{paySucDialogData.vip_type == 8}}" class="img-pay-suc-bot" src='{{Upyun}}small-iconImages/qingfengpic/fhk_pay_suc_str.png'></image>
+
+        <image wx:if="{{paySucDialogData.vip_type == 9}}" class="img-pay-suc-bot" src='{{Upyun}}small-iconImages/qingfengpic/mpk_pay_suc_str.png'></image>
+        
+
+
+
+      <text bindtap="closePaySucDialog" class='bottom-btn-know-pay-suc'>我知道了</text>
+    </view>
+  </view>

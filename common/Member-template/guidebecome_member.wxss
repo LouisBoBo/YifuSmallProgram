@@ -1,0 +1,202 @@
+.showTixianView_upperlimit-wallet {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: center;
+  background-color: white;
+  width: 600rpx;
+  border-radius: 10rpx;
+}
+
+.button_confrim_upperlimit-wallet {
+  opacity: 0;
+  background-color: green;
+  width: 100%;
+  height: 80px;
+  position: absolute;
+  bottom: 30rpx;
+  left: 0;
+}
+
+ .newuser-thirty-wallet{
+  margin: 20rpx;
+}  
+
+.closeimage-newluckimg{
+  margin-left: 560rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.showTixianView_upperlimit-invit {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: center;
+  background-color: white;
+  width: 600rpx;
+  border-radius: 30rpx;
+}
+
+.invitfriends_image{
+  width: 100%;
+}
+.button_confrim_upperlimit-invit {
+  opacity: 0;
+  background-color: green;
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  bottom:0rpx;
+  left: 0;
+}
+.discription-wenhao {
+  opacity: 0;
+  background-color: green;
+  width: 100%;
+  height: 60px;
+  position: absolute;
+  top:100rpx;
+  left: 0;
+}
+.invitfriends_view{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  top:350rpx;
+  left: 0;
+}
+.invitfriends_view_add{
+  width: 100rpx;
+  height: 100rpx;
+  margin: 0 40rpx 0 40rpx;
+  border-radius: 50rpx;
+}
+.invitfriends_add{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.invitfriends_time{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 50rpx;
+  font-size: 30rpx;
+  color: rgb(255, 222, 0);
+}
+.invitfriends_tixiantime{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 90rpx;
+  font-size: 30rpx;
+  color: rgb(255, 222, 0);
+}
+
+
+.showTixianView_upperlimit-coupon {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: center;
+  width: 650rpx;
+  border-radius: 30rpx;
+}
+.showDeliverView_upperlimit-coupon{
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: center;
+  width: 600rpx;
+  border-radius: 30rpx;
+}
+.invitfriends_coupon{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  top:150rpx;
+  left: 0;
+}
+.freeFght_coupon{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  top:170rpx;
+  left: 0;
+}
+
+
+
+.button_confrim_upperlimit-member1{
+  opacity: 0;
+  background-color: green;
+  width: 100%;
+  height: 100rpx;
+  position: absolute;
+  bottom:50rpx;
+  left: 0;
+}
+.button_confrim_upperlimit-member2{
+  opacity: 0;
+  background-color: green;
+  width: 100%;
+  height: 100rpx;
+  position: absolute;
+  bottom:200rpx;
+  left: 0;
+}
+
+.guideview{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* height: 700rpx; */
+  background-color:rgb(255, 0, 74);
+  border-radius: 10px;
+  align-items: center;
+  align-content: center;
+}
+.guideview_title{
+  margin-top: 30rpx;
+  font-size: 50rpx;
+  color: rgb(251, 255, 161);
+}
+.guideview_text{
+  margin: 30rpx 30rpx 0 30rpx;
+  font-size: 32rpx;
+  color: rgb(251, 255, 161);
+  text-align: center;
+  width: 80%;
+}
+.import_text{
+  font-size: 34rpx;
+  color: rgb(255, 207, 0);
+  font-weight: bold;
+}
+.guideview_invitfriends{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 120rpx;
+  margin-top:50rpx;
+}
+.guideview_image1{
+  margin-top: 50rpx;
+  width: 80%;
+}
+.guideview_image2{
+  margin-top: 50rpx;
+  margin-bottom: 60rpx;
+  width: 80%;
+}

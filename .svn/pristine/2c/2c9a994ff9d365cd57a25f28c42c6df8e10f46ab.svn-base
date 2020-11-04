@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "疯抢人气大牌",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "onReachBottomDistance":50,
+  "navigationBarBackgroundColor": "#eee",
+  "usingComponents": {
+    "float-tab": "../../components/float-tab/float-tab"
+  }
+  
+}

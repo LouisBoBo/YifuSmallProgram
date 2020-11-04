@@ -1,0 +1,109 @@
+// pages/mine/wallet/accountDetail/ForwardDetail.js
+import config from '../../../../config';
+var util = require('../../../../utils/util.js');
+var app = getApp();
+
+Page({
+  
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    Upyun: config.Upyun,
+    dataList:[],
+    images: [ "开始0", "提交到银行0","到账0"],
+    statustitles: ["开始", "提交到银行", "到账"],
+    transfer_error:'',
+    content: "处理中，预计1-3个工作日到账",
+    tixianAgain:false,
+    showtransfer_error:false,
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+
+    var datalist = [];
+    var item = JSON.parse(options.item);
+    console.log(options.item);
+
+    var titles = ["提现金额:","银行卡:","提交时间:","当前状态:"];
+    var contents = [-Number(item.money),item.title,item.add_time,item.detail];
+    for (var i=0;i<titles.length;i++)
+    {
+      var data = {};
+
+      data.tittle = titles[i];
+      data.content = contents[i];
+      datalist.push(data);
+    }
+
+    this.setData({
+      dataList: datalist,
+    });
+
+    this.getStatus(item);
+  },
+
+  //获取当前状态
+  getStatus:function(item){
+    var image = [];
+    var content = "";
+
+    if(item.check == 0)
+    {
+      image = ["开始","提交到银行0","到账0"];
+      content = "处理中，预计1-3个工作日到账";
+    } else if (item.check == 2 || item.check == 4 || item.check == 6)
+    {
+      image = ["开始", "提交到银行0", "到账0"];
+      content = item.check == 2 ? "失败" :"处理中，预计1-3个工作日到账";
+      if(item.check == 2)
+      {
+        this.setData({
+          showtransfer_error:true,
+          transfer_error: item.transfer_error
+        })
+      }
+    } else if (item.check == 7 || item.check == 8 || item.check == 9){
+      image = ["开始", "提交到银行", "到账0"];
+      content = "处理中，预计1-3个工作日到账";
+    }
+    else if (item.check == 3 || item.check == 10)
+    {
+      if(item.check == 3)
+      {
+        image = ["开始", "提交到银行", "到账"];
+        content = "成功";
+      }else{
+        image = ["开始", "提交到银行", "到账0"];
+        content = "处理中，预计1-3个工作日到账";
+      }
+    } else if (item.check == 11)
+    {
+      image = ["开始", "提交到银行0", "到账0"];
+      content = "失败";
+      this.setData({
+        tixianAgain: true, 
+        showtransfer_error: true,
+        transfer_error: item.transfer_error
+      })
+    }else{
+      image = ["开始", "提交到银行", "到账0"];
+      content = "处理中，预计1-3个工作日到账";
+    }
+
+    this.setData({
+      images:image,
+      content:content,
+    })
+  },
+
+  //重新申请提现
+  tixiantap:function(){
+    wx.navigateTo({
+      url: '../Withdrawals/Withdrawals',
+    })
+  }
+})

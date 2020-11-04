@@ -1,0 +1,18 @@
+<import src="../../../common/toastTest/toastTest.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+<form bindsubmit="submitOrder" report-submit="true">
+  <view>
+    <view class='messageToSeller' wx:if="{{oldperson_sign}}">
+      <textarea name="message" value="{{oldperson_sign}}" style="color:#666;font-size: 32rpx;"></textarea>
+    </view>
+     <view class='messageToSeller' wx:else>
+      <textarea name="message" placeholder="{{oldperson_sign}}" placeholder-style="color:gainsboro;font-size: 30rpx;"></textarea>
+    </view>
+    
+    <view class='bottmButton'>
+      <view>完成</view>
+      <button class='button-confrim' formType="submit"></button>
+    </view>
+  </view>
+</form>

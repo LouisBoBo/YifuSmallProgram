@@ -1,0 +1,64 @@
+.showTixianView_upperlimit {
+  width: 646rpx;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+}
+.closeimage-newhongbao{
+  position: absolute;
+  margin-top: -890rpx;
+  margin-left: 590rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+.icon-close_upperlimit {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  padding: 20rpx;
+}
+
+.tixianview_title_upperlimit {
+  margin-top: 50rpx;
+  text-align: center;
+  font-size: 34rpx;
+}
+
+.tixianview_discription_upperlimit {
+  margin:20rpx;
+  color: #666;
+  font-size: 30rpx;
+  text-align: center;
+}
+.tixianview_discription_upperlimit_noTitle {
+  margin-left:20rpx;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+  margin-top: 35rpx;
+  color: #666;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.button_confrim {
+  opacity: 0;
+  background-color: green;
+  width: 100%;
+  height: 250px;
+  position: absolute;
+  top: 500rpx;
+  left: 0;
+}
+
+.newuser-thirty{
+   width: 646rpx;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+}

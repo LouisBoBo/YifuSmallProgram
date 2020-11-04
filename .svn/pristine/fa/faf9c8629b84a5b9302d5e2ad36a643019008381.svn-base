@@ -1,0 +1,43 @@
+.foothandleview {
+  float: right;
+  display: flex;
+  flex-direction: row;
+}
+
+.foothandleview-view {
+  vertical-align: middle;
+  height: 60rpx;
+  margin-right: 20rpx;
+  /* background: black; */
+  text-align: center;
+  line-height: 60rpx;
+  overflow: hidden;
+  color: white;
+  font-size: 28rpx;
+  position: relative;
+}
+.foothandleview-view-text{
+  /* background-color: black; */
+  font-size: 28rpx;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+.weixin-share-icon-btn {
+  left: 0;
+  width: 160rpx;
+  height: 60rpx;
+  opacity: 0;
+  position: absolute;
+  top: 0rpx;
+  background-color: red;
+}
+.foothandleview-view-text {
+  color: white;
+  vertical-align: middle;
+  font-size: 30rpx;
+  text-align: center;
+}

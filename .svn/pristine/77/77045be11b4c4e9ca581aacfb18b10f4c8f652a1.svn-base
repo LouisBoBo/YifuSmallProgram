@@ -1,0 +1,65 @@
+.icon-close {
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 0;
+  padding: 15rpx;
+}
+
+.zero-buy-out-red {
+  width: 530rpx;
+  background-color: #fd215a;
+  border: 10px solid #fd215a;
+  flex-direction: column;
+  display: flex;
+  border-radius: 10rpx;
+  position: relative;
+}
+
+.zero-buy-close-red {
+  height: 40rpx;
+  width: 40rpx;
+  display: flex;
+  position: absolute;
+  right: 20rpx;
+  top: 20rpx;
+}
+
+.zero-buy-title-red {
+  margin-top: 30rpx;
+  display: flex;
+  justify-content: center;
+  font-size: 38rpx;
+  color: #fdcc21;
+}
+
+.zero-buy-tv-gray-red {
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  align-self: left;
+  font-size: 28rpx;
+  color: #fff;
+}
+
+.zero-buy-tv-red-red {
+  align-self: left;
+  font-size: 28rpx;
+  color: #fdcc21;
+}
+
+.zero-buy-now-red {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30rpx;
+  margin-top: 30rpx;
+  font-size: 30rpx;
+  height: 80rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  background-color: #fdcc21;
+  color: #fd215a;
+  border-radius: 8rpx;
+}

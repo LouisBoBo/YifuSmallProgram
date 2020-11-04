@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "活动商品专区",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "onReachBottomDistance": 50
+}

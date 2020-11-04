@@ -1,0 +1,36 @@
+<template name="open-sqfh">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>恭喜你</text>
+
+    <!-- status=17 Whether_prize = 2 -->
+    <text class='notEnough-dialog-content1'  wx:if="{{clickStatus == 17 && clickWhether_prize == 2}}">
+    您以至尊会员的资格抢中了价值<text class='jiqiName'>{{sqfhData.price}}元</text>的<text class='jiqiName'>{{supName}}</text>，订单将在成为至尊会员后发货。</text>
+
+    <!-- status=2 Whether_prize = 2 -->
+    <text class='notEnough-dialog-content1'  wx:elif="{{clickWhether_prize == 2}}">
+    您以至尊会员的资格抢中了价值<text class='jiqiName'>{{sqfhData.price}}元</text>的<text class='jiqiName'>{{supName}}</text>请加微信号<text class='jiqiName'>{{sqfhData.wxh}}</text>联系客服发货。</text>
+
+
+    <!-- status=2 Whether_prize = 0 -->
+    <text class='notEnough-dialog-content1' wx:else>
+    您抢中了价值<text class='jiqiName'>{{sqfhData.price}}元</text>的<text class='jiqiName'>{{supName}}</text>请加微信号<text class='jiqiName'>{{sqfhData.wxh}}</text>联系客服发货。</text>
+
+
+          <text class='notEnough-dialog-content3' wx:if="{{clickStatus != 17}}" >
+    1.点击下方按钮，复制客服微信号。
+    2.打开微信，点右上角+，选“添加朋友”。
+    3.在顶部输入或粘贴客服微信号搜索并添加好友。
+    </text>
+
+    <view class='buttonView'>
+
+      <text catchtap="goToVip" class='bottom-btn-yellow5' wx:if="{{clickStatus == 17 && clickWhether_prize == 2}}">成为至尊会员</text>
+
+
+      <text catchtap="copyWXH" class='bottom-btn-yellow5' wx:else>复制客服微信号</text>
+
+
+    </view>
+    <image catchtap="closeFight" class='icon-close' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

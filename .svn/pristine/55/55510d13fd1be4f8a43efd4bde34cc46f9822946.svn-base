@@ -1,0 +1,5 @@
+<template name="CanvasviewTemplate">
+  <view class="Canvasview">
+    <canvas canvas-id="shareCanvas" style="width:380px;height:380px"></canvas>
+  </view>
+</template>

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "好友奖励",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50,
+  "backgroundTextStyle": "dark"
+}

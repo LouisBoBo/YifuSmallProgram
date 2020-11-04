@@ -1,0 +1,107 @@
+<!-- 余额、提现 -->
+<view class="view-top" style="background-image: url({{Upyun}}/small-iconImages/invite_friends/invite_好友提成奖励.jpg)">
+  <view class='view-top-money-out'>
+    <view class='view-top-money' style='background-image: url({{Upyun}}/small-iconImages/gx/withdrawal_top_bg.png)'>
+      <view class='view-sum'>
+        <text class='text-sum_1'>{{mSumBalance_data}}</text>
+        <text class='text-sum_2'>总余额(元)</text>
+      </view>
+      <view class='view-sum'>
+        <text class='text-sum_1'>{{mLimit_data}}</text>
+        <text class='text-sum_2'>可提现(元)</text>
+      </view>
+      <view bindtap="bind_tap_not" class='view-sum'>
+        <text class='text-to-withdraw'>提现</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 活动规则 -->
+<view class='inviteContainer'>
+  <view class='invite-whiteBg'>
+    <image class='title-img' mode='aspectFit' src='{{Upyun}}/small-iconImages/invite_friends/invite_hdgz.png'></image>
+    <!-- <text class='title-detail' style="line-height:150%">1、分享赚钱任务页邀请未注册好友。\n2、好友完成任务赢取账户余额与提现额度。\n3、你可拿好友账户余额与提现成功金额的25%奖励。（提现奖励每累计满1元会自动提现入您的微信账户。）\n4、每位好友最高100元余额，50元提现。</text> -->
+    
+    <view class='top-tv'>
+          <text class='top-tv1'>1.分享微信群，邀请家人，朋友或同事来衣蝠。</text>
+          <text class='top-tv1'>2.好友每次消费，你可得<text class='top-tv1-import'>10%奖励金</text>。</text>
+          <text class='top-tv1'>3.分享到3个以上微信群，拿到奖励金的概率<text class='top-tv1-import'>提升200%</text>。</text>
+          <text class='top-tv1'>4.坚持分享30天，拿到<text class='top-tv1-import'>200元+奖励金</text>的概率<text class='top-tv1-import'>高达98%</text>。</text>
+    </view>
+    <!-- <image class='detail-img' mode='widthFix' src='{{Upyun}}/small-iconImages/invite_friends/invite_biaoge.png'></image> -->
+    <text class='share-title'>分享到3个群后，\n100%拿到现金奖励</text>
+    <view class='share-cover'>
+      <image class='bottom-center-wx' src='{{Upyun}}small-iconImages/qingfengpic/icon_wechat_touming.png'> </image>
+      <text class='share-tv'>点我分享到微信群</text>
+      <button class="weixin-share-icon-btn" open-type="share"></button>
+    </view>
+  </view>
+</view>
+
+<!-- 今日奖励 -->
+<view class='dayReward' catchtap="dayReward_show">好友奖励明细</view>
+
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{is_showDayReward}}">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>今日共有</text>
+    <view class='notEnough-dialog-content'>
+      <text style="font-size:36rpx;color: #FDCC21;">0</text>
+      <text>位好友赢得</text>
+      <text style="font-size:36rpx;color: #FDCC21;">0元</text>
+      <text>余额</text>
+    </view>
+    <view class='notEnough-dialog-content'>
+      <text style="font-size:36rpx;color: #FDCC21;">0</text>
+      <text>位好友赢得</text>
+      <text style="font-size:36rpx;color: #FDCC21;">0元</text>
+      <text>提现</text>
+    </view>
+
+    <text class='notEnough-dialog-title'>我拿到好友奖励</text>
+    <view class='notEnough-dialog-myReward'>
+      <view class='notEnough-dialog-myRewardContent'>
+        <text style="font-size:50rpx;">0</text>
+        <text>元</text>
+      </view>
+      <view class='notEnough-dialog-myRewardContent'>
+        <text style="font-size:50rpx;">0</text>
+        <text>元</text>
+      </view>
+    </view>
+    <view class='notEnough-dialog-myReward'>
+      <text class='notEnough-dialog-myRewardContent'>余额</text>
+      <text class='notEnough-dialog-myRewardContent'>提现</text>
+    </view>
+
+    <image catchtap="dayReward_close" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+<import src="../../../common/toastTest/toastTest.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<!-- 分享成功 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{is_showShareSuccess}}">
+  <view class="shareSuccessContainer">
+    <view class='success-title-img'>
+      <image class='success_img' src='{{Upyun}}small-iconImages/ad_pic/icon_jizan_success.png'></image>
+      <text>分享成功！</text>
+    </view>
+    <text class='success-detail'>分享三个好友，拿到150元成功率高达98%</text>
+    <view class='share-continue'>
+      <text class='share-continue-title'>继续分享</text>
+      <button class="share-continue-button" open-type="share" catchtap='continueShare'></button>
+    </view>
+    <view class='remind-title-container'>
+      <text class='remind-title'>赚钱提示</text>
+    </view>
+    <text class='success-detail'>80%的人已完成今天全部任务领到20元奖励哦～</text>
+    <view class='share-tomake'>
+      <text class='share-continue-title'>我要去赚赚赚</text>
+      <button class="share-continue-button" catchtap='share_toMake'></button>
+    </view>
+
+    <image catchtap="share_close" class='icon-close' src="{{Upyun}}/small-iconImages/ad_pic/icon_close_cc.png"></image>
+  </view>
+</view>

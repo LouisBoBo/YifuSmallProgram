@@ -1,0 +1,150 @@
+/* pages/mine/myInviNumber/myInviNumber.wxss */
+@import "../../../common/Discount-template/shareLogin.wxss";
+.messageToSeller {
+  /* height: 160rpx; */
+  align-items: center;
+  margin: 20rpx;
+  border: 1rpx solid #eee;
+  border-radius: 13rpx;
+  margin-bottom: 50rpx;
+}
+
+.bottmButton-view {
+  width: 100%;
+  height: auto;
+  background-color: #ff3f8b;
+  border-radius: 8rpx;
+  color: white;
+}
+
+textarea {
+  width: 100%;
+  height: auto;
+  padding: 25rpx 0;
+}
+
+.textarea-wrp {
+  padding: 0 25rpx;
+  background-color: #fff;
+  border: 1rpx solid #eee;
+  border-radius: 13rpx;
+  margin-bottom: 10rpx;
+  margin-top: 10rpx;
+}
+
+.page-section {
+  width: 100%;
+  height: auto;
+  margin-bottom: 60rpx;
+}
+
+.page-section:last-child {
+  margin-bottom: 0;
+}
+
+.page-section-title {
+  font-size: 35rpx;
+  height: auto;
+  color: black;
+  margin-bottom: 10rpx;
+}
+
+.myyqm-view {
+  align-self: center;
+  margin-top: 20rpx;
+  display: table-cell;
+  vertical-align: bottom;
+}
+
+.all-view {
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.small-yqm {
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.weihao-imag {
+  margin-left: 8rpx;
+  height: 30rpx;
+  width: 30rpx;
+  /* background-color: #ff3f8b; */
+}
+.yqm-text{
+  color: #747474;
+  font-size: 28rpx
+}
+.my-yqm-text1{
+  color: black;
+  font-size: 33rpx;
+}
+.my-yqm-text2{
+  color: black;
+  font-size: 35rpx;
+  font-weight: bold;
+  margin-left: 10rpx;
+  margin-right: 10rpx
+}
+.my-yqm-text3{
+  color: #ff3f8b;
+  font-size: 30rpx;
+}
+
+.copy-imag {
+  margin-left: 8rpx;
+  height: 25rpx;
+  width: 25rpx;
+  /* background-color: #ff3f8b; */
+}
+.tips-view{
+  padding-bottom: 50rpx;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  width: 580rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20rpx;
+}
+
+.my-yqm-text4{
+  margin-top: 30rpx;
+  align-self: center;
+  color: black;
+  font-size: 35rpx;
+  font-weight: bold;
+  margin-left: 10rpx;
+  margin-right: 10rpx
+}
+.my-yqm-text5{
+  margin-bottom: 50rpx;
+  margin-top: 30rpx;
+  color: #747474;
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-left: 10rpx;
+  margin-right: 10rpx
+}
+
+.myyqm-view-has-sj {
+  align-self: center;
+  margin-top: 20rpx;
+  display: table-cell;
+  vertical-align: bottom;
+}
+.myyqm-sj{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  align-items:center;/*垂直居中*/
+  justify-content: center;/*水平居中*/  
+  display: flex;
+  flex-direction: column;
+}

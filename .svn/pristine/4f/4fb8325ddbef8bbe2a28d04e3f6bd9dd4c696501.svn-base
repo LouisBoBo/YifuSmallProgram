@@ -1,0 +1,210 @@
+/* pages/sign/inviteFriends/memberInviteFriends.wxss */
+page {
+  background: #f21840;
+  /* overflow: hidden; */
+}
+.view-top {
+  width: 100%;
+  height: 675rpx;
+  display: flex;
+  flex-direction: column;
+  background-size: 100% 100%;
+}
+
+.view-top-money-out {
+  width: 95%;
+  height: 140rpx;
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+}
+
+.view-top-money {
+  width: 100%;
+  height: 140rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-size: 100% 100%;
+}
+
+.view-sum {
+  height: 140rpx;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 9rpx;
+  align-self: center;
+}
+
+.text-sum_1 {
+  font-size: 45rpx;
+  color: #fd052e;
+  font-weight: bold;
+}
+
+.text-sum_2 {
+  font-size: 30rpx;
+  color: #fd052e;
+  font-weight: bold;
+}
+
+.text-to-withdraw {
+  font-size: 32rpx;
+  color: #fff;
+  padding: 14rpx 46rpx;
+  padding-bottom: 16rpx;
+  background-color: #f31838;
+  border-radius: 3px;
+  align-self: center;
+}
+
+.invite-whiteBg {
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  margin-top: 0rpx;
+  margin-bottom: 0rpx;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10rpx;
+}
+.bottomview{
+  background-color: #f31838;
+  height: 20rpx;
+  width: 100%;
+}
+.title-img {
+  margin-top: 40rpx;
+  height: 40rpx;
+}
+.rull-img{
+  margin-top: 60rpx;
+  margin-bottom: 30rpx;
+}
+.title-detail {
+  margin-top: 20rpx;
+   margin: 20rpx 40rpx 20rpx 40rpx; 
+  font-size: 30rpx;
+  text-align: justify; 
+  font-weight: 600;
+  color: #7d7d7d;
+}
+
+.title-detail-import {
+  margin-top: 20rpx;
+   /* margin: 20rpx 40rpx 20rpx 40rpx;  */
+  font-size: 30rpx;
+  font-weight: 600;
+  color: red;
+}
+
+.share-title {
+  margin-top: 40rpx;
+  font-size: 28rpx;
+  color: #ff3f8b;
+  align-self: center;
+  align-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.share-cover {
+  position: relative;
+  height: 70rpx;
+  width: 350rpx;
+  border-radius: 10rpx;
+  background-color: rgb(119, 194, 49);
+  font-size: 30rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40rpx;
+  margin-bottom: 80rpx;
+}
+.share-cover1 {
+  position: relative;
+  height: 70rpx;
+  width: 350rpx;
+  border-radius: 10rpx;
+  background-color: rgb(119, 194, 49);
+  font-size: 30rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40rpx;
+}
+.bottom-center-wx {
+  height: 50rpx;
+  width: 50rpx;
+}
+
+.share-tv {
+  margin-left: 0rpx;
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 570rpx;
+}
+
+.weixin-share-icon-btn {
+  width: 350rpx;
+  height: 70rpx;
+  opacity: 0;
+  position: absolute;
+  top: 0rpx;
+  left: 0;
+}
+
+.dayReward {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  text-align: center;
+  width: 50rpx;
+  height: 230rpx;
+  border-radius: 10rpx 0 0 10rpx;
+  background-color: #ffcf00;
+  color: red;
+  top: 300rpx;
+  right: 0;
+  font-size: 30rpx;
+  line-height: 30rpx;
+}
+
+.icon-close {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  padding: 20rpx;
+}
+
+.top-tv {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40rpx;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.top-tv1 {
+  margin-bottom: 20rpx; 
+  color: #ff3f8b;
+  font-size: 30rpx;
+   text-align: justify; 
+  line-height: 150%;
+  font-weight: 900;
+}
+.top-tv1-import{
+  color: #fdcc21;
+  font-size: 30rpx;
+   text-align: justify; 
+  line-height: 150%;
+  font-weight: 900;
+}

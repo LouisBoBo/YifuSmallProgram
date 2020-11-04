@@ -1,0 +1,311 @@
+// pages/sign/RobotShare/RobotShare.js
+
+var isLoginSuccess = false;
+var app = getApp();
+
+import config from '../../../config.js';
+
+var util = require('../../../utils/util.js');
+
+var loginCount;
+
+var needShareCount = 5;
+
+var isShareGo = false;
+
+var shareTitle;
+
+var sharePath;
+
+var sharePic;
+
+var nowDate;//当前日期
+
+
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    buttonOpenType: "share",
+    Upyun: config.Upyun
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    new app.ToastPannel();
+    isShareGo = false
+    isLoginSuccess = false
+
+    if (null != app.globalData.user && app.globalData.user.userToken != undefined) {
+      isLoginSuccess = true
+    }
+    this.setData({
+      buttonOpenType: isLoginSuccess ? "share" : "getUserInfo"
+    })
+
+  },
+
+  //授权弹窗
+  onclickLogin: function (e) {
+    var that = this;
+
+    wx.getUserInfo({
+      //允许授权 获取用户信息
+      success: function (res) {
+        if (!app.globalData.user) {
+          that.globalLogin();
+        }
+      },
+      fail: function () {
+
+      }
+    })
+  },
+  //自动登录
+  globalLogin: function () {
+    wx.showLoading({
+      title: '请稍后',
+      mask: true,
+    })
+    var that = this;
+    util.autoLogin(loginCount, function (loginfailYiFuShow, login_discribution, login_buttontitle, newloginCount) {
+      loginCount = newloginCount;
+      if (loginCount == 1) //登录成功
+      {
+        isLoginSuccess = true;
+        that.setData({
+          buttonOpenType: "share"
+        })
+        wx.hideLoading();
+
+      }
+
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+    //每天5次相关
+    var timestamp = Date.parse(new Date());
+    var date = new Date(timestamp);
+    var Y = date.getFullYear();
+    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
+    var D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+    nowDate = Y + "-" + M + "-" + D;
+
+    //取出之前保存的日期
+    var oldDate = wx.getStorageSync("ROB-DATE");
+    //取出之前保存的次数
+    var oldNeedShareCount = Number(wx.getStorageSync("ROB-needShareCount") + "");
+
+    //如果是同一天
+    if (oldDate == nowDate) {
+      if (isShareGo) { //分享回来的
+        //计算显示
+        needShareCount--;
+        if (needShareCount <= 0) {
+          needShareCount = 0
+        }
+        //保存次数
+        wx.setStorageSync("ROB-needShareCount", needShareCount + "")
+
+        //重新保存日期
+        wx.setStorageSync("ROB-DATE", nowDate)
+        isShareGo = false
+
+      } else { //切出去后重新进来的
+        //当前次数就是之前保存的次数
+        needShareCount = oldNeedShareCount;
+      }
+      this.setData({
+        needShareCount: needShareCount
+      })
+
+
+
+
+    } else { //不是同一天
+      //重置次数
+      needShareCount = 5;
+      if (isShareGo) { //分享回来的-此时正好是12点刚过
+        needShareCount = 4;
+        //保存次数
+        wx.setStorageSync("ROB-needShareCount", needShareCount + "")
+        //重新保存日期
+        wx.setStorageSync("ROB-DATE", nowDate)
+        isShareGo = false
+      }
+
+      this.setData({
+        needShareCount: needShareCount
+      })
+    }
+
+
+    //获取随机商品
+    this.getShareShop()
+
+
+
+    // if (isShareGo) { //分享回来的
+    //   needShareCount--;
+    //   if (needShareCount <= 0) {
+    //     needShareCount = 0
+    //   }
+    //   wx.setStorageSync("ROB-needShareCount", needShareCount + "")
+    //   isShareGo = false
+    //   wx.setStorageSync("ROB-DATE", nowDate)
+
+    // }
+
+
+
+
+    // var oldDate = wx.getStorageSync("ROB-DATE");
+    // if (nowDate == oldDate) {
+    //   needShareCount = Number(wx.getStorageSync("ROB-needShareCount")+"");
+    // }else{
+    //   needShareCount = 5;
+    // }
+
+
+    // this.setData({
+    //   needShareCount: needShareCount
+    // })
+
+
+
+
+
+
+  },
+  getShareShop: function () {
+
+    var that = this;
+
+    var dataUrl = config.Host + "shop/shareShop" +
+      "?getShop=" + "true" +
+      config.Version;
+    wx.showLoading({
+      title: '请稍后',
+      mask: true,
+    })
+    util.http(dataUrl, function (data) {
+      if (data.status == 1) {
+        var shop_code = data.shop.shop_code;
+        var shop_pic = data.shop.four_pic.split(",")[2];
+        var shareP;
+        if (data.shop.four_pic) {
+          var str = data.shop.four_pic.split(",");
+          if (str.length > 2) {
+            shareP = str[2];
+          }
+        }
+        var shop_code_cut = '';
+        shop_code_cut = shop_code.substring(1, 4);
+        sharePic = that.data.Upyun + shop_code_cut + '/' + shop_code + '/' + shareP;
+        shareTitle = '点击购买👆'+'【' + data.shop.shop_name + '】' + "今日特价" + data.shop.wxcx_shop_group_price + "元！";
+        sharePath = "/pages/shouye/detail/detail?shop_code=" + shop_code + "&isShareFlag=true";
+
+        that.getCanvasPictiure(sharePic, data.shop.wxcx_shop_group_price);
+      }else
+        wx.hideLoading();
+    })
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  //生成分享的合成图片
+  getCanvasPictiure: function (imagesrc, price) {
+    var that = this;
+    
+    util.getCanvasPictiure("shareCanvas", imagesrc, price, function (tempFilePath) {
+      wx.hideLoading();
+      if (tempFilePath != undefined && tempFilePath != null) {
+        that.setData({
+          tempFilePath: tempFilePath
+        })
+      } else {
+        that.setData({
+          tempFilePath: imagesrc
+        })
+      }
+    })
+  },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+    if (isLoginSuccess) {
+      isShareGo = true;
+      var that = this;
+      var user_id = isLoginSuccess ? app.globalData.user.user_id : "";
+
+
+      if (needShareCount == 1) {
+        var page = 'pages/shouye/redHongBao';
+        var str = user_id + ',' + 'ThreePage' + ',' + 'QRcode';
+        //普通小程序二维码
+        var path = 'pages/shouye/redHongBao?scene=' + str;
+        return {
+          title: '新用户别忘记领完199元购物红包后，再下单哦。',
+          path: path,
+          imageUrl: config.Upyun + 'small-iconImages/heboImg/freeling_share199yuan.jpg'
+        }
+      } else {
+
+        return {
+          title: shareTitle,
+          path: sharePath + "&user_id=" + user_id,
+          imageUrl: this.data.tempFilePath
+
+        }
+
+      }
+
+    }
+
+  }
+})

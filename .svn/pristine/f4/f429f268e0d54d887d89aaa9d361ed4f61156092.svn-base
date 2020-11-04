@@ -1,0 +1,35 @@
+<import src="../order-shop-template.wxml" />
+<import src="../../../../common/FightShop-template/FightShop.wxml" />
+
+<view class="mainvie">
+  <view class="logistic">
+    <text class="logistic_name">圆通</text>
+    <text class="logistic_order">运单编号：6789087656789</text>
+  </view>
+  <view class="logistic_title">
+    <text class="logistic_title_text">商品信息</text>
+  </view>
+  <view class="logistic_shop">
+    <block wx:for="{{orderList}}" wx:for-item="item">
+      <!-- <template is="order-shopview" data="{{item,upyconfig,delivery_time,islogistic}}" /> -->
+      <template is="logisticShop" data="{{item,Upyun,islogistic}}"></template>
+      <view class='orderline'></view>
+    </block>
+  </view>
+  <view class="logistic_track">物流跟踪</view>
+  <view class="logistic_list">
+    <block wx:key wx:for="{{logisticList}}" wx:key='key' wx:for-item="item" wx:for-index="index">
+      <view class="logistic_content">
+        <view class="logistic_content_left">
+          <text class="logistic_content_left_linestr" style="height:{{index==0?'0':'40rpx'}}"></text>
+          <text class="{{index==0?'logistic_content_left_point1':'logistic_content_left_point'}}"></text>
+          <text class="logistic_content_left_lineend" wx:if="{{index!=logisticList.length-1}}"></text>
+        </view>
+        <view class="logistic_content_right">
+          <text class="logistic_content_right_title" style="color:{{index==0?'black':'gray'}}">{{item}}</text>
+          <text class="logistic_content_right_time" style="color:{{index==0?'black':'gray'}}">2020-5-13</text>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

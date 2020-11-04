@@ -1,0 +1,48 @@
+<import src="../../../common/toastTest/toastTest.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+<!-- 余额、提现 -->
+<view class="view-top" style="background-image: url({{Upyun}}/small-iconImages/heboImg/member_invite.jpg)" mode='aspectFit'>
+  <view class='view-top-money-out'>
+    <view class='view-top-money' style='background-image: url({{Upyun}}/small-iconImages/gx/withdrawal_top_bg.png)'>
+      <view class='view-sum'>
+        <text class='text-sum_1'>{{mSumBalance_data}}</text>
+        <text class='text-sum_2'>总余额(元)</text>
+      </view>
+      <view class='view-sum'>
+        <text class='text-sum_1'>{{mLimit_data}}</text>
+        <text class='text-sum_2'>可提现(元)</text>
+      </view>
+      <view bindtap="bind_tap_not" class='view-sum'>
+        <text class='text-to-withdraw'>提现</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 活动规则 -->
+<view class='inviteContainer'>
+  <view class='invite-whiteBg'>
+    <image class='title-img' mode='aspectFit' src='{{Upyun}}/small-iconImages/invite_friends/invite_hdgz.png'></image>
+    <image class='rull-img' mode='widthFix' src="{{Upyun}}/small-iconImages/heboImg/rule_member.jpg"></image>
+    <!-- <view class='top-tv'>
+      <text class='top-tv1'>您首次成为至尊会员并邀请好友成为会员</text>
+      <text class='top-tv1'>您与好友各得<text class='top-tv1-import'>{{memberData[0]}}元</text>奖励金</text>
+      <text class='top-tv1'>您再得<text class='top-tv1-import'>{{memberData[1]}}元/人</text>推荐奖励金</text>
+      <text class='top-tv1'>您的好友邀请朋友成为至尊会员</text>
+      <text class='top-tv1'>您再得<text class='top-tv1-import'>{{memberData[2]}}元/人</text>裂变奖励金</text>
+      <text class='top-tv1'>上不封顶,所有奖励金都可<text class='top-tv1-import'>立即提现</text></text>
+    </view> -->
+    
+    <view class='share-cover1'>
+      <text class='share-tv'>立即成为至尊会员</text>
+      <button class="weixin-share-icon-btn" catchtap='becomeMember'></button>
+    </view>
+    <view class='share-cover'>
+      <text class='share-tv' >点我分享到微信群</text>
+      <button class="weixin-share-icon-btn" open-type="share"></button>
+    </view>
+  </view>
+</view>
+<view class='bottomview'></view>
+<!-- 今日奖励 -->
+<view class='dayReward' catchtap="dayReward_show">好友奖励明细</view>

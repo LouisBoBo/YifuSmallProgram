@@ -1,0 +1,1195 @@
+import config from '../../../config.js';
+var util = require('../../../utils/util.js');
+var WxNotificationCenter = require("../../../utils/WxNotificationCenter.js");
+import ToastPannel from '../../../common/toastTest/toastTest.js';
+var app = getApp();
+var orderItem;
+
+var chouJiangUrl;
+var formId;
+var fistChoujiangBack = false;
+
+var firstChoujiang = true;
+var is_goTiXianDetail = false;
+var is_backFresh = false;
+//96小时-机器人拼团成功专用
+var ptSuccessOrder_code = "111"
+var ptSuccesRoll_code = "111"
+
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    currentTab: 0,
+    currentpage: 1,
+    isConfirm: false,
+    upyconfig: config.Upyun,
+    Upyun: config.Upyun,
+    isorderdetail: 'false',
+    openYifuDialogShow: false,
+    moneyDiscountShowFlag: false,
+    openRefundFailShow: false,
+    moneyDiscount: 0,
+    discountitem: "",
+    oneYuanDiscriptionTitle: '疯抢退款说明',
+    oneyuanValue: 1,
+    shareTitle: "",
+    orderList: [],
+    titlelist: ["全部", "待付款", "待疯抢", "待收货", "待评价"],
+    fightSuccess_fail_isShow: false,
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    new app.ToastPannel();
+    var index = options.indexid;
+    this.setData({
+      currentTab: index,
+      currentpage: 1,
+    })
+
+    if (!is_backFresh) //当是抽奖界面返回时不需要重新请求列表
+    {
+      this.getOrderList();
+    }
+
+    this.setData({
+      oneyuanValue: app.globalData.oneYuanValue,
+      // oneYuanDiscriptionTitle: app.globalData.oneYuanValue + '元购返还说明',
+    });
+
+    if (options.FightSuccess) {
+      this.setData({
+        FightSuccess: options.FightSuccess
+      })
+    }
+
+    WxNotificationCenter.addNotification("testNotificationAuthorizationName", this.testNotificationFromItem1Fn, this);
+
+  },
+  onUnload: function() {
+    if (this.data.FightSuccess) {
+      wx.setStorageSync("FightSuccess", true)
+      this.setData({
+        FightSuccess: false
+      })
+    }
+  },
+  onShow: function() {
+    var FightSuccess = wx.getStorageSync('FightSuccess');
+    //当是退款详情回来的弹拼单成功提示用户去提现的弹窗
+    if (is_goTiXianDetail == true || FightSuccess == true) {
+      this.getcoupon_http();
+    }
+
+    if (is_backFresh) //当是抽奖界面返回时需要刷新列表
+    {
+      if (wx.pageScrollTo) {
+        wx.pageScrollTo({
+          scrollTop: 0
+        })
+      }
+
+      this.setData({
+        currentpage: 1,
+      })
+
+      this.getOrderList();
+      is_backFresh = false;
+    }
+
+    this.loginSetting();
+  },
+
+  testNotificationFromItem1Fn: function(info) {
+    var that = this;
+    that.setData({
+      currentTab: 0,
+      currentpage: 1
+    })
+    that.getOrderList();
+  },
+
+  //获取优惠券
+  getcoupon_http: function() {
+    var that = this;
+    var oldurl = config.Host + '/coupon/getRollCoupon?' + config.Version;
+    util.http(oldurl, that.coupon_data);
+  },
+  coupon_data: function(data) {
+    var coupon = "6";
+    if (data.status == 1) {
+      coupon = data.price > 0 ? (data.price * 1).toFixed(0) : coupon;
+      this.getFightOrderStatus();
+    }
+    this.setData({
+      coupon: coupon,
+    })
+  },
+  //获取用户是否有拼团成功的订单
+  getFightOrderStatus: function() {
+    var that = this;
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+    var oldurl = config.Host + 'order/getOrderStatus?' + config.Version + "&token=" + token;
+    util.http(oldurl, that.fightOrder_data);
+  },
+  fightOrder_data: function(data) {
+
+    var that = this;
+    //首次拼团疯抢才弹此框
+    if (data.status == 1 && data.rollCount == 1) {
+      var time = wx.getStorageSync("FightPopTime");
+      var currentTime = util.isToday(time);
+      //当是第二天清零弹出次数
+      if (currentTime == '以前的日期') {
+        wx.setStorageSync("popCount", '');
+      }
+
+      var popcount = wx.getStorageSync("popCount");
+      if (currentTime != '当天' || popcount < 11) {
+
+        that.setData({
+          fightSuccess_fail_isShow: true,
+        })
+
+        //弹过后清除条件
+        is_goTiXianDetail = false;
+        wx.setStorageSync('FightSuccess', false);
+
+        var NowTime = new Date().getTime();
+        wx.setStorageSync("FightPopTime", NowTime);
+        wx.setStorageSync("popCount", popcount + 1);
+
+      }
+    }
+  },
+
+  //订单列表数据
+  getOrderList: function() {
+
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+    var url = config.Host + 'order/getBuyOrder?token=' + token + config.Version + '&status=' + this.data.currentTab + '&page=' + this.data.currentpage + '&order=desc';
+    console.log(url);
+
+    wx.showLoading({
+      title: '请稍后',
+      mask: true,
+    })
+    util.http(url, this.httpOrderdata);
+  },
+  httpOrderdata: function(data) {
+    wx.hideLoading()
+    wx.stopPullDownRefresh();
+    if (this.data.currentpage == 1) {
+      this.data.orderList = [];
+    }
+    if (data.status == 1) {
+      var page = this.data.currentpage + 1;
+      var datalist = data.orders;
+      var pageData = this.data.orderList;
+      for (var j = 0; j < datalist.length; j++) {
+        pageData.push(datalist[j]);
+      }
+      var orderlist = [];
+      for (var i = 0; i < pageData.length; i++) {
+        //订单状态
+        var shop_from = pageData[i].shop_from;
+        var last_time = pageData[i].last_time;
+        var issue_status = pageData[i].issue_status;
+        var orderstaus = pageData[i].status;
+        var change = pageData[i].change;
+        var item = pageData[i];
+        var orderstatus = "";
+        var ordershopstatus = "";
+        var shop_pic = "";
+        var shopcode = "";
+        var newshopname = "";
+        var pay_money = "";
+        var shop_price = "";
+        // var shop_from = "";
+        var orderButtonStatus = [];
+        if (pageData[i].orderShops.length > 0) {
+          ordershopstatus = pageData[i].orderShops[0].status;
+        }
+        if (shop_from == 4 || shop_from == 6) { //夺宝订单
+          orderstatus = this.getIndianaStatus(last_time, issue_status);
+          orderButtonStatus = this.getButtonStatusFromOrderStatus(orderstaus, item);
+          shop_pic = pageData[i].order_pic;
+          shopcode = pageData[i].bak;
+          newshopname = pageData[i].order_name;
+
+          if (shop_pic != null) {
+            //商品图片
+            var newcode = shopcode.substr(1, 3);
+            var new_pic = newcode + '/' + shopcode + '/' + shop_pic;
+
+            //商品名称
+            if (newshopname.length > 9) {
+              newshopname = newshopname.substr(0, 9) + '... ';
+            }
+            pageData[i]["new_shop_pic"] = new_pic;
+            pageData[i]["new_shopname"] = newshopname;
+          }
+
+        } else { //普通商品订单
+          orderstatus = this.getOrderStatus(orderstaus, ordershopstatus, change, shop_from);
+          orderButtonStatus = this.getButtonStatusFromOrderStatus(orderstaus, item, shop_from);
+          var orderShops = pageData[i].orderShops;
+          for (var j = 0; j < orderShops.length; j++) {
+            shop_pic = pageData[i].orderShops[j].shop_pic;
+            shopcode = pageData[i].orderShops[j].shop_code;
+            shop_price = pageData[i].orderShops[j].shop_price;
+            newshopname = pageData[i].orderShops[j].shop_name;
+            pay_money = pageData[i].pay_money;
+            shop_from = pageData[i].shop_from;
+
+            pageData[i].orderShops[j].shop_price = (shop_price * 1).toFixed(1);
+            if (shop_pic != null) {
+              //商品图片
+              var newcode = shopcode.substr(1, 3);
+              var new_pic = newcode + '/' + shopcode + '/' + shop_pic;
+
+              //商品名称
+              if (newshopname.length > 9) {
+                newshopname = newshopname.substr(0, 9) + '... ';
+              }
+              pageData[i].orderShops[j]["new_shop_pic"] = new_pic;
+              pageData[i].orderShops[j]["new_shopname"] = newshopname;
+            }
+          }
+        }
+        pageData[i]["orderstatus"] = orderstatus;
+        pageData[i]["orderButtonStatus"] = orderButtonStatus;
+        orderlist.push(pageData[i]);
+      }
+      this.setData({
+        orderList: orderlist,
+        currentpage: page,
+        orderstatus: orderstatus != undefined ? orderstatus : ''
+      })
+
+      var FightSuccess = wx.getStorageSync('FightSuccess');
+      //如果拼单成功提示用户去提现弹窗出现 此弹窗不弹
+      if (this.fistChoujiangBack && FightSuccess != true) {
+        this.setData({
+          showFirstChoujiangBackDialog: true
+        })
+
+        this.fistChoujiangBack = false
+      }
+    }
+  },
+  //夺宝订单状态
+  getIndianaStatus: function(last_time, issue_status) {
+    var statusstr = "";
+    var NowTime = new Date().getTime();
+    var total_micro_second = last_time - NowTime || [];
+    if (total_micro_second <= 0) {
+      statusstr = "已过期";
+    } else {
+      switch (issue_status) {
+        case 0:
+          statusstr = "参与中";
+          break;
+        case 1:
+          statusstr = "退款";
+          break;
+        case 2:
+          statusstr = "退款";
+          break;
+        case 3:
+          statusstr = "中奖";
+          break;
+        case 4:
+          statusstr = "未中奖";
+          break;
+      }
+    }
+    return statusstr;
+  },
+  //订单状态
+  getOrderStatus: function(status, ordershopstatus, change, shop_from) {
+    var statusstr = "";
+    if (ordershopstatus == "0") {
+      switch (status) {
+        case 1:
+          statusstr = "待付款";
+          break;
+        case 2:
+          statusstr = "待发货";
+          break;
+        case 3:
+          statusstr = "待收货";
+          break;
+        case 4:
+          statusstr = "待评价";
+          break;
+        case 5:
+          statusstr = "已评价";
+          break;
+        case 6:
+          if (shop_from == 10) {
+            statusstr = "疯抢未抢到";
+          } else
+            statusstr = "交易成功";
+          break;
+        case 7:
+          statusstr = "延长收货";
+          break;
+        case 8:
+          statusstr = "退款成功";
+          break;
+        case 9:
+          statusstr = "取消订单";
+          break;
+        case 10:
+          statusstr = "订单已过期";
+          break;
+        case 11:
+          statusstr = "拼团中";
+          break;
+        case 12:
+          statusstr = "待疯抢";
+          break;
+        case 13:
+          statusstr = "拼团失败";
+          break;
+        case 14:
+          statusstr = "疯抢未抢到";
+          break;
+        case 15://申请关闭拼团-已过96小时
+          statusstr = "拼团中";
+          break;
+      }
+    } else if (ordershopstatus == "4") {
+      if (shop_from == 10) {
+        statusstr = "疯抢未抢到";
+      } else
+        statusstr = "交易成功";
+    } else {
+      var str1 = "";
+      var str2 = "";
+      switch (change) {
+        case 1:
+          str1 = "换货";
+          break;
+        case 2:
+          str1 = "退货";
+          break;
+        case 3:
+          str1 = "退款";
+          break;
+      }
+
+      switch (ordershopstatus) {
+        case "1":
+          str2 = "处理中";
+          break;
+        case "2":
+          str2 = "被拒绝";
+          break;
+        case "3":
+          str2 = "已成功";
+          break;
+        case "4":
+          str2 = "已取消";
+          break;
+      }
+      statusstr = str1 + str2;
+    }
+
+    return statusstr;
+  },
+  //订单处理按钮
+  getButtonStatusFromOrderStatus: function(status, item, shop_from) {
+    var buttonLisr = [];
+    var timestamp = Date.parse(new Date());
+    if (item.last_time <= timestamp) {
+      buttonLisr = ["删除订单"];
+    }
+    switch (status) {
+      case 1:
+        if (item.lasttime <= item.requestNow_time) {
+          buttonLisr = ["删除订单"];
+        } else {
+          buttonLisr = ["联系卖家", "取消订单", "付款"];
+        }
+        break;
+      case 2:
+        buttonLisr = ["提醒发货"];
+        if (item.pay_status == 1 && item.orderShopStatus == 0 && item.orderShopStatus != nil && item.status == 1) {
+          buttonLisr = ["联系卖家", "删除订单", "付款"];
+        } else if (item.issue_status == 4) {
+          buttonLisr = ["删除订单"];
+        }
+        break;
+      case 3:
+        buttonLisr = ["查看物流", "确认收货"];
+        break;
+      case 4:
+        buttonLisr = ["删除订单", "评价订单"];
+        break;
+      case 5:
+        buttonLisr = ["删除订单", "追加评价"];
+        if (item.shop_from == 4 || item.shop_from == 6) {
+          buttonLisr = ["删除订单"];
+        } else {
+          buttonLisr = ["删除订单", "追加评价"];
+        }
+        break;
+      case 6:
+        buttonLisr = ["删除订单"];
+        break;
+      case 7:
+        buttonLisr = ["查看物流", "确认收货"];
+        break;
+      case 8:
+        buttonLisr = ["钱款去向"];
+        break;
+      case 9:
+        buttonLisr = ["删除订单"];
+        break;
+        case 11:
+          buttonLisr = ["邀请好友拼团"];
+          break;
+      case 12:
+        buttonLisr = ["立即去疯抢"];
+        break;
+      case 13:
+        if (item.check == 3) {
+          buttonLisr = ["删除订单", "退款成功"];
+        } else if (item.check == 11 || item.check == 2) {
+          buttonLisr = ["退款失败"];
+        } else if (item.check >= 0) {
+          buttonLisr = ["退款中"];
+        } else {
+          buttonLisr = ["删除订单"];
+        }
+
+        break;
+      case 14:
+        if (item.check == 3) {
+          buttonLisr = ["删除订单", "退款成功"];
+        } else if (item.check == 11 || item.check == 2) {
+          buttonLisr = ["退款失败"];
+        } else if (item.check >= 0) {
+          buttonLisr = ["退款中"];
+        } else {
+          buttonLisr = ["删除订单"];
+        }
+        break;
+
+      case 15: //96小时已过
+        buttonLisr = ["申请关闭拼团"];
+        break
+    }
+
+    return buttonLisr;
+  },
+  //列表加载更多
+  onReachBottom: function() {
+    this.getOrderList();
+  },
+  //下拉刷新
+  onPullDownRefresh: function() {
+    this.setData({
+      currentpage: 1,
+    })
+    this.getOrderList();
+  },
+
+  //切换菜单
+  switchNav: function(e) {
+    var page = this;
+    var currenttab = e.currentTarget.dataset.current;
+    if (this.data.currentTab == currenttab) {
+      return false;
+    } else {
+      var current = app.globalData.user ? e.currentTarget.dataset.current : 0;
+      page.setData({
+        currentTab: current,
+        currentpage: 1,
+      });
+
+      if (app.globalData.user) {
+        this.getOrderList();
+      }
+    }
+  },
+
+  //随便逛逛
+  gobuytap: function(event) {
+    wx.switchTab({
+      url: '../../../pages/shouye/shouye',
+    })
+  },
+  //订单详情
+  orderdetailTap: function(event) {
+    var item = event.currentTarget.dataset.item;
+    wx.setStorageSync("orderitem", item);
+    wx.setStorageSync("oneYuan_order_code", item.order_code);
+    wx.setStorageSync("wxcx_shop_group_price", item.order_price);
+    if (item.shop_from == '11' || item.shop_from == '10') {
+      var url = 'orderDetail/orderDetail?item=' + item;
+
+      if (item.status == 12) { //待疯抢
+
+        chouJiangUrl = '../../../pages/listHome/order/oneBuyLuckPan/oneBuyLuckPanIOS?' + "order_code=" + item.order_code + "&FightSuccess=true";
+        if (wx.getStorageSync("NOT_FIRST-GO-ZHUANPAN")) { //非第一次
+          this.setData({
+            openYifuDialogShowFQ: true,
+          })
+        } else { //第一次
+          is_backFresh = true;
+          wx.navigateTo({
+            url: chouJiangUrl,
+          })
+          wx.setStorageSync("NOT_FIRST-GO-ZHUANPAN", true);
+          this.fistChoujiangBack = true;
+        }
+
+        return
+
+      } else if (item.status == 11 || item.status == 13) { //拼团不成功
+        url = '../../../pages/shouye/fightDetail/fightDetail?item=' + item + '&code=' + item.roll_code + "&isTM=" + item.isTM + "&status=" + item.status;
+        wx.navigateTo({
+          url: url,
+        })
+      } else if (item.status == 14) { //疯抢未抢中
+        url = 'orderDetail/orderDetail?item=' + item;
+        wx.navigateTo({
+          url: url,
+        })
+      }
+    } else {
+      wx.navigateTo({
+        url: 'orderDetail/orderDetail?item=' + item,
+      })
+    }
+  },
+
+  //处理按钮添加formid
+  fightsubmit: function(e) {
+    var formId = e.detail.formId;
+    if (formId && app.globalData.user != null) {
+      util.httpPushFormId(formId);
+    }
+  },
+  //待付款
+  foothandleviewtap: function(event) {
+    var that = this
+    var item = event.currentTarget.dataset.item;
+    orderItem = item;
+    var title = event.currentTarget.dataset.title;
+    if (title == "付款") {
+      this.payOrder(item);
+    } else if (title == "取消订单") {
+      this.cancleOrder(item);
+    } else if (title == "删除订单") {
+      this.deleateOrder(item);
+    } else if (title == "联系卖家") {
+
+    } else if (title == "邀请好友拼团") {
+      wx.navigateTo({
+        url: '../../../pages/shouye/fightDetail/fightDetail?item=' + item + '&code=' + item.roll_code + "&isTM=" + item.isTM + "&status=" + item.status,
+      })
+    } else if (title == "立即去疯抢") {
+
+      wx.setStorageSync("oneYuan_order_code", item.order_code);
+      wx.setStorageSync("wxcx_shop_group_price", item.order_price);
+      var urlstr = app.globalData.systemInfo == "ios" ? "../../../oneBuyLuckPan/oneBuyLuckPanLast?" : "../../../oneBuyLuckPan/oneBuyLuckPanAndroid?"
+
+      chouJiangUrl = '../../../pages/listHome/order/oneBuyLuckPan/oneBuyLuckPanIOS?' + "order_code=" + item.order_code + "&FightSuccess=true";
+      if (wx.getStorageSync("NOT_FIRST-GO-ZHUANPAN")) { //非第一次
+        this.setData({
+          openYifuDialogShowFQ: true,
+        })
+      } else { //第一次
+        is_backFresh = true;
+        wx.navigateTo({
+          url: chouJiangUrl,
+        })
+        wx.setStorageSync("NOT_FIRST-GO-ZHUANPAN", true);
+        this.fistChoujiangBack = true;
+      }
+
+
+
+    } else if (title == "申请关闭拼团") {
+      this.ptSuccessOrder_code = item.order_code
+      this.ptSuccesRoll_code = item.roll_code
+
+      wx.showLoading({
+        title: '请稍后',
+        mask: true,
+      })
+      setTimeout(function() {
+        wx.hideLoading()
+        //召唤机器人参团
+        that.callRobot()
+      }, 2000)
+    } else if (title == "退款中" || title == "退款成功") {
+      is_goTiXianDetail = true;
+      wx.navigateTo({
+        url: '../../../pages/mine/wallet/accountDetail/ForwardDetail?' + "business_code=" + item.business_code,
+      })
+    } else if (title == "退款失败") {
+      this.setData({
+        openRefundFailShow: true
+      })
+    } else {
+      this.setData({
+        openYifuDialogShow: true
+      })
+    }
+  },
+  dialogGoChoujiang: function() { //抽奖弹窗按钮点击
+
+
+    this.setData({
+      openYifuDialogShow: false,
+      openYifuDialogShowFQ: false,
+
+      showIOSdownload: true,
+    })
+
+
+
+  },
+  // 支付回调
+  // appId: "wxeb7839c8cbeef680"
+  // nonceStr: "zr73uq589vbk59tlntcri8a1dgxkk44w"
+  // package: "prepay_id=wx2017112416500900940db3290184964231"
+  // paySign: "2DADDBA31784C2D2271FA0343A1B10AD"
+  // signType: "MD5"
+  // timeStamp: 1511858924066
+  orderPayResult: function(data) {
+    var that = this;
+    if (data.status == 1) {
+      var xml = data.xml;
+      wx.requestPayment({
+        'timeStamp': xml.timeStamp + "",
+        'nonceStr': xml.nonceStr,
+        'package': xml.package,
+        'signType': xml.signType,
+        'paySign': xml.paySign,
+        'success': function(res) {
+          that.setData({ //刷新列表
+            currentpage: 1,
+          })
+          var shop = orderItem.orderShops[0];
+          if (shop.shop_from != 10 && shop.shop_from != 11 && shop.shop_from != 4 && shop.shop_from != 6) {
+            //普通订单到订单详情界面
+            wx.redirectTo({
+              url: 'orderDetail/orderDetail?isNormalBuy=' + 'true',
+            })
+          } else {
+            that.getOrderList();
+          }
+
+          // if (that.data.buyType == 1) {
+          //   var fdStart = that.data.order_code.indexOf("G");
+          //   var dataUrl = '';
+          //   if (fdStart == 0) {//表示strCode是以ssss开头；
+          //     dataUrl = config.PayHost + 'treasures/getPayCodeList?' + config.Version + "&token=" + app.globalData.user.userToken + '&g_code=' + that.data.order_code + '&pay_type=2';
+          //   } else {//表示strCode不是以ssss开头
+          //     dataUrl = config.PayHost + 'treasures/getPayCode?' + config.Version + "&token=" + app.globalData.user.userToken + '&order_code=' + that.data.order_code + '&pay_type=2';
+          //   }
+          //   util.http(dataUrl, that.getInCode)
+          // }
+          // else
+          //   wx.redirectTo({
+          //     url: '../../../sign/withdrawLimit/withdrawLimit?isFromPaySuccess=true&totalAccount=' + that.data.totalAccount,
+          //   })
+
+          // wx.setStorage({
+          //   key: 'payPrice',
+          //   data: that.data.totalAccount,
+          // })
+        },
+        'fail': function(res) {
+          that.showToast('支付失败', 2000);
+        }
+      })
+      that.data.isConfirm = false;
+    } else {
+      that.showToast(data.message, 2000);
+      that.data.isConfirm = false;
+    }
+  },
+  //付款
+  payOrder: function(item) {
+    var that = this;
+    wx.setStorageSync("orderitem", item);
+
+    var order_code = item.order_code;
+    console.log("order_code=", order_code);
+
+    var fdStart = order_code.indexOf("G");
+    var payUrl = 'wxpaycx/wapUinifiedOrder?';
+    if (fdStart == 0) {
+      payUrl = 'wxpaycx/wapUinifiedOrderList?';
+    }
+
+    wx.login({
+      success: res => {
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId, 3rd_session
+        if (res.code) {
+          var dataUrl = config.PayHost + payUrl + config.Version + "&token=" + app.globalData.user.userToken + '&order_code=' + order_code + '&order_name=我的' + '&code=' + res.code;
+          util.http(dataUrl, that.orderPayResult)
+        } else {
+          console.log('获取用户登录态失败！' + res.errMsg)
+          that.showToast('获取用户登录态失败！' + res.errMsg, 2000);
+          that.data.isConfirm = false;
+        }
+      }
+    })
+  },
+  //取消订单
+  cancleOrder: function(item) {
+    var token = app.globalData.user.userToken;
+    var order_code = item.order_code;
+    var url = config.Host + "order/escOrder?token=" + token + config.Version + "&order_code=" + order_code;
+    util.http(url, this.cancleOrderdata);
+  },
+  cancleOrderdata: function(data) {
+    if (data.status == 1) {
+      this.setData({
+        currentpage: 1,
+      })
+      this.getOrderList();
+      this.showToast("取消成功", 2000);
+    } else {
+      this.showToast("取消失败", 2000);
+    }
+  },
+
+  //删除订单
+  deleateOrder: function(item) {
+    var token = app.globalData.user.userToken;
+    var order_code = item.order_code;
+    var url = config.Host + "order/delOrder?token=" + token + config.Version + "&order_code=" + order_code;
+    util.http(url, this.deleateOrderdata);
+  },
+  deleateOrderdata: function(data) {
+    if (data.status == 1) {
+      this.setData({
+        currentpage: 1,
+      })
+      this.getOrderList();
+      this.showToast("删除成功", 2000);
+    } else {
+      this.showToast("删除失败", 2000);
+    }
+  },
+
+  //分享好友拼团
+  shareOrder: function(item) {
+    console.log("分享好友拼团");
+  },
+  //关闭下载弹框
+  open_yifu_iknow: function() {
+    this.setData({
+      openYifuDialogShow: false,
+      openYifuDialogShowFQ: false
+
+    });
+  },
+
+
+  //获取可抵扣余额
+  top_shopHttp: function(item) {
+    var that = this;
+    that.setData({
+      discount_clickItem: item
+    })
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+    var oldurl = config.Host + 'order/getZeroOrderDeductible?' + config.Version + '&token=' + token;
+    util.http(oldurl, that.discount_data);
+  },
+  discount_data: function(data) {
+    if (data.status == 1) {
+      var one_deductible = Number(this.data.discountitem.one_deductible);
+      var title = one_deductible > 0 ? "余额抵扣说明" : "疯抢退款说明";
+
+      this.setData({
+        oneYuanDiscriptionTitle: title,
+        moneyDiscountShowFlag: true,
+        moneyDiscount: (data.order_price * 1).toFixed(1),
+      })
+    }
+  },
+
+  //抵扣弹框
+  discountClick: function(event) {
+    var item = event.currentTarget.dataset.item;
+    this.data.discountitem = item;
+    if ((item.orderstatus == '疯抢未抢到' || item.orderstatus == '拼团失败') && item.orderstatus != '待发货') {
+      this.top_shopHttp(item);
+    } else if (item.one_deductible > 0) {
+      this.top_shopHttp(item);
+    } else {
+      wx.setStorageSync("orderitem", item);
+      wx.setStorageSync("oneYuan_order_code", item.order_code);
+      wx.setStorageSync("wxcx_shop_group_price", item.order_price);
+      if (item.shop_from == '11' || item.shop_from == '10') {
+
+        var url = 'orderDetail/orderDetail?item=' + item;
+
+        if (item.status == 12) {
+
+
+
+          chouJiangUrl = '../../../pages/listHome/order/oneBuyLuckPan/oneBuyLuckPanIOS?' + "order_code=" + item.order_code + "&FightSuccess=true";
+          if (wx.getStorageSync("NOT_FIRST-GO-ZHUANPAN")) { //非第一次
+            this.setData({
+              openYifuDialogShowFQ: true,
+            })
+          } else { //第一次
+            is_backFresh = true;
+            wx.navigateTo({
+              url: chouJiangUrl,
+            })
+            wx.setStorageSync("NOT_FIRST-GO-ZHUANPAN", true);
+            this.fistChoujiangBack = true;
+          }
+
+          return;
+
+        } else if (item.status == 11 || item.status == 13) {
+          url = '../../../pages/shouye/fightDetail/fightDetail?item=' + item + '&code=' + item.roll_code + "&isTM=" + item.isTM + "&status=" + item.status;
+        } else if (item.status == 14) {
+          url = 'orderDetail/orderDetail?item=' + item;
+        }
+
+        wx.navigateTo({
+          url: url,
+        })
+
+      } else {
+        wx.navigateTo({
+          url: 'orderDetail/orderDetail?item=' + item,
+        })
+      }
+    }
+  },
+  //余额抵扣弹窗点击去赚余额 关闭
+  getMoneyBtn: function() {
+    this.setData({
+      moneyDiscountShowFlag: false
+    })
+    wx.navigateTo({
+      url: "../../sign/sign",
+    })
+  },
+  //余额抵扣弹窗点击知道了 关闭
+  getYiDouBtn: function() {
+    this.setData({
+      moneyDiscountShowFlag: false
+    })
+  },
+
+  //余额抵扣弹窗点击查看余额 关闭
+  getYueBtn: function() {
+    wx.navigateTo({
+      url: '../../mine/wallet/wallet',
+    })
+    this.setData({
+      moneyDiscountShowFlag: false
+    })
+  },
+
+  //余额抵扣弹窗点击退款进度 关闭
+  getRefundSchedule: function(event) {
+    if (this.data.discount_clickItem.check >= 0) //进度
+    {
+      is_goTiXianDetail = true;
+      wx.navigateTo({
+        url: '../../../pages/mine/wallet/accountDetail/ForwardDetail?' + "business_code=" + this.data.discount_clickItem.business_code,
+      })
+    } else { //老的订单 查看余额
+      wx.navigateTo({
+        url: '../../mine/wallet/wallet',
+      })
+    }
+
+    this.setData({
+      moneyDiscountShowFlag: false
+    })
+  },
+  closeYiDouBtn: function() {
+    this.setData({
+      moneyDiscountShowFlag: false
+    })
+  },
+
+
+
+
+
+
+
+  //获取二级类目
+  top_shopTypeHttp: function(shop) {
+    var that = this;
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+    var oldurl = config.Host + 'shop/queryShopType2?' + config.Version + '&token=' + token + '&shop_code=' + shop.shop_code;
+    util.http(oldurl, that.type_data);
+  },
+  type_data: function(data) {
+    if (data.status == 1) {
+      var shop = orderItem.orderShops[0];
+      var supp_label = '衣蝠';
+      if (shop.supp_label) {
+        supp_label = shop.supp_label;
+      }
+
+      var sharemoney = app.globalData.oneYuanFree > 0 ? '0' : this.data.wxcx_shop_group_price;
+
+      var shareJson = '快来' + this.data.wxcx_shop_group_price + '元拼' + '【' + supp_label + '正品' + data.type2 + '】,' + '专柜价' + shop.shop_price + '元!';
+      // if (shop_type == 2) {
+      //   shareJson = '快来' + this.data.wxcx_shop_group_price + '元拼' + '【' + this.data.shop.shop_name + '】,' + '原价' + shop.shop_price + '元!';
+      // }
+      this.data.shareTitle = shareJson;
+    }
+  },
+
+  onShareAppMessage: function(res) {
+    var shop = orderItem.orderShops[0];
+    var shop_code = shop.shop_code;
+    var share_pic = shop.new_shop_pic + '!450';
+    var shop_name = shop.shop_name;
+    var supp_label = shop.supp_label ? shop.supp_label : "衣蝠";
+    var user_id = '';
+
+    if (app.globalData.user) {
+      user_id = app.globalData.user.user_id
+    }
+
+    var shareTitle = '快来' + this.data.wxcx_shop_group_price + '元拼' + '【' + supp_label + '正品' + shop_name + '】,' + '专柜价' + shop.shop_price + '元!';
+
+    var that = this;
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+
+    return {
+      title: shareTitle,
+      path: '/pages/shouye/detail/detail?shop_code=' + this.data.shop_code + "&isShareFlag=true" + "&user_id=" + user_id,
+      imageUrl: that.data.Upyun + share_pic,
+      success: function(res) {
+        // that.setData({ isOneShowShare: false })
+      },
+      fail: function(res) {
+        // 转发失败
+      }
+    }
+  },
+
+  closeToTX: function() {
+    this.setData({
+      openYifuDialogShow: false
+    })
+  },
+
+  closeToTXFQ: function() {
+
+    this.setData({
+      openYifuDialogShowFQ: false
+    })
+
+    is_backFresh = true;
+    wx.navigateTo({
+      url: chouJiangUrl,
+    })
+    wx.setStorageSync("NOT_FIRST-GO-ZHUANPAN", true);
+
+
+  },
+  closeIOSdownload: function() {
+    this.setData({
+      showIOSdownload: false
+    })
+  },
+
+  colseFirstChouJiangBackDialog: function() {
+    this.setData({
+      showFirstChoujiangBackDialog: false,
+      showIOSdownload: true,
+
+    })
+  },
+
+  downloadsubmit: function(e) {
+    var formId = e.detail.formId;
+    if (formId && app.globalData.user != null) {
+      util.httpPushFormId(formId);
+    }
+  },
+  goAPPtx: function() { //引导下载APP
+
+    // if (app.globalData.systemInfo == "ios") {
+
+    //   console.log("ios手机")
+
+    this.setData({
+      openYifuDialogShow: false,
+      openYifuDialogShowFQ: false,
+
+      showIOSdownload: true,
+    })
+
+
+    // } else {
+    //   console.log("android手机")
+
+    //   wx.navigateTo({
+    //     url: "downloadapp/downloadapp"
+
+    //   });
+
+    // }
+
+  },
+  //去赚钱
+  goToMoney: function() {
+    this.setData({
+      fightSuccess_fail_isShow: false
+    })
+    wx.navigateTo({
+      url: '../../../pages/sign/sign',
+    })
+  },
+  goTiXian: function() {
+    this.setData({
+      openRefundFailShow: false,
+      fightSuccess_fail_isShow: false
+    })
+
+    wx.navigateTo({
+      url: '../../../pages/mine/wallet/Withdrawals/Withdrawals',
+    })
+  },
+  closePop: function() {
+    this.setData({
+      openRefundFailShow: false,
+      fightSuccess_fail_isShow: false
+    })
+  },
+  //是否授权
+  loginSetting: function() {
+    var that = this;
+    //查看用户是否授权 未授权弹授权提示弹窗
+    wx.getSetting({
+      success: res => {
+        var authSetting = false;
+        if (res.authSetting['scope.userInfo'] || app.globalData.user) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          authSetting = true;
+        } else {
+          authSetting = false;
+        }
+
+        that.setData({
+          authSetting: authSetting,
+        })
+      }
+    })
+  },
+  // 提交formId
+  loginsubmit: function(e) {
+    formId = e.detail.formId;
+  },
+  //授权弹窗
+  onclick: function(e) {
+    var that = this;
+    wx.getUserInfo({
+      //允许授权 获取用户信息
+      success: function(res) {
+        that.orderHttp();
+        that.setData({
+          authSetting: true,
+        })
+      },
+      fail: function() {
+
+      }
+    })
+  },
+
+  //登录成功回调
+  orderHttp: function() {
+    var that = this;
+    app.New_userlogin(function() {
+      //授权登录成功
+      that.getOrderList();
+
+      // 提交formId
+      if (formId) {
+        util.httpPushFormId(formId);
+      }
+    });
+  },
+  onHide: function() {
+    if (this.data.FightSuccess) {
+      wx.setStorageSync("FightSuccess", true)
+      this.setData({
+        FightSuccess: false
+      })
+    }
+  },
+  //召唤机器人参团
+  callRobot: function() {
+    var that = this;
+    var oldurl = config.Host + 'order/addOrderFake?' + config.Version + "&token=" + app.globalData.user.userToken + "&roll_code=" + that.ptSuccesRoll_code + "&order_code=" + this.ptSuccessOrder_code;
+    util.http(oldurl, function(data) {
+      if (data.status == 1) { //参团成功
+        //刷新列表
+        that.setData({
+          currentpage: 1,
+        })
+        that.getOrderList();
+        //弹出拼团成功提示
+        that.setData({
+          ptSuccessUserName: data.userName,
+          // ptSuccessUserName: "小白",
+
+          openFightSuccessShow: true
+        })
+      }
+    });
+  },
+  closeFight: function () {
+    this.setData({
+      openFightSuccessShow: false
+    })
+  },
+
+  getFight:function(){
+    this.setData({
+      openFightSuccessShow: false
+    })
+    is_backFresh = true;
+
+    wx.navigateTo({
+      url: '../../../pages/listHome/order/oneBuyLuckPan/oneBuyLuckPanIOS?' + "order_code=" + this.ptSuccessOrder_code+ "&FightSuccess=true"
+    })
+  }
+})

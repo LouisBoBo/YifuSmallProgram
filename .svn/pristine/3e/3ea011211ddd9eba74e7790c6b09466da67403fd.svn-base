@@ -1,0 +1,33 @@
+<import src="../../../common/toastTest/toastTest.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<!-- <view class='friendsReward'>
+  <image class='friends-headImg' src='{{}}' mode='widthFix'></image>
+  <view class='friends-left'>
+    <view class='friends-top'>
+      <text class='friends-top-name'>hobby</text>
+      <text class='friends-top-time'>2019-3-5</text>
+    </view>
+    <view class='friends-bottom'>
+      <view>+5元提现额度</view>
+    </view>
+  </view>
+  <button class='friends-right' open-type="share">邀请好友</button>
+</view> -->
+
+<view wx:if='{{datalist[0]}}' class='section'>
+  <block wx:for='{{datalist}}'>
+    <view class='friendsReward'>
+      <image class='friends-headImg' src='{{item.pic}}' mode='widthFix'></image>
+      <view class='friends-left'>
+        <view class='friends-top'>
+          <text class='friends-top-name'>{{item.nickName}}</text>
+          <text class='friends-top-time'>{{item.time}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
+<view wx:else>
+  <view class="emptyView">亲，暂时没有相关数据哦</view>
+</view>

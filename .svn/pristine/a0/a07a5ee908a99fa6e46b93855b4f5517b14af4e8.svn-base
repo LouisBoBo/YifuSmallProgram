@@ -1,0 +1,110 @@
+import config from'../../../../config.js';
+var util = require('../../../../utils/util.js');
+var app = getApp();
+var order_code = "";
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    upyconfig: config.Upyun,
+    isorderdetail: 'true',
+    openBuySuccessShow:false,
+    rawardMondy:"0",
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+
+  
+    var item = wx.getStorageSync("orderitem");   
+    var shop_from = item.shop_from;
+    var newshopname = "";
+    var newshopprice = "";
+    if (shop_from == 4 || shop_from == 6) {//夺宝订单
+      newshopname = item.order_name;
+      this.setData({
+        isorderdetail: 'false',
+      })
+    }else{//普通订单
+      newshopname = item.orderShops[0].shop_name;
+      var newprice = item.orderShops[0].shop_price * 0.5 > 50 ? 50 : item.orderShops[0].shop_price*0.5;
+      newshopprice = newprice.toFixed(1);
+      order_code = item.order_code;
+    }
+    //商品名称
+    if (newshopname.length > 16) {
+      newshopname = newshopname.substr(0, 16) + '... ';
+    }
+    
+    if (shop_from == 4 || shop_from == 6) {//夺宝订单
+      item["new_shopname"] = newshopname;
+    } else {//普通订单
+      item.orderShops[0]["new_shopname"] = newshopname;
+    }
+    this.HandleData(item);
+
+    if (options.isNormalBuy == "true")
+    {
+      this.setData({
+        openBuySuccessShow: true,
+        rawardMondy: newshopprice
+      })
+    }
+  },
+
+  HandleData:function(data){
+    var orderlist = [];
+    orderlist.push(data);
+    var paytime = util.getMyDate(data.add_time,".") 
+    this.setData({
+
+      Upyun: config.Upyun,
+
+      orderdetail:data,
+      orderList: orderlist,
+      orderpaytime: paytime,
+    })
+  },
+  
+  //商品详情
+  orderdetailTap: function (event) {
+    var item = event.currentTarget.dataset.item;
+    var shopdata = event.currentTarget.dataset.shopdata;
+    var shop_from = item.shop_from;
+    var shopcode = "";
+    if (shop_from == 4 || shop_from == 6) {//夺宝订单
+      shopcode = item.bak;
+    } else {//普通订单
+      shopcode = shopdata.shop_code;
+    }
+    wx.navigateTo({
+      url: '../../../shouye/detail/detail?' + "shop_code=" + shopcode,
+    })
+  },
+
+  //拨打电话
+  phonetap:function(event){
+    wx.makePhoneCall({
+      phoneNumber: '4008884224' 
+    })
+  },
+
+  //去赚钱
+  getMoneyTap:function(){
+    this.setData({
+      openBuySuccessShow:false
+    })
+    wx.navigateTo({
+      url: '../../../sign/sign',
+    })
+  },
+  closeFight:function(){
+    this.setData({
+      openBuySuccessShow: false
+    })
+  }
+})

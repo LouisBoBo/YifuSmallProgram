@@ -1,0 +1,4 @@
+<!--pages/mine/downloadapp/downloadapp.wxml-->
+<view>
+  <web-view class='webview' src="{{srcurl}}"></web-view>
+</view>

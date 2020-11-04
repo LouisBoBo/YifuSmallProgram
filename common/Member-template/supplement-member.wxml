@@ -1,0 +1,11 @@
+<template name="supplement-member">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>温馨提示</text>
+
+    <text class='notEnough-dialog-content1'>{{member_discribution}}</text>
+    <view class='buttonView'>
+      <text catchtap="memberSubmit" class='bottom-btn-yellow5'>{{member_buttontitle}}</text>
+    </view>
+    <image catchtap="closePop" class='icon-close' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

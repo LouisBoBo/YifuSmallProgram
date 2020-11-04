@@ -1,0 +1,124 @@
+<import src="../../common/toastTest/toastTest.wxml" />
+<import src="../../common/openYifu-template/openYifu.wxml" />
+<import src="../../common/Discount-template/Discount.wxml" />
+<import src="../../common/Login-template/loginPop.wxml" />
+
+<template is="toast" data="{{ ..._toast_ }}" />
+<view class='mainview'>
+  <image class="head-img" src="{{headpic}}" mode="aspectFill" />
+  <view class='user'>
+    <view class='userhead' bindtap='personaltap'>
+      <view>
+        <image class='userimage' src="{{headpic}}"></image>
+        <image class='markimage' wx:if="{{vip_url}}" src="{{upyconfig}}/{{vip_url}}"></image>
+      </view>
+      <view class='username_mark'>
+        <text class='username' wx:if="{{username == '登录/注册'}}" style='margin-top: 105rpx;'>{{username}}</text>
+        <text class='username' wx:else style='margin-top: 80rpx;'>{{username}}</text>
+        <!-- <text class='phonemark' wx:if="{{phone}}">{{phone}}</text> -->
+      </view>
+
+      <image class='goimage' src="{{upyconfig}}/small-iconImages/heboImg/个人中心_icon_more1.png"></image>
+      <form bindsubmit="loginsubmit" report-submit='true' wx:if="{{isShowAuthorization == true}}">
+        <button class='button_confrim_upperlimit1' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+      </form>
+    </view>
+    <!-- 会员 -->
+    <view class='member' bindtap='meMemberTap' data-mark='{{mark}}'>
+      <text class='usermark' wx:if="{{mark}}">{{mark}}</text>
+    </view>
+
+    <view class='wlaetview'>
+      <!-- <view class='walet'  bindlongtap='save' > -->
+            <view class='walet'  bindtap='walettap' >
+
+        <form bindsubmit="loginsubmit" report-submit='true' wx:if="{{isShowAuthorization == true}}">
+          <button class='button_confrim_upperlimit2' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+        </form>
+        <text class='cashtitle'>{{balance}}</text>
+        <text class='cash'>钱包</text>
+
+      </view>
+      <view class='wallet-line'></view>
+      <view class='card' bindtap='cardtap'>
+        <form bindsubmit="loginsubmit" report-submit='true' wx:if="{{isShowAuthorization == true}}">
+          <button class='button_confrim_upperlimit4' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+        </form>
+        <text class='cashtitle'>{{coupon_sum}}</text>
+        <text class='cash'>卡券</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="order-head" bindtap='ordertap' data-index="0">
+    <view class="slogan">
+      <image class='slogan-img' src="{{upyconfig}}/small-iconImages/heboImg/个人中心_icon_dingdan.png"></image>
+      <text class="slogan-text">我的订单</text>
+    </view>
+    <view class="more">
+      <text class="more-text">查看所有订单</text>
+      <image class="more-img" src="/iconImages/icon_more.png"></image>
+    </view>
+    <form bindsubmit="loginsubmit" report-submit='true' wx:if="{{isShowAuthorization == true}}">
+      <button class='button_confrim_upperlimit3' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+    </form>
+  </view>
+
+  <view class="zw-tabs">
+    <block wx:key wx:for="{{orderlist}}" wx:for-item="item" wx:for-index="index">
+      <view class="zw-tabs-item " bindtap='ordertap' data-index="{{index+1}}">
+        <view>
+          <image src="{{upyconfig}}/{{orderimage[index]}}" alt=" "></image>
+        </view>
+        <view class='labview' wx:if="{{lablelist[index]>0}}">{{lablelist[index]}}</view>
+        <text>{{item}}</text>
+      </view>
+    </block>
+  </view>
+
+  <view class='view-InviteFriends' wx:if='{{showInviteFriends}}' style='background-image: url({{Upyun}}small-iconImages/qingfengpic/InviteFriends_img.png'
+catchtap = 'toInviteFriends'
+>
+
+      <image class='invite-friend-close' src="{{Upyun}}small-iconImages/heboImg/task_icon_close.png" 
+      
+      catchtap='closeInviteFriends'></image>
+              <form bindsubmit="loginsubmit" report-submit='true' wx:if="{{isShowAuthorization == true}}">
+          <button class='button_confrim_upperlimit4-invfriend' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+        </form>
+  </view>
+
+  <view class='other-tabs'>
+    <block wx:key wx:for="{{otherlist}}" wx:for-item="item" wx:for-index="index">
+      <view class="other-tabs-item " bindtap='othertap' data-index="{{index+1}}">
+        <view>
+          <image src="{{upyconfig}}/{{otherimage[index]}}" alt=" "></image>
+        </view>
+        <text>{{item}}</text>
+      </view>
+    </block>
+  </view>
+
+</view>
+
+<!-- 下载打开衣蝠APP弹框提示 -->
+<view class="drawer_screen_withdraw" wx:if="{{openYifuDialogShow}}" catchtouchmove="preventTouchMove" bindtap='closeToTX'>
+  <template is="open-yifu-dialog" data="{{Upyun}}"></template>
+</view>
+<!-- 下载打开衣蝠APP弹框提示 -->
+
+
+<!-- IOS引导下载APP -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showIOSdownload}}">
+  <image class='app-download' src="{{Upyun}}/small-iconImages/qingfengpic/guide_app4.png" catchtap="closeIOSdownload"></image>
+</view>
+
+<!-- 登录失败弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{loginfailYiFuShow}}">
+  <template is="login-fail" data='{{upyconfig,login_discribution,login_buttontitle}}'></template>
+</view>
+
+<!--拼团失败返还弹框-->
+<!-- <view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{moneyDiscountShowFlag}}">
+  <template is='open-Discount' data='{{moneyDiscount,oneYuanDiscriptionTitle,oneyuanValue}}'></template>
+</view> -->

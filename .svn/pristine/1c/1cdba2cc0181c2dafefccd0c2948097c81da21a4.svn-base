@@ -1,0 +1,12 @@
+<template name="topbar">
+  <view class="topbarall" bindtouchmove='handletouchmove'>
+    <block wx:for="{{topData}}">
+      <view class='top-bar-out' data-type="{{item._id}}" data-index='{{index}}' catchtap='onTapClick'>
+        <view class="top-bar-item{{index==activityIndex?'-active':''}}">{{item.name}}</view>
+        <view wx:if="{{index==2?false:true}}" class="center{{topData.length>2?'-line':''}}" ></view> 
+      </view>
+    </block>
+  </view>
+  <view class='bottom-line'>
+  </view>
+</template>

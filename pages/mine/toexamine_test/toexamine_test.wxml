@@ -1,0 +1,10 @@
+<!--pages/mine/toexamine_test/toexamine_test.wxml-->
+<import src="../../../common/Authorization-template/Authorization-template" />
+<view>
+  <image class="toexamine_test" wx:if="{{shareComeFromRedHongBao}}" mode="widthFix" src="{{Upyun}}small-iconImages/heboImg/{{pagestyle==1?'sign_toexamine.png':'redhongbao_toexamine.png'}}"></image>
+</view>
+
+<!-- 199元红包弹窗 -->
+<view class="drawer_screen_withdraw1" catchtouchmove="preventTouchMove" wx:if="{{shareComeFromRedHongBao}}">
+  <template is="Authorization" data='{{upyconfig,animationMiddleHeaderItem,clickLogin,channel_type,notClose,pagestyle}}'></template>
+</view>

@@ -1,0 +1,11 @@
+<!--pages/mine/AppMessage/AppMessage.wxml-->
+<import src="../../../common/GetHongBao-template/makeMoneyHongbao" />
+<import src="../../../common/singJoinWXQ/singJoinWXQ" />
+
+<view class="drawer_screen_withdraw99" catchtouchmove="preventTouchMove" wx:if="{{showendofpromotionDialog}}">
+  <template is="Authorization_message" data='{{upyconfig,animationMiddleHeaderItem}}'></template>
+</view>
+
+<view class='drawer_screen_withdraw' wx:if="{{showkefuService}}">
+  <template is="kefuService-template" data="{{toKF,kfDownloadClick}}"></template>
+</view>

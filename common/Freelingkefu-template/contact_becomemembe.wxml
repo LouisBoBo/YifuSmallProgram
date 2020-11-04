@@ -1,0 +1,16 @@
+<template name="contactkefubecomeMember">
+  <form bindsubmit="contactkefu" report-submit='true'>
+    <view class="notEnoughYidou-root">
+      <text class='notEnough-dialog-titletext'>温馨提示</text>
+    
+      <text class='notEnough-dialog-contenttext'>您还不是会员，请点下方接通微信客服，申请免费会员资格后，即可提现。</text>
+      
+      <view class='buttonView'>
+        <text catchtap="getFight" class='bottom-btn-yellow'>接通微信客服</text>
+        <button class='button_confirm' open-type='contact' form-type='submit' session-from='{"open_param":"Cashwithdrawal"}' ></button>
+      </view>
+      <image catchtap="colseTips" class='icon-close' src="/iconImages/icon_close.png"></image>
+    </view>
+  </form>
+
+</template>

@@ -1,0 +1,10 @@
+<template name="open-shouye-thirty">
+  <view class="shouye-thirty">
+    <image catchtap="closeToTX" class='img-close-tx' src="/iconImages/icon_close.png" catchtap='closeNewThirty'></image>
+
+
+    <image class='newuser-thirty' src="{{Upyun}}small-iconImages/qingfengpic/new_user__tixian_yindao.png" catchtap='goNewHomePage'></image>
+
+
+  </view>
+</template>

@@ -1,0 +1,22 @@
+
+<template name="inputInvitNumberTemplate">
+  <view class='showTixianView'>
+    <image catchtap="tixianview_close" class='icon-close' src="/iconImages/icon_close.png"></image>
+    <text class='tixianview_title'></text>
+    <text class='tixianview_discription'>填写邀请码</text>
+    <view class='small-yqm' bindtap='showYqmTips'>
+        <text class='yqm-text'>邀请码</text>
+        <image class='weihao-imag' src='../../../iconImages/icon_question_mark.png'></image>
+      </view>
+    <form bindsubmit="confirmShare" report-submit="true">
+      <view class='tixianview_inputview'>
+        <input class='tixianview_inputview-input' name="message" type="text" bindinput="searchInputEvent" bindfocus="wxSerchFocus" placeholder="请输入邀请码" style='font-size:30rpx'></input>
+      </view>
+
+      <view class='tixianview_binding'>
+        <view>提交并分享</view>
+        <button class='button-confrim' open-type='share' formType="submit"></button>
+      </view>
+    </form>
+  </view>
+</template>

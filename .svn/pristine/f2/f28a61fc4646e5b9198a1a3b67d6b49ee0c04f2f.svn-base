@@ -1,0 +1,11 @@
+<template name="zero-buy-red">
+  <view class='zero-buy-out-red'>
+    <image class='zero-buy-close-red' src='{{Upyun}}small-iconImages/ad_pic/icon_withdrawal_close.png' bindtap='zeroBuyCloseClick'></image>
+    <text class='zero-buy-title-red'>超级0元购</text>
+    <text class='zero-buy-tv-gray-red'>1、<text class='zero-buy-tv-red-red'>购买美衣立即返全部金额入账户余额</text>，还能抽取最高1000元提现红包大奖。</text>
+    <text class='zero-buy-tv-gray-red'>2、1-3个月内每日登录衣蝠并完成全部任务，即可<text class='zero-buy-tv-red-red'>通过惊喜提现任务及抽奖任务全额提现</text>。相当于在衣蝠买美衣永远白送</text>
+    <text class='zero-buy-tv-gray-red'>3、如3个月未能全额提现，且用户每日登陆衣蝠并完成全部任务，<text class='zero-buy-tv-red-red'>平台将按首月返10%，次月返20%，第三个月返30%的比例</text>把首单购衣款打入提现额度。48小时内到账！</text>
+    <view class='zero-buy-now-red' bindtap='zeroBuyNowClick'>立即0元购美衣</view>
+  </view>
+
+</template>

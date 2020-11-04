@@ -1,0 +1,52 @@
+<template name="sign-finish-dialog">
+  <view class="sign-finish-root">
+    <view class='sign-finish-top'>
+      <text class='sign-finish-top-title'>{{signFinishDialog.top_tilte}}</text>
+      <image catchtap="dialog_close" class='sign-finish-icon-close' src="{{Upyun}}small-iconImages/gx/iconwhiteclose.png"></image>
+    </view>
+    <text class='sign-finish-title'>{{signFinishDialog.tilte}}</text>
+    <text class='sign-finish-content'>{{signFinishDialog.contentText}}</text>
+    <view class='bottom-btn' wx:if="{{!signFinishDialog.isOneBtn}}">
+      <text catchtap="btn_left" class='bottom-btn-left'>{{signFinishDialog.leftText}}</text>
+      <text catchtap="btn_rigth" class='bottom-btn-rigth'>{{signFinishDialog.rigthText}}</text>
+    </view>
+    <view class='signfinish-bottom-btn-one' wx:if="{{signFinishDialog.isOneBtn}}">
+      <text catchtap="signfinish_btn_one" >{{signFinishDialog.oneBtnText}}</text>
+    </view>
+  </view>
+</template>
+
+<template name="scan_tips">
+  <view class="scan_tips-root">
+  <image class='scan-tips-shoushi' src="{{Upyun}}small-iconImages/ad_pic/shoushi.png"></image>
+  <image bindtap="scan_tips_know" class='scan-tips-know' src="{{Upyun}}small-iconImages/ad_pic/but_know.png"></image>
+  </view>
+</template>
+
+<template name="dialog-no-red-title">
+  <view class="sign-finish-root">
+    <text class='sign-finish-title'>{{moneyDiscount.tilte}}</text>
+    <text class='sign-finish-content'>{{moneyDiscount.contentText}}</text>
+    <view class='bottom-btn'>
+      <text bindtap="btnLeftClick" class='bottom-btn-left'>{{moneyDiscount.leftText}}</text>
+      <text bindtap="btnRightClick" class='bottom-btn-rigth'>{{moneyDiscount.rigthText}}</text>
+    </view>
+  </view>
+</template>
+
+<template name="zero-buy">
+  <view class='zero-buy-out'>
+  <image bindtap="zeroBuyCloseClick" class='icon-closesss' src="../../../iconImages/icon_close.png"></image>
+    <!-- <image class='zero-buy-close' src='{{Upyun}}small-iconImages/zzq/icon_cloce_gray.png' bindtap='zeroBuyCloseClick'></image>
+    <text class='zero-buy-title'>超级0元购</text> -->
+    <text class='zero-buy-tv-gray1'>1、0元购是衣蝠用户的特权，购买美衣即返现全部金额入账户余额</text>
+    <text class='zero-buy-tv-gray2'>2、1-2个月内即可通过衣蝠赚钱小任务将账户余额全额提现，相当于在衣蝠买美衣永远白送。</text>
+    <!-- <text class='zero-buy-tv-gray'>3、如3个月未能全额提现，且用户每日登陆衣蝠并完成全部任务，<text class='zero-buy-tv-red'>平台将按首月返10%，次月返20%，第三个月返30%的比例</text>把首单购衣款打入提现额度。48小时内到账！</text> -->
+    <view class='bottom-button-click'>
+    
+    <view class='zero-buy-now' bindtap='zeroBuyToSign'>了解赚钱小任务</view>
+    <view class='zero-to-sign' bindtap='zeroBuyNowClick'>0元购美衣</view>
+    </view>
+  </view>
+
+</template>

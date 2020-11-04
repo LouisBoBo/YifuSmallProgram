@@ -1,0 +1,10 @@
+<template name="noorderBackview">
+  <view class='noorderview'>
+    <image class='backimage' src="{{upyconfig}}small-iconImages/heboImg/个人中心_没有订单.png" mode='aspectFit'></image>
+    <text class='title1'>你还没有相关订单</text>
+    <text class='title2'>可以去看看有哪些想买的</text>
+    <view class='gobuy' bindtap='gobuytap'>
+      <text class='gobuy-title'>随便逛逛</text>
+    </view>
+  </view>
+</template>

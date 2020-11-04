@@ -1,0 +1,145 @@
+<!--pages/mine/Complaint/Complaint.wxml-->
+<import src="../../../common/Complaint-template/Complaint.wxml" />
+<import src="../../../common/toastTest/toastTest.wxml" />
+
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<!-- <button bindtap="showModal">点击弹出底部模态框</button>
+<view>
+  <template is="Complaint-template" data="{{Upyun,hideModal,animationData,secondimgData,secondtextData,thirdimgData,thirdtextData}}"></template>
+</view> -->
+<view class="maniview">
+  <view class="Complaint" wx:if="{{complaint_page == '1'}}">
+    <view class="Complaint-head" style="height:300rpx">
+      <text class="Complaint-head-title1">请选择反馈类型</text>
+      <text class="Complaint-head-title2">你的反馈将发送给小程序开发者</text>
+    </view>
+    <block wx:key wx:for="{{complaint_firstData}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+      <view class="Complaint-content" bindtap="complaint_tap" data-id="{{complaint_page}}" data-index="{{index}}">
+        <view class="Complaint-content-left">{{item}}</view>
+        <image class="Complaint-content-right" src="/iconImages/icon_more.png"></image>
+      </view>
+    </block>
+    <view class="Complaint-wxbottom" bindtap="complaint_wx_tap">向微信平台投诉</view>
+  </view>
+  <view class="Complaint" wx:if="{{complaint_page == '2'}}">
+    <view class="Complaint-head" style="height:200rpx">
+      <text>请选择反馈内容</text>
+    </view>
+    <block wx:key wx:for="{{complaint_secondData}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+      <view class="Complaint-content" bindtap="complaint_tap" data-id="{{complaint_page}}" data-index="{{index}}">
+        <view class="Complaint-content-left">{{item}}</view>
+        <image class="Complaint-content-right" src="/iconImages/icon_more.png"></image>
+      </view>
+    </block>
+    <view class="Complaint-bottom">
+      <image class="Complaint-bottom-left" bindtap="lefttap" data-id="{{complaint_page}}" src="{{Upyun}}small-iconImages/heboImg/complaint_9.png" mode="aspectFit"></image>
+      <image class="Complaint-bottom-right" bindtap="righttap" data-id="{{complaint_page}}" src="{{Upyun}}small-iconImages/heboImg/complaint_11.png" mode="aspectFit"></image>
+    </view>
+  </view>
+  <view class="Complaint" wx:if="{{complaint_page == '3'}}">
+    <form bindsubmit="forSubmit" report-submit="true">
+      <view class="Complaint-title">{{complaintTitle}}</view>
+      <view class="Complaint-message">
+        <textarea class='Complaint-message-textarea' name="message" value="" placeholder='请填写10个字以上的问题描述以便我们提供更好的服务' bindinput="lengthtap" maxlength="200"></textarea>
+        <text class="Complaint-message-number">{{length}}/200</text>
+      </view>
+      <view class="Complaint-images">
+        <text>截图（{{userImg.length}}/4）</text>
+        <view class="Complaint-images-view" wx:if="{{userImg.length>0}}">
+          <block wx:key wx:for="{{userImg}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+            <image bindtap="uploadImg" src="{{item}}" mode="aspectFit"></image>
+          </block>
+        </view>
+        <view class="Complaint-images-view" wx:else>
+          <image bindtap="uploadImg" src="{{Upyun}}small-iconImages/heboImg/complaint_add.png" mode="aspectFit"></image>
+        </view>
+      </view>
+      <view class="Complaint-contact">
+        <text>联系方式</text>
+        <input class='Complaint-message-input' name="contact_message" value="" placeholder='邮箱/手机号' bindinput="phonetap"></input>
+      </view>
+      <view class="Complaint-allow">
+        <image src="/iconImages/fight_Success.png"></image>
+        <text>允许开发者在48小时内通过客服消息联系我</text>
+      </view>
+      <button class="Complaint-confirm" bindtap="checkComplaint" form-type="submit">提交</button>
+    </form>
+    <view style="height:200rpx;"></view>
+    <view class="Complaint-bottom">
+      <image class="Complaint-bottom-left" bindtap="lefttap" data-id="{{complaint_page}}" src="{{Upyun}}small-iconImages/heboImg/complaint_9.png" mode="aspectFit"></image>
+      <image class="Complaint-bottom-right" bindtap="righttap" data-id="{{complaint_page}}" src="{{Upyun}}small-iconImages/heboImg/complaint_8.png" mode="aspectFit"></image>
+    </view>
+  </view>
+  <view class="Complaint" wx:if="{{complaint_page == '4'}}">
+    
+    <view class="Complaint-close-head" style="height:400rpx">
+      <image class="Complaint-head-image" src="/iconImages/fight_Success.png"></image>
+      <text class="Complaint-head-title1">反馈已提交</text>
+      <text class="Complaint-head-title2">已将你的反馈内容提交给开发者</text>
+    </view>
+    <button class="Complaint-close" bindtap="closeComplaint" form-type="submit">关闭</button>
+  </view>
+  <view class="Complaint" wx:if="{{complaint_page == '11'}}">
+    <view class="Complaint-head" style="height:200rpx">
+      <text>请选择投诉原因</text>
+    </view>
+    <block wx:key wx:for="{{complaint_eleventhData}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+      <view class="Complaint-content" bindtap="complaint_tap" data-id="{{complaint_page}}" data-index="{{index}}">
+        <view class="Complaint-content-left">{{item}}</view>
+        <image class="Complaint-content-right" src="/iconImages/icon_more.png"></image>
+      </view>
+    </block>
+    <view style="height:100rpx;"></view>
+    <view class="Complaint-bottom">
+      <image class="Complaint-bottom-left" bindtap="lefttap" data-id="{{complaint_page}}" src="{{Upyun}}small-iconImages/heboImg/complaint_9.png" mode="aspectFit"></image>
+      <image class="Complaint-bottom-right" bindtap="righttap" data-id="{{complaint_page}}" src="{{Upyun}}small-iconImages/heboImg/complaint_11.png" mode="aspectFit"></image>
+    </view>
+  </view>
+  <view class="Complaint" wx:if="{{complaint_page == '12'}}">
+    <form bindsubmit="forSubmit" report-submit="true">
+      <view class="Complaint-objtc">
+        <text>投诉对象</text>
+        <view class="Complaint-objtc-content">
+          <image src="{{Upyun}}small-iconImages/ad_pic/ic_launcher.png"></image>
+          <text>衣蝠</text>
+        </view>
+      </view>
+      <view class="Complaint-title">{{complaintTitle}}</view>
+      <view class="Complaint-message">
+        <textarea class='Complaint-message-textarea' name="message" value="" placeholder='请输入投诉内容' bindinput="lengthtap" maxlength="200"></textarea>
+        <text class="Complaint-message-number">{{length}}/200</text>
+      </view>
+      <view class="Complaint-images">
+        <text>证据截图（{{userImg.length}}/4）</text>
+        <view class="Complaint-images-view" wx:if="{{userImg.length>0}}">
+          <block wx:key wx:for="{{userImg}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+            <image bindtap="uploadImg" src="{{item}}" mode="aspectFit"></image>
+          </block>
+        </view>
+        <view class="Complaint-images-view" wx:else>
+          <image bindtap="uploadImg" src="{{Upyun}}small-iconImages/heboImg/complaint_add.png" mode="aspectFit"></image>
+        </view>
+      </view>
+      <view class="Complaint-allow">
+        <image src="/iconImages/fight_Success.png"></image>
+        <text>允许微信使用小程序当前页面的数据作为投诉证据。</text>
+      </view>
+      <button class="Complaint-confirm" bindtap="checkComplaint" form-type="submit">提交</button>
+    </form>
+
+    <view style="height:200rpx;"></view>
+    <view class="Complaint-bottom">
+      <image class="Complaint-bottom-left" bindtap="lefttap" data-id="{{complaint_page}}" src="{{Upyun}}small-iconImages/heboImg/complaint_9.png" mode="aspectFit"></image>
+      <image class="Complaint-bottom-right" bindtap="righttap" data-id="{{complaint_page}}" src="{{Upyun}}small-iconImages/heboImg/complaint_8.png" mode="aspectFit"></image>
+    </view>
+  </view>
+  <view class="Complaint" wx:if="{{complaint_page == '13'}}">
+    <view class="Complaint-close-head" style="height:400rpx">
+      <image class="Complaint-head-image" src="/iconImages/fight_Success.png"></image>
+      <text class="Complaint-head-title1">投诉成功</text>
+      <text class="Complaint-head-title2">感谢你的参与，微信坚决反对色情、暴力、欺诈等违规信息，我们会认真处理你的投诉，维护绿色、健康的网络环境。</text>
+    </view>
+    <button class="Complaint-close" bindtap="closeComplaint" form-type="submit">确定</button>
+  </view>
+</view>

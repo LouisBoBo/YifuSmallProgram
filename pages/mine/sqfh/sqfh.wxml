@@ -1,0 +1,24 @@
+<!--pages/mine/sqfh/sqfh.wxml-->
+<view class='all-view'>
+
+<!-- <view class='all-text-view'>
+  <text class='all-text1' wx:if="{{!kfzy}}" >{{text1}}</text>
+  <text class='all-text1' style='padding-top: 0rpx;' wx:if="{{!kfzy}}">{{text2}}</text>
+
+  <text class='all-text2' style='padding-top: 15rpx;'>请加微信号： <text style='font-size:40rpx;'>{{text3}}</text>   </text>
+  <text class='all-text2' style='padding-top: 0rpx;'>联系客服发货</text>
+</view> -->
+  <view class='baseview'>
+    <image class='logoimage' src='{{Upyun}}small-iconImages/ad_pic/ic_launcher.png'></image>
+    <image class='testimage' src='{{Upyun}}small-iconImages/heboImg/sqfh_wx_sanjiao.png'></image>
+    <text class='testview'>恭喜您使用会员优惠券以0元的价格买到了{{text2}}，请加微信：<text style='font-size:35rpx;color: red;'>{{text3}}</text>，联系客服发货。 </text>
+  </view>
+  
+  <image class='membertype' mode='widthFix' src="{{Upyun}}small-iconImages/heboImg/sqfh_wx_newbgimgage.jpg"></image>
+  <!-- <image class='membertype' mode='widthFix' src="{{Upyun}}small-iconImages/qingfengpic/sqfh_wx_bg.jpg"></image> -->
+  <!-- <text class='titleView'>亲，恭喜您免费领到心仪的商品，在线客服繁忙，请直接添加发货客服微信：<text style='font-size:42rpx;color: red;'>{{text3}}</text>，并留言您的订单号，发货客服看到后会第一时间联系您，安排发货事宜，谢谢您。 </text> -->
+  <view class='spaceview'></view>
+  <form bindsubmit="copyWXH" report-submit='true'>
+      <button class='memberopen' open-type="" form-type='submit'>复制客服微信号</button>
+  </form>
+</view>

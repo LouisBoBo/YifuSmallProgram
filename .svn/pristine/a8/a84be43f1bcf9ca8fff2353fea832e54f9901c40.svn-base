@@ -1,0 +1,173 @@
+/* pages/mine/wallet/accountDetail/ForwardDetail.wxss */
+
+.status {
+  display: flex;
+  flex-direction: row;
+}
+
+.status-txclose {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.status-image {
+  /* margin: 20rpx 0rpx 20rpx 150rpx; */
+  height: 50rpx;
+  width: 50rpx;
+  /* background-color: firebrick; */
+}
+
+.status-image-txclose {
+  /* margin: 20rpx 0rpx 20rpx 150rpx; */
+  height: 112rpx;
+  width: 400rpx;
+  /* background-color: firebrick; */
+}
+
+.status-line {
+  margin-top: 45rpx;
+  height: 2rpx;
+  width: 150rpx;
+  background-color: #666;
+}
+
+.statusTitle {
+  display: flex;
+  flex-direction: row;
+}
+
+.statusTitle-text {
+  width: 150rpx;
+  text-align: center;
+  color: #666;
+  font-size: 30rpx;
+}
+
+.tixianview {
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  align-items: center;
+  align-content: center;
+}
+
+.handleStatus {
+  display: flex;
+  justify-content: center;
+  padding: 4px 4px;
+  border: 1rpx solid #ff3f8b;
+  border-radius: 2px;
+  color: #ff3f8b;
+  font-size: 30rpx;
+}
+
+.space {
+  opacity: 0;
+}
+
+.tixianagain {
+  margin-top: 50rpx;
+  margin-left: 10%;
+  width: 80%;
+  text-align: center;
+  line-height: 80rpx;
+  overflow: hidden;
+  justify-content: center;
+  background-color: #ff3f8b;
+  border-radius: 8rpx;
+  font-size: 32rpx;
+  color: white;
+}
+
+.supportCardView {
+  margin: 20rpx 30rpx 20rpx 30rpx;
+  height: 80rpx;
+  border-bottom: 1px solid #eee;
+}
+
+.slogan {
+  float: left;
+}
+
+.slogan-text {
+  vertical-align: middle;
+  margin-right: 10rpx;
+  margin-left: 20rpx;
+  color: #666;
+  font-size: 32rpx;
+}
+
+.more {
+  float: right;
+}
+
+.more-text {
+  vertical-align: middle;
+  margin-right: 10rpx;
+  color: #666;
+  font-size: 30rpx;
+}
+
+.more-text-first {
+  vertical-align: middle;
+  margin-right: 10rpx;
+  color: #ff3f8b;
+  font-size: 30rpx;
+}
+
+.errorview {
+  margin-left: 50rpx;
+  margin-right: 40rpx;
+}
+
+.Reasonview {
+  color: #666;
+  font-size: 28rpx;
+}
+.errorview-orther1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20rpx 30rpx 20rpx 30rpx;
+  margin-top: -20rpx;
+}
+.errorview-orther {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20rpx 30rpx 20rpx 30rpx;
+  border-bottom: 1px solid #eee;
+}
+
+.Reasonview-orther-text {
+  color: #ff3f8b;
+  font-size: 28rpx;
+  margin-left: 20rpx;
+  text-decoration: underline;
+  text-decoration-color: #ff3f8b;
+}
+
+.Reasonview-see {
+  height: 42rpx;
+  width: 150rpx;
+  color: white;
+  background-color: #ff3f8b;
+  font-size: 28rpx;
+  border-radius: 3px;
+  text-align: center;
+  margin-right: 20rpx;
+}
+.Reasonview-left {
+  width: 19%;
+  color: #666;
+  font-size: 28rpx;
+}
+
+.Reasonview-right {
+  width: 81%;
+  color: #666;
+  font-size: 28rpx;
+}

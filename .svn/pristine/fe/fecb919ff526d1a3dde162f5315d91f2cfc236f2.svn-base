@@ -1,0 +1,222 @@
+/* pages/listHome/shopCart/shopCart.wxss */
+@import "../../../common/addReduce-template/addReduce.wxss";
+
+.shopContainer {
+  margin-top: 25rpx;
+  padding-bottom: 15rpx;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1rpx solid #eee;
+}
+ .shopSelectContainer {
+  display: flex;
+  align-items: center;
+  /* background-color: rebeccapurple; */
+  margin-bottom: 20rpx;
+} 
+.shopContainer .shopSelectImg {
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 10rpx;
+}
+.shopContainer .shopImg {
+  margin-left: 10rpx;
+  width: 150rpx;
+  height: 150rpx;
+}
+
+.shopContainer .shopMessage {
+  margin-left: 20rpx;
+  width: 50%;
+  /* background-color: rebeccapurple; */
+}
+
+.shopContainer .shopMessage .section, section1, .empty-shoptitle {
+  display: flex;
+  font-size: 30rpx;
+  color: #3e3e3e;
+}
+
+.shopContainer .shopMessage .section1 {
+  margin-top: 15rpx;
+}
+
+.shopMessage .shopName {
+  margin-right: 30rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shopMessage .color-size {
+  font-size: 24rpx;
+  margin-top: 15rpx;
+  color: #a8a8a8;
+}
+
+.shopPriceRightView {
+  margin-right: 20rpx;
+  text-align: right;
+  /* background-color: rebeccapurple; */
+}
+
+.shopPrice {
+  display: flex;
+  right: 0;
+  font-size: 30rpx;
+  color: #3e3e3e;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shopOldPrice {
+  margin-top: 15rpx;
+  right: 0;
+  font-size: 24rpx;
+  display: flex;
+  align-items: flex-end;
+  color: #a8a8a8;
+  position: relative;
+}
+
+.shopOldPrice::before {
+  display: block;
+  position: absolute;
+  content: "";
+  top: 45%;
+  margin: auto;
+  height: 1px;
+  width: 100%;
+  background-color: #a8a8a8;
+}
+
+.shopDeleteImg {
+  margin-top: 15rpx;
+  right: 0;
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.bottomContainer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100rpx;
+  border-top: 1rpx solid #eee;
+  display: flex;
+  flex-direction: row;
+}
+
+.selectContainer {
+  display: flex;
+  align-items: center;
+  margin-left: 20rpx;
+  font-size: 30rpx;
+  color: #3e3e3e;
+}
+
+.shopAllSelectImg {
+  width: 40rpx;
+  height: 40rpx;
+  /* margin-left: 20rpx; */
+  margin-right: 10rpx;
+}
+
+.payMoney {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 20rpx;
+  justify-content: center;
+}
+
+.allMoney {
+  font-size: 30rpx;
+  color: #ff3f8b;
+}
+
+.reduceMoney, .empty-shopdetail {
+  font-size: 24rpx;
+  color: #a8a8a8;
+}
+
+.bottomContainer .bottmButton {
+  position: absolute;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  text-align: center;
+  color: white;
+  font-size: 30rpx;
+  background-color: #dcdcdc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bottmButton-select {
+  position: absolute;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  text-align: center;
+  color: white;
+  font-size: 30rpx;
+  background-color: #ff3f8b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bottmButton .button-confrim {
+  opacity: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+/* 你的购物车空空如也 */
+.emptyCart {
+  display: flex;
+  flex-direction: column;
+  padding-top: 50rpx;
+  text-align: center;
+  align-items: center;
+}
+
+.empty-shopcartImg {
+  width: 200rpx;
+  height: 200rpx;
+  top: 0;
+}
+
+.addShops {
+  /* position: fixed; */
+  /* bottom: 20rpx; */
+  /* display: block; */
+  margin-top: 40rpx;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 14px;
+  padding-right: 14px;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 2.55555556;
+  overflow: hidden;
+  background-color: white;
+  font-size: 30rpx;
+  border-radius: 5px;
+}
+
+.addShops-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1rpx solid #ff3f8b;
+  border-radius: 5px;
+  color: #ff3f8b;
+}

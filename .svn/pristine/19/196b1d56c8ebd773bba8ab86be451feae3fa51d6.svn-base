@@ -1,0 +1,49 @@
+<import src="FlowWater-template.wxml" />
+<view class='mainview'>
+  <scroll-view scroll-y="true" style="height:100%;width:100%;display:{{pageShow}}" bindscrolltolower="loadingMoreEvent">
+    <image class='headview' wx:if="{{headImageurl}}" src="{{UpyunConfig}}/{{headImageurl}}"></image>
+    <view class='dis' bindtap='imageTap' data-code="{{item.collocation_code}}">
+      <text class='dis-title'>{{collocation_name}}</text>
+      <text class='dis-content'>【{{collocation_name2}}】</text>
+      <text class='dis-time'>{{collocation_time}}</text>
+    </view>
+    <view class='discripton'>{{discription}}</view>
+    <view class='section1'>
+      <view class='first_list'>
+        <block wx:for="{{shoplist}}" wx:for-item="item">
+          <template is="flowWater" data="{{item,UpyunConfig}}" />
+        </block>
+      </view>
+    </view>
+
+    <!-- <更多专题列表> -->
+    <view class='section2'>
+      <view wx:if="{{collocationList.length}}">
+        <view class='section2_line'></view>
+        <view class='cection2_text'>更多专题</view>
+      </view>
+      <view wx:if="{{collocationList.length}}" class='second_list'>
+        <block wx:for="{{collocationList}}" wx:for-item="item">
+          <image bindtap='second_list_tap' class='second_list_image' wx:if="{{item.collocation_pic}}" src="{{UpyunConfig}}/{{item.collocation_pic}}" data-code="{{item.collocation_code}}"></image>
+        </block>
+      </view>
+    </view>
+    <view wx:if="{{collocationList.length}}">
+      <view bindtap='moreSpecialTap' class='moreSpecial'>查看更多专题</view>
+    </view>
+
+    <!-- <热门推荐列表> -->
+    <view class='section3'>
+      <view wx:if="{{commendShopList.length}}">
+        <view class='section2_line'></view>
+        <view class='section3_text'>热门推荐</view>
+      </view>
+      <view class='first_list'>
+        <block wx:for="{{commendShopList}}" wx:for-item="item">
+          <template is="flowWater" data="{{item,UpyunConfig}}" />
+        </block>
+      </view>
+    </view>
+  </scroll-view>
+
+</view>

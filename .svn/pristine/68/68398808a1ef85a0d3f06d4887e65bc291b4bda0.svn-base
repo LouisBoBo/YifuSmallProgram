@@ -1,0 +1,31 @@
+<template name="fightShop">
+  <view class='shopview' bindtap='shopDetailTap' data-shop_code="{{item.shop_code}}">
+    <view class='shopview-fight'>
+      <image class='shopview-fight-image' mode='aspectFill' src="{{item.new_pic}}"></image>
+      <view class='shopview-fight-content'>
+        <view class='shopview-fight-content-text'>{{item.shop_name}}</view>
+        <view class='shopview-fight-content-colorSizetext' wx:if="{{isSubmitOrder == '1'}}">{{item.color_size}}</view>
+        <view class='shopview-fight-content-colorSizetext' wx:elif="{{isTM == 0}}">颜色:{{item.color}} 尺码:{{item.size}}</view>
+        <view class='shopview-fight-content-text' wx:else>{{item.color}} {{item.size != null?item.size:''}}</view>
+        
+        <view class='shopview-fight-content-text'><text style='font-size: 25rpx;'>原价</text>￥{{item.shop_price}}</view>
+      </view>
+      <view class='shopview-fight-number'>
+        <view class='shopview-fight-number-text'>x1</view>
+        <view class='shopview-fight-pay-text' wx:if="{{item.noPay==0 && index != 0}}">未支付</view>
+      </view>
+
+    </view>
+    <!-- <view class='shopview-line'></view> -->
+    <view class='shopview-pay' wx:if="{{!shareFightShop}}">
+      <view class='shopview-pay'>实付：
+        <text class='shopview-pay-text'>￥{{item.noPay==0 && index != 0?'0.0':item.pay_money}}</text>
+      </view>
+    </view>
+    <view class='shopview-pay' wx:else>
+      <view class='shopview-pay'>实付：
+        <text class='shopview-pay-text'>￥0</text>
+      </view>
+    </view>
+  </view>
+</template>

@@ -1,0 +1,12 @@
+<template name="redHongbaoQRcode">
+  <form bindsubmit="xianjinRedsubmit" report-submit='true'>
+    <view class='showTixianView_upperlimit'>
+      <image class='newuser-thirty' mode='widthFix' src="{{redHongBaoImg}}"></image>
+
+      <image class='getmoney_button' animation ="{{animationMiddleHeaderItem}}" src='{{upyconfig}}small-iconImages/heboImg/lingHongBao.png'></image>
+      <image class='closeimage-newhongbao' src="{{upyconfig}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeNewThirty'></image>
+    
+      <button class='button_confrim_upperlimit' bindgetuserinfo='onclick' open-type='getUserInfo'  form-type='submit'></button>
+    </view>
+  </form>
+</template>

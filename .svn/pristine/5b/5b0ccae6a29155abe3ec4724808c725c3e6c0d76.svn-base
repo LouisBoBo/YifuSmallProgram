@@ -1,0 +1,199 @@
+/* pages/mine/Complaint/Complaint.wxss */
+@import "../../../common/Complaint-template/Complaint.wxss";
+.Complaint{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.Complaint-head{
+  display: flex;
+  flex-direction: column;
+  margin: 0 30rpx 0 30rpx;
+  justify-content: center;
+  align-items: center;
+  border-width: 0 0 1px 0;
+  border-color: #eee;
+  border-style: solid;
+}
+.Complaint-head-title1{
+  font-size: 40rpx;
+  font-weight: bold;
+}
+.Complaint-head-title2{
+  margin-top: 20rpx;
+  font-size: 30rpx;
+}
+.Complaint-content{
+  display: flex;
+  flex-direction: row;
+  height: 100rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  border-width: 0 0 1px 0;
+  border-color: #eee;
+  border-style: solid;
+  align-items: center;
+  position: relative;
+}
+
+.Complaint-content-right{
+  position: absolute; /* 要约束所在位置的子元素的位置要设置成绝对 */
+  right: 0; /* 靠右调节 */  
+  width: 50rpx;
+  height: 50rpx;
+}
+.Complaint-wxbottom{
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  bottom: 0;
+  margin-bottom: 0;
+  width: 100%;
+  height: 100rpx;
+  justify-content: center;
+  align-items: center;
+}
+.Complaint-bottom{
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  bottom: 0;
+  margin-bottom: 0;
+  width: 100%;
+  height: 100rpx;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee;
+}
+.Complaint-bottom-left{
+  height: 40rpx;
+  width: 100rpx;
+  margin-right: 100rpx;
+}
+.Complaint-bottom-right{
+  height: 40rpx;
+  width: 100rpx;
+}
+
+/* 投诉界面 */
+.Complaint-title{
+  display: flex;
+  flex-direction: row;
+  margin: 20rpx;
+  height: 100rpx;
+  border-width: 0 0 1px 0;
+  border-color: #eee;
+  border-style: solid;
+  align-items: center;
+}
+.Complaint-message{
+  display: flex;
+  flex-direction: column;
+  margin: 20rpx;
+  height: 200rpx;
+  position: relative;
+  border-width: 0 0 1px 0;
+  border-color: #eee;
+  border-style: solid;
+}
+.Complaint-message-textarea{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50rpx;
+  width: 100%;
+}
+.Complaint-message-number{
+  position: absolute; /* 要约束所在位置的子元素的位置要设置成绝对 */
+  right: 50rpx; /* 靠右调节 */  
+  margin-top: 150rpx;
+  width: 50rpx;
+  height: 50rpx;
+  color: gray;
+}
+.Complaint-images{
+  display: flex;
+  flex-direction: column;
+  margin: 0 20rpx 0 20rpx;
+  height: 250rpx;
+  border-width: 0 0 1px 0;
+  border-color: #eee;
+  border-style: solid;
+}
+.Complaint-images-view{
+  display: flex;
+  flex-direction: row;
+}
+
+.Complaint-images-view image{
+  margin-top: 20rpx;
+  margin-right: 20rpx;
+  width: 140rpx;
+  height: 140rpx;
+  background-color: #eee;
+}
+.Complaint-contact{
+  display: flex;
+  flex-direction: row;
+  margin: 0 20rpx 0 20rpx;
+  border-width: 0 0 1px 0;
+  border-color: #eee;
+  border-style: solid;
+  height: 120rpx;
+  align-items: center;
+}
+/* .Complaint-contact text{
+  margin: 20rpx
+} */
+.Complaint-message-input{
+  margin: 20rpx;
+}
+.Complaint-allow{
+  display: flex;
+  flex-direction: row;
+  margin: 200rpx 0 50rpx 20rpx;
+  align-items: center;
+  justify-content:center;
+}
+.Complaint-allow image{
+  width: 30rpx;
+  height: 30rpx;
+}
+.Complaint-allow text{
+  margin-left: 10rpx;
+  font-size: 24rpx;
+}
+.Complaint-confirm{
+  width: 300rpx;
+  height: 60rpx;
+  color: #fff;
+  background-color: rgb(87, 183, 96);
+  border-radius: 10rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  text-align: center;
+}
+.Complaint-objtc{
+  display: flex;
+  flex-direction: column;
+  height: 130rpx;
+  width: 100%;
+}
+.Complaint-objtc text{
+  margin-left: 20rpx;
+}
+.Complaint-objtc-content{
+  display: flex;
+  flex-direction: row;
+  margin-left: 20rpx;
+  height: 100rpx;
+  align-items: center;
+}
+.Complaint-objtc-content image{
+  width: 60rpx;
+  height: 60rpx;
+  border-radius:32rpx;
+}
+.Complaint-objtc-content text{
+  font-size: 30rpx;
+}

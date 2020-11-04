@@ -1,0 +1,33 @@
+<import src="../../../../common/toastTest/toastTest.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+<import src="../../../../common/ForwardSuccess-template/forwardSuccess.wxml" />
+<view class='cardview'>
+  <view class='cardview-title'>
+    <text class='cardview-titletext'>{{bankCardTitle}}</text>
+  </view>
+
+  <block wx:key wx:for="{{bankCards}}" wx:for-item="item">
+    <view class='supportCardView' bindtap='selectCardTap' data-item="{{item}}">
+      <view class="slogan">
+        <image class='slogan-img' wx:if="{{item.bank_name != '微信支付'}}" src="{{Upyun}}/small-iconImages/heboImg/{{item.bank_title}}.png"></image>
+        <image class='slogan-img' wx:else src="/iconImages/paystyle.png"></image>
+        <text class="slogan-text">{{item.bank_name}}</text>
+      </view>
+      <view class="more">
+        <text class="more-text">{{'**'+item.bank_no}}</text>
+      </view>
+    </view>
+  </block>
+  <view class='cardview-add' bindtap='cardAddtap'>
+    <image class='cardview-add-img' src="{{Upyun}}/small-iconImages/heboImg/addCard.png"></image>
+    <text class="cardview-add-text">添加银行卡</text>
+  </view>
+  <!-- <view class='cardview-discription'>
+    <text class='cardview-discriptiontext'>建议你选择招商银行卡，现金提现当日实时到账。</text>
+  </view> -->
+</view>
+
+<!-- 提现成功弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{ForwardSuccessShow}}">
+  <template is="forwardSuccess" data='{{Upyun,isUpperNotitle,upperdistribution,upperbuttontitle}}'></template>
+</view>

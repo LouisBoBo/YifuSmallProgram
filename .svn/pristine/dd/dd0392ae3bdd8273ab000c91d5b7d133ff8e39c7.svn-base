@@ -1,0 +1,79 @@
+<import src="../../../common/toastTest/toastTest.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+<view class="notEnoughYidou-root">
+  <text class='notEnough-dialog-title'>好友成为至尊会员</text>
+  <view class='notEnough-dialog-content'>
+    <text>你将额外获得</text>
+    <text style="font-size:35rpx;color: #ff3f8b;font-weight:600;">{{memberData[1]}}元/人</text>
+    <text>提现现金奖励，无上限</text>
+  </view>
+  <text class='notEnough-dialog-title1'>好友邀请朋友成为至尊会员</text>
+  <view class='notEnough-dialog-content'>
+    <text>你将获得</text>
+    <text style="font-size:35rpx;color: #ff3f8b;font-weight:600;">{{memberData[2]}}元/人</text>
+    <text>裂变现金奖励，无上限</text>
+  </view>
+
+  <text class='notEnough-dialog-title2'>我拿到好友奖励</text>
+  <view class='notEnough-dialog-myReward'>
+    <view class='notEnough-dialog-myRewardContent'>
+      <view style='margin-bottom:-10rpx;'>
+        <text style="font-size:60rpx;font-weight:600;">{{ext_now}}</text>
+        <text>元</text>
+      </view>
+      <text style='font-size:30rpx;'>今日收益</text>
+    </view>
+    <view class='middleLine'></view>
+    <view class='notEnough-dialog-myRewardContent'>
+      <view style='margin-bottom:-10rpx;'>
+        <text style="font-size:60rpx;font-weight:600;">{{ext_yet}}</text>
+        <text>元</text>
+      </view>
+      <text style='font-size:30rpx;'>昨日收益</text>
+    </view>
+    <view class='middleLine'></view>
+    <view class='notEnough-dialog-myRewardContent'>
+      <view style='margin-bottom:-10rpx;'>
+        <text style="font-size:60rpx;font-weight:600;">{{ext_num}}</text>
+        <text>人</text>
+      </view>
+      <text style='font-size:30rpx;'>好友数</text>
+    </view>
+  </view>
+</view>
+
+<view class='friendTodayReward'>好友奖励明细</view>
+<!-- <view class='friendsReward'>
+  <image class='friends-headImg' src='{{}}' mode='widthFix'></image>
+  <view class='friends-left'>
+    <view class='friends-top'>
+      <text class='friends-top-name'>hobby</text>
+      <text class='friends-top-time'>2019-3-5</text>
+    </view>
+    <view class='friends-bottom'>
+      <view>+5元提现额度</view>
+    </view>
+  </view>
+  <button class='friends-right' open-type="share">邀请好友</button>
+</view> -->
+
+<view wx:if='{{datalist[0]}}' class='section'>
+  <block wx:for='{{datalist}}'>
+    <view class='friendsReward'>
+      <image class='friends-headImg' src='{{item.pic}}' mode='widthFix'></image>
+      <view class='friends-left'>
+        <view class='friends-top'>
+          <text class='friends-top-name'>{{item.nickName}}</text>
+          <text class='friends-top-time'>{{item.time}}</text>
+        </view>
+        <view class='friends-bottom'>
+          <view>+{{item.money}}元提现额度</view>
+        </view>
+      </view>
+      <button class='friends-right' open-type="share">邀请好友</button>
+    </view>
+  </block>
+</view>
+<view wx:else>
+  <view class="emptyView">亲，暂时没有相关数据哦</view>
+</view>

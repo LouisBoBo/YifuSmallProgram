@@ -1,0 +1,169 @@
+<import src="../wallet-template/wallet-template.wxml" />
+<import src="../../../../common/toastTest/toastTest.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+<import src="../../../../common/openYifu-template/openYifu.wxml" />
+<import src="../../../../common/Upperlimit-template/Upperlimit.wxml" />
+<import src="../../../../common/Forward-template/Forward.wxml" />
+<import src="../../../../common/ForwardSuccess-template/forwardSuccess.wxml" />
+
+<import src="../../../../common/ThrityRedTX-templete/ThrityRedTX.wxml" />
+
+
+<view class='suspendview' bindtap='suspendtap'>
+  <image class='suspendview-image' src="{{configUpyun}}/small-iconImages/heboImg/+提现额度.png"></image>
+</view>
+<form bindsubmit="submittixian" report-submit="true">
+  <view>
+    <view class='mainview'>
+      <template is="wallet-head" data="{{balance,extract,freeze_balance,ex_free}}" />
+    </view>
+    <view class='section-first'>
+      <view class='section-first-title'>
+        <view class='baseview'></view>
+        <text class='section-first-title-text'>提现金额</text>
+      </view>
+
+      <input class='section-first-title-input' name="namemessage" type="digit" bindinput="searchInputEvent" bindfocus="wxSerchFocus" placeholder="请输入需要提现的金额" placeholder-style='color:rgb(213, 213, 213)' style='font-size:30rpx' value='{{inputvalues}}' maxlength="5"></input>
+
+      <view class='section-second-title'>
+        <view class='baseview'></view>
+        <text class='section-first-title-distription'>单次提现金额不得低于{{minicill}}元</text>
+      </view>
+
+      <!-- <block wx:key wx:for="{{sections_first}}" wx:for-item="item">
+      <view class='other' data-index="{{index}}" bindtap="firstswitchNav">
+        <view class='headtitle'>
+          <text class="{{currentTab==index?'headtitle-textselect':'headtitle-textdefault'}}">{{item}}元</text>
+        </view>
+        <view class='other-more'>
+          <image class="other-more-img" src="{{currentTab==index?select_xuanzh:select_normol}}"></image>
+        </view>
+      </view>
+    </block> -->
+    </view>
+    <view class='section-first'>
+      <view class='section-first-title'>
+        <view class='baseview'></view>
+        <text class='section-first-title-text'>请选择提现方式</text>
+      </view>
+      <block wx:key wx:for="{{sections_second}}" wx:for-item="item">
+        <view class='other' data-index="{{index}}" bindtap="secondswitchNav">
+          <view class='headtitle'>
+            <image src="{{configUpyun}}{{sections_images[index]}}"></image>
+            <text class="{{stylecurrentTab==index?'headtitle-textselect':'headtitle-textdefault'}}">{{item}}</text>
+          </view>
+          <view class='other-more'>
+            <image class="other-more-img" src="{{stylecurrentTab==index?select_xuanzh:select_normol}}"></image>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class='bottomview'>
+    <view class='nextview' wx:if="{{inputValue.length > 0}}" style='background-color:#ff3f8b'>
+      <view>下一步</view>
+      <button class='button-confrim' formType="submit"></button>
+    </view>
+    <view class='nextview' wx:else style='background-color:#a8a8a8'>
+      <view>下一步</view>
+      <button class='button-confrim' formType="submit"></button>
+    </view>
+  </view>
+</form>
+
+
+<!-- 提现说明弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{is_showTixianView}}">
+  <view class='showTixianView'>
+    <image catchtap="tixianview_close" class='icon-close' src="/iconImages/icon_close.png"></image>
+    <text class='tixianview_title'>提现说明</text>
+    <!-- <text class='tixianview_discription'>为了你的账户信息安全，身份证号必须正确填写，平台将用于微信或银行卡信息进行验证，错误信息将会导致提现失败，身份证信息进行严格的加密处理，提现验证。</text> -->
+    <text class='tixianview_discription'>请填写你的真实姓名验证微信或银行卡提现账号。</text>
+    <form bindsubmit="addWx" report-submit="true">
+      <view class='tixianview_inputview'>
+        <input class='tixianview_inputview-input' name="namemessage" type="text" bindinput="searchInputEvent" bindfocus="wxSerchFocus" placeholder="姓名" style='font-size:30rpx'></input>
+      </view>
+      <!-- <view class='tixianview_inputview' wx:if="{{idcardFlag == 0}}">
+        <input class='tixianview_inputview-input' name="idmessage" type="text" bindinput="searchInputEvent" bindfocus="wxSerchFocus" placeholder="身份证号" style='font-size:30rpx'></input>
+      </view> -->
+      <view class='tixianview_binding'>
+        <view>立即提现</view>
+        <button class='button-confrim' formType="submit"></button>
+      </view>
+    </form>
+  </view>
+</view>
+
+<!-- 绑定用户弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{is_bingTixianView}}">
+  <view class='showTixianView'>
+    <image catchtap="tixianview_close" class='icon-close' src="/iconImages/icon_close.png"></image>
+    <text class='tixianview_title'>提示</text>
+    <text class='tixianview_discription'>系统检测到你尚未绑定微信提现账户，微信授权后即可绑定。提现款项将直接打入你绑定的微信提现账户</text>
+    <form bindsubmit="bingWx" report-submit="true">
+      <view class='tixianview_inputview'>
+        <input class='tixianview_inputview-input' name="message" type="text" bindinput="searchInputEvent" bindfocus="wxSerchFocus" placeholder="姓名（必须填写本人真实姓名）" style='font-size:30rpx'></input>
+      </view>
+
+      <view class='tixianview_binding'>
+        <view>现在授权并绑定微信帐户</view>
+        <button class='button-confrim' formType="submit"></button>
+      </view>
+    </form>
+  </view>
+</view>
+
+<!-- 下载打开衣蝠APP弹框提示 -->
+<view class="drawer_screen_withdraw" wx:if="{{openYifuDialogShow}}" catchtouchmove="preventTouchMove">
+  <template is="open-yifu-dialog" data='{{Upyun}}'></template>
+</view>
+<!-- 下载打开衣蝠APP弹框提示 -->
+
+<!-- 提现额度不足弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{upperGoYiFuShow}}">
+  <template is="upperlimit" data='{{isUpperNotitle,upperdistribution,upperbuttontitle}}'></template>
+</view>
+<!-- 余额不足弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{upperForwardShow}}">
+  <template is="Forward" data='{{isUpperNotitle,upperdistribution_list,upperbuttontitle_list,uppertittle}}'></template>
+</view>
+<!-- 提现成功弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{ForwardSuccessShow}}" bindtap="closeTixianComplete">
+  <template is="forwardSuccess" data='{{Upyun,isUpperNotitle,upperdistribution,upperbuttontitle,upperdistribution_list,upperbuttontitle_list}}'></template>
+
+
+</view>
+
+
+<!-- 引导关注公众号 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{shopGuideGZH}}">
+  <image class='app-download' src="{{Upyun}}/small-iconImages/qingfengpic/guide_app5.png" catchtap="closeShopGuideGZH"></image>
+</view>
+
+
+
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showTXgoSign}}" bindtap="closeTixianComplete">
+  <image class='successimage' src="{{Upyun}}/small-iconImages/qingfengpic/guide_app6_new.png" catchtap="forwardsuccesstap"></image>
+</view>
+
+<!-- 提现额度不足提示 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showNeedTiXian}}" bindtap="closeTixianComplete">
+  <image class='successimage' src="{{Upyun}}/small-iconImages/qingfengpic/guide_app7.png" catchtap="forwardsuccesstap"></image>
+
+  <form bindsubmit='bingWx' report-submit="true">
+    <button class='confrim_upperlimit' open-type="" catchtap="forwardsuccesstap" form-type='submit'></button>
+  </form>
+</view>
+
+<!-- 30红包元弹窗 -->
+<!-- <view class="drawer_screen_withdraw_thirty" catchtouchmove="preventTouchMove" wx:if="{{showThirtyRed}}">
+   <form bindsubmit="loginsubmit" report-submit='true'>
+    <image class='successimage' src="{{Upyun}}/small-iconImages/qingfengpic/first_tx_thishi_new.png" catchtap="thirty_tap"></image>
+    <button class='button_confrim' catchtap="thirty_tap" open-type="" form-type='submit'></button>
+  </form>
+</view> -->
+<!-- 30红包元弹窗 -->
+
+<view class='drawer_screen_withdraw' catchtouchmove="preventTouchMove" wx:if="{{showThirtyRed}}">
+  <template is="ThrityRedTX" data="{{Upyun,lijianMoney,deTXmoney}}"></template>
+</view>

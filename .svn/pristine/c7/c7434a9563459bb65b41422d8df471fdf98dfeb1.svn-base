@@ -1,0 +1,6 @@
+<!--pages/mine/AppMessage/AppMessage.wxml-->
+<import src="../../../common/GetHongBao-template/makeMoneyHongbao" />
+
+<view class="drawer_screen_withdraw99" catchtouchmove="preventTouchMove" wx:if="{{showendofpromotionDialog}}">
+  <template is="Authorization_message" data='{{upyconfig,animationMiddleHeaderItem}}'></template>
+</view>

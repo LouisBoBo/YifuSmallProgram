@@ -1,0 +1,211 @@
+// pages/mine/wallet/myCard/addCard.js
+var util = require('../../../../utils/util.js');
+import config from "../../../../config.js";
+var app = getApp();
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    addressIndex: [],
+    multiArray: [],
+    bank_no: "",//银行卡
+    identity: "",//身份证
+    name: "",//持卡人名
+    phone: "",//持卡人电话
+    province: "",//省
+    province_id: "",
+    city: "",//城市
+    city_id: "",
+
+    // dataList: ['卡号', '持卡人', '身份证', '手机号', '收款人省/市'],
+    // placeholderList: ['输入银行卡', '输入卡户名', '持卡人身份证号', '银行预留手机号', ''],
+
+
+    dataList: ['卡号', '持卡人', '手机号'],
+    placeholderList: ['输入银行卡', '输入卡户名','银行预留手机号'],
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    new app.ToastPannel();
+    util.httpAddressJson(this.addressDataBase)
+  },
+
+  //获取地址相关信息
+  addressDataBase: function (data) {
+    this.data.addressList = data;
+    const addressData = data;
+    var cities = [];
+    var areas = [];
+    var states = [];
+
+    var is_editAddress = this.data.is_editAddress;
+    var province = this.data.province;
+    var city = this.data.city;
+    var area = this.data.area;
+    var addressIndex = (is_editAddress == 1) ? [0, 0, 0] : [];
+
+
+    if (is_editAddress == undefined || (province == 0 && city == 0 && area == 0)) {
+      for (let i = 0; i < addressData.length; i++) {
+        states.push(addressData[i]['state']);
+      }
+      for (let j = 0; j < addressData[0]["cities"].length; j++) {
+        cities.push(addressData[0]["cities"][j]['city']);
+      }
+      for (let j = 0; j < addressData[0]["cities"][0]['areas'].length; j++) {
+        areas.push(addressData[0]["cities"][0]['areas'][j]['area']);
+      }
+      // addressIndex = [0,0,0];
+    } else {
+
+      for (let i = 0; i < addressData.length; i++) {
+        states.push(addressData[i]['state']);
+        if (addressData[i]['id'] == province) {
+          addressIndex = [i, 0, 0];
+          for (let j = 0; j < addressData[i]["cities"].length; j++) {
+            cities.push(addressData[i]["cities"][j]['city']);
+            if (addressData[i]["cities"][j]['id'] == city) {
+              addressIndex = [addressIndex[0], j, 0];
+              for (let k = 0; k < addressData[i]["cities"][j]['areas'].length; k++) {
+                areas.push(addressData[i]["cities"][j]['areas'][k]['area']);
+                if (addressData[i]["cities"][j]['areas'][k]['id'] == area)
+                  addressIndex = [addressIndex[0], addressIndex[1], k];
+
+              }
+            }
+          }
+        }
+      }
+    }
+
+    var dataArr = [states, cities, areas];
+
+
+    this.setData({
+      multiArray: dataArr,
+      addressIndex: addressIndex,
+    })
+  },
+  bindMultiPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      addressIndex: e.detail.value
+    })
+  },
+  bindMultiPickerColumnChange: function (e) {
+    console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
+    if (!this.data.addressIndex || this.data.addressIndex.length < 3)
+      this.setData({ addressIndex: [0, 0, 0] })
+
+    if (e.detail.column == 0)
+      this.setData({ addressIndex: [e.detail.value, 0, 0] })
+
+    var data = {
+      multiArray: this.data.multiArray,
+      addressIndex: this.data.addressIndex
+    };
+    data.addressIndex[e.detail.column] = e.detail.value;
+
+    const addressData = this.data.addressList;
+    var cities = [];
+    var areas = [];
+    var states = [];
+    for (let i = 0; i < addressData.length; i++) {
+      states.push(addressData[i]['state']);
+    }
+    if (addressData[data.addressIndex[0]]["cities"] !== undefined) {
+      for (let j = 0; j < addressData[data.addressIndex[0]]["cities"].length; j++) {
+        cities.push(addressData[data.addressIndex[0]]["cities"][j]['city']);
+      }
+    }
+    if (addressData[data.addressIndex[0]]["cities"][data.addressIndex[1]]['areas'] !== undefined) {
+      for (let j = 0; j < addressData[data.addressIndex[0]]["cities"][data.addressIndex[1]]['areas'].length; j++) {
+        areas.push(addressData[data.addressIndex[0]]["cities"][data.addressIndex[1]]['areas'][j]['area']);
+      }
+    }
+
+    if (cities.length && areas.length) {
+      data.multiArray = [states, cities, areas];
+    } else if (cities.length && areas.length == 0) {
+      data.multiArray = [states, cities];
+    } else if (cities.length == 0 && areas.length == 0) {
+      data.multiArray = [states];
+    }
+
+    this.setData(data);
+  },
+  supportTap: function () {
+    wx.navigateTo({
+      url: 'supportCard',
+    })
+  },
+  //绑定银行卡
+  submitOrder: function (e) {
+    var banck_no = e.detail.value["卡号"];
+    var name = e.detail.value["持卡人"];
+    var phone = e.detail.value["手机号"];
+    var identity = e.detail.value["身份证"];
+
+    for (var i = 0; i < this.data.dataList.length-1;i++)
+    {
+      var message = e.detail.value[this.data.dataList[i]];
+      if (message.length == 0 || message == '')
+      {
+        this.showToast(this.data.dataList[i]+'不能为空', 2000);
+        return;
+      }
+    }
+
+    // if (this.data.addressIndex.length==0)
+    // {
+    //   this.showToast('收款人地址不能为空', 2000);
+    //   return;
+    // }
+
+    // var addressList = this.data.addressList;
+    // var province = addressList[this.data.addressIndex[0]]['state'];
+    // var city = addressList[this.data.addressIndex[0]]["cities"][this.data.addressIndex[1]]['city'];
+    // var area = addressList[this.data.addressIndex[0]]["cities"][this.data.addressIndex[1]]['areas'][this.data.addressIndex[2]]['area'];
+
+    // var province_id = addressList[this.data.addressIndex[0]]['id'];
+    // var city_id = addressList[this.data.addressIndex[0]]["cities"][this.data.addressIndex[1]]['id'];
+    // var area_id = addressList[this.data.addressIndex[0]]["cities"][this.data.addressIndex[1]]['areas'][this.data.addressIndex[2]]['id'];
+
+    this.setData({
+      banck_no: banck_no,
+      name: name,
+      phone: phone,
+      // identity: identity,
+      // province: province,
+      // province_id: province_id,
+      // city: city,
+      // city_id: city_id,
+    })
+    this.submitCardInfoHttp();
+  },
+  submitCardInfoHttp: function () {
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+    // var url = config.Host + 'wallet/addMyBankCard?' + config.Version + '&token=' + token + '&name=' + this.data.name + '&phone=' + this.data.phone + '&identity=' + this.data.identity + '&bank_no=' + this.data.banck_no + '&province=' + this.data.province + '&province_id=' + this.data.province_id + '&city=' + this.data.city + '&city_id=' + this.data.city_id + '&imei=2018' + '&mac=0';
+
+    var url = config.Host + 'wallet/addMyBankCard?' + config.Version + '&token=' + token + '&name=' + this.data.name + '&phone=' + this.data.phone +'&bank_no=' + this.data.banck_no + '&imei=2018' + '&mac=0';
+    util.http(url, this.handleData);
+  },
+  handleData: function (data) {
+    if (data.status == 1) {//绑定银行卡成功
+      var pages = getCurrentPages();
+      var prevPage = pages[pages.length - 2];  //上一个页面
+      prevPage.findCardInfoHttp();
+      wx.navigateBack({})
+    } else {
+      this.showToast(data.message, 2000);
+    }
+  },
+})

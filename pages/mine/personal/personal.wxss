@@ -1,0 +1,49 @@
+.head{
+  padding: 35rpx 30rpx 90rpx;
+  border-bottom: 1px solid #eee;
+}
+.headtitle{
+  float: left;
+}
+.headtitle-text{
+  vertical-align: middle;
+  margin-right: 10rpx;
+  margin-left: 10rpx;
+  color: #666;
+  font-size: 34rpx;
+}
+.headimage{
+  float: right;
+}
+.head-img{
+  width: 100rpx;
+  height: 100rpx;
+  margin-top: -20rpx;
+  vertical-align: middle; 
+  border-radius: 50rpx;
+}
+.more-img{
+  width: 50rpx;
+  height: 50rpx;
+  margin-top: -20rpx;
+  vertical-align: middle;
+}
+.other{
+  padding: 35rpx 30rpx 90rpx;
+  border-bottom: 1px solid #eee;
+}
+.other-more{
+  float: right;
+}
+.more-text{
+  vertical-align: middle;
+  margin-right: 10rpx;
+  color: #a8a8a8;
+  font-size: 30rpx;
+}
+.other-more-img{
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: middle;
+}
+

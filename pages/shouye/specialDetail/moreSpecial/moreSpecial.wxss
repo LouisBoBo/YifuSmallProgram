@@ -1,0 +1,8 @@
+.mainview{
+  overflow: hidden;
+}
+.shopImage{
+  height: 500rpx;
+  width: 100%;
+  margin-right: 10rpx;
+}

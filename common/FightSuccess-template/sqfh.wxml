@@ -1,0 +1,26 @@
+<template name="open-sqfh">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>恭喜你</text>
+
+    <!-- 非会员预中奖 status=17 Whether_prize = 2 -->
+    <text class='notEnough-dialog-content1'  wx:if="{{isClickVip == 0}}">
+    您以会员的资格免费领走了了价值<text class='jiqiName'>{{sqfhData.price}}元</text>的<text class='jiqiName'>{{supName}}</text>，订单将在成为会员后发货。</text>
+
+    <!-- 会员预中奖      <!-- status=17 Whether_prize = 2 -->
+    <text class='notEnough-dialog-content1'  wx:else>
+    您以会员的资格免费领走了了价值<text class='jiqiName'>{{sqfhData.price}}元</text>的<text class='jiqiName'>{{supName}}</text>，该商品超出了您目前可免费领商品的价格区间，订单将在您成为更高级别的会员后发货。</text>
+
+
+
+    <view class='buttonView'>
+
+      <text catchtap="goToVip" class='bottom-btn-yellow5' wx:if="{{clickStatus == 17 && clickWhether_prize == 2}}">成为会员</text>
+
+
+      <text catchtap="copyWXH" class='bottom-btn-yellow5' wx:else>复制客服微信号</text>
+
+
+    </view>
+    <image catchtap="closeFight" class='icon-close' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

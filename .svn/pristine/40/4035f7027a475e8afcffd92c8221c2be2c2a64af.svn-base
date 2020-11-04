@@ -1,0 +1,86 @@
+<import src="/common/Discount-template/Discount.wxml" />
+<view class="page">
+    <form bindsubmit="formSubmit" reportSubmit="true">
+        <!-- <view class="enter_record">
+            <image class="record_icon" src="/images/service_record.png"></image>
+            <view class="record_title">我的档案</view>
+            <view bindtap="toCheckRecord" class="check_record">查看档案</view>
+        </view> -->
+        <view class="demand_box">
+            <image class="demand_bg" src="{{Upyun}}/small-iconImages/heboImg/personal_record4.png"></image>
+            <view class="demand_cont_box">
+                <textarea bindinput="inputDemand" class="demand_cont" placeholder="既要舒适 简单 也要好看得体" placeholderStyle="color:#B6B6B6;font-size:26rpx;" value="{{userDemand}}"></textarea>
+                <!-- <view class="img_list">
+                    <view class="img_item" wx:if="{{uploadImg.length}}" wx:for="{{uploadImg}}" wx:key="{{index}}">
+                        <image class="upload_img" src="{{item.img_url}}"></image>
+                        <view bindtap="deleteImg" class="delete_img" data-index="{{index}}">×</view>
+                    </view>
+                    <view bindtap="uploadImg" class="upload_btn" wx:if="{{uploadImg.length<3}}">
+                        <image class="upload_icon" src="/images/record_upload.png"></image>
+                    </view>
+                </view> -->
+                <!-- <view class="upload_tip">如果有喜欢的单品，可以上传图片帮您搭配~</view> -->
+            </view>
+        </view>
+        <view class="match_scene">
+            <image class="match_scene_bg" src="{{Upyun}}/small-iconImages/heboImg/personal_record3.png"></image>
+            <view class="match_scene_box">
+                <view class="scene_title">你本次搭配的场景(可选三项)</view>
+                <view class="scene_list">
+                    <view bindtap="selectScene" class="scene_item" data-value="{{item.value}}" wx:for="{{sceneList}}" wx:key="{{index}}">
+                        <view class="scene_img_box">
+                            <image class="scene_img" src="https://oss.xiaoxingli.com/Material/{{item.scene_img}}"></image>
+                            <image class="select_icon" src="/iconImages/shop_select.png" wx:if="{{item.isSelect}}"></image>
+                        </view>
+                        <view class="scene_name">{{item.query_value}}</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <!-- <view class="match_budget">
+            <image class="match_budget_bg" src="{{Upyun}}/small-iconImages/heboImg/personal_record2.png"></image>
+            <view class="match_budget_cont">
+                <view class="budget_item">
+                    <view class="budget_item_title">
+                        <text class="spec_txt">全套服饰</text> (上衣+裤子)的预算</view>
+                    <view class="tag_list">
+                        <view bindtap="selectFullBudget" class="tag_item {{item.isSelect?'active':''}}" data-value="{{item.value}}" wx:for="{{fullBudget}}" wx:key="{{index}}">{{item.query_value}}</view>
+                    </view>
+                </view>
+                <view class="budget_item">
+                    <view class="budget_item_title">
+                        <text class="spec_txt">鞋子</text> 的预算</view>
+                    <view class="tag_list">
+                        <view bindtap="selectShoesBudget" class="tag_item {{item.isSelect?'active':''}}" data-value="{{item.value}}" wx:for="{{shoesBudget}}" wx:key="{{index}}">{{item.query_value}}</view>
+                    </view>
+                </view>
+                <view class="budget_item">
+                    <view class="budget_item_title">
+                        <text class="spec_txt">配饰</text> 的预算</view>
+                    <view class="tag_list">
+                        <view bindtap="selectACCBudget" class="tag_item {{item.isSelect?'active':''}}" data-value="{{item.value}}" wx:for="{{ACCBudget}}" wx:key="{{index}}">{{item.query_value}}</view>
+                    </view>
+                </view>
+            </view>
+        </view> -->
+        <!-- <view class="service_ticket">
+            <view class="ticket_title">
+                <image class="ticket_title_icon" src="/images/service_icon.png"></image>
+                <view class="ticket_title_cont">搭配服务券</view>
+            </view>
+            <view class="my_ticket">
+                <view bindtap="toGetTicket" class="ticket_box">
+                    <image class="ticket_bg" src="{{isMember?'https://oss.xiaoxingli.com/Material/f08032a2-7c5d-11e9-a5cc-8cec4b6dcce5.png':'https://oss.xiaoxingli.com/Material/fb5aada6-7c5d-11e9-a5cc-8cec4b6dcce5.png'}}"></image>
+                    <view class="ticket_num {{isMember?'':'ticket_num_normal'}}" wx:if="{{StylistTicketNum!=0}}">剩余{{StylistTicketNum}}张可用</view>
+                    <view class="ticket_num {{isMember?'':'ticket_num_normal'}}" wx:if="{{StylistTicketNum==0}}">无可用券 点击获取</view>
+                </view>
+            </view>
+        </view> -->
+        <!-- <button bindgetphonenumber="getPhoneNumber" bindtap="checkRecord" class="bingin_match" formType="submit" openType="{{hasMobile?'':'getPhoneNumber'}}">完成</button> -->
+        <button bindtap="checkRecord" class="bingin_match" formType="submit" openType="">完成</button>
+    </form>
+</view>
+
+ <view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{moneyDiscountShowFlag}}">
+    <template is='open-Discount' data='{{oneYuanDiscriptionTitle}}'></template>
+</view>

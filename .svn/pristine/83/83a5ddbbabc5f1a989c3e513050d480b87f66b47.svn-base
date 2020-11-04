@@ -1,0 +1,11 @@
+<template name="open-FightSuccess">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>恭喜你</text>
+    <text class='notEnough-dialog-content1' wx:if="{{ptSuccessUserName}}">恭喜你与<text class='jiqiName'>{{ptSuccessUserName}}</text>拼团成功，现在可以立即去免费领走商品啦！</text>
+    <text class='notEnough-dialog-content1' wx:else>拼团成功！现在可以立即去免费领走商品啦！</text>
+    <view class='buttonView'>
+      <text catchtap="getFight" class='bottom-btn-yellow5'>去免费领商品</text>
+    </view>
+    <image catchtap="closeFight" class='icon-close' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

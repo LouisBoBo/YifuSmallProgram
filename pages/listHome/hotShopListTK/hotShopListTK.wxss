@@ -1,0 +1,140 @@
+@import "../../../common/listHomeTemplate/listtemplate.wxss";
+
+.v-out {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* position: fixed;
+  top: 60rpx; *//* margin-top: 60rpx; */
+}
+
+.head-notice {
+  z-index: 888;
+  background-color: black;
+  height: 60rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+}
+
+.head-notice-left {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: row;
+}
+
+.head-notice-right {
+  display: flex;
+  align-items: center;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  height: 100%;
+  background-color: #ff594f;
+}
+
+.head-notice-image {
+  margin-left: 10rpx;
+  display: flex;
+  align-items: center;
+  height: 30rpx;
+  width: 30rpx;
+}
+
+.head-notice-image image {
+  height: 100%;
+  width: 100%;
+}
+
+.text-left {
+  margin-left: 10rpx;
+  color: #cbc9c9;
+  font-size: 23rpx;
+}
+
+.text-right {
+  color: #ffe718;
+  font-size: 23rpx;
+}
+
+.head-pic {
+  width: 100%;
+}
+
+.head-pic image {
+  height: 500rpx;
+  width: 100%;
+}
+
+.topbarall {
+  margin-top: 10rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.top-bar-item {
+  color: #3e3e3e;
+}
+
+.topbarall {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.top-bar-item {
+  color: #3e3e3e;
+  font-size: 14sp;
+}
+
+.top-bar-item-active {
+  color: #ff3f8b;
+}
+
+.sign-finish-root {
+  width: 580rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign-finish-content {
+  display: flex;
+   width: 580rpx;
+  align-self: left;
+  font-size: 28rpx;
+  color: #7d7d7d;
+  margin-top: 50rpx;
+   justify-content: center;
+  /* margin-left: 30rpx;
+  margin-right: 30rpx; */
+}
+
+.bottom-btn-know {
+  margin-top: 40rpx;
+  margin-bottom: 50rpx;
+  border-radius: 8rpx;
+  width: 500rpx;
+  height: 60rpx;
+  font-size: 32rpx;
+  background-color: #ff3f8b;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .selection {
+    margin-top: 10px;
+/* .selection {
+  margin-top: 10px;
+} */

@@ -1,0 +1,10 @@
+<template name="shareLogin-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip'>请点确认，即可查看您的邀请码。</text>
+    <view class='buttonView-vip'>
+      <button catchtap="VipDialog" class='bottom-btn-yellow5-vip' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'>确认</button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

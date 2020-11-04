@@ -1,0 +1,19 @@
+<template name='addReduce'>
+  <view class='v-out'>
+    <view class='v-style' bindtap='btnReduceClick'>
+      <view class='image-style'>
+        <image src='{{Upyun}}small-iconImages/zzq/icon_reduce.png'></image>
+      </view>
+    </view>
+    <view class='line'></view>
+    <view class='v-style-center'>
+      <view class='buy-num'>{{buyCount}}</view>
+    </view>
+    <view class='line'></view>
+    <view class='v-style' bindtap='btnAddClick'>
+      <view class='image-style' >
+        <image src='{{Upyun}}small-iconImages/zzq/icon_add.png'></image>
+      </view>
+    </view>
+  </view>
+</template>

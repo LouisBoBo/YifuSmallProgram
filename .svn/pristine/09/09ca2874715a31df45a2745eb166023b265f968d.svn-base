@@ -1,0 +1,48 @@
+<view class="flaot-container">
+  <view class="float-top">
+  </view>
+  <float-tab items="{{tabs}}" fixedBar="{{isShowFloatTab}}" bindtabclick="clickTab" />
+
+  <!-- <view wx:if="{{curTabId=='news'}}" class="tab_list_data">
+     <view>要闻</view> 
+  </view>
+  <view wx:else class="tab_list_data">
+     <view>供需</view> 
+  </view> -->
+
+  <!-- 切换 -->
+   <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}rpx">
+    <swiper-item wx:for="{{swiper_list}}" wx:for-item="item">
+      <scroll-view scroll-x="false" scroll-y="true" class="scoll-h" wx:if="{{item>3}}" bindscroll="bindscroll">
+        <block wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14]}}" wx:key="*this">
+          <view class="item-ans">
+            <view class="avatar">
+              <image class="img" src="http://ookzqad11.bkt.clouddn.com/avatar.png"></image>
+            </view>
+            <view class="expertInfo">
+              <view class="name">欢颜</view>
+              <view class="tag">知名情感博主</view>
+              <view class="answerHistory">134个回答，2234人听过 </view>
+            </view>
+            <navigator url="/pages/askExpert/expertDetail" class="askBtn">问TA</navigator>
+          </view>
+        </block>
+      </scroll-view>
+      <scroll-view scroll-x="false" scroll-y="true" class="scoll-h" bindscroll="bindscroll" wx:else>
+        <block wx:for="{{[1,2,3,4,5,6,7,8]}}" wx:key="*this">
+          <view class="item-ans">
+            <view class="avatar">
+              <image class="img" src="http://ookzqad11.bkt.clouddn.com/avatar.png"></image>
+            </view>
+            <view class="expertInfo">
+              <view class="name">欢颜</view>
+              <view class="tag">知名情感博主</view>
+              <view class="answerHistory">134个回答，2234人听过 </view>
+            </view>
+            <navigator url="/pages/askExpert/expertDetail" class="askBtn">问TA</navigator>
+          </view>
+        </block>
+      </scroll-view>
+    </swiper-item>
+  </swiper> 
+</view>

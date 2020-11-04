@@ -1,0 +1,21 @@
+<template name="wallet-head">
+  <view class="newheadview">
+    <text class='newheadview-text1'>可提现余额</text>
+    <text class='newheadview-text2'>{{raffleMoney}}</text>
+  </view>
+  <view class='headview'>
+    <view class='headview-left'>
+      <view class='headview-left-yue'>
+        <text class='headview-left-yue-text1'>{{extract}}<text class="headview-left-yue-import">元</text></text>
+        <text class='headview-left-yue-text2'>购物余额</text>
+      </view>
+    </view>
+    <view class='middleLine'></view>
+    <view class='headview-left'>
+      <view class='headview-left-yue'>
+        <text class='headview-left-yue-text1'>{{ext_money}}<text class="headview-left-yue-import">元</text></text>
+        <text class='headview-left-yue-text2'>我的佣金</text>
+      </view>
+    </view>
+  </view>
+</template>

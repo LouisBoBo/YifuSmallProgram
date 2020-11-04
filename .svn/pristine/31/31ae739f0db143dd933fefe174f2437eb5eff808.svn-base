@@ -1,0 +1,23 @@
+<template name="RefundFail">
+  <view class="notEnoughYidou-root" style="background-color: #fff;">
+    <text class='notEnough-dialog-title' style="color: black;">温馨提示</text>
+    <text class='notEnough-dialog-content1' style="color: #a8a8a8;">因账号原因退款失败，款项已退入可提现余额，请您手动提现。</text>
+    
+    <view class='buttonView'>
+      <text catchtap="goTiXian" class='bottom-btn-yellow5' style="background-color: #ff3f8b;color: #fff;">立即去提现</text>
+    </view>
+    <image catchtap="closePop" class='icon-close' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>
+
+<template name="deliveryCard">
+  <view class="notEnoughYidou-root" style="background-color: red;">
+    <text class='notEnough-dialog-title' style="color: #fdcc21;">温馨提示</text>
+    <text class='notEnough-dialog-content1' style="color: #fdcc21;">去赚钱小任务完成全部任务，赠送发货卡免费发货哦。</text>
+    
+    <view class='buttonView'>
+      <text catchtap="goToMoney" class='bottom-btn-yellow5' style="background-color: #fdcc21;color: rgb(157, 58, 23);">去完成</text>
+    </view>
+    <image catchtap="closePop" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</template>

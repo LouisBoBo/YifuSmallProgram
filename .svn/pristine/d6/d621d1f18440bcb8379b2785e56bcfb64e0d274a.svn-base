@@ -1,0 +1,25 @@
+<template name="bubbleContainer">
+  <view class='bubbleReward' animation="{{animationData}}"  wx:if='{{isBubbleShow}}'>
+    <image class='user-img' mode='aspectFit' src='{{bubbleData.user_pic}}'></image>
+    <text class='user-name'>{{bubbleData.user_name}}</text>
+    <text class='user-content'>{{bubbleData.user_content}}</text>
+    <text class='user-money'>+{{bubbleData.user_money}}</text>
+    <text class='user-money-text'>{{bubbleData.user_detail}}</text>
+  </view>
+</template>
+
+<template name="bubbleScrollContainer">
+<view>
+ <scroll-view class='list-scoll' lower-threshold ="{{150}}" bindscrolltolower="scrolltolower" scroll-y="{{true}}" scroll-with-animation="{{true}}" scroll-top="{{scrollTop}}" touchmove="">
+      <block wx:for='{{mListData}}'>
+        <view class='list-item'>
+          <image mode='widthFix' src="{{item.pic}}"></image>
+          <text class='user-name'>{{item.nname}}</text>
+          <text class='user-content'>{{item.p_name}}</text>
+          <text class='user-money'>+{{item.num}}个</text>
+        </view>
+      </block>
+    </scroll-view>
+    <scroll-view class='list-scoll-cover' ></scroll-view>
+</view>
+</template>

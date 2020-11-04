@@ -1,0 +1,84 @@
+.baseview {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20rpx;
+}
+
+.headimage {
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  margin-top: 20rpx;
+  width: 200rpx;
+  height: 300rpx;
+}
+
+.orderview {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20rpx;
+}
+
+.shopname {
+  margin-top: 30rpx;
+  width: 470rpx;
+  height: 60rpx;
+}
+
+.headtitle-text {
+  float: left;
+  font-size: 30rpx;
+}
+
+.other-more-text {
+  float: right;
+  font-size: 30rpx;
+  color: #ff3f8b;
+}
+
+.color {
+  margin-top: 20rpx;
+  width: 470rpx;
+  height: 60rpx;
+  color: #a8a8a8;
+}
+
+.price {
+  margin-top: 20rpx;
+  width: 470rpx;
+  height: 60rpx;
+}
+
+.discount {
+  margin-top: 0rpx;
+  float: right;
+  width: 300rpx;
+  height: 40rpx;
+}
+.discount-text {
+  margin-top: 5rpx;
+  float: right;
+  vertical-align: middle;
+  margin-right: 10rpx;
+  color: #ff3f8b;
+  font-size: 24rpx;
+}
+
+.discount-image {
+  float: right;
+  width: 40rpx;
+  height: 40rpx;
+  vertical-align: middle;
+}
+
+.footview {
+  width: 100%;
+  height: 80rpx;
+}
+
+.footview-text {
+  float: right;
+  font-size: 32rpx;
+  margin-top: 20rpx;
+  margin-right: 30rpx;
+  vertical-align: middle;
+}

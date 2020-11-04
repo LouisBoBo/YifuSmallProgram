@@ -1,0 +1,77 @@
+@import "../../../../common/ForwardSuccess-template/forwardSuccess.wxss";
+
+
+.cardview-titletext {
+  margin-left: 30rpx;
+  font-size: 30rpx;
+}
+
+.cardview-add {
+  width: 100%;
+  height: 120rpx;
+  display: flex;
+  flex-direction: row;
+  margin-top: 20rpx;
+  border-top: 1rpx solid #eee;
+  border-bottom: 1rpx solid #eee;
+}
+
+.cardview-add-img {
+  width: 50rpx;
+  height: 50rpx;
+  margin-left: 38%;
+  margin-top: 35rpx;
+  vertical-align: middle;
+  justify-content: center;
+}
+
+.cardview-add-text {
+  color: #666;
+  font-size: 26rpx;
+  width: 150rpx;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 30rpx;
+}
+
+.cardview-discriptiontext {
+  margin-left: 30rpx;
+  font-size: 24rpx;
+  color: #a8a8a8;
+}
+
+ .supportCardView{ 
+   /* margin: 30rpx;  */
+   margin: 20rpx 30rpx 20rpx 30rpx;
+   height: 80rpx;
+ } 
+
+.slogan {
+  float: left;
+}
+
+.slogan-img {
+  width: 46rpx;
+  height: 46rpx;
+  vertical-align: middle;
+}
+
+.slogan-text {
+  vertical-align: middle;
+  margin-right: 10rpx;
+  margin-left: 20rpx;
+  color: #666;
+  font-size: 32rpx;
+}
+
+.more {
+  float: right;
+}
+
+.more-text {
+  vertical-align: middle;
+  margin-right: 10rpx;
+  color: #666;
+  font-size: 30rpx;
+}

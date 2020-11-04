@@ -1,0 +1,64 @@
+
+.bubbleReward {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  text-align: center;
+  /* width: 250rpx; */
+  height: 60rpx;
+  border-radius: 30rpx;
+   background-color: rgba(0, 0, 0, 0.6); 
+  color: white;
+  top: 100rpx;
+  /* left: -100%; */
+  font-size: 12px;
+  /* line-height: 12rpx;  */
+  z-index:99;
+  white-space:nowrap;/* 防止向下换行*/
+      /* animation: bubbleAnimation 7s infinite;     */
+   /* infinite;  */
+}
+.bubbleScrollContainer {
+   display: flex;
+  position: fixed;
+  align-items: center;
+  text-align: center;
+  /* width: 250rpx; */
+  height: 60rpx;
+  border-radius: 30rpx;
+   background-color: rgba(0, 0, 0, 0.6); 
+  color: white;
+  top: 100rpx;
+  left: -100%;
+  font-size: 12px;
+  /* line-height: 12rpx;  */
+  z-index:99;
+  white-space:nowrap;/* 防止向下换行*/
+}
+.user-img {
+  width: 60rpx;
+  height: 60rpx;
+   border-radius: 30rpx;
+}
+.user-name{
+  margin-left: 20rpx;
+  color: #FF3F8B;
+}
+
+.user-money{
+  font-size: 14px;
+  color: #FF3F8B; 
+}
+.user-money-text {
+  margin-right: 20rpx;
+}
+
+/**定义从右边向左边的移动的动画**/
+@keyframes bubbleAnimation{
+   0%,100%{
+            left: -100%;
+        }
+        33.3% ,66.7%{
+            left: 0;
+        }
+}

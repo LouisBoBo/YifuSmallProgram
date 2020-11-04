@@ -1,0 +1,19 @@
+<template name="AutoScrollview-template">
+  <view class='contentBottom'>
+    <text class="list-top-title">任务奖励实况</text>
+    <swiper class="tab-right" style='background:{{bgColor}};' vertical="true" autoplay="true" circular="true" interval="2000" display-multiple-items='3'>
+      <view class="right-item">
+        <block wx:for-index="idx" wx:for='{{mListData1}}'>
+          <swiper-item>
+            <view class='list-signitem'>
+              <image class="signuser-img" mode='widthFix' src="{{item.pic}}"></image>
+              <text class='signuser-name'>{{item.nname}}</text>
+              <text class='signuser-content'>{{item.content}}</text>
+              <text class='signuser-money'>{{item.num}}元</text>
+            </view>
+          </swiper-item>
+        </block>
+      </view>
+    </swiper>
+  </view>
+</template>

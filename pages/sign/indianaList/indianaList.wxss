@@ -1,0 +1,18 @@
+/* pages/sign/indiana/indianaList.wxss */
+@import "../../../common/listIndianaItem-template/listIndianaItemTemplate.wxss";
+
+::-webkit-scrollbar{
+  height: 0;
+  width: 0;
+  color: transparent;
+}
+
+.image_icon{
+  position: absolute;
+  width: 100rpx;
+  height:100rpx;
+  padding: 20rpx;
+  left: 5rpx;
+  top: 5rpx;
+  display: flex;
+}

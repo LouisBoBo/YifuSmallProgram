@@ -1,0 +1,299 @@
+<!--pages/mine/addMemberCard/addMemberCard.wxml-->
+
+<import src="../../../common/toastTest/toastTest.wxml" />
+
+<template is="toast" data="{{ ..._toast_ }}" />
+
+
+
+
+<form bindsubmit="submitOrder" report-submit="true">
+
+      <!-- <view class='view-InviteFriends' wx:if='{{showInviteFriends}}' style='background-image: url({{Upyun}}small-iconImages/qingfengpic/InviteFriends_img2.jpg'
+catchtap = 'toInviteFriends'
+>
+
+      <image class='invite-friend-close' src="{{Upyun}}small-iconImages/heboImg/task_icon_close.png" 
+      
+      catchtap='closeInviteFriends'></image>
+    <form bindsubmit="loginsubmit" report-submit='true'>
+          <button class='button_confrim_upperlimit4-invfriend' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+        </form>
+  </view> -->
+
+  <view>
+
+  <swiper class='swiper' circular='true' current='{{current}}' previous-margin='70px' next-margin='70px' bindchange="swiperChange" style='height:{{swiperH}};'>
+
+    <swiper-item wx:for='{{vipList}}' wx:key=''>
+    <view class='view-item-swiper'>
+      <image mode='aspectFill' class='le-img {{nowIdx==index?"le-active":""}}' bindload='getHeight' src='{{Upyun}}{{item.url}}' style='height:{{swiperH}};'></image>
+
+
+     <text class='name-text' wx:if="{{nowIdx==index}}" >{{item.cardName}}</text>
+
+      <view class='center-view' wx:if="{{nowIdx==index}}">     
+        <text class='date-text'>{{item.days}}</text>
+        <text class='date-text'>{{item.substance}}</text>   
+      </view>
+
+
+
+      <text  style='font-size:{{item.allmoneyFontSize}}' class='date-text-allmoney' wx:if="{{nowIdx==index}}">{{item.userVipMoney}}</text>
+
+      </view>
+    </swiper-item>
+  </swiper>
+
+
+  <!-- <view class='jiantou-view' style='top: {{jiatoutop}}px'> -->
+    <image class='jiantou'  style='top: {{jiatoutop}}px'  src='{{Upyun}}small-iconImages/qingfengpic/vip_icon_jiantou_left.png' catchtap='bindLeftJiantou'></image>
+    <image class='jiantou'  style='top:{{jiatoutop}}px;right:0' src='{{Upyun}}small-iconImages/qingfengpic/vip_icon_jiantou_right.png' catchtap='bindRightJiantou'></image>
+
+  <!-- </view> -->
+
+  </view>
+
+
+
+ 
+  <view class='cent-view'>
+  <view class='money-view'>
+    <text class='money-count' > {{payName}}</text>
+    <text class='money-count'>￥{{vipPrice}}</text>
+  </view>
+  <!-- <text bindtap='txTishiTap' class='money-count-tuikuan' wx:if= '{{checkCardHave}}'>{{cashabletime}}日后可申请提现。<text style='font-size: 33rpx;'>◯</text><text style='font-size: 31rpx;margin-left: -25rpx;'>?</text></text>
+
+  <text  class='money-count-tuikuan' wx:else>{{cashabletime}}日后可申请提现。</text> -->
+
+
+    <view class="top-fanhuan-view" bindtap='txTishiTap'>
+    <text  class='money-count-tuikuan-top-fan'>{{vipList[nowIdx].punch_days}}日后可返还<text style='color: #ff3f8b;font-weight: bold'>￥{{vipList[nowIdx].return_money}}</text></text>
+    <view class="weihao-quan" ><text class="wenhao">?</text></view>
+    </view>
+
+
+
+
+
+  <!-- <text  class='money-count-tuikuan' wx:else>{{cashabletime}}日后可申请提现。</text> -->
+
+  <view class='count-view' wx:if="{{showCount}}">
+    <text class='money-count' >数量</text>
+
+    <view class='view-count'>
+      <image class='img-jian' bindtap='jianCount' src='{{Upyun}}small-iconImages/qingfengpic/{{img_jian}}.png'></image>
+      <text class='vip-count'>{{vip_count}}</text>
+      <image class='img-jia' bindtap='jiaCount' src='{{Upyun}}small-iconImages/qingfengpic/vip_couot_jia_new.png'></image>
+    </view>
+  </view>
+  <text class='money-count-tuikuan2'>预存多张会员卡，权益叠加</text>
+
+
+
+
+    <view class='count-view'>
+    <text class='money-count' > 奖励金</text>
+    <text class='money-count'>-￥{{bouns}}</text>
+  </view>
+  <text class='money-count-tuikuan2'>您的奖励金可直接抵扣预存款</text>
+
+
+</view>
+
+
+
+  <view style='width: 100%;height:15rpx;background-color: #F7F7F7;margin-top: 20rpx;'></view>
+  <view class='money-view'>
+    <text class='money-count'>支付方式</text>
+    <text class='money-count'>微信支付</text>
+  </view>
+
+
+
+
+
+
+
+
+
+  <!-- 皇冠会员和至尊会员单独做 -->
+  <!-- 皇冠会员 -->
+   <view class='tips-view' style='width: 100%;background-color: #F7F7F7;margin-top: 40rpx;' wx:if='{{vipList[nowIdx].vip_type==5}}'>
+    <text style='margin-top: 20rpx;font-size: 32rpx;margin-left:80rpx; color: #5e5e5e'>单张会员卡权益</text>
+          <text class='tips-view-text'>1.<text style='color: #ff3f8b;font-weight: bold'>预存{{vipList[nowIdx].vip_price}}元</text>可成为皇冠卡会员。</text>
+        <text class='tips-view-text'>2.预存款可<text style='color: #ff3f8b;font-weight: bold'>全额用于购买</text>商品。皇冠卡专享全商品<text style='color: #ff3f8b;font-weight: bold'>3折</text>。</text>
+    <text class='tips-view-text'>3.<text style='color: #ff3f8b;font-weight: bold'>赠送</text><text style='color: #ff3f8b;font-weight: bold'>{{vipList[nowIdx].price_section}}元</text>无门槛购物券一张，可免费购买任意原价<text style='color: #ff3f8b;font-weight: bold'>{{vipList[nowIdx].price_section}}元</text>以下商品。</text>
+    <text class='tips-view-text'>4.每日可免费领原价<text style='color: #ff3f8b;font-weight: bold'>{{vipList[nowIdx].price_section}}元</text>以下任意1件商品<text style='color: #ff3f8b;font-weight: bold'>9次</text>，领中即发货。</text>
+        <text class='tips-view-text'>5.每月1次专业搭配师一对一服务。</text>
+
+
+
+       <!-- <text bindtap='txTishiTap' class='tips-view-text' wx:if= '{{checkCardHave}}'>6.活跃会员60日后满足条件可申请提现。<text style='font-size: 33rpx;'>◯</text><text style='font-size: 31rpx;margin-left: -25rpx;'>?</text></text>
+      <text  class='tips-view-text' wx:else>6.活跃会员60日后满足条件可申请提现。</text> -->
+
+             <!-- <text bindtap='txTishiTap' class='tips-view-text'>6.{{vipList[nowIdx].punch_days}}日后可返还<text style='color: #ff3f8b;font-weight: bold'>{{vipList[nowIdx].return_money}}元</text><text style='font-size: 33rpx;'>。◯</text><text style='font-size: 31rpx;margin-left: -25rpx;'>?</text></text> -->
+       
+
+        <view class="top-fanhuan-view"  style="margin-top: 15rpx;margin-bottom: 0rpx;" bindtap='txTishiTap'>
+    <text  class='money-count-tuikuan-top-fan' style="font-size: 29rpx;margin-bottom: 0rpx;">6.{{vipList[nowIdx].punch_days}}日后可返还<text style='color: #ff3f8b;font-weight: bold'>{{vipList[nowIdx].return_money}}</text>元。</text>
+    <view class="weihao-quan"><text class="wenhao">?</text></view>
+    </view>
+
+
+
+
+ <view  wx:if='{{vipList[nowIdx].vip_code}}' class='tips-view' >
+
+    <text   style='margin-top: 40rpx;font-size: 32rpx;margin-left:80rpx; color: #5e5e5e'>今日剩余免费领商品次数：</text>
+    <!-- 正常的 -->
+<text wx:if='{{vipList[nowIdx].arrears_price == 0&& vipList[nowIdx].num > 0}}' class='tips-view-text'><text style='color: #ff3f8b'>{{vipList[nowIdx].num}}件{{vipList[nowIdx].price_section}}元</text>以下商品，每件<text style='color: #ff3f8b'>{{vipList[nowIdx].count}}次</text>。</text>
+        <!-- 欠费 -->
+        <text wx:elif='{{vipList[nowIdx].arrears_price>0}}' style='margin-top: 10rpx;font-size: 32rpx;margin-left:80rpx; color: #ff3f8b'>此卡已欠费</text>
+      <!-- 次数为0 -->
+        <text wx:elif ='{{vipList[nowIdx].count == 0}}' style='margin-top: 10rpx;font-size: 32rpx;margin-left:80rpx; color: #ff3f8b'>0次</text>
+
+  </view>
+
+  </view>
+
+
+  <!-- 至尊会员 -->
+   <view class='tips-view' style='width: 100%;background-color: #F7F7F7;margin-top: 40rpx;' wx:elif='{{vipList[nowIdx].vip_type==6}}'>
+    <text style='margin-top: 20rpx;font-size: 32rpx;margin-left:80rpx; color: #5e5e5e'>单张会员卡权益</text>
+      <text class='tips-view-text'>1.<text style='color: #ff3f8b;font-weight: bold'>预存{{vipList[nowIdx].vip_price}}元</text>可成为至尊卡会员。</text>
+        <text class='tips-view-text'>2.预存款可<text style='color: #ff3f8b;font-weight: bold'>全额用于购买</text>商品。至尊卡专享全商品<text style='color: #ff3f8b;font-weight: bold'>2.5折</text>。</text>
+    <text class='tips-view-text'>3.<text style='color: #ff3f8b;font-weight: bold'>赠送</text><text style='color: #ff3f8b;font-weight: bold'>{{vipList[nowIdx].price_section}}元</text>无门槛购物券一张，可免费购买任意原价<text style='color: #ff3f8b;font-weight: bold'>{{vipList[nowIdx].price_section}}元</text>以下商品。</text>
+    <text class='tips-view-text'>4.至尊卡会员每日<text style='color: #ff3f8b;font-weight: bold'>不受价格限制免费领</text>任意女装<text style='color: #ff3f8b;font-weight: bold'>9次</text>。60日内必<text style='color: #ff3f8b;font-weight: bold'>免费领走1至5件</text>女装。</text>
+        <text class='tips-view-text'>5.每月1次专业搭配师一对一服务。</text>
+       <!-- <text bindtap='txTishiTap' class='tips-view-text' wx:if= '{{checkCardHave}}'>6.活跃会员60日后满足条件可申请提现。<text style='font-size: 33rpx;'>◯</text><text style='font-size: 31rpx;margin-left: -25rpx;'>?</text></text>
+      <text  class='tips-view-text' wx:else>6.活跃会员60日后满足条件可申请提现。</text> -->
+
+
+
+                   <!-- <text bindtap='txTishiTap' class='tips-view-text'>6.{{vipList[nowIdx].punch_days}}日后可返还<text style='color: #ff3f8b;font-weight: bold'>{{vipList[nowIdx].return_money}}元</text><text style='font-size: 33rpx;'>。◯</text><text style='font-size: 31rpx;margin-left: -25rpx;'>?</text></text> -->
+
+        <view class="top-fanhuan-view"  style="margin-top: 15rpx;margin-bottom: 0rpx;" bindtap='txTishiTap'>
+    <text  class='money-count-tuikuan-top-fan' style="font-size: 29rpx;margin-bottom: 0rpx;">6.{{vipList[nowIdx].punch_days}}日后可返还<text style='color: #ff3f8b;font-weight: bold'>{{vipList[nowIdx].return_money}}</text>元。</text>
+    <view class="weihao-quan"><text class="wenhao">?</text></view>
+    </view>
+
+
+    <!-- <text class='tips-view-text'>7.专享至尊卡超级折扣<text style='color: #ff3f8b;font-weight: bold'>2.5折</text>。</text> -->
+    <!-- <text class='tips-view-text'>8.至尊卡会员推荐好友成为至尊会员得<text style='color: #ff3f8b;font-weight: bold'>39元/人奖金</text>。</text>
+    <text class='tips-view-text'>9.推荐皇冠卡会员得<text style='color: #ff3f8b;font-weight: bold'>19元/人奖金</text>。</text>
+    <text class='tips-view-text'>10.所有奖金均可<text style='color: #ff3f8b;font-weight: bold'>全额用于购买商品或直接提现</text>。</text> -->
+
+
+ <view  wx:if='{{vipList[nowIdx].vip_code}}' class='tips-view' >
+
+    <text   style='margin-top: 40rpx;font-size: 32rpx;margin-left:80rpx; color: #5e5e5e'>今日剩余免费领商品次数：</text>
+    <!-- 正常的 -->
+<text wx:if='{{vipList[nowIdx].arrears_price == 0&& vipList[nowIdx].num > 0}}' class='tips-view-text'><text style='color: #ff3f8b'>{{vipList[nowIdx].num}}件</text>任意价格商品，每件<text style='color: #ff3f8b'>{{vipList[nowIdx].count}}次</text>。</text>
+        <!-- 欠费 -->
+        <text wx:elif='{{vipList[nowIdx].arrears_price>0}}' style='margin-top: 10rpx;font-size: 32rpx;margin-left:80rpx; color: #ff3f8b'>此卡已欠费</text>
+      <!-- 次数为0 -->
+        <text wx:elif ='{{vipList[nowIdx].count == 0}}' style='margin-top: 10rpx;font-size: 32rpx;margin-left:80rpx; color: #ff3f8b'>0次</text>
+
+  </view>
+
+  </view>
+
+  <!-- 钻石卡-->
+  <view class='tips-view' style='width: 100%;background-color: #F7F7F7;margin-top: 40rpx;' wx:elif='{{vipList[nowIdx].vip_type==4}}'>
+    <text style='margin-top: 20rpx;font-size: 32rpx;margin-left:80rpx; color: #5e5e5e'>单张会员卡权益</text>
+
+          <text class='tips-view-text'>1.<text style='color: #ff3f8b;font-weight: bold'>预存{{vipList[nowIdx].vip_price}}元</text>可成为钻石卡会员。</text>
+        <text class='tips-view-text'>2.预存款可<text style='color: #ff3f8b;font-weight: bold'>全额用于购买</text>商品。钻石卡专享全商品<text style='color: #ff3f8b;font-weight: bold'>3.5折</text>。</text>
+    <text class='tips-view-text'>3.<text style='color: #ff3f8b;font-weight: bold'>赠送</text><text style='color: #ff3f8b;font-weight: bold'>{{vipList[nowIdx].price_section}}元</text>无门槛购物券一张，可免费购买任意原价<text style='color: #ff3f8b;font-weight: bold'>{{vipList[nowIdx].price_section}}元</text>以下商品。</text>
+    <text class='tips-view-text'>4.每日可免费领原价<text style='color: #ff3f8b;font-weight: bold'>{{vipList[nowIdx].price_section}}元</text>以下任意1件商品<text style='color: #ff3f8b;font-weight: bold'>9次</text>，领中即发货。</text>
+        <text class='tips-view-text'>5.每月1次专业搭配师一对一服务。</text>
+       <!-- <text bindtap='txTishiTap' class='tips-view-text' wx:if= '{{checkCardHave}}'>6.活跃会员60日后满足条件可申请提现。<text style='font-size: 33rpx;'>◯</text><text style='font-size: 31rpx;margin-left: -25rpx;'>?</text></text>
+      <text  class='tips-view-text' wx:else>6.活跃会员60日后满足条件可申请提现。</text> -->
+
+             <!-- <text bindtap='txTishiTap' class='tips-view-text'>6.{{vipList[nowIdx].punch_days}}日后可返还<text style='color: #ff3f8b;font-weight: bold'>{{vipList[nowIdx].return_money}}元</text><text style='font-size: 33rpx;'>。◯</text><text style='font-size: 31rpx;margin-left: -25rpx;'>?</text></text> -->
+
+                     <view class="top-fanhuan-view"  style="margin-top: 15rpx;margin-bottom: 0rpx;" bindtap='txTishiTap'>
+    <text  class='money-count-tuikuan-top-fan' style="font-size: 29rpx;margin-right: 0rpx;">6.{{vipList[nowIdx].punch_days}}日后可返还<text style='color: #ff3f8b;font-weight: bold'>{{vipList[nowIdx].return_money}}</text>元。</text>
+    <view class="weihao-quan"><text class="wenhao">?</text></view>
+    </view>
+
+ <view  wx:if='{{vipList[nowIdx].vip_code}}' class='tips-view' >
+
+    <text   style='margin-top: 40rpx;font-size: 32rpx;margin-left:80rpx; color: #5e5e5e'>今日剩余免费领商品次数：</text>
+    <!-- 正常的 -->
+<text wx:if='{{vipList[nowIdx].arrears_price == 0&& vipList[nowIdx].num > 0}}' class='tips-view-text'><text style='color: #ff3f8b'>{{vipList[nowIdx].num}}件{{vipList[nowIdx].price_section}}元</text>以下商品，每件<text style='color: #ff3f8b'>{{vipList[nowIdx].count}}次</text>。</text>
+        <!-- 欠费 -->
+        <text wx:elif='{{vipList[nowIdx].arrears_price>0}}' style='margin-top: 10rpx;font-size: 32rpx;margin-left:80rpx; color: #ff3f8b'>此卡已欠费</text>
+      <!-- 次数为0 -->
+        <text wx:elif ='{{vipList[nowIdx].count == 0}}' style='margin-top: 10rpx;font-size: 32rpx;margin-left:80rpx; color: #ff3f8b'>0次</text>
+
+  </view>
+
+  </view>
+
+    <!-- 其他 -->
+  <view class='tips-view' style='width: 100%;background-color: #F7F7F7;margin-top: 40rpx;' wx:else>
+    <text style='margin-top: 20rpx;font-size: 32rpx;margin-left:80rpx; color: #5e5e5e'>单张会员卡权益</text>
+
+    <text class='tips-view-text'>1.每日可免费拼团领<text style='color: #ff3f8b;font-weight: bold'>{{vipList[nowIdx].free_num}}件{{shopPrice}}元</text>以下商品，每件可抢<text style='color: #ff3f8b;font-weight: bold'>{{vipList[nowIdx].free_count}}次</text>。</text>
+    
+    <text class='tips-view-text'>2.<text style='color: #ff3f8b;font-weight: bold'>{{cashabletime}}日后</text>会员费可<text style='color: #ff3f8b;font-weight: bold'>全额提现</text>。提现仅限预存款的余额，不含已用于购买商品的预存款。</text>
+        <text class='tips-view-text'>3.<text style='color: #ff3f8b;font-weight: bold'>{{cashabletime}}日内</text>会员费可<text style='color: #ff3f8b;font-weight: bold'>全额用于购买</text>任意商品。</text>
+
+    <text class='tips-view-text'>4.独享赚钱小任务，<text style='color: #ff3f8b;font-weight: bold'>月赚千元</text>零花钱</text>
+    <text class='tips-view-text'>5.会员购衣，专享<text style='color: #ff3f8b;font-weight: bold'>超低折扣</text>价。</text>
+
+
+ <view  wx:if='{{vipList[nowIdx].vip_code}}' class='tips-view' >
+
+    <text   style='margin-top: 40rpx;font-size: 32rpx;margin-left:80rpx; color: #5e5e5e'>今日剩余免费领商品次数：</text>
+    <!-- 正常的 -->
+<text wx:if='{{vipList[nowIdx].arrears_price == 0&& vipList[nowIdx].num > 0}}' class='tips-view-text'><text style='color: #ff3f8b'>{{vipList[nowIdx].num}}件{{shopPrice}}元</text>以下商品，每件<text style='color: #ff3f8b'>{{vipList[nowIdx].count}}次</text>。</text>
+        <!-- 欠费 -->
+        <text wx:elif='{{vipList[nowIdx].arrears_price>0}}' style='margin-top: 10rpx;font-size: 32rpx;margin-left:80rpx; color: #ff3f8b'>此卡已欠费</text>
+      <!-- 次数为0 -->
+        <text wx:elif ='{{vipList[nowIdx].count == 0}}' style='margin-top: 10rpx;font-size: 32rpx;margin-left:80rpx; color: #ff3f8b'>0次</text>
+
+  </view>
+
+  </view>
+
+  <view style='width: 100%; height: 200rpx;   background-color: #f7f7f7'></view>
+
+
+
+  <!-- 底部视图 -->
+  <!-- 补卡 -->
+  <view class='bottomContainer' wx:if="{{vipList[nowIdx].isOver}}">
+    <text class='paytext'>总价：¥{{payPrice}}</text>
+    <view class='bottmButton'>
+      <view>补足会员费</view>
+      <button class='button-confrim' formType="submit"  open-type="getUserInfo" bindgetuserinfo='onclick'></button>
+    </view>
+  </view>
+  <!-- 开卡 -->
+  <view class='bottomContainer' wx:else>
+    <text class='paytext' style='width: 60%;'>限时特惠：¥{{payPrice}}  <text style='color: #5e5e5e; font-size: 25rpx;text-decoration:line-through;'> 原价{{o_price}}</text></text>
+    <view class='bottmButton' style='width: 40%;'>
+      <view>{{patBTname}}</view>
+      <button class='button-confrim' formType="submit"  open-type="getUserInfo" bindgetuserinfo='onclick'></button>
+    </view>
+  </view>
+
+
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showTXtishi}}">
+  <view class="sign-finish-root">
+    <text class='sign-finish-content' style="margin-top: 30rpx;font-size: 34rpx;color: black;">提现说明</text>
+    <text class='sign-finish-content'  style="margin-top: 20rpx">1、必须去赚钱小任务完成每天的必做任务后，才算当日打卡成功。</text>
+       <text class='sign-finish-content' style="margin-top: 30rpx">2、连续坚持{{vipList[nowIdx].punch_days}}天打卡成功没有中断，则{{vipList[nowIdx].punch_days}}天后的一周内返还{{vipList[nowIdx].return_money}}元。</text>
+       <text class='sign-finish-content' style="margin-top: 30rpx">3、返还的{{vipList[nowIdx].return_money}}元包含预存款{{vipList[nowIdx].vip_price}}元。如预存款已被用于购买商品，则只返还差额的{{vipList[nowIdx].return_money - vipList[nowIdx].vip_price}}元。</text>
+ <text class='sign-finish-content' style="margin-top: 30rpx">4、若{{vipList[nowIdx].punch_days}}天打卡有中断，则不再返还。{{vipList[nowIdx].vip_price}}元预存款可全额用于购买商品。</text>
+ <text class='sign-finish-content' style="margin-top: 30rpx">5、以上条款最终解释权归衣蝠平台所有。</text>
+
+
+    <text bindtap="colseShowTXtishi" class='bottom-btn-know'>确定</text>  
+  </view>
+</view>
+
+</form>

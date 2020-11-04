@@ -1,0 +1,12 @@
+@import "../../shouye/detail/detail-list-template/list-template.wxss";
+
+page{
+  background-color: #eee
+}
+
+.emptyView {
+  padding-top: 50%;
+  text-align: center;
+  color: #666666;
+}
+

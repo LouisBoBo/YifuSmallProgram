@@ -1,0 +1,12 @@
+<template name="FirstDaySignComplete-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip' >恭喜您完成今天的首批任务，打卡成功并可提现任务奖金。<text style='color: #ff3f8b;font-weight: bold'>打卡15天后可领100元现金。</text>记得第每天来哦。</text>
+    <text class='notEnough-dialog-content1-vip' >提现完任务奖金后<text style='color: #ff3f8b;font-weight: bold'>返回本页，还有三批新任务可以完成。</text>每次完成后都可以再提现任务奖金哦。</text>
+    <view class='buttonView-vip'>
+      <button catchtap="fistSignComplestTap" class='bottom-btn-yellow5-vip'
+                  form-type='submit'>提现任务奖金</button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

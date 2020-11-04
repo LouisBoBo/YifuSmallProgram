@@ -1,0 +1,16 @@
+<template name="contactkefuGetmonty">
+  <form bindsubmit="contactkefu" report-submit='true'>
+    <view class="notEnoughYidou-root">
+      <text class='notEnough-dialog-titletext'>温馨提示</text>
+      <!-- <text class='notEnough-dialog-contenttext'>请在接通客服后，输入"红包"两字，即能领取<text class="import-mark">15元</text>微信红包</text> -->
+      <text class='notEnough-dialog-contenttext'>30元新人红包已到账，请接通微信客服申请提现，请在接通客服后，输入“提现”两字。</text>
+      
+      <view class='buttonView'>
+        <text catchtap="getFight" class='bottom-btn-yellow'>接通客服</text>
+        <button class='button_confirm' open-type='contact' form-type='submit' session-from='{"open_param":"NewUserRedHongbao"}' ></button>
+      </view>
+      <image catchtap="colseTips" class='icon-close' src="/iconImages/icon_close.png"></image>
+    </view>
+  </form>
+
+</template>

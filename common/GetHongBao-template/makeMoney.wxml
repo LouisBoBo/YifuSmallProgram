@@ -1,0 +1,15 @@
+<template name="makeMoneyHongBaoSuccess">
+  <form bindsubmit="makeMoneysubmit" report-submit='true'>
+    <view class="notEnoughYidou-root">
+      <text class='notEnough-dialog-title'>温馨提示</text>
+      <text class='notEnough-dialog-content1'>你已领取过{{shareBackheadpic?'接力':'余额'}}红包，</text>
+      <text class='notEnough-dialog-content1'>送你<text class='notEnough-dialog-contentimport'>50元</text>任务红包！</text>
+      <view class='buttonView'>
+        <text catchtap="getFight" class='bottom-btn-yellow'>存入我的账户</text>
+        <button class='button_confirm' open-type="" form-type='submit'></button>
+      </view>
+      <image catchtap="closeShare" class='icon-close' src="/iconImages/icon_close.png"></image>
+    </view>
+  </form>
+
+</template>

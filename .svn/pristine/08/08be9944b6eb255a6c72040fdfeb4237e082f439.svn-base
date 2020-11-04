@@ -1,0 +1,45 @@
+<!--pages/mine/Coupon/Coupon.wxml-->
+<import src="../../../common/Coupon-template/coupon.wxml" />
+<import src="../../../common/Coupon-template/coupon-pop.wxml" />
+<import src="../../../common/toastTest/toastTest.wxml" />
+<import src="../../../common/Login-template/loginPop.wxml" />
+
+<template is="toast" data="{{ ..._toast_ }}" />
+<view class="stv-container">
+  <view class="tab-bar">
+    <view wx:for="{{tabs}}" wx:key="unique" data-index="{{index}}" bindtap="handlerTabTap" class="tab {{activeTab==index?'tab-active':''}}" style="width: {{stv.windowWidth/tabs.length}}px">
+      <text>{{item}}</text>
+    </view>
+    <view style="width: {{stv.lineWidth}}px; left: {{stv.offset/tabs.length}}px" class="under-line {{!stv.tStart? 'withAnimate': ''}}"></view>
+  </view>
+ 
+  <view class='taskShuoming-image' bindtap='renwushuomingTap'>
+    <text class='taskShuoming-image-text'>使用说明</text>
+  </view>
+  <view class="scroll-view">
+    <view bindtouchstart="handlerStart" catchtouchmove="handlerMove" bindtouchcancel="handlerCancel" bindtouchend="handlerEnd" class="scroll-view-wrapper {{!stv.tStart? 'withAnimate': ''}}" style="left: -{{stv.offset}}px">
+      <view style="width: {{stv.windowWidth}}px;" wx:for="{{tabsData}}" data-index="{{index}}" wx:key="unique" class="one-scene">
+        <scroll-view style="height:100%" scroll-y>
+          <view wx:for="{{tabsData[index]}}" wx:key="unique" wx:for-item="item">
+            <view class='couponview'>
+              <template is="coupon" data="{{item,Upyun}}"></template>
+            </view>
+          </view>
+          <view wx:if="{{tabsData[index].length==0}}">
+            <view class="emptyView">亲，暂时没有相关数据哦</view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{couponDiscriptionShowFlag}}">
+  <template is='couponDiscription' data='{{couponDiscriptionList}}'></template>
+
+</view>
+
+<!-- 登录失败弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{loginfailYiFuShow}}">
+  <template is="login-fail" data='{{upyconfig,login_discribution,login_buttontitle}}'></template>
+</view>

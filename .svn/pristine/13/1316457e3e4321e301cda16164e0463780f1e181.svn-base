@@ -1,0 +1,14 @@
+<template name="getHongBaoSuccess">
+  <form bindsubmit="sharesubmit" report-submit='true'>
+    <view class="notEnoughYidou-root">
+      <text class='notEnough-dialog-title'>恭喜你</text>
+      <text class='notEnough-dialog-content1'><text class='notEnough-dialog-contentimport'>恭喜领到{{coupon}}元</text>现金红包，无门槛全场通用，分享微信群后立即到账。</text>
+      <view class='buttonView'>
+        <text catchtap="getFight" class='bottom-btn-yellow5'>存入我的账户</text>
+        <button class='button_confirm' open-type="share" form-type='submit'></button>
+      </view>
+      <image catchtap="closeShare" class='icon-close' src="/iconImages/icon_close.png"></image>
+    </view>
+  </form>
+
+</template>

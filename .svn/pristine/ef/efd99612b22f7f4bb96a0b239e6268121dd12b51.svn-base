@@ -1,0 +1,10 @@
+<template name="shopClassType">
+  <view class="first_list_item_flex1" bindtap='shoptype_shop' data-id="{{id}}" data-name="{{class_name}}">
+    <image class='first_list_item_flex1_image' src="{{newpic}}"></image>
+    <view class='first_list_item_flex1_name'>{{class_name}}</view>
+    <view>
+      <image class='hot_showimage' wx:if="{{is_hot==1}}" src='../../../iconImages/classify_hot.png' mode="scaleToFill"></image>
+      <image class='hot_showimage' wx:if="{{is_new==1}}" src='../../../iconImages/classify_new.png' mode="scaleToFill"></image>
+    </view>
+  </view>
+</template>

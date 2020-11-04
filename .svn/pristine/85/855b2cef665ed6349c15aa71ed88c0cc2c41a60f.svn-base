@@ -1,0 +1,77 @@
+.limit-root {
+  width:590rpx;
+  background-color: #FD215A;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.limit-dialog-title{
+  align-self: center;
+  font-size: 36rpx;
+  color: #FDCC21;
+  margin-top: 35rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.limit-dialog-content{
+  align-self: center;
+  font-size: 30rpx;
+  color: #FFFFFF;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.limit-bottom-btn{
+  width:100%;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  margin-top: 0rpx;
+  margin-bottom: 40rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  
+}
+.limit-bottom-btn-left{
+  height: 80rpx;
+  width: 250rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #FD215A;
+  background-color: white;
+  border-radius: 3px;
+  margin-right: 10rpx;
+}
+.limit-bottom-btn-rigth{
+  height: 80rpx;
+  width: 250rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #FD215A;
+  background-color: #FDCC21;
+  border-radius: 3px;
+  margin-left: 10rpx;
+}
+.limit-icon-close{
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  padding: 20rpx;
+}
+
+.limit-content-scoll{
+  height: 530rpx;
+  width: 100%;
+}
+.limit-content-scoll-view{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+

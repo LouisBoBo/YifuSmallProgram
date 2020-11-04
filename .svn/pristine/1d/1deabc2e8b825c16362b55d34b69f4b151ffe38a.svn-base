@@ -1,0 +1,488 @@
+<!--pages/sign/withdrawLimit/withdrawLimit.wxml-->
+<import src="../../../common/toastTest/toastTest.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+<import src="../../../common/limitQuotas-template/limitQuotas.wxml" />
+<import src="../../../common/Member-template/guidebecome_member" />
+<import src="../../../common/signGetVip-template/signGetVip" />
+<import src="../../../common/Complaint-template/Complaint.wxml" />
+<import src="../../../common/GetHongBao-template/makeMoneyHongbao" />
+
+
+<!-- <import src="..../sign/signLingYTemp/signLingYTemp.wxml" /> -->
+<!-- 上面数据和转盘部分 -->
+<view class="view-all-normal" wx:if="{{!showendofpromotionDialog&&showMainPage}}" bindtouchmove="out_touchmove" bindtouchend="out_touchend">
+  <view class="view-top" style="background-image: url({{Upyun}}small-iconImages/gx/new_choujiang_bg_new2.jpg)">
+
+
+
+
+
+    <view class='luck-pan-view'>
+      <!-- <image animation="{{animationData}}" class="luck-pan" src="{{Upyun}}/small-iconImages/gx/{{!isBalanceLottery?'zhuanpan_withdrawal.png':'zhuanpan_yu_e.png'}}"></image> -->
+
+      <!-- <image animation="{{animationData}}" class="luck-pan" src="{{Upyun}}/small-iconImages/heboImg/newest_luck_zhuanpan.png"></image> -->
+      <image animation="{{zp_animationData}}" class="luck-pan" src="{{Upyun}}/small-iconImages/heboImg/newest_deliver_fight_zhuanpan.png"></image>
+
+
+
+
+      <image catchtap="laststartLuckBtn" class="luck-zhizhen" src="{{Upyun}}/small-iconImages/gx/new_choujiang_zhizhen.png"></image>
+    </view>
+  </view>
+
+  <!-- 自动滚动的列表 -->
+  <view class='list'>
+    <image class='list-top-image' mode='widthFix' src="{{Upyun}}/small-iconImages/heboImg/newest_withdrawal_edu_bg_new.png"></image>
+    <scroll-view class='list-scoll' lower-threshold ="{{150}}" bindscrolltolower="scrolltolower1" scroll-y="{{true}}" scroll-with-animation="{{true}}" scroll-top="{{scrollTop1}}">
+      <block wx:for='{{mListData1}}' wx:for-index="index">
+        <view class='list-item'>
+          <image mode='widthFix' src="{{item.pic}}"></image>
+          <text class='user-name'>{{item.nname}}</text>
+          <text class='user-content'>{{item.content}}</text>
+          <text class='user-money'>{{item.num}}元</text>
+        </view>
+      </block>
+    </scroll-view>
+    <scroll-view class='list-scoll-cover' ></scroll-view>
+  </view>
+</view>
+
+<!-- <notEnoughYidou> 衣豆不足弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{notEnoughYidouShow}}">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>余额及衣豆不足提示</text>
+    <text class='notEnough-dialog-content'>你当前余额及衣豆不足，请及时补充</text>
+    <view class='bottom-btn'>
+      <text catchtap="getYuE" class='bottom-btn-left'>补充余额</text>
+      <text catchtap="getYiDou" class='bottom-btn-rigth'>补充衣豆</text>
+    </view>
+    <image catchtap="dialog_close" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+<!-- 如何获取衣豆 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{getYiDouShow}}">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>如何获得衣豆？</text>
+    <text class='notEnough-dialog-content'>1.衣豆可以通过平台购买下单获得平台消费1元(不足1元将按1元计算)可获得1个衣豆；</text>
+    <text class='notEnough-dialog-content'>2.用户下单成功后，相应衣豆将会冻结在衣豆账户中，订单签收7天后(订单完结)，订单产生的衣豆将会解冻；如果发生退款退货，冻结衣豆将会被扣除；</text>
+    <text class='notEnough-dialog-content'>3.参与送衣豆任务，也可获得相应衣豆奖励。</text>
+    <text catchtap="getYiDouBtn" class='bottom-btn-yellow'>买买买</text>
+    <image catchtap="dialog_close" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+
+<!--开始抽奖提醒是否使用衣豆抽奖-->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{LuckWarnShow}}">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>抽奖提示</text>
+    <text class='notEnough-dialog-content'>是否使用{{10/twofoldness_data}}个衣豆或余额进行抽奖？</text>
+    <view class='isWarnIconView'>
+      <image src="{{Upyun}}/small-iconImages/gx/withdrawal_select.png"></image>
+      <text>下次不再弹窗直接抽奖</text>
+    </view>
+    <view class='bottom-btn'>
+      <text catchtap="dialog_close" class='bottom-btn-left'>我再想想</text>
+      <text catchtap="LuckWarnRigth" class='bottom-btn-rigth'>确定</text>
+    </view>
+    <image catchtap="dialog_close" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+<!-- 总共有多少次抽奖机会弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{raffleNumShow1}}">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>恭喜你！</text>
+    <text class='notEnough-dialog-content'>你有<text style="color: #FDCC21;font-weight: bold;font-size: 34rpx;">{{raffleNum_data}}</text>次抽奖机会！</text>
+    <text catchtap="startLuckBtn" class='bottom-btn-yellow'>马上抽奖</text>
+    <image catchtap="dialog_close_toBind" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+<!-- 没有抽中红包 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{noRedPacketShow1}}">
+  <view class="redPacket-root">
+    <image class='icon-noRedPacket' src="{{Upyun}}/small-iconImages/gx/icon_weizhongjiang.png"></image>
+    <text class='redPacket-dialog-content'>呀，糟糕，</text>
+    <text class='redPacket-dialog-content'>没抓住红包溜走了</text>
+    <text catchtap="startLuckBtn" class='bottom-btn-top'>再抽一次</text>
+    <text catchtap="dialog_close_toBind" class='bottom-btn-bottom'>暂时离开</text>
+    <image catchtap="dialog_close_toBind" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+
+<!-- 普通 抽中红包 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{openRedPacketShow}}">
+  <view class="openRedPacket-root" style='background-image: url({{Upyun}}/small-iconImages/gx/withdrawal_hongbao.png)'>
+    <image catchtap="redPacketOpened" class='icon-openRedPacket' src="{{Upyun}}/small-iconImages/gx/chai_hong_bao.png"></image>
+    <text class='openRedPacke-content1'>哇喔，恭喜您，快拆开看看！</text>
+    <!-- <text class='openRedPacke-content2'>点击拆红包可获得随机提现额度</text> -->
+    <image catchtap="dialog_close" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+
+<!-- 普通 抽中红包 拆开红包后显示金额 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{redPacketOpenedShow}}">
+  <view class="redPacket-root">
+    <text class='redPacketOpened-title'>{{(extract_money>0 && multiple >0)? total_extract_money:redPacketValue_data}}元</text>
+    <text class='redPacketOpened-content' wx:if="{{extract_money>0 && multiple >0}}">
+        <text>恭喜成功提现<text style="color: #FDCC21">{{total_extract_money}}</text>元，其中<text style="color: #FDCC21;font-weight: bold;font-size: 36rpx;">{{redPacketValue_data}}</text>元已发放至微信零钱，请注意查收。剩余<text style="color: #FDCC21;font-weight: bold;font-size: 36rpx;">{{surplus_extract_money}}</text>元将分<text style="color: #FDCC21">{{surplus_day}}</text>天到账，记得每日来衣蝠领取。</text>
+    </text>
+    <text class='redPacketOpened-content' wx:else>
+        <text wx:if="{{redPacketValue_data > 1}}">恭喜成功提现<text style="color: #FDCC21">{{redPacketValue_data}}</text>元现金。{{extract_money>0?'已':'可'}}发放至微信零钱。请注意查收。</text>
+        <text wx:else><text style="color: #FDCC21">{{redPacketValue_data}}</text>元已提现，本次提现未满1元，会在累计满1元时直接打入您的微信零钱，请注意查收！</text>
+    </text>
+
+    <view class="redPacketOpened-view" wx:if="{{(is_vip == 0 || is_vip == 3) && extract_money>0}}">
+      <image class="redPacketOpened-Img" src="{{Upyun}}/small-iconImages/heboImg/redPacketOpened-moneyImg.jpg" mode="widthFix"></image>
+      <text class="redPacketOpened-money">￥{{redPacketValue_data}}</text>
+    </view>
+    <view class="redPacketOpened-view" wx:else>
+      <image class="redPacketOpened-Img" src="{{Upyun}}/small-iconImages/heboImg/redPacketOpened-moneyImg.jpg" mode="widthFix"></image>
+      <text class="redPacketOpened-money">￥{{redPacketValue_data}}</text>
+    </view>
+    <form bindsubmit="confirmFormID" report-submit="true">
+      <button formType="submit" catchtap="newuserstartLuckBtn" class='bottom-btn-top' open-type="getUserInfo" bindgetuserinfo="newuser_onclick" wx:if="{{newuser_draw}}" >继续提现</button>
+      <button formType="submit" catchtap="startLuckBtn" class='bottom-btn-top' wx:else>继续提现</button>
+      <button class='icon-close-luck' form-type='submit' catchtap="dialog_close_toBind" style="background-image:url('{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png');"></button>
+    </form>
+    <!-- <text class="bottom_discription" wx:if="{{redPacketValue_data > 0 && redPacketValue_data <1}}">注：因微信规定，本日已提现的{{redPacketValue_data}}元不满1元，将在积累满1元后直接打入您的微信零钱，请注意查收。</text> -->
+  </view>
+  
+</view>
+
+<!-- 不满1元的弹框 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{redPacketNotenoughOne}}">
+  <view class="redPacket-root">
+    <text class='redPacketOpened-title'>{{(extract_money>0 && multiple >0)? total_extract_money:redPacketValue_data}}元</text>
+    <text class="redPacketOpened-content" wx:if="{{redPacketValue_data > 0 && redPacketValue_data <1}}">注：因微信规定，不满<text style="color: #FDCC21">1</text>元无法发放至微信零钱，本次发放的 <text style="color: #FDCC21;font-weight: bold;font-size: 32rpx;">{{redPacketValue_data}}</text>元已存入您的衣蝠钱包。将在累积<text style="color: #FDCC21;font-weight: bold;font-size: 32rpx;">满1元后直接发放入微信零钱</text>，请继续提现。</text>
+    <form bindsubmit="submitFormID" report-submit="true">
+      <button formType="submit" class="bottom-btn-top" style="margin-bottom: 80rpx;" catchtap="startLuckBtn">继续提现</button>
+    </form> 
+    <image catchtap="dialog_close_toluck" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+<!-- 成为会员后提现次数清0 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{becomeMemberTixianClear}}">
+  <view class="redPacket-root">
+    <text class='notEnough-dialog-title'>温馨提示</text>
+    <text class='redPacketOpened-content'>
+        <text>钻石会员<text style="color: #FDCC21;font-weight: bold;font-size: 32rpx;">原价预存169元</text>赠送，首次成为会员会优先抵扣已有的提现。您有<text style="color: #FDCC21;font-weight: bold;font-size: 32rpx;">{{unVipRaffleMoney}}元被抵扣</text>，仅<text style="color: #FDCC21;font-weight: bold;font-size: 32rpx;">79元</text>即成为会员。</text>
+    </text>
+    <text class='redPacketOpened-content'>
+        <text>您已是会员，接下来提现<text style="color: #FDCC21;font-weight: bold;font-size: 32rpx;">不再受15元金额限制</text>，直接发放入微信零钱。</text>
+    </text>
+    <form bindsubmit="submitFormID" report-submit="true">
+      <button formType="submit" class="bottom-btn-top" style="margin-bottom: 60rpx;margin-top: 50rpx;" bindtap="becomeMemberLast">继续提现</button>
+    </form> 
+    <image catchtap="dialog_close" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+<!-- 成为会员后提现次数清0后续 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{becomeMemberTixianClearLast}}">
+  <view class="redPacket-root">
+    <text class='notEnough-dialog-title'>温馨提示</text>
+    <text class='redPacketOpened-content'>
+        <text>今天的提现次数已用完，<text style="color: #FDCC21;font-weight: bold;font-size: 32rpx;">明天任务会更新</text>，完成后可<text style="color: #FDCC21;font-weight: bold;font-size: 32rpx;">继续提现</text>，祝您好运。</text>
+    </text>
+    
+    <form bindsubmit="submitFormID" report-submit="true">
+      <button formType="submit" class="bottom-btn-top" style="margin-bottom: 60rpx;margin-top: 50rpx;" bindtap="becomeMemberLeave">离开</button>
+    </form> 
+    <image catchtap="dialog_close" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+<!-- 免费领、免拼引导进来虚拟抽奖 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{free_fightLuckDraw}}">
+  <view class="redPacket-root">
+    <text class='notEnough-dialog-title'>温馨提示</text>
+    <text class='redPacketOpened-content'>
+      <text wx:if="{{comefrom == 'freeFight_style'}}">转盘<text style="color: #FDCC21;font-weight: bold;font-size: 32rpx;">转到免拼团发货</text>，可立即<text style="color: #FDCC21;font-weight: bold;font-size: 32rpx;">免拼发货本件美衣</text>。转到金额，可<text style="color: #FDCC21;font-weight: bold;font-size: 32rpx;">立即提现现金到微信零钱</text>。请点“<text style="color: #FDCC21;font-weight: bold;font-size: 32rpx;">马上提现</text>”开始</text>
+      <text wx:else>转盘<text style="color: #FDCC21;font-weight: bold;font-size: 32rpx;">转到免费领美衣</text>，可立即<text style="color: #FDCC21;font-weight: bold;font-size: 32rpx;">免费发货本件美衣</text>。转到金额，可<text style="color: #FDCC21;font-weight: bold;font-size: 32rpx;">立即提现现金到微信零钱</text>。请点“<text style="color: #FDCC21;font-weight: bold;font-size: 32rpx;">马上提现</text>”开始。</text>
+    </text>
+    
+    <form bindsubmit="submitFormID" report-submit="true">
+      <button formType="submit" class="bottom-btn-top" style="margin-bottom: 60rpx;margin-top: 50rpx;" bindtap="startLuckBtn">马上提现</button>
+    </form> 
+    <!-- <image catchtap="dialog_close" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image> -->
+  </view>
+</view>
+
+<!-- 会员区抽中红包大于15元 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{redPacketBecomeMember}}">
+  <view class="redPacket-root">
+    <text class='redPacketOpened-title'></text>
+    <text class='redPacketOpened-content'>
+        <text>本次发放超过15元，成为会员才能发放到微信零钱。</text>
+    </text>
+    <!-- <text catchtap="becomeMember" class='bottom-btn-top'>成为会员</text> -->
+    <form bindsubmit="submitFormID" report-submit="true">
+      <button formType="submit" class="bottom-btn-top" bindtap="becomeMember">成为会员</button>
+    </form> 
+    <image catchtap="dialog_close_toluck" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+<!-- 用户关闭会员区中奖弹框再弹此框 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{luckOrBecomeMember}}">
+  <view class="redPacket-root">
+    <text class='madRedPacketOpened-title'>{{redPacketValue_totaldata}}元</text>
+    <text class='redPacketOpened-content'>
+        <text wx:if="{{choujiangCount <= 0 && luck_isFinish ==0}}">您还不是会员，离开会放弃本日已成功提现的<text style="color: #FDCC21">{{redPacketValue_totaldata}}</text>元现金。</text>
+        <text wx:elif="{{choujiangCount == totalchoujiangCount -1 && totalchoujiangCount == dayall_count && luck_isFinish ==0}}">您还不是会员，继续提现会放弃本次成功提现的<text style="color: #FDCC21">{{redPacketValue_data}}</text>元现金。</text>
+        <text wx:else>本次发放超过<text style="color: #FDCC21">15</text>元，成为会员才能发放到零钱。您还不是会员，继续提现会放弃本日已累计提现的<text style="color: #FDCC21">{{redPacketValue_totaldata}}</text>元现金。</text>
+
+    </text>
+    <!-- <text catchtap="becomeMember" class='bottom-btn-top'>成为会员</text>
+    <text catchtap="laststartLuckBtn" class='bottom-btn-bottom' wx:if='{{choujiangCount<=0}}'>离开</text>
+    <text catchtap="laststartLuckBtn" class='bottom-btn-bottom' wx:else>继续提现</text> -->
+
+    <form bindsubmit="submitFormID" report-submit="true">
+      <button formType="submit" catchtap="becomeMember" class='bottom-btn-top'>成为会员</button>
+      <button formType="submit" catchtap="laststartLuckBtn" class='bottom-btn-bottom' wx:if='{{choujiangCount<=0 && luck_isFinish ==0}}'>离开</button>
+      <button formType="submit" catchtap="laststartLuckBtn" class='bottom-btn-bottom' wx:else>继续提现</button>
+    </form> 
+    <image catchtap="dialog_close_toBind" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+<!-- 用户抽奖次数用完 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{redPacketluckOver}}">
+  <view class="redPacket-root">
+    <text class='redPacketOpened-title'>{{redPacketValue_totaldata}}元</text>
+    <view class='redPacketOpened-content' wx:if="{{tixian_twoCount == 1 && dayall_count >=10 && (is_vip==0||is_vip==3)}}">
+      <view>今日赠送的<text style="color: #FDCC21">10</text>次提现机会已用完，剩余<text style="color: #FDCC21">40</text>次提现明日开始，连续4天每日赠送10次。记得明天一定要来完成赚钱任务哦。</view>
+      <view>你已累计提现<text style="color: #FDCC21;font-size: 36rpx;font-weight: bold;">{{redPacketValue_totaldata}}</text>元，成为会员可立即发放至微信零钱。</view>
+    </view>
+    <view class='redPacketOpened-content' wx:else>
+        <view><text style="color: #FDCC21">{{dayall_count}}</text>次提现机会已用完，累计提现<text style="color: #FDCC21">{{redPacketValue_totaldata}}</text>元，成为会员可立即发放至微信零钱。</view>
+    </view>
+    
+    <form bindsubmit="submitFormID" report-submit="true">
+      <button formType="submit" class="bottom-btn-top1" bindtap="becomeMember">成为会员</button>
+      <button formType="submit" class="bottom-btn-newbottom" wx:if="{{tixian_twoCount!=1 || (is_vip > 0 && is_vip != 3)}}" bindtap="laststartInvitBtn" style='background-image: url({{Upyun}}/small-iconImages/heboImg/{{tixianCoupon}})'></button>
+    </form> 
+    <image catchtap="dialog_close_toluck" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+<!-- 用户抽奖次数用完 没有抽奖次数-->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{getYuEShow}}">
+  
+    <view class="notEnoughYidou-root">
+      <text class='notEnough-dialog-title'>温馨提示</text>
+      <text class='redPacketOpened-content'>
+        <text>您目前没有提现机会，赠送您<text style="color: #FDCC21;font-size: 36rpx;font-weight: bold;">{{tixianCoupon_count}}</text>次提现机会。</text>
+      </text>
+      <form bindsubmit="submitFormID" report-submit="true">
+        <button formType="submit" class="bottom-getYuE" bindtap="laststartInvitBtn">继续提现</button>
+      </form> 
+    <!-- <button open-type='contact' class="bottom-getYuE" bindtap="messageTap"
+                  session-from='{"open_param":"issueWXredPackageInviteFriendsBTN"}'>接通微信客服</button> -->
+      <image catchtap="dialog_close" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+    </view>
+</view>
+
+<!-- 由提现进入提示用户购买会员 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{tixianBecomeMember}}">
+  <view class="redPacket-root">
+    <text class='redPacketOpened-title'>{{redPacketValue_totaldata}}元</text>
+    <text class='redPacketOpened-content'>
+        <text>今日累计提现<text style="color: #FDCC21">{{redPacketValue_totaldata}}</text>元，成为会员可立即发放至微信零钱。</text>
+    </text>
+    <form bindsubmit="submitFormID" report-submit="true">
+        <button formType="submit" class="bottom-btn-top" bindtap="becomeMember">成为会员</button>
+        <button formType="submit" class="bottom-btn-newbottom" wx:if="{{tixian_twoCount != 1}}" bindtap="laststartInvitBtn" style='background-image: url({{Upyun}}/small-iconImages/heboImg/{{tixianCoupon}})'></button>
+    </form> 
+    <image catchtap="dialog_close_toluck" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+<!-- 疯狂新衣节 抽中红包-->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{madOpenRedPacketShow}}">
+  <view class="openRedPacket-root" style='background-image: url({{Upyun}}/small-iconImages/gx/hongbao_mad.png)'>
+    <text class='madOpenRedPacke-content1'>哇喔~</text>
+    <text class='madOpenRedPacke-content2'>哇喔，恭喜您，快拆开看看！!</text>
+    <!-- <text class='madOpenRedPacke-content3'>点击拆红包可获得随机提现额度</text> -->
+    <image catchtap="madRedPacketOpened" class='icon-madOpenRedPacket' src="{{Upyun}}/small-iconImages/gx/chai_mad.png"></image>
+    <image catchtap="dialog_close" class='icon-close'></image>
+  </view>
+</view>
+
+
+<!-- 疯狂新衣节 抽中红包 拆开红包后显示金额 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{madRedPacketOpenedShow}}">
+  <view class="redPacket-root">
+    <image class="madRedPacket-top-image" src="{{Upyun}}/small-iconImages/gx/chai_hongbao_mad.png"></image>
+    <text class='madRedPacketOpened-title'>{{redPacketValue_data}}元</text>
+    <text class='redPacketOpened-content'>
+        <text wx:if="{{raffleType_data==1}}">本次抽中了{{redPacketValue_data}}元余额，已添加至你的账户中。可在买买买时直接抵扣购衣款哦。</text>
+        <text wx:else>{{redPacketValue_data}}元提现额度已经添加至你的可提现账户，待到今日下单商品交易完结（不可退款退货）后，可以解冻提现喔~</text>
+    </text>
+    <text catchtap="startLuckBtn" class='bottom-btn-top'>继续抽取提现额度</text>
+    <text catchtap="bind_tap_withdraw_detail" class='bottom-btn-bottom'>查看额度明细</text>
+    <image catchtap="dialog_close_toBind" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+
+
+<!-- 支付成功 恭喜你获得X个衣豆弹窗-->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{buyObtainYidouShow}}">
+  <view class="notEnoughYidou-root">
+    <image class='obtain_yidou_image' src="{{Upyun}}/small-iconImages/gx/icon_obtain_yidou.png"></image>
+    <text class='notEnough-dialog-title'>恭喜你</text>
+    <text class='obtain-yidou-title'>获得{{payYiDouNumber}}个衣豆</text>
+    <text class='notEnough-dialog-content'>可以兑换{{payYiDouNumber/(10/twofoldness_data)}}次抽奖机会</text>
+    <text class='obtain-yidou-content'>本日抽奖最高可赢取1000元大奖</text>
+    <view class='bottom-btn'>
+      <text catchtap="dialog_close" class='bottom-btn-left'>暂不抽奖</text>
+      <text catchtap="startLuckBtn" class='bottom-btn-rigth'>立即抽奖</text>
+    </view>
+    <image catchtap="dialog_close" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+<!-- 新衣节 支付成功 恭喜你获得X次疯狂抽奖机会弹窗-->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{obtainMadDialogShow}}">
+  <view class="notEnoughYidou-root">
+    <image class="obtainMadDialog-top-image" src="{{Upyun}}/small-iconImages/gx/gongxini_mad.png"></image>
+    <view class='obtainMadDialogTop'></view>
+    <text class='notEnough-dialog-title'>获得{{payLotteryNumber}}次疯狂抽奖机会</text>
+    <text class='notEnough-dialog-content'>疯狂抽奖期间，中奖概率为平时300%!机会用完后，再下单可以继续享受疯狂抽奖！</text>
+    <text class='notEnough-dialog-content'>使用衣豆抽奖，中奖概率仍为平时的正常概率。</text>
+    <text catchtap="startLuckBtn" class='bottom-btn-yellow'>立即抽奖</text>
+    <image catchtap="dialog_close" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+<!-- 额度说明弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{limitDialogShow}}">
+  <template is='limitQuotas' data='{{Upyun}}'></template>
+</view>
+
+<!-- 登录弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showLoginDialog}}">
+  <template is='newChoujiangLogin' data='{{Upyun}}'></template>
+</view>
+
+
+
+<!--体验 抽余额 红包-->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{balanceLotteryShow}}">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>恭喜你！</text>
+    <text class='notEnough-dialog-content'>获得{{balanceLottery_data}}次抽奖机会！</text>
+    <text catchtap="startLuckBtn" class='bottom-btn-yellow'>马上抽奖</text>
+    <image catchtap="dialog_close" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+
+<!--体验 抽余额 红包 次数使用完了-->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{balanceLotteryOverShow}}">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>温馨提示</text>
+    <text class='notEnough-dialog-content'>
+    <text wx:if="{{balanceLotteryCount_data<=0}}">嗨，{{balanceLotteryCount_data}}次已经抽完了哦。现在去购买心仪的美衣，付款后即可直接参与<text class='balanceLotteryOver-edu'>提现额度</text>的抽奖，最高1000元。祝你好运~</text>
+    <text wx:else>嗨，{{balanceLotteryCount_data}}次已经抽完了哦，你今天手气不错，共抽中了{{balanceLotterySum_data}}元余额。现在去购买心仪的美衣，付款后即可直接参与<text class='balanceLotteryOver-edu'>提现额度</text>的抽奖，最高1000元。祝你好运~</text>
+    </text>
+    <text catchtap="balanceLotteryOver_btn" class='bottom-btn-yellow'>去购买并抽奖</text>
+    <image catchtap="dialog_close" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+<!-- 体验 抽余额 红包 没有抽中红包 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{noRedPacketBalanceShow1}}">
+  <view class="redPacket-root">
+    <image class='icon-noRedPacket' src="{{Upyun}}/small-iconImages/gx/icon_weizhongjiang.png"></image>
+    <text class='redPacket-dialog-content'>呀，糟糕，</text>
+    <text class='redPacket-dialog-content'>没抓住红包溜走了</text>
+    <text catchtap="startLuckBtn" class='bottom-btn-top'>再抽一次</text>
+    <!-- <text catchtap="dialog_close" class='bottom-btn-bottom'>暂时离开</text> -->
+    <view class='obtainMadDialogTop'></view>
+    <image catchtap="dialog_close" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+<!-- 体验 抽余额 红包 抽中红包 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{openRedPacketBalanceShow}}">
+  <view class="openRedPacket-root" style='background-image: url({{Upyun}}/small-iconImages/gx/withdrawal_hongbao.png)'>
+    <image catchtap="redPacketOpenedBalance" class='icon-openRedPacket' src="{{Upyun}}/small-iconImages/gx/chai_hong_bao.png"></image>
+    <text class='openRedPacke-content1'>哇喔~抽中了一个红包!</text>
+    <!-- <text class='openRedPacke-content2'>点击拆红包可以获得随机余额红包</text> -->
+    <image catchtap="dialog_close" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+<!--  体验 抽余额 红包 抽中红包 拆开红包后显示金额 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{redPacketOpenedBalanceShow}}">
+  <view class="redPacket-root">
+    <text class='redPacketOpened-title'>{{redPacketValue_data}}元</text>
+    <text class='redPacketOpened-content'>本次抽中了{{redPacketValue_data}}元余额，已添加至你的账户中。可在买买买时直接抵扣购衣款哦。</text>
+    <text catchtap="startLuckBtn" class='bottom-btn-top'>继续抽奖</text>
+    <!-- <text catchtap="bind_tap_not" class='bottom-btn-bottom'>查看额度明细</text> -->
+    <view class='obtainMadDialogTop'></view>
+    <image catchtap="dialog_close" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+<!--零元购提示弹窗  -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{zeroBuyDialogShowFlag}}">
+  <template is='zero-buy-red' data='{{Upyun}}'></template>
+</view>
+
+
+<!-- choujiangCount -->
+
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showStartTishi}}">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>温馨提示</text>
+    <text class='notEnough-dialog-content' style="margin-top: 20rpx;">您有<text 
+    style='font-size: 32rpx;color: #FDCC21;font-weight: bold'>{{choujiangCount}}次</text>提现机会，请点“<text style='font-size: 32rpx;color: #FDCC21;font-weight: bold'>马上提现</text>”开始。</text>
+    <text catchtap="startLuckBtn" class='bottom-btn-yellow'>马上提现</text>
+    <image catchtap="closeChoujiangTishi" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+<!-- 邀请两位好友获得一次抽奖机会 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{guidebecomeMemberShow}}" >
+  <template is="guideInvit_friends" data='{{Upyun,invitfriendslist,time}}'></template>
+</view>
+
+<!-- 引导购买提现券 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{guideTixianCouponShow}}" >
+  <template is="guideTixian_coupon" data='{{Upyun,invitfriendslist,time,tixian_count}}'></template>
+</view>
+
+<!-- 引导购买免拼卡 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{guidefightCouponShow}}" >
+  <template is="guideFreefight_coupon" data='{{Upyun,invitfriendslist,time}}'></template>
+</view>
+
+<!-- 引导发货 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{guidedeliverCouponShow}}" >
+  <template is="guidedeliver_coupon" data='{{Upyun,invitfriendslist,time}}'></template>
+</view>
+
+<!-- 免拼卡 发货卡发货 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{guideFightDeliverShow}}" >
+  <template is="guide_fight_deliver" data='{{Upyun,invitfriendslist,time}}'></template>
+</view>
+
+<!-- 大促销已结束 -->
+<!-- <view class='drawer_screen_withdraw99' wx:if="{{showendofpromotionDialog}}">
+  <template is="sign-endofpromotion"></template>
+</view> -->
+
+<!-- 199元红包弹窗 -->
+<view class="drawer_screen_withdraw99" catchtouchmove="preventTouchMove" wx:if="{{showendofpromotionDialog}}">
+  <template is="Authorization_199" data='{{upyconfig,animationMiddleHeaderItem}}'></template>
+</view>
+
+<view>
+  <template is="Complaint-template" data="{{Upyun,hideModal,animationData,secondimgData,secondtextData,thirdimgData,thirdtextData}}"></template>
+</view>

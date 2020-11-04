@@ -1,0 +1,77 @@
+.headview {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border-top: 1px solid #eee;
+}
+
+.headview-left {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.headview-left-yue {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-bottom: 1px solid #eee;
+  height: 200rpx;
+}
+
+.headview-left-yue-text1 {
+  text-align: center;
+  color: #a8a8a8;
+  font-size: 30rpx;
+  margin-top: 50rpx;
+}
+
+.headview-left-yue-text2 {
+  text-align: center;
+  color: #ff3f8b;
+  font-size: 45rpx;
+  font-weight: bold;
+}
+
+.headview-left-tixian {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100rpx;
+  border-bottom: 1px solid #eee;
+}
+
+.headview-left-tixian-default {
+  margin-top: 35rpx;
+  margin-left: 100rpx;
+  color: #666;
+  font-size: 30rpx;
+}
+
+.headview-left-tixian-text {
+  margin-top: 35rpx;
+  text-align: center;
+  color: #ff3f8b;
+  font-size: 30rpx;
+}
+
+.newheadview{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 200rpx;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+.newheadview-text1{
+  text-align: center;
+  color: #ff3f8b;
+  font-size: 32rpx;
+  margin-top: 50rpx;
+}
+.newheadview-text2{
+  text-align: center;
+  color: #ff3f8b;
+  font-size: 65rpx;
+  font-weight: bold;
+}

@@ -1,0 +1,46 @@
+<import src="../../../../common/toptap.wxml" />
+
+<view class='selection'>
+  <template is='topbar' data='{{topData,activityIndex}}'></template>
+</view>
+
+<view wx:if='{{datalist[0]}}' class='section'>
+  <block wx:for='{{datalist}}' wx:for-item="item">
+    <view class='section-cell' bindtap='selectDetail' data-item="{{item}}">
+      <view class='cell-left'>
+        <text class='cell-title'>{{item.title}}</text>
+        <text class='cell-left-time'>{{item.add_time}}</text>
+      </view>
+      <view class='cell-right'>
+        <text class='cell-right-money'>{{item.money}}</text>
+        <text class='cell-right-detail'>{{item.detail}}</text>
+      </view>
+    </view>
+  </block>
+</view>
+<!-- 余额不需要再单独显示界面 -->
+<!-- <view wx:elif='{{datalist[0]&&activityIndex==3}}' class='section'>
+  <block wx:for='{{datalist}}'>
+    <view class="section-cell2{{item.is_free?'-success':''}}">
+      <view class='cell2-left'>
+        <text>{{item.title}}</text>
+        <text>{{item.detail}}</text>
+        <text wx:if='{{item.is_show}}'>{{item.namePrice}}</text>
+        <text class='cell2-left-time'>{{item.add_time}}</text>
+      </view>
+      <text class='cell2-returnMoney'>{{item.money}}</text>
+    </view>
+  </block>
+</view> -->
+<view wx:else>
+  <view class="emptyView">亲，暂时没有相关数据哦</view>
+</view>
+
+<!-- 分享出去的底部签到广告 ---------start----->
+<view class="selection-sign{{isShowSignBottomAd?'-show':''}}">
+  <image class='sign-ad-close' bindtap='signBottomAdCloseClick' src='{{Upyun}}small-iconImages/ad_pic/icon_close_new.png'> </image>
+  <view class='sign-ad'>
+    <image wx:if='{{signBottomLink}}' bindtap='openSignClick' class='sign-bottom-ad-image' src='{{Upyun}}small-iconImages/zzq/{{signBottomLink}}'></image>
+  </view>
+</view>
+<!-- 分享出去的底部签到广告 ---------end----->

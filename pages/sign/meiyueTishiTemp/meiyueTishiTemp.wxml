@@ -1,0 +1,18 @@
+<template name="meiyuejingxitishi">
+  <view class='showTixianView'>
+    <image catchtap="meiyuetishiClose" class='icon-close' src="/iconImages/icon_close.png" ></image>
+    <text class='tixianview_title'>活动规则</text>
+    <text class='tixianview_discription'>1.购买美衣返双倍购衣款至余额。</text>
+        <text class='tixianview_discription'>2.买50，返100。买200，返400。以此类推。</text>
+
+    <text class='tixianview_discription'>3.交易成功后，立即解冻！</text>
+
+        <text class='tixianview_discription'>4.可同时参与保底提现60%的活动哦。</text>
+
+
+    <view class='tixianview_binding' bindtap='meiyuegotap'>
+      <view>买买买</view>
+      <button class='button-confrim' formType="submit"></button>
+    </view>
+  </view>
+</template>

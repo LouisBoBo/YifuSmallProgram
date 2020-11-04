@@ -1,0 +1,39 @@
+<template name="sign-getvip">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip' >您已完成全部10天的新人任务，成为衣蝠会员才可以继续完成接下来的赚钱任务。</text>
+    <view class='buttonView-vip'>
+      <text catchtap="goToGetVip" class='bottom-btn-yellow5-vip'>成为会员</text>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>
+
+<template name="sign-endofpromotion">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip' >大促已结束，特价商品已全部售罄啦。</text>
+    <text class='notEnough-dialog-content1-vip' ></text>
+  </view>
+</template>
+
+<template name="sign-deliver_fight">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip' >完成今天的赚钱任务后，去提现时，有<text class="notEnough-dialog-content1-vip-import">免费的发货卡与免拼卡赠送</text>哦。去完成任务吧！</text>
+    <view class='buttonView-vip'>
+      <text catchtap="closeVipDialog" class='bottom-btn-yellow5-vip'>去做任务</text>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>
+
+
+<template name="sign-becomeMember">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip' >您已成为会员，积累的提现金额已被优先抵扣。接下来完成任务去提现<text class="notEnough-dialog-content1-vip-import">不再受15元发放金额限制</text>，直接发放入微信零钱。<text class="notEnough-dialog-content1-vip-import">每天任务都会更新</text>。祝您好运。</text>
+    <text style="margin-bottom: 50rpx;"></text>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

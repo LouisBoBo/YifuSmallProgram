@@ -1,0 +1,49 @@
+<!--pages/mine/addMemberCard/memberDiscription.wxml-->
+<import src="../../../common/toastTest/toastTest.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<view class='mainView'>
+  <text class='title-text' style='margin-bottom: 30rpx;'>会员打卡补贴计划</text>
+  <text class='discr-text'>会员每天分享商品至3个微信群</text>
+  <text class='discr-text'>群友浏览即绑定成为会员的下级好友</text>
+  <text class='discr-text'>好友消费，会员得10%奖励金</text>
+  <text class='discr-text'>坚持一个月累计可得<text class='discr-textimport'>600-2000元</text></text>
+
+  <view class='videoView'>
+    <video class='video' bindfullscreenchange="screenChange" direction="0" show-center-play-btn="{{false}}" src="{{videoSrc}}" id='video'></video>
+    <image class='videoImg' wx:if="{{video_isplaying==false}}" src='{{Upyun}}/small-iconImages/heboImg/dakaraward_newviedoImg.jpg' bindtap='videoplay'></image>
+  </view>
+  <text class='title-text1'>怕自己坚持不了？</text>
+  <text class='title-text2'>快来加入会员打卡计划！</text>
+  <view class='discriptionview'>
+    <text class='discriptionview-title'>本期补贴25万元现金</text>
+    <view class='discriptionview-image' style="background-image: url({{Upyun}}/small-iconImages/heboImg/daka_titleImg.png)">
+      <text class='discriptionview-imagetext'>{{imagetext}}</text>
+    </view>
+    <view class='discriptionview-content'>
+      <block wx:for="{{ruleData}}" data-index="{{index}}">
+        <view class='discriptionview-contentview'>
+          <!-- <text class='discriptionview-content-title'>{{index+1}}.</text> -->
+          <image class="discriptionview-content-title" src="{{Upyun}}/{{titleicons[index]}}"></image>
+          <text class='discriptionview-content-text'>{{item}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+  <text class='title-text3'>{{punch_days}}天后你将收获</text>
+
+  <view class='rawardview'>
+    <block wx:key wx:for="{{rawardlist}}" wx:for-item="item" wx:for-index="index">
+      <view class="zw-tabs-item " data-index="{{index}}">
+        <image src="{{Upyun}}/{{rawardimage[index]}}"> </image>
+        <text class='zw-tabs-item-text'>{{item}}</text>
+      </view>
+    </block>
+  </view>
+
+  <view class='spaceview'></view>
+  <view class='bottomview'>
+    <text class='bottomtext'>{{bottomtext}}<text class="sharetext">{{sharetext}}</text> 返￥{{return_money}}</text>
+    <button class='becomemember' bindtap='buyVipCard' open-type="getUserInfo" bindgetuserinfo='onclick'>立即成为会员</button>
+  </view>
+</view>

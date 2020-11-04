@@ -1,0 +1,7 @@
+.Canvasview{
+  height: 1px;
+  width: 1px;
+  margin-left: 999999999rpx;
+  overflow:hidden;
+  display:block;
+}

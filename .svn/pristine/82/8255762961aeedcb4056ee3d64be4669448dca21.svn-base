@@ -1,0 +1,76 @@
+@import "shopClassType-template.wxss";
+
+.loginTitle {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.line_view {
+  width: 100%;
+  /* height: 0.5px; */
+  background: #ccc;
+}
+
+.swiperview {
+  flex-direction: row;
+}
+
+.select {
+  font-size: 36rpx;
+  color: #ff3f8b;
+  width: 25%;
+  text-align: center;
+  height: 45px;
+  line-height: 45px;
+  border-bottom: 5rpx solid #ff3f8b;
+}
+
+.default {
+  font-size: 32rpx;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.flex-wrp {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 1%;
+}
+/*
+.first_list_item_flex1 {
+  height: 250rpx;
+  margin-right: 1%;
+  margin-bottom: 1%;
+  width: 24%;
+  color: #666;
+  font-size: 30rpx;
+  align-items: center;
+}
+.hot_showimage {
+  width: 50rpx;
+  height: 50rpx;
+  margin-left: 17%;
+  position: absolute;
+  top: 20rpx;
+}
+.first_list_item_flex1_image {
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  margin-left: 3%;
+  margin-right: 3%;
+  height: 160rpx;
+  width: 94%;
+}
+
+.first_list_item_flex1_name {
+  width: 24%;
+  height: 50rpx;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 24rpx;
+  color: #666;
+  background: white;
+  position: absolute;
+} */

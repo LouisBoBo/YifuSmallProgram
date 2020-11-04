@@ -1,0 +1,30 @@
+<template name="signhint-temp">
+  <view class='share' catchtouchmove='preventTouchMove'>
+
+
+    <view class='sign-finish-top'>
+      <text class='sign-finish-top-title'>赚钱任务</text>
+      <image catchtap="bindTapcCloseShareTX" class='icon-close' src="{{Upyun}}small-iconImages/gx/iconwhiteclose.png"></image>
+    </view>
+
+    <view class='share-top' catchtouchmove='preventTouchMove'>
+      <scroll-view class='share-scroll' scroll-y='true'>
+        <view class='scroll-tv-top' wx:if="{{h5money>0}}">你完成{{h5money}}元的任务奖金已放入余额</view>
+
+        <view class='scroll-tv-top' wx:if="{{lingyuangouMoney > 0}}">{{signHintTitle}}</view>
+        <view class='scroll-tv-top'>{{signHintTitle1}}</view>
+
+        <view class='scroll-tv' style='margin-top: 40rpx;text-align: center'>小TIPS</view>
+        <view class='scroll-tv'>1、完成全部任务很重要哦，会奖励余额与提现现金。</view>
+        <view class='scroll-tv'>2、0元购美衣需要每日完成全部任务才能申请保底提现哦。</view>
+        <view class='scroll-tv'>3、记得每天完成全部任务。</view>
+      </scroll-view>
+    </view>
+
+    <view class='bottom-btn-hint'>
+      <text catchtap="btnLeftSignhint" class='bottom-btn-left'>去做任务</text>
+      <text catchtap="btnRigthSignhint" class='bottom-btn-rigth'>去0元购衣</text>
+    </view>
+
+  </view>
+</template>

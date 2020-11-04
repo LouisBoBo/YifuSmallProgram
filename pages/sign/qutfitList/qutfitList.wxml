@@ -1,0 +1,44 @@
+<import src="../../../common/qutfitItem-template/qutfitItem.wxml" />
+<import src="../../../common/toastTest/toastTest.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<view class="out" style='margin-bottom: {{isShare?160:0}}rpx'>
+  <view class="item_l">
+    <view wx:for="{{col1}}" wx:key="item">
+      <view class='in_item' bindtap='itemTap' data-theme_id='{{item.theme_id}}'>
+        <template is='qutfit_item' data='{{item,Upyun}}'></template>
+         <image wx:if="{{isShare}}" class="select_icon" catchtap="item_select_left" data-selectindex="{{index}}"  src="{{Upyun}}/small-iconImages/ad_pic/{{selectindex==index&&leftOrRigth==0?'wodexihao_fengge_icon_xuanzhong.png':'wodexihao_fengge_icon_weixuanzhong.png'}}"></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="item_r">
+    <view wx:for="{{col2}}" wx:key="item">
+      <view class='in_item' bindtap='itemTap' data-theme_id='{{item.theme_id}}'>
+        <template is='qutfit_item' data='{{item,Upyun}}'></template>
+        <image wx:if="{{isShare}}" class="select_icon" catchtap="item_select_rigth" data-selectindex="{{index}}"  src="{{Upyun}}/small-iconImages/ad_pic/{{selectindex==index&&leftOrRigth==1?'wodexihao_fengge_icon_xuanzhong.png':'wodexihao_fengge_icon_weixuanzhong.png'}}"></image>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+<!-- <view class='bottom-share-view-icon' wx:if="{{isShare}}">
+  <view class='bottom-share-view-line'></view>
+  <text class="weixin-share-icon-text">分享到</text>
+  <image class="weixin-share-icon" bindtap="sharetap" src="{{Upyun}}/small-iconImages/gx/invite_icon_weixin.png"></image>
+</view>
+<view class='bottom-share-view-btn' wx:if="{{isShare}}">
+  <button class="weixin-share-icon-btn"catchtap="sharetap" open-type="{{selectindex<0?'':'share'}}" bindtap="bindTapSharexshop"></button>
+</view> -->
+
+<view class='bottom-share-view-icon' wx:if="{{isShare}}">
+  <view class='bottom-share-view-line'></view>
+  <view class="weixin-share-btn-share">
+    <image class="weixin-share-icon" src="{{Upyun}}small-iconImages/qingfengpic/icon_wechat_touming.png"></image>
+    <text class="weixin-share-icon-text">点我分享到微信群</text> 
+  </view>
+</view>
+<view class='bottom-share-view-btn' wx:if="{{isShare}}">
+  <button class="weixin-share-icon-btnX"catchtap="sharetap" open-type="{{selectindex<0?'':'share'}}" bindtap="bindTapSharexshop"></button>
+</view>

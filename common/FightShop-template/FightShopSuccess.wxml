@@ -1,0 +1,274 @@
+<template name="fightSuccess">
+  
+  <!-- 开团成功 -->
+  <view class='fightView' wx:if="{{fightSuccess_fail_status==1}}">
+    <view class='fightView-title'>
+      <image class='fightView-title-imagenew' wx:if="{{isFirst_New}}" src="{{Upyun}}/small-iconImages/heboImg/fight_Success.png"></image>
+      <image class='fightView-title-image' wx:else src="{{Upyun}}/small-iconImages/heboImg/fight_Success.png"></image>
+      <text class='fightView-title-text' wx:if="{{isFirst_New}}">  该团已满员，为您新开一团！</text>
+      <text class='fightView-title-text' wx:else>  开团成功！</text>
+    </view>
+    <view class='fightView-content'>还差<text class='fightView-content-number'>{{short_num}}</text>人，赶快邀请好友来参团吧。参团免费，人满成团后才付款。</view>
+    <view class='fightView-share'>
+      <block wx:key wx:for="{{orderlist}}" wx:for-item="item" wx:for-index="index">
+        <view class="zw-tabs-item" data-index="{{index}}">
+          <image bindtap='sharetap' src="{{Upyun}}/{{orderimage[index]}}"> </image>
+          <text class='zw-tabs-item-text'>{{item}}</text>
+          <button class="weixin-share-icon-btn" bindtap='sharetap' open-type="share" data-index="{{index}}">
+          </button>
+        </view>
+        <button class="weixin-share-icon-btn" open-type="share" data-index="{{index}}">
+        </button>
+      </block>
+    </view>
+    <!-- <view wx:if="{{free_num<=0 && is_showTixianCoupon}}" class='KfightView-shareimage'>
+      <image class='KfightView-shareimage-image' mode="widthFix" src='{{Upyun}}/small-iconImages/heboImg/fight_freeFight.png' bindtap="freeFightcouponTap"></image>
+      <text class="fightView_tixiantime">{{time}}后失效</text>
+    </view> -->
+
+    <!-- 免拼卡 发货卡发货 -->
+    <!-- <view wx:if="{{free_num>0 && is_showTixianCoupon}}" class='showTixianView_upperlimit-invit1'>
+      <view class="guideview1" style="{{(free_num<2 || send_num<2)?'height: 554rpx':'height: 554rpx'}}">
+        <text class="guideview_title1">温馨提示</text>
+        <text class="guideview_text1">商品原价超过<text class="import_text1">119</text>元，需要<text class="import_text">3</text>张{{is_deliver?'发货卡':'免拼卡'}}即可{{is_deliver?'':'免拼'}}发货</text>
+        <text class="guideview_text1">您已有<text class="import_text1">{{is_deliver?send_num:free_num}}</text>张还差<text class="import_text1">{{is_deliver?(3-send_num>0?(3-send_num):0):(3-free_num>0?(3-free_num):0)}}</text>张</text>
+        <view class="guideview_invitfriends1">
+          <view class="invitfriends_add1">
+            <block wx:key wx:for="{{cardslist}}" wx:for-item="item" wx:key="key">
+              <image class="invitfriends_view_add1" bindtap="fight_deliver_lingtap" src='{{item}}'></image>
+            </block>
+          </view>
+        </view>
+
+        <image class="guideview_image11" src="{{Upyun}}small-iconImages/heboImg/{{is_deliver?'continue_ling_delivergoods.png':'continue_ling_freefightting.png'}}" mode="widthFix" bindtap="fight_deliver_lingtap"></image>
+      </view>
+    </view> -->
+
+    <!-- 引导买会员免拼发货 -->
+    <view wx:if="{{is_showTixianCoupon}}" class='showTixianView_upperlimit-invit1'>
+      <view class="guideview1" style="height: 400rpx">
+        <text class="guideview_title1">温馨提示</text>
+        <text class="guideview_text1">您的拼团订单，可以预存会员后</text>
+        <text class="guideview_text1">直接免拼发货哦</text>
+        <image class="guideview_image11" src="{{Upyun}}small-iconImages/heboImg/fightting_becomeMember.png" mode="widthFix" bindtap="fight_deliver_lingtap"></image>
+      </view>
+    </view>
+    <image class='fightView-close' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closeTap'></image>
+  </view>
+
+  <!-- 参团成功 -->
+  <view class='fightView' wx:elif="{{fightSuccess_fail_status ==6}}">
+    <view class='fightView-title'>
+      <image class='fightView-title-image' src="{{Upyun}}/small-iconImages/heboImg/fight_Success.png"></image>
+      <text class='fightView-title-text'>参团成功！</text>
+    </view>
+    <view class='fightView-content'>还差<text class='fightView-content-number'>{{short_num}}</text>人，赶快邀请好友来参团吧。参团免费，人满成团后才付款。</view>
+    <view class='fightView-share'>
+      <block wx:key wx:for="{{orderlist}}" wx:for-item="item" wx:for-index="index">
+        <view class="zw-tabs-item" data-index="{{index}}">
+          <image bindtap='sharetap' src="{{Upyun}}/{{orderimage[index]}}"> </image>
+          <text class='zw-tabs-item-text'>{{item}}</text>
+          <button class="weixin-share-icon-btn" bindtap='sharetap' open-type="share" data-index="{{index}}">
+          </button>
+        </view>
+        <button class="weixin-share-icon-btn" open-type="share" data-index="{{index}}">
+        </button>
+      </block>
+    </view>
+    <!-- <view wx:if="{{free_num<=0 && is_showTixianCoupon}}" class='KfightView-shareimage'>
+      <image class='KfightView-shareimage-image' mode="widthFix" src='{{Upyun}}/small-iconImages/heboImg/fight_freeFight.png' bindtap="freeFightcouponTap"></image>
+      <text class="fightView_tixiantime">{{time}}后失效</text>
+    </view> -->
+
+    <!-- 免拼卡 发货卡发货 -->
+    <!-- <view wx:if="{{free_num>0 && is_showTixianCoupon}}" class='showTixianView_upperlimit-invit1'>
+      <view class="guideview1" style="{{(free_num<2 || send_num<2)?'height: 554rpx':'height: 554rpx'}}">
+        <text class="guideview_title1">温馨提示</text>
+        
+        <text class="guideview_text1">商品原价超过<text class="import_text">119</text>元，需要<text class="import_text">3</text>张{{is_deliver?'发货卡':'免拼卡'}}即可{{is_deliver?'':'免拼'}}发货</text>
+        <text class="guideview_text1">您已有<text class="import_text1">{{is_deliver?send_num:free_num}}</text>张还差<text class="import_text1">{{is_deliver?(3-send_num>0?(3-send_num):0):(3-free_num>0?(3-free_num):0)}}</text>张</text>
+        <view class="guideview_invitfriends1">
+          <view class="invitfriends_add1">
+            <block wx:key wx:for="{{cardslist}}" wx:for-item="item" wx:key="key">
+              <image class="invitfriends_view_add1" bindtap="fight_deliver_lingtap" src='{{item}}'></image>
+            </block>
+          </view>
+        </view>
+
+        <image class="guideview_image11" src="{{Upyun}}small-iconImages/heboImg/{{is_deliver?'continue_ling_delivergoods.png':'continue_ling_freefightting.png'}}" mode="widthFix" bindtap="fight_deliver_lingtap"></image>
+        
+      </view>
+    </view> -->
+
+    <!-- 引导买会员免拼发货 -->
+    <view wx:if="{{is_showTixianCoupon}}" class='showTixianView_upperlimit-invit1'>
+      <view class="guideview1" style="height: 400rpx">
+        <text class="guideview_title1">温馨提示</text>
+        <text class="guideview_text1">您的拼团订单，可以预存会员后</text>
+        <text class="guideview_text1">直接免拼发货哦</text>
+
+        <image class="guideview_image11" src="{{Upyun}}small-iconImages/heboImg/fightting_becomeMember.png" mode="widthFix" bindtap="fight_deliver_lingtap"></image>
+      </view>
+    </view>
+    <image class='fightView-close' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closeTap'></image>
+  </view>
+
+  <!-- 参团不成功 人满-->
+  <view class='fightView' wx:elif="{{fightSuccess_fail_status ==7}}">
+    <view class='fightView-title'>
+      <image class='fightView-title-image' src="{{Upyun}}/small-iconImages/heboImg/miyou_icon_close.png"></image>
+      <text class='fightView-title-text'>参团未成功！</text>
+    </view>
+    <view class='fightView-content'>该团人数已满。别灰心，赠送您90元新人红包，可买可提现，点下方领取。</view>
+    <view class='fightView-shareimage'>
+      <image class='fightView-shareimage-image' mode="widthFix" src='{{Upyun}}/small-iconImages/heboImg/newestredhongbao_getnewuser_ninetymoney.png'></image>
+      <image class='fightView-shareimage-button1' animation='{{animationMiddleHeaderItem}}' src="{{Upyun}}/small-iconImages/heboImg/newestredhongbao_kai.png" bindtap='gomoneyTap'></image>
+    </view>
+    <image class='fightView-close' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closeTap'></image>
+  </view>
+
+  <!-- 参团不成功 已过期-->
+  <view class='fightView' wx:elif="{{fightSuccess_fail_status ==8}}">
+    <view class='fightView-title'>
+      <image class='fightView-title-image' src="{{Upyun}}/small-iconImages/heboImg/miyou_icon_close.png"></image>
+      <text class='fightView-title-text'>参团未成功！</text>
+    </view>
+    <view class='fightView-content'>该团已过期结束。别灰心，衣服赠送您90元新人红包，可买可提现，点下方领取。</view>
+    <view class='fightView-shareimage'>
+      <image class='fightView-shareimage-image' mode="widthFix" src='{{Upyun}}/small-iconImages/heboImg/newestredhongbao_getnewuser_ninetymoney.png'></image>
+      <image class='fightView-shareimage-button1' animation='{{animationMiddleHeaderItem}}' src="{{Upyun}}/small-iconImages/heboImg/newestredhongbao_kai.png" bindtap='gomoneyTap'></image>
+    </view>
+    <image class='fightView-close' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closeTap'></image>
+  </view>
+
+  <!-- 拼团未成功 人满有人未付款导致失败 -->
+  <view class='fightView' wx:elif="{{fightSuccess_fail_status ==9}}">
+    <view class='fightView-title'>
+      <image class='fightView-title-image' src="{{Upyun}}/small-iconImages/heboImg/miyou_icon_close.png"></image>
+      <text class='fightView-title-text'>拼团未成功！</text>
+    </view>
+    <view class='fightView-content'>很遗憾，有团友未能在时效内支付，本次拼团未成功。如您已支付，将会在24小时内原路返回您的付款账户。请注意查收。</view>
+    <view class='fightView-shareimage'>
+      <image class='fightView-shareimage-image' mode="widthFix" src='{{Upyun}}/small-iconImages/heboImg/newestredhongbao_getnewuser_ninetymoney.png'></image>
+      <image class='fightView-shareimage-button1' animation='{{animationMiddleHeaderItem}}' src="{{Upyun}}/small-iconImages/heboImg/newestredhongbao_kai.png" bindtap='gomoneyTap'></image>
+    </view>
+    <image class='fightView-close' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closeTap'></image>
+  </view>
+
+  <!-- 拼团未成功 过期导致失败-->
+  <view class='fightView' wx:elif="{{fightSuccess_fail_status ==10}}">
+    <view class='fightView-title'>
+      <image class='fightView-title-image' src="{{Upyun}}/small-iconImages/heboImg/miyou_icon_close.png"></image>
+      <text class='fightView-title-text'>拼团未成功！</text>
+    </view>
+    <view class='fightView-content'>很遗憾，你的拼团未能在时效内达到人数，本次拼团未成功。如您已支付拼团费，将会在24小时内原路返回您的付款账户。请注意查收。</view>
+    <view class='fightView-shareimage'>
+      <image class='fightView-shareimage-image' mode="widthFix" src='{{Upyun}}/small-iconImages/heboImg/newestredhongbao_getnewuser_ninetymoney.png'></image>
+      <image class='fightView-shareimage-button1' animation='{{animationMiddleHeaderItem}}' src="{{Upyun}}/small-iconImages/heboImg/newestredhongbao_kai.png" bindtap='gomoneyTap'></image>
+    </view>
+    <image class='fightView-close' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closeTap'></image>
+  </view>
+
+  <!-- 拼团未成功 团人数不够 -->
+  <view class='fightView' wx:elif="{{fightSuccess_fail_status ==11}}">
+    <view class='fightView-title'>
+      <image class='fightView-title-image' src="{{Upyun}}/small-iconImages/heboImg/fight_Success.png"></image>
+      <text class='fightView-title-text'>{{is_commander?'开团':'参团'}}成功！</text>
+    </view>
+    <view class='fightView-content'>还差<text class='fightView-content-number'>{{short_num}}</text>人，赶快邀请好友来参团吧。参团免费，人满成团后才付款。</view>
+    <view class='fightView-share'>
+      <block wx:key wx:for="{{orderlist}}" wx:for-item="item" wx:for-index="index">
+        <view class="zw-tabs-item" data-index="{{index}}">
+          <image bindtap='sharetap' src="{{Upyun}}/{{orderimage[index]}}"> </image>
+          <text class='zw-tabs-item-text'>{{item}}</text>
+          <button class="weixin-share-icon-btn" bindtap='sharetap' open-type="share" data-index="{{index}}">
+          </button>
+        </view>
+        <button class="weixin-share-icon-btn" open-type="share" data-index="{{index}}">
+        </button>
+      </block>
+    </view>
+    <!-- <view wx:if="{{free_num<=0 && is_showTixianCoupon}}" class='KfightView-shareimage'>
+      <image class='KfightView-shareimage-image' mode="widthFix" src='{{Upyun}}/small-iconImages/heboImg/fight_freeFight.png' bindtap="freeFightcouponTap"></image>
+      <text class="fightView_tixiantime">{{time}}后失效</text>
+    </view> -->
+    <!-- 免拼卡 发货卡发货 -->
+    <!-- <view wx:if="{{free_num>0 && is_showTixianCoupon}}" class='showTixianView_upperlimit-invit1'>
+      <view class="guideview1" style="{{(free_num<2 || send_num<2)?'height: 554rpx':'height: 554rpx'}}">
+        <text class="guideview_title1">温馨提示</text>
+      
+        <text class="guideview_text1">商品原价超过<text class="import_text">119</text>元，需要<text class="import_text">3</text>张{{is_deliver?'发货卡':'免拼卡'}}即可{{is_deliver?'':'免拼'}}发货</text>
+        <text class="guideview_text1">您已有<text class="import_text1">{{is_deliver?send_num:free_num}}</text>张还差<text class="import_text1">{{is_deliver?(3-send_num>0?(3-send_num):0):(3-free_num>0?(3-free_num):0)}}</text>张</text>
+        <view class="guideview_invitfriends1">
+          <view class="invitfriends_add1">
+            <block wx:key wx:for="{{cardslist}}" wx:for-item="item" wx:key="key">
+              <image class="invitfriends_view_add1" bindtap="fight_deliver_lingtap" src='{{item}}'></image>
+            </block>
+          </view>
+        </view>
+
+        <image class="guideview_image11" src="{{Upyun}}small-iconImages/heboImg/{{is_deliver?'continue_ling_delivergoods.png':'continue_ling_freefightting.png'}}" mode="widthFix" bindtap="fight_deliver_lingtap"></image>
+  
+      </view>
+    </view> -->
+
+    <!-- 引导买会员免拼发货 -->
+    <view wx:if="{{is_showTixianCoupon}}" class='showTixianView_upperlimit-invit1'>
+      <view class="guideview1" style="height: 400rpx">
+        <text class="guideview_title1">温馨提示</text>
+        <text class="guideview_text1">您的拼团订单，可以预存会员后</text>
+        <text class="guideview_text1">直接免拼发货哦</text>
+
+        <image class="guideview_image11" src="{{Upyun}}small-iconImages/heboImg/fightting_becomeMember.png" mode="widthFix" bindtap="fight_deliver_lingtap"></image>
+      </view>
+    </view>
+    <image class='fightView-close' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closeTap'></image>
+  </view>
+
+
+
+  <!-- 开团未成功 很遗憾人数已满 -->
+  <view class='fightView' wx:elif="{{fightSuccess_fail_status ==2}}">
+    <view class='fightView-title'>
+      <image class='fightView-title-image' src="{{Upyun}}/small-iconImages/heboImg/icon_remind.png"></image>
+      <text class='fightView-title-text'>很遗憾人数已满！</text>
+    </view>
+    <view class='fightView-content'>你参与的拼团已达到拼团人数哦！去尝试自己开个团吧！</view>
+    <image class='fightView-close' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closeTap' data-id='{{fightSuccess_fail_status}}'></image>
+  </view>
+
+  <!-- 拼团未成功 过期-->
+  <view class='fightView' wx:elif="{{fightSuccess_fail_status ==3}}">
+    <view class='fightView-title'>
+      <image class='fightView-title-image' src="{{Upyun}}/small-iconImages/heboImg/miyou_icon_close.png"></image>
+      <text class='fightView-title-text'>拼团未成功！</text>
+    </view>
+    <view class='fightView-content'>很遗憾，你的拼团未能在时效内达到人数，本次拼团未成功。如您已支付拼团费，将会在24小时内原路返回您的付款账户。请注意查收。</view>
+    <view class='fightView-shareimage'>
+      <image class='fightView-shareimage-image' mode="widthFix" src='{{Upyun}}/small-iconImages/heboImg/newestredhongbao_getnewuser_ninetymoney.png'></image>
+      <image class='fightView-shareimage-button1' animation='{{animationMiddleHeaderItem}}' src="{{Upyun}}/small-iconImages/heboImg/newestredhongbao_kai.png" bindtap='gomoneyTap'></image>
+    </view>
+    <image class='fightView-close' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closeTap'></image>
+  </view>
+
+  <!-- 很遗憾开团已过期 -->
+  <view class='fightView' wx:elif="{{fightSuccess_fail_status ==4}}">
+    <view class='fightView-title'>
+      <image class='fightView-title-image' src="{{Upyun}}/small-iconImages/heboImg/icon_remind.png"></image>
+      <text class='fightView-title-text'>很遗憾已过期！</text>
+    </view>
+    <view class='fightView-content'>你参与的拼团已过期！去尝试自己开个团吧！</view>
+    <image class='fightView-close' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closeTap' data-id='{{fightSuccess_fail_status}}'></image>
+  </view>
+
+  <!-- 机器人参团成功 -->
+  <view class='fightView' wx:elif="{{fightSuccess_fail_status ==5}}">
+    <view class='fightView-title'>
+      <image class='fightView-title-image' src="{{Upyun}}/small-iconImages/heboImg/fight_Success.png"></image>
+      <text class='fightView-title-text'>开团成功！</text>
+    </view>
+    <view class='fightView-content'>人数已满，还有团员未付款，请耐心等待团员付款。</view>
+    <image class='fightView-close' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closeTap' data-id='{{fightSuccess_fail_status}}'></image>
+  </view>
+
+</template>

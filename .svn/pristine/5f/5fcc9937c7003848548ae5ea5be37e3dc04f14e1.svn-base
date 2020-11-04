@@ -1,0 +1,344 @@
+@import "../../../sign/signSMtemp/signSMtemp.wxss";
+
+.address {
+  margin-left: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  line-height: 100rpx;
+}
+
+.more {
+  width: 100%;
+  float: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.address2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-address {
+  width: 88%;
+  padding-right: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-address {
+  margin-right: 20rpx;
+  width: 50rpx;
+}
+
+.name-phone {
+  display: flex;
+  font-size: 30rpx;
+  justify-content: space-between;
+  padding-top: 20rpx;
+  padding-left: 20rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.name {
+  width: 50%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.more2 {
+  width: 100%;
+}
+
+.area {
+  padding-left: 20rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  font-size: 30rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.left {
+  font-size: 30rpx;
+}
+
+.right {
+  width: 45rpx;
+  float: right;
+  margin-right: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.line {
+  background-color: #f0f0f0;
+  width: 100%;
+  height: 20rpx;
+}
+
+.shopContainer {
+  margin-top: 20rpx;
+  padding-bottom: 20rpx;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1rpx solid #eee;
+}
+
+.shopContainer-img {
+  margin-left: 20rpx;
+  width: 140rpx;
+  height: 140rpx;
+}
+
+.shopContainer .shopMessage {
+  margin-left: 20rpx;
+  width: 70%;
+}
+
+.shopContainer .shopMessage .shopName-Num {
+  display: flex;
+  font-size: 30rpx;
+}
+
+.shopMessage .shopName {
+  margin-right: 30rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shopMessage .color-size {
+  font-size: 24rpx;
+  margin-top: 15rpx;
+  color: #a8a8a8;
+}
+
+.shopContainer .shopMessage .shopName-Num .shopNum {
+  display: flex;
+  position: absolute;
+  right: 20rpx;
+}
+
+.shopPrice-Brander {
+  margin-top: 10rpx;
+  font-size: 30rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+.shopPrice-Brander .old-price {
+  margin-left: 20rpx;
+  font-size: 24rpx;
+  display: flex;
+  align-items: flex-end;
+  color: #a8a8a8;
+  position: relative;
+}
+
+.shopPrice-Brander .old-price::before {
+  display: block;
+  position: absolute;
+  content: "";
+  top: 60%;
+  margin: auto;
+  height: 1px;
+  width: 100%;
+  background-color: #a8a8a8;
+}
+
+.shopPrice-Brander .brander {
+  font-size: 24rpx;
+  display: flex;
+  margin-top: 15rpx;
+
+  align-items: flex-end;
+  right: 20rpx;
+  position: absolute;
+  color: #a8a8a8;
+}
+
+.messageToSeller {
+  height: 140rpx;
+  align-items: center;
+  margin: 20rpx;
+  border: 1rpx solid #eee;
+  border-radius: 13rpx;
+  font-size: 30rpx;
+
+}
+
+
+.messageToSeller-message {
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  margin-left: 20rpx;
+  height: 100rpx;
+   /* background-color: lightgray;  */
+
+}
+
+.moneySection {
+  display: flex;
+  font-size: 30rpx;
+  padding-top: 20rpx;
+}
+
+.moneySection .moneySection-title {
+  margin-left: 20rpx;
+}
+
+.moneySection .moneySection-money {
+  position: absolute;
+  right: 20rpx;
+  color: #ff3f8b;
+}
+
+.returnMoney {
+  margin-top: 20rpx;
+  font-size: 30rpx;
+}
+
+.bottomContainer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100rpx;
+  border-top: 1rpx solid #eee;
+  display: flex;
+  flex-direction: row;
+}
+
+.discount {
+  font-size: 24rpx;
+  color: #a8a8a8;
+}
+
+.paytext {
+  font-size: 30rpx;
+  color: #ff3f8b;
+  width: 60%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+}
+
+.bottomContainer text {
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bottomContainer .bottmButton {
+  position: absolute;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  text-align: center;
+  color: white;
+  font-size: 30rpx;
+  background-color: #ff3f8b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bottmButton .button-confrim {
+  opacity: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.banlance-redpacked {
+  position: fixed;
+  top: 65%;
+  right: 40rpx;
+}
+
+.banlance-redpacked-image {
+  width: 150rpx;
+}
+
+.dayReward {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  text-align: center;
+  width: 50rpx;
+  height: 200rpx;
+  border-radius: 10rpx 0 0 10rpx;
+  background-color: #ffcf00;
+  color: red;
+  top: 300rpx;
+  right: 0;
+  font-size: 30rpx;
+  line-height: 31rpx;
+  z-index:10;
+
+}
+
+.dayReward-text {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.sign-finish-top {
+  width: 100%;
+  height: 80rpx;
+  background-color: #ff3f8b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+}
+
+.sign-finish-top-title {
+  font-size: 36rpx;
+  color: #fff;
+  align-self: center;
+}
+
+.icon-close {
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 0;
+  padding: 15rpx;
+}
+
+.srcoll-vv {
+  width: 550rpx;
+  height: 260rpx;
+  display: flex;
+  flex-direction: column;
+  color: #405f80;
+}
+
+.share-sm {
+  width: 550rpx;
+  height: 330rpx;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 8rpx;
+}
+
+.sku-time{
+  color: rgb(251, 204, 51);
+  font-size: 26rpx;
+}

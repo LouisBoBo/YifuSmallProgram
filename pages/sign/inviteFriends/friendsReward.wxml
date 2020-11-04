@@ -1,0 +1,61 @@
+<view class="notEnoughYidou-root">
+  <text class='notEnough-dialog-title'>今日共有</text>
+  <view class='notEnough-dialog-content'>
+    <text style="font-size:50rpx;color: #ff3f8b;">{{friendNum1}}</text>
+    <text>位好友赢得</text>
+    <text style="font-size:50rpx;color: #ff3f8b;">{{friendMoney1}}</text>
+    <text style="color: #ff3f8b;">元</text>
+    <text>余额</text>
+  </view>
+  <view class='notEnough-dialog-content'>
+    <text style="font-size:50rpx;color: #ff3f8b;">{{friendNum2}}</text>
+    <text>位好友赢得</text>
+    <text style="font-size:50rpx;color: #ff3f8b;">{{friendMoney2}}</text>
+    <text style="color: #ff3f8b;">元</text>
+    <text>提现</text>
+  </view>
+
+  <text class='notEnough-dialog-title2'>我拿到好友奖励</text>
+  <view class='notEnough-dialog-myReward'>
+    <view class='notEnough-dialog-myRewardContent'>
+      <view>
+        <text style="font-size:50rpx;">{{friendMyMoney1}}</text>
+        <text>元</text>
+      </view>
+      <text>余额</text>
+    </view>
+    <view class='middleLine'></view>
+    <view class='notEnough-dialog-myRewardContent'>
+      <view>
+        <text style="font-size:50rpx;">{{friendMyMoney2}}</text>
+        <text>元</text>
+      </view>
+      <text>提现</text>
+    </view>
+  </view>
+</view>
+
+
+<view class='friendTodayReward'>好友今日获得奖励</view>
+
+<view wx:if='{{datalist[0]}}' class='section'>
+  <block wx:for='{{datalist}}'>
+    <view class='friendsReward'>
+      <image class='friends-headImg' src='{{item.pic}}' mode='widthFix'></image>
+      <view class='friends-right'>
+        <view class='friends-top'>
+          <text>{{item.nickname}}</text>
+          <text class='friends-top-time'>{{item.add_date}}</text>
+        </view>
+        <view class='friends-bottom'>
+          <view>+{{item.f_extra}}元提现额度</view>
+          <view class='friends-bottom-rightMoney'>+{{item.f_money}}元余额</view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
+<view wx:else>
+  <view class="emptyView">亲，暂时没有相关数据哦</view>
+</view>
+

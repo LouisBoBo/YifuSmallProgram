@@ -1,0 +1,305 @@
+//index.js
+//获取应用实例
+
+import config from '../../config';
+import DataBase from '../../data/dataBase.js';
+var util = require('../../utils/util.js');
+
+var app = getApp();
+var WxNotificationCenter = require("../../utils/WxNotificationCenter.js");
+
+var xuanfuanimationTimer;
+Page({
+  data: {
+    Upyun: config.Upyun,
+    isShowMakeMoney: true,
+    openFightSuccessShow: false,
+
+    moneyDiscountShowFlag: false,
+    moneyDiscount: "0.0",//累计已抵扣的余额
+    oneYuanDiscriptionTitle: "免费领未成功通知",
+
+    // SmallRedHongBao: config.Upyun + 'small-iconImages/heboImg/small-thirtyRedHongBao.png',
+  },
+
+  onLoad: function (option) {
+
+    if (!app.parent_id) {
+      app.parent_id = option.user_id
+    }
+
+
+    // var isShowMakeMoney = app.globalData.user.shouyecount;
+    // if (isShowMakeMoney == 0)
+    //   this.setData({ isShowMakeMoney: false })
+    // else
+    //   this.setData({ isShowMakeMoney: true })
+
+    // //设置标题
+    // if (app.globalData.oneYuanData == 0) {
+    //   wx.setNavigationBarTitle({
+    //     title: '衣蝠-' + app.globalData.oneYuanValue + '元抢大牌'
+    //   });
+    // }
+    
+    const allTypes = DataBase.getTypesData();
+    const allBrand = DataBase.getBrandsData();
+    const hotTitle = DataBase.gethotTitleData();
+
+    this.setData({
+      allTypes: allTypes,
+      allBrandsData: allBrand,
+      searchPlacehorder: hotTitle[0]
+    })
+    WxNotificationCenter.addNotification("testNotificationItem1Name", this.testNotificationFromItem1Fn, this);
+    this.http_Landingpage();
+
+  },
+  onShow: function (){
+    var that = this;
+    if (app.globalData.user && app.globalData.user.userToken) {
+      that.getOrderStatus();
+    }
+
+
+    //悬浮小图标
+    util.get_TrancactionRecord(function (Transaction_record) {
+      if (Transaction_record)//有交易记录
+      {
+        that.setData({
+          SmallRedHongBao: config.Upyun + 'small-iconImages/heboImg/small-fiftyRedHongBao.png',
+        })
+      } else {//没有交易记录
+        that.setData({
+          SmallRedHongBao: config.Upyun + 'small-iconImages/heboImg/freeling_newsamll.png',
+          // SmallRedHongBao: config.Upyun + 'small-iconImages/heboImg/small-thirtyRedHongBao.png',
+          // SmallRedHongBao: config.Upyun + 'small-iconImages/heboImg/smallRedHongBao_shoppingCoupon.png',
+        })
+      }
+      that.setData({
+        suspensionHongBao_isShow: true
+      })
+      that.xuanfuHongBaoAnimation();
+    });
+  },
+  testNotificationFromItem1Fn: function (info) {
+    this.http_Landingpage();
+  },
+
+  //红包摇摆动画
+  xuanfuHongBaoAnimation: function () {
+    this.xuanfuanimationMiddleHeaderItem = wx.createAnimation({
+      duration: 2000,    // 以毫秒为单位  
+      timingFunction: 'linear',
+      delay: 50,
+      transformOrigin: '50% 50%',
+      success: function (res) {
+        console.log("***************************");
+      }
+    });
+    xuanfuanimationTimer = setInterval(function () {
+      this.xuanfuanimationMiddleHeaderItem.scale(1.2).step({ duration: 300 }).rotate(-15).step({ duration: 300 }).rotate(15).step({ duration: 300 }).rotate(0).step({ duration: 300 }).scale(1.0).step({ duration: 300 });
+
+      this.setData({
+        xuanfuanimationMiddleHeaderItem: this.xuanfuanimationMiddleHeaderItem.export()  //输出动画
+      });
+
+    }.bind(this), 2000);
+  },
+
+  //请求落地页 获取微信小程序落地页开关
+  http_Landingpage: function () {
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+    // wx.showLoading({
+    //   mask: true
+    // })
+    var url = config.Host + 'cfg/getCurrWxcxType?token=' + token + config.Version;
+    util.http(url, this.Landingpage);
+  },
+
+  Landingpage: function (data) {
+    if (data.status == 1) {
+      var shouyecount = data.data;
+
+      if (shouyecount == 0) {
+        this.setData({ isShowMakeMoney: false });
+      } else
+        this.setData({ isShowMakeMoney: true });
+      app.globalData.user["shouyecount"] = shouyecount;
+    }
+    //  else
+    // wx.hideLoading();
+  },
+
+  //获取用户是否有拼团成功的订单
+  getOrderStatus: function () {
+    var that = this;
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+    var oldurl = config.Host + 'order/getOrderStatus?' + config.Version + "&token=" + token;
+    util.http(oldurl, that.fightOrder_data);
+  },
+
+  fightOrder_data: function (data) {
+    var that = this;
+    if (data.status == 1 && data.roll == 1) {
+      if (!app.isFightSuccess) {
+        this.setData({
+          ptSuccessUserName: data.user_name != undefined ? data.user_name : '',
+          openFightSuccessShow: true
+        })
+        app.isFightSuccess = true;
+      }else{
+        util.getFightFailOrder(that.discountData);
+      }
+    } else {//如果没有再查看是否有退款
+      util.getFightFailOrder(that.discountData);
+    }
+  },
+  
+  //拼团成功弹窗
+  getFight: function () {
+    wx.navigateTo({
+      url: '../mine/order/order?indexid=' + 2,
+    })
+    this.setData({
+      openFightSuccessShow: false
+    })
+    console.log("拼团成功");
+  },
+  closeFight: function () {
+    this.setData({
+      openFightSuccessShow: false
+    })
+  },
+
+  // 搜索
+  wxSerchFocus: function (e) {
+    wx.navigateTo({
+      url: 'shopSearch/shopSearch',
+    })
+  },
+  //商品分类
+  typeTap: function () {
+    console.log('商品分类');
+    wx.navigateTo({
+      url: '../shouye/shopClassType/shopClassType',
+    })
+  },
+  //赚钱页
+  moneytap: function () {
+    wx.navigateTo({
+      url: '../sign/sign',
+    })
+  },
+
+  // 分类点击
+  categoryTap: function (event) {
+    var id = event.currentTarget.dataset.id;
+    var name = event.currentTarget.dataset.name;
+
+    wx.navigateTo({
+      url: 'shopCategoryList/shopCategoryList?' +
+      "class_id=" + id +
+      "&navigateTitle=" + name
+
+    })
+  },
+
+  // 品牌点击
+  onBrandTap: function (event) {
+    // encodeURIComponent / decodeURIComponent：
+    // 以UTF - 8编码编码所有字符串。
+    var id = event.currentTarget.dataset.id;
+    var name = encodeURIComponent(event.currentTarget.dataset.name);
+    var pic = event.currentTarget.dataset.pic;
+    var remark = encodeURIComponent(event.currentTarget.dataset.remark)
+
+    wx.navigateTo({
+
+      url: '../listHome/brandsDetail/brandsDetail?' +
+      "class_id=" + id +
+      "&navigateTitle=" + name +
+      "&brandPic=" + pic +
+      "&remark=" + remark
+    })
+  },
+  // 更多品牌点击
+  onMoreBrandTap: function (event) {
+    console.log("onMoreBrandTap");
+    wx.navigateTo({
+      url: 'moreBrandsList/moreBrandsList'
+    })
+    // wx.navigateTo({
+    //   url: '../listHome/order/confirm/confirm'
+    // })
+  },
+
+  ///拼团失败退款弹窗
+  discountData: function (data) {
+    console.log(data);
+    if (data.status == 1 && data.isFail == 1) {
+      this.setData({
+        moneyDiscountShowFlag: true,
+        moneyDiscount: data.order_price
+      })
+    }
+  },
+  //查看订单
+  getYiDouBtn: function () {
+    wx.navigateTo({
+      url: '../mine/order/order?indexid=' + 0,
+    })
+    this.setData({
+      moneyDiscountShowFlag: false
+    })
+  },
+  //点查看余额
+  getYueBtn: function () {
+    wx.navigateTo({
+      url: '../mine/wallet/wallet',
+    })
+    this.setData({
+      moneyDiscountShowFlag: false
+    })
+  },
+  closeYiDouBtn: function () {
+    this.setData({
+      moneyDiscountShowFlag: false
+    })
+  },
+
+  //任务红包
+  signHongBaosubmit: function (e) {
+    var formId = e.detail.formId;
+    if (app.globalData.user != null) {
+      util.httpPushFormId(e.detail.formId);
+    }
+    util.get_TrancactionRecord(function (Transaction_record) {
+      if (Transaction_record)//有交易记录去赚钱
+      {
+        wx.navigateTo({
+          url: '../sign/sign',
+        })
+      } else {//没有交易记录首页3
+        wx.navigateTo({
+          url: '../shouye/redHongBao?shouYePage=ThreePage',
+        })
+      }
+    });
+  },
+
+  onHide:function(){
+    clearInterval(xuanfuanimationTimer);
+    this.xuanfuanimationMiddleHeaderItem.rotate(0).step().scale(1.0).step();
+    this.setData({
+      xuanfuanimationMiddleHeaderItem: this.xuanfuanimationMiddleHeaderItem.export(),  //输出动画
+      suspensionHongBao_isShow:false
+    });
+  }
+})

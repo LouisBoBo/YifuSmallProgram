@@ -1,0 +1,19 @@
+<!--pages/mine/sqfh/sqfh.wxml-->
+<view class='all-view'>
+
+<view class='all-text-view'>
+
+
+  <text class='all-text1' >{{text1}}</text>
+  <text class='all-text1' style='padding-top: 0rpx;'>{{text2}}</text>
+
+  <text class='all-text2' style='padding-top: 15rpx;'>请加微信号： <text style='font-size:40rpx;'>{{text3}}</text>   </text>
+  <text class='all-text2' style='padding-top: 0rpx;'>联系客服发货</text>
+</view>
+
+  <image class='membertype' mode='widthFix' src="{{Upyun}}small-iconImages/qingfengpic/sqfh_wx_img_new2.jpg"></image>
+  <view class='spaceview'></view>
+  <form bindsubmit="copyWXH" report-submit='true'>
+      <button class='memberopen' open-type="" form-type='submit'>复制客服微信号</button>
+  </form>
+</view>

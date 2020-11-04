@@ -1,0 +1,13 @@
+<template name="Forward">
+  <view class='showTixianView_upperlimit'>
+    <image catchtap="fowardlimittap" class='icon-close_upperlimit' src="/iconImages/icon_close.png" bindtap='closetap'></image>
+    <text class="tixianview_title_upperlimit">{{uppertittle}}</text>
+    <block wx:for="{{upperdistribution_list}}" wx:for-item="item" data-index="{{index}}">
+      <text class="tixianview_discription_upperlimit{{isUpperNotitle?'_noTitle':''}}">{{upperdistribution_list[index]}}</text>
+      <view class="tixianview_binding_upperlimit" bindtap='fowardlimittap' data-id="{{index}}">
+        <view>{{upperbuttontitle_list[index]}}</view>
+        <button class='button_confrim_upperlimit' bindgetuserinfo='bindGetUserInfo' open-type="getUserInfo"></button>
+      </view>
+    </block>
+  </view>
+</template>

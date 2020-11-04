@@ -1,0 +1,402 @@
+<import src="../../common/toastTest/toastTest.wxml" />
+<import src="shareshop/shareshop.wxml" />
+
+<import src="shareShopTX/shareShopTX.wxml" />
+
+
+<import src="signItemTemp/signItemTemp.wxml" />
+
+<import src="browseMinTemp/browseMinTemp.wxml" />
+
+<import src="signhintTemp/signhintTemp.wxml" />
+
+<import src="signLingYTemp/signLingYTemp.wxml" />
+
+<import src="meiyueTishiTemp/meiyueTishiTemp.wxml" />
+
+
+<import src="signSMtemp/signSMtemp.wxml" />
+<import src="../../common/openYifu-template/openYifu.wxml" />
+
+
+<import src="../../common/signfinish-template/signfinish.wxml" />
+
+<import src="../../common/Upperlimit-template/Upperlimit.wxml" />
+
+<import src="../../common/bubbleRemind-template/bubbleRemind.wxml" />
+
+<import src="../../common/HasJYJLdialog-template/HasJYJLdialog-template" />
+
+<import src="../../common/GetHongBao-template/makeMoneyHongbao" />
+
+<view wx:if='{{isBubbleShow}}'>
+  <!--一行泡泡  -->
+  <template data="{{bubbleData,animationData,isBubbleShow}}" is='bubbleContainer'></template>
+</view>
+<!-- <view wx:if='{{isBubbleShow}}'> -->
+<template data="{{scrollTop,mListData}}" is='bubbleScrollContainer'></template>
+<!-- </view> -->
+
+<view class='sign-view' style='background-image: url({{Upyun}}small-iconImages/ad_pic/{{signBG}})'>
+
+
+
+
+  <view class="count-tou-share" wx:if="{{isLoginSucess}}">
+    <text class="leijifenxiang">累计分享数 : {{userDataData.shareCount}}</text>
+    <text class="leijijiangli">累计奖励：{{userDataData.shareMoneyCount}}元</text>
+    <image class="chakanxiangqing" src='{{Upyun}}small-iconImages/ad_pic/xiangqing_aaa.png' bindtap='chakanxiangqingTap'> </image>
+  </view>
+
+
+
+
+
+
+
+  <view class='all-page'>
+
+
+
+    <image class='taskShuoming-image' src="{{Upyun}}small-iconImages/qingfengpic/but_tast_shuoming.png" bindtap='renwushuomingTap'></image>
+
+
+    <view class="view-view" style='margin-top:{{task_page_margin_top}}'>
+
+      <!-- 两行泡泡 -->
+      <view class='list-paopao' wx:if="{{showTwoPaopao}}">
+        <scroll-view class='list-scoll' lower-threshold="{{150}}" bindscrolltolower="scrolltolower1" scroll-y="{{true}}" scroll-with-animation="{{true}}" scroll-top="{{scrollTop1}}">
+          <block wx:for='{{mListData1}}'>
+            <view class='list-item' style='background-image: url({{Upyun}}small-iconImages/ad_pic/qipao.png'>
+              <image class='popao-userimg' style='width:10rpx  height:10rpx' src="{{item.pic}}"></image>
+              <text class='user-name'>{{item.nname}}</text>
+              <!--抽中（type = 1）和邀请好友得（type = 2）   ----对应元提现额度和元  -->
+              <text class='user-content'>
+            <text class='user-gettype' wx:if="{{item.type==1}}">抽中</text>
+              <text class='user-gettype' wx:elif="{{item.type==2}}">邀请好友得</text>
+              </text>
+              <!-- <text class='user-money'>+{{item.num}}元</text> -->
+              <text class='user-money' wx:if="{{item.type==1}}"><text style='color:#ff3f8b'>{{item.num}}</text>元提现额度</text>
+              <text class='user-money' wx:elif="{{item.type==2}}"><text style='color:#ff3f8b'>{{item.num}}</text>元</text>
+            </view>
+          </block>
+        </scroll-view>
+        <!-- <scroll-view class='list-scoll-cover'></scroll-view> -->
+      </view>
+
+      <!--用账户信息 ---不要了 -->
+
+
+
+      <!--背景中间文字---如邀请好友做任务 赢取150元奖励  -->
+      <image class='img-center' src='{{Upyun}}small-iconImages/ad_pic/{{BGWord}}' wx:if="{{showBGWord}}" style='width: {{BGWordWidth}}; height: {{BGWordHeight}}'></image>
+
+      <!--零元购才显示的  -->
+      <view class='maomi-di-ling' wx:if="{{showFanxian}}">
+        <!--今日已返 -->
+        <text class='maomi-yue' style='color:#ffffff ;font-size: 23rpx'>{{jinriyifan}}</text>
+        <view class='shuxian' style='background-color:#ffffff'></view>
+        <!--累计已返 -->
+        <text class='maomi-ketixian' style='color:#ffffff ;font-size: 23rpx'>{{leijiyifan}}</text>
+        <view class='shuxian' style='background-color:#ffffff'></view>
+        <!--累计提现  -->
+        <text class='maomi-tixianzhong' style='color:#ffffff ;font-size: 23rpx'>{{leijitixian}}</text>
+      </view>
+
+
+
+      <view class='maomi' style='background-image: url({{Upyun}}/small-iconImages/bg_zhaocaimiao.png); margin-top: {{maomi_margin_top}}' wx:if="{{!isCrazyMon}}">
+
+
+        <!--今日赚的文字和+提现额度  -->
+        <view class='maojinrizhuan-old' wx:if="{{showCenterTop}}">
+          <text class='jinrizhuan-old'>今日赚(元)</text>
+          <image class='jiatixian' mode='widthFix' src='{{Upyun}}small-iconImages/qingfengpic/but_tixianedu.png' bindtap='andTX'></image>
+        </view>
+        <text class='jinrizhuancount' wx:if="{{showCenterTop}}">{{jinrizhuan}}</text>
+
+
+
+        <!--今日赚的文字和+提现额度  -->
+        <view class='maojinrizhuan' wx:if="{{!showCenterTop}}">
+          <text class='jinrizhuan'>完成任务赚现金</text>
+          <image class='jiatixian' mode='widthFix' src='{{Upyun}}small-iconImages/qingfengpic/but_tixianedu.png' bindtap='andTX'></image>
+        </view>
+
+
+
+        <view class='maomi-center' wx:if="{{!showCenterTop}}">
+          <view class='miao-ceter-view-left'>
+            <view class='miao-center-count-view'>
+              <text class='miao-center-count'>1</text>
+            </view>
+            <text class='maomi-dianjirenwu' style='font-size: 30rpx'> 点击任务</text>
+          </view>
+
+
+          <view class='miao-ceter-view'>
+            <view class='miao-center-count-view'>
+              <text class='miao-center-count'>2</text>
+            </view>
+            <text class='maomi-ketixian' style='font-size: 30rpx'>进入任务页</text>
+          </view>
+
+
+          <view class='miao-ceter-view-right'>
+            <view class='miao-center-count-view'>
+              <text class='miao-center-count'>3</text>
+            </view>
+            <text class='maomi-lingqujiangli' style='font-size: 30rpx'>领取现金</text>
+          </view>
+        </view>
+
+
+        <view class='maomi-di'>
+          <!--余额  -->
+          <text class='maomi-yue' bindtap='bindtap_yue'>余额{{yuE}}</text>
+          <view class='shuxian'></view>
+          <!--可提现  -->
+          <text class='maomi-ketixian' bindtap='bindtap_yue'>可提现{{keTiXian}}</text>
+          <view class='shuxian'></view>
+          <!--提现中  -->
+          <text class='maomi-tixianzhong' bindtap='bindtap_tixianzhong'>提现中{{tiXianZhong}}</text>
+        </view>
+
+      </view>
+
+
+
+
+      <!--新衣节专用  -->
+      <view class='maomi-newyi' style='background-image: url({{Upyun}}small-iconImages/ad_pic/madmonday.png); ;height: 300rpx' wx:if="{{isCrazyMon}}">
+
+        <view class='maomi-di-newyi'>
+          <!--余额  -->
+          <text class='maomi-yue' bindtap='bindtap_yue'>余额{{yuE}}</text>
+          <!--可提现  -->
+          <text class='maomi-ketixian' bindtap='bindtap_yue'>可提现{{keTiXian}}</text>
+          <!--提现中  -->
+
+
+          <image class='jiatixian-newyi' style='margin-right: 30rpx' mode='widthFix' src='{{Upyun}}small-iconImages/ad_pic/but_tixianedu_old.png' bindtap='andTX'></image>
+
+
+
+
+        </view>
+
+      </view>
+
+
+
+      <!-- <text class="quyuming">超级惊喜任务</text>   -->
+      <view class='quyubg' wx:if="{{isShowjingxi_tou}}">
+        <image class="quyuming-img" src='{{Upyun}}small-iconImages/qingfengpic/baojijingxi_tou.png' wx:if="{{isShowjingxi_tou}}"></image>
+        <block wx:for="{{supriseList}}" wx:key="key" wx:for-item="item">
+          <template is="sign_item_temp" data='{{Upyun,item,isShowAuthorization}}' />
+        </block>
+      </view>
+
+
+      <!-- <text class="quyuming">每日必做任务</text> -->
+      <view class='quyubg' wx:if="{{isShowbizuo_tou}}">
+        <image class="quyuming-img" src='{{Upyun}}small-iconImages/qingfengpic/zuizuo_tou.png' wx:if="{{isShowbizuo_tou}}"></image>
+        <block wx:for="{{biZuoList}}" wx:key="key" wx:for-item="item">
+          <template is="sign_item_temp" data='{{Upyun,item,isShowAuthorization}}' />
+        </block>
+      </view>
+
+
+      <!-- <text class="quyuming">惊喜提现任务</text> -->
+      <view class='quyubg-tixian' wx:if="{{isShowtixian_tou}}">
+        <image class="quyuming-img-tixian" src='{{Upyun}}small-iconImages/qingfengpic/tixian_tou.png' wx:if="{{isShowtixian_tou}}"></image>
+
+        <block wx:for="{{tiXianList}}" wx:key="key" wx:for-item="item">
+          <template is="sign_item_temp" data='{{Upyun,item,isShowAuthorization}}' />
+        </block>
+      </view>
+
+
+      <!-- <text class="quyuming">每日额外任务</text> -->
+
+      <view class='quyubg' wx:if="{{isShoweWai_tou}}">
+        <image class="quyuming-img" src='{{Upyun}}small-iconImages/qingfengpic/ewai_tou.png' wx:if="{{isShoweWai_tou}}"></image>
+        <block wx:for="{{eWaiList}}" wx:key="key" wx:for-item="item">
+          <template is="sign_item_temp" data='{{Upyun,item,isShowAuthorization}}' />
+        </block>
+      </view>
+
+
+
+
+
+
+
+
+
+
+      <!--明日任务预告  -->
+      <view class='quyubg-tom' wx:if="{{showYuGao}}">
+        <image class="quyuming-img" src="{{Upyun}}small-iconImages/qingfengpic/sing_yugao_tou.png"></image>
+        <view class='v-yugao'>
+
+
+
+
+          <block wx:for="{{mingriList}}" wx:key="key" wx:for-item="item">
+            <view class='view-item-yugao' wx:if="{{item.count > 0}}">
+              <text class='yugao-count'>{{index +1}}</text>
+              <text class='mingri-text'>{{item.miaoshu}}<text style='color: #ff3f8b'>{{item.count}}</text>{{item.danwei}}</text>
+            </view>
+          </block>
+
+
+          <!-- <view class='view-item-yugao'>
+            <text class='yugao-count'>1</text>
+
+            <text class='mingri-text'>超级惊喜任务<text style='color: #ff3f8b'>{{mingriJingxi}}</text>个</text>
+
+          </view>
+
+          <view class='view-item-yugao'>
+            <text class='yugao-count'>2</text>
+            <text class='mingri-text'>惊喜提现任务<text style='color: #ff3f8b'>{{mingriTixian}}</text>个</text>
+          </view>
+
+          <view class='view-item-yugao'>
+            <text class='yugao-count'>3</text>
+            <text class='mingri-text'>必做任务<text style='color: #ff3f8b'>{{mingriBizuo}}</text>个</text>
+          </view>
+
+          <view class='view-item-yugao'>
+            <text class='yugao-count'>4</text>
+            <text class='mingri-text'>额外任务<text style='color: #ff3f8b'>{{mingriEwai}}</text>个</text>
+          </view>
+
+          <view class='view-item-yugao'>
+            <text class='yugao-count'>5</text>
+            <text class='mingri-text'>最高奖励<text style='color: #ff3f8b'>50</text>元</text>
+          </view> -->
+
+
+          <text class='mingri-text-shuoming'>每天坚持来赚钱，完成本月全部任务，最高能得到1000元现金奖励哦。加油吧！
+         </text>
+        </view>
+
+      </view>
+
+
+    </view>
+  </view>
+</view>
+<view class='bottom-yifu'>
+  <image src='{{Upyun}}small-iconImages/ad_pic/ic_launcher.png'></image>
+  <text class='bottom-yifu-text'>更多任务，更多奖励，尽在衣蝠APP</text>
+  <text class='bottom-yifu-open' bindtap='yifu_open'>下载</text>
+</view>
+
+
+<!-- Toast -->
+<template is="toast" data="{{ ..._toast_ }}" />
+<!--后面模糊层  -->
+<view class='drawer_screen' catchtouchmove="preventTouchMove" catchtap='{{true}}' wx:if="{{showModalStatusBg}}"></view>
+
+
+
+
+<!--开始： 弹框层 分享X件商品 -->
+<view class="drawer_screen_transparent" wx:if="{{showModalStatus}}" catchtouchmove="preventTouchMove">
+  <template is='share_x_shop_template' data='{{Upyun,share_x_shop_swiper_img,shareXShopType_data}}'></template>
+</view>
+<!--结束： 弹框层 分享X件商品 -->
+
+
+
+<!--开始： 弹框层 老分享赢提现 -->
+<view class="drawer_screen_withdraw" wx:if="{{showOldShareTixian}}" catchtouchmove="preventTouchMove">
+  <template is="share_x_shop_template_tx" data='{{Upyun,shareCount,branchCount,tXshareEcount,tXshareEmoney,tXnum}}'></template>
+</view>
+
+<!--结束： 弹框层 分享X件商品 -->
+
+
+<!--开始： 弹框层 浏览分钟提示   和夺宝号提示共用-->
+<view class="drawer_screen_withdraw" wx:if="{{showBrowseMin}}" catchtouchmove="preventTouchMove">
+  <template is='browseMin' data='{{Upyun,minCount,top_tilte,mm,ss,browseName,browseMinCase,showDuobaoNubmer,duobaoNumber}}'></template>
+</view>
+<!--结束： 弹框层 浏览分钟提示 -->
+
+
+<!--新衣节弹窗  -->
+<view class="drawer_screen_withdraw" wx:if="{{showNewYI}}" catchtouchmove="preventTouchMove">
+  <view class='view-xinyijie'>
+    <image class='yi-close' src='{{Upyun}}small-iconImages/ad_pic/free_icon_close.png' bindtap='newYiCloseTap'></image>
+    <image class='yi-bg-img' mode='aspectFit' src='{{Upyun}}small-iconImages/ad_pic/bg_hdxq.png' bindtap='newYIxiangqingTap'></image>
+    <view class='view-newyi-go' bindtap='newYIgoTap'></view>
+  </view>
+</view>
+<!--新衣节弹窗  结束-->
+
+<!--赚钱提示  -->
+<view class="drawer_screen_withdraw" wx:if="{{showSignHint}}" catchtouchmove="preventTouchMove">
+  <template is="signhint-temp" data='{{Upyun,signHintTitle,signHintTitle1,h5money,lingyuangouMoney}}'></template>
+</view>
+<!--赚钱提示 结束 -->
+<!--零元购提示弹窗  -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{zeroBuyDialogShowFlag}}">
+  <template is='zero-buy-red' data='{{Upyun}}'></template>
+</view>
+<!--零元购提示弹窗 结束 -->
+
+<!-- 任务说明 -->
+<view class="drawer_screen_withdraw" wx:if="{{showSignSM}}" catchtouchmove="preventTouchMove">
+  <template is="signhint-sm" data='{{Upyun,signHintTitle,signHintTitle1}}'></template>
+</view>
+
+<!-- 任务说明 结束-->
+
+
+<!-- <view class="dingzhi-bg" wx:if="{{showZhiding}}" catchtouchmove="preventTouchMove" bindtap='catcjtap_zhidingshou'>
+</view>
+<image class='dingzhi-shou' mode='widthFix' src='{{Upyun}}small-iconImages/qingfengpic/guide_app5.png' wx:if="{{showZhiding}}"></image> -->
+<!-- 置顶引导 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showZhiding}}" catchtap='zhidingTap'>
+  <image class='app-download' src="{{Upyun}}/small-iconImages/qingfengpic/sign_add_xcx_new.png"></image>
+</view>
+
+<!-- 置顶引导结束 -->
+
+<!-- 下载打开衣蝠 APP-->
+<view class="drawer_screen_withdraw" wx:if="{{openYifuDialogShow}}" catchtouchmove="preventTouchMove">
+  <template is="open-yifu-dialog" data='{{Upyun}}'></template>
+</view>
+<!-- 下载打开衣蝠 APP-->
+
+
+
+<!-- 赚钱任务完成弹窗  -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{signFinishShow}}">
+  <template is='sign-finish-dialog' data='{{Upyun,signFinishDialog}}'></template>
+</view>
+
+<!--老分享赢提现完成任务弹窗  -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{oldShareTXShow}}">
+  <template is="upperlimit" data='{{uppertittle,upperdistribution,upperbuttontitle}}'></template>
+</view>
+
+
+<!--每月惊喜任务提示  -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{meiyueTishiShow}}">
+  <template is="meiyuejingxitishi" data='{{Upyun}}'></template>
+</view>
+
+
+<!-- IOS引导下载APP -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showIOSdownload}}">
+  <image class='app-download' src="{{Upyun}}/small-iconImages/qingfengpic/guide_app4.png" catchtap="closeIOSdownload"></image>
+</view>
+
+<!-- 已经授权过的用户有交易记录弹窗 -- 红色50元弹窗 -->
+<view class="drawer_screen_withdraw1" catchtouchmove="preventTouchMove" wx:if="{{hasJYJLdialog}}">
+  <template is="makeMoneyHongbao" data='{{upyconfig}}'></template>
+</view>

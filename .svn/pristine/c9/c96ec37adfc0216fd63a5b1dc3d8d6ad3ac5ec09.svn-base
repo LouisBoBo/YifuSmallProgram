@@ -1,0 +1,25 @@
+<template name="wallet-head">
+  <view class='headview'>
+    <view class='headview-left'>
+      <view class='headview-left-yue'>
+        <text class='headview-left-yue-text1'>我的余额</text>
+        <text class='headview-left-yue-text2'>{{balance}}</text>
+      </view>
+      <!-- <view class='headview-left-tixian'>
+        <text class='headview-left-tixian-default'>提现额度：</text>
+        <text class='headview-left-tixian-text'>{{extract}}</text>
+      </view> -->
+    </view>
+    <view class='headview-left'>
+      <view class='headview-left-yue'>
+        <text class='headview-left-yue-text1'>可提现现金</text>
+        <text class='headview-left-yue-text2'>{{extract}}</text>
+        <!-- <text class='headview-left-yue-text2'>{{freeze_balance}}</text> -->
+      </view>
+      <!-- <view class='headview-left-tixian'>
+        <text class='headview-left-tixian-default'>提现冻结：</text>
+        <text class='headview-left-tixian-text'>{{ex_free}}</text>
+      </view> -->
+    </view>
+  </view>
+</template>

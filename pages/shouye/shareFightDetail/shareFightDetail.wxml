@@ -1,0 +1,71 @@
+<import src="../../../common/FightShop-template/FightShopShare.wxml" />
+
+<import src="../../../common/toastTest/toastTest.wxml" />
+<import src="../../../common/Freelingkefu-template/Freelingkefu.wxml" />
+
+<template is="toast" data="{{ ..._toast_ }}" />
+<view class='mainView'>
+  <view class='fight_Shop'>
+    <block  wx:for="{{shopList}}" wx:for-item="item" wx:key="key">
+      <template is="fightShopShare" data="{{item,shareFightShop,Upyun,isTM,isSubmitOrder}}"></template>
+    </block>
+  </view>
+  <view class='fight_Share'>
+    <text class='fight_Share_title'>建群分享好友后，可获得免费会员资格并发货</text>
+    <!-- <view class='fight_Share_view'>
+      <text class='fight_Share_view_title1'>请按提示操作（共3步）</text>
+      <text class='fight_Share_view_title2'>{{showShareTitle}}</text>
+      <swiper class='fight_Share_view_swiper' bindchange="bindChange" current="{{currentTab}}">
+        <block wx:for="{{imgUrls}}">
+          <swiper-item>
+            <image src="{{item}}" class="fight_Share_view_swiper-image"/>
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class='fight_Share_view_button'>
+        <text class='fight_Share_view_button_left' bindtap='leftclick' wx:if="{{showLeft}}">{{leftTitle}}</text>
+        <text class='fight_Share_view_button_right' bindtap='rightclick' wx:if="{{showRight}}">{{rightTitle}}</text>
+      </view>
+    </view> -->
+    <view class='fight_Share_view'>
+      <view class='titleview'>
+        <image class='titleview-image' src='{{Upyun}}/small-iconImages/heboImg/daosanjiao.png'></image>
+        <text class='titleview-title'>请按下方提示操作（共3步）</text>
+      </view>
+      <!-- <view class='gitbaseview-view'>
+        <image class='gitbaseview-view-loadimg' src='{{Upyun}}/small-iconImages/heboImg/freeling_loading.gif'></image>
+        <image class='gitbaseview-image' src='{{imgUrls[1]}}'></image>
+      </view> -->
+
+      <view class='gitbaseview-view'>
+        <video class='video' bindfullscreenchange="screenChange" direction="0" show-center-play-btn="{{false}}" src="{{imgUrls[2]}}" id='freelingvideo'></video>
+        <image class='gitbaseview-image' wx:if="{{video_isplaying==false}}" src='{{Upyun}}/small-iconImages/heboImg/newdakaifreeling_viedo.png' bindtap='videoplay'></image>
+      </view> 
+      
+    </view>
+    <button class='fight_Share_button' bindtap='openShare' open-type='share' animation ="{{animationMiddleHeaderItem}}" style="background-image:url('{{Upyun}}/small-iconImages/heboImg/newfreeling_shareFreind.png');"></button>
+  </view>
+  <!-- 自动滚动的列表 -->
+
+  <view class='fight_list'>
+     <swiper class="list-scoll" style='background:{{bgColor}};' vertical="true" autoplay="true" circular="true" interval="2000" display-multiple-items='5'>
+      <view class="right-item">
+        <block wx:for-index="idx" wx:for='{{mListData1}}'>
+          <swiper-item>
+            <view class='list-item'>
+              <image mode='widthFix' src="{{item.pic}}"></image>
+              <text class='user-name'>{{item.nname}}</text>
+              <text class='user-content'>{{item.content}}</text>
+              <text class='user-money'>原价{{item.num}}元</text>
+            </view>
+          </swiper-item>
+        </block>  
+      </view>
+    </swiper>
+  </view>
+ 
+</view>
+
+<view class="drawer_screen_withdraw3" catchtouchmove="preventTouchMove" wx:if="{{upperGoYiFuShow}}">
+  <template is="FreelingKefu" data='{{upyconfig,shopList,path,freelingMeiyi}}'></template>
+</view>

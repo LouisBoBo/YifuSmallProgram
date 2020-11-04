@@ -1,0 +1,225 @@
+<import src="../../../../common/topbarLine-template/topbarLine.wxml" />
+<import src="../../../../common/toastTest/toastTest.wxml" />
+<import src="../../../../common/indiana_share-template/indianaShare.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+<view class='shop-detail-out'>
+  <view class='detail-all'>
+    <view class='selection'>
+      <view class='head-top'>
+        <view class="head-view">
+          <image wx:if='{{shop.cut_shop_code}}' class='head-view-pic' mode='widthFix' src='{{Upyun}}{{shop.cut_shop_code}}/{{shop.shop_code}}/{{shop.def_pic}}'>
+          </image>
+        </view>
+        <view class='head-text'>
+          <view class='indiana-status'>
+            <view class="tv-status{{isEndFlag?'-end':''}}">{{currentStatus}}</view>
+            <text class='tv-shop-name'>{{shop.shop_name}}</text>
+          </view>
+          <text class='tv-shop-explain'>{{shop.content}}</text>
+          <view class='v-center'>
+            <view class='price-issue-code'>
+              <view class='head-view-price'>
+                <text class='tv-shop-se-price'>￥{{shop_se_price}}</text>
+                <view class='shop-price-line'>
+                  <text class='tv-shop-price'>￥{{shop_price}}</text>
+                  <view wx:if='{{false}}' class='tv-line'></view>
+                </view>
+              </view>
+              <view class='issue_code'>期号: {{shop.shop_batch_num}}</view>
+            </view>
+            <view class='share-notic-image'>
+              <image src='{{Upyun}}small-iconImages/zzq/indiana_pay_score.png'></image>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!--进行中的显示---start  -->
+      <view wx:if='{{!isShowResult}}' class='head-bottom'>
+        <view class='take-people'>
+          已有{{postlist.num+postlist.virtual_num}}人正在参与
+        </view>
+
+        <progress class='progress-long' percent="{{(postlist.num+postlist.virtual_num)/shop.active_people_num*100}}" stroke-width="8" activeColor='#ff3f8b' backgroundColor='#dcdcdc' />
+
+        <view class='people-count'>
+          <view class='people-left'>
+            总需人次: {{shop.active_people_num}}
+          </view>
+          <view class='people-right'>
+            <view class='right-tv'>
+              剩余人次:
+            </view>
+            <view class='right-num'>
+              {{havePeopleCount}}
+            </view>
+          </view>
+        </view>
+
+      </view>
+      <!--进行中的显示---end  -->
+
+      <!--开奖后的显示---start  -->
+      <view wx:if='{{isShowResult}}' class='head-bottom-result'>
+        <view class='head-bottom-title'>
+          <image class='head-bottom-title-pic' src='../../../../iconImages/icon_tongzhi.png'></image>
+          <view class='head-bottom-title-num'>{{winnerNumber}}</view>
+        </view>
+        <view class='head-bottom-winners'>
+          <image class='head-bottom-winners-pic' src='{{postlist.in_head}}'></image>
+          <view class='head-bottom-winners-out'>
+            <view class='head-bottom-winners-out-winner'>
+              <view class='head-bottom-winners-tv'>
+                获奖者:
+              </view>
+              <view class='head-bottom-winners-name'>
+                {{postlist.in_name}}
+              </view>
+            </view>
+            <view class='head-bottom-winners-time'>
+              揭晓时间:{{postlist.otime}}
+            </view>
+          </view>
+        </view>
+      </view>
+      <!--开奖后的显示---end  -->
+      <!-- 参与号码----start -->
+      <view class='head_line_short'></view>
+      <view class='v-take-number' wx:if='{{!isShowResult}}'>
+        <view class='own-no-take' wx:if="{{postlist.my_num>0?false:true}}">你还没有参加哦，赶紧试试吧，万一中了呢？</view>
+        <view class='own-take' wx:if="{{postlist.my_num>0?true:false}}">
+          <view class='own-take-count'>你参与了: {{postlist.my_num}}人次</view>
+          <view class='own-take-number'>参与号码: {{strCodes}}</view>
+        </view>
+      </view>
+      <view class='v-take-number' wx:if='{{isShowResult}}'>
+        <view class='own-no-take' wx:if="{{postlist.my_num>0?false:true}}">你还没有参加哦，赶紧试试吧，万一中了呢？</view>
+        <view class='own-take' wx:if="{{postlist.my_num>0?true:false}}">
+          <text class='own-take-count2'>你参与了: <text class='own-take-tv2'>{{postlist.my_num}}</text>人次</text>
+          <view class='own-take-number2'>参与号码: {{strCodes}}</view>
+        </view>
+      </view>
+      <!-- 参与号码----end -->
+      <view class='head_line' style='height:15rpx'></view>
+    </view>
+    <view class='selection'>
+      <view class='tobar'>
+        <template is='topbar' data='{{topData,activityIndex}}'></template>
+      </view>
+    </view>
+    <view class='selection' id='detail-parameter-evaluate'>
+      <view class="detail" wx:if='{{activityIndex==0?true:false}}'>
+        <view class='detail-images'>
+          <block wx:for="{{imagePathData}}">
+            <image mode='widthFix' class='detail-image' src='{{Upyun}}{{shop.cut_shop_code}}/{{shop.shop_code}}/{{item}}'>
+            </image>
+          </block>
+        </view>
+
+      </view>
+      <view class='record' wx:if='{{activityIndex==1?true:false}}'>
+        <view class='record-top'>
+          <view class='record-top-tv'>所有参与记录</view>
+          <view class='record-top-date'>{{startTime}}开始</view>
+        </view>
+        <block wx:for='{{takeRecordData}}'>
+          <view class='record-item-line'></view>
+          <view class='record-item'>
+            <view class='record-item-head'>
+              <image class='record-item-pic' src="{{item.uhead}}"></image>
+            </view>
+            <view class='record-item-center'>
+              <view class='record-item-center-name'>
+                {{item.nickname}}
+              </view>
+              <view class='record-item-center-date'>
+                {{item.atime}}
+              </view>
+            </view>
+            <view class='record-item-right'>
+              <view class='record-item-right-num'>
+                {{item.num}}
+              </view>
+              <view class='record-item-right-people'>
+                人次
+              </view>
+            </view>
+          </view>
+        </block>
+        <view class='record-white'></view>
+      </view>
+      <view class='rule' wx:if='{{activityIndex==2?true:false}}'>
+        <view class='rule-title'>
+          <image class='rule-title-image' src='{{Upyun}}small-iconImages/zzq/indiana_rule_pic.png'></image>
+        </view>
+        <block wx:for='{{ruleData}}'>
+          <view class='rule-item'>
+            {{index+1}}.{{item}}
+          </view>
+        </block>
+        <view class='rule-white'></view>
+      </view>
+    </view>
+  </view>
+  <view class='selection'>
+    <view class='bottom_bar'>
+      <view class='bottom-left'>
+        <view class='bottom-left-pic'>
+          <image class='custerm-service-pic' src='../../../../iconImages/icon_custerm_service.png'>
+          </image>
+        </view>
+        <view class='custerm-service-tv'>联系客服</view>
+         <view class='lin-custom'>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:0rpx; ">
+        </contact-button>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:0rpx; ">
+        </contact-button>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:0rpx; ">
+        </contact-button>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:0rpx; ">
+        </contact-button>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:0rpx; ">
+        </contact-button>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:0rpx; ">
+        </contact-button>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:0rpx; ">
+        </contact-button>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:0rpx; ">
+        </contact-button>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:0rpx; ">
+        </contact-button>
+      </view>
+      </view>
+      <view class="bottom-right{{isEndFlag?'-end':''}}" bindtap='toBuyClick'>
+        <text class='bottom-right-tv'>{{currentBuyStatus}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class='selection-no-data' wx:if='{{noDataFlag}}'>
+  <image class="image-no-data" src='{{Upyun}}small-iconImages/zzq/icon_image_default.png'></image>
+</view>
+
+<view class='selection-touch-look' wx:if='{{is_look}}'>
+  <image class="image-touch-look" mode='widthFix' src='{{Upyun}}small-iconImages/zzq/touch_look.png'></image>
+</view>
+<!-- 分享弹窗 -->
+<view class='selection-share' wx:if="{{isShowShareFlag}}" catchtouchmove='preventTouchMove'>
+  <view class='dialog-share' catchtouchmove='preventTouchMove'>
+    <template is="indianaShare" data='{{Upyun,shareCount,centsBuyCount,dayOreadyShare}}'></template>
+  </view>
+</view>
+
+<!-- 支付弹窗 -->
+<view class="selection-pay">
+  <template is="indianaPay" data='{{Upyun,isShowPayFlag,buyCount,isTwoPayFlag,payCountMoney,payShareDiscount,payNeed}}'></template>
+</view>
+<!-- 顶部固定的头 -->
+<view class='top_record_fixed'>
+  <view class='fixed_record' bindtap='recordClick'>
+    抽奖记录
+  </view>
+  <view class='fixed_announce' bindtap='announceClick'>
+    往期揭晓
+  </view>
+</view>

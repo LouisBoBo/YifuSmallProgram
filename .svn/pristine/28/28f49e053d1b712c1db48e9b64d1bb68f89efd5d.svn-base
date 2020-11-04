@@ -1,0 +1,73 @@
+.shopview{
+  display: flex;
+  flex-direction: column;
+  border-width: 0 0 20rpx 0;
+  border-color: #f0f0f0;
+  border-style: solid;
+}
+.shopview-fight{
+  display: flex;
+  flex-direction: row;
+  margin-top: 30rpx;
+  margin-left: 20rpx;
+  height: 170rpx;
+}
+.shopview-fight-image{
+  height: 150rpx;
+  width: 150rpx;
+}
+.shopview-fight-content{
+  height: 150rpx;
+  width: 350rpx;
+  margin-left: 20rpx;
+}
+.shopview-fight-content-text{
+  height: 50rpx;
+  width: 100%;
+  font-size: 28rpx;
+  color: #666;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+}
+.shopview-fight-content-colorSizetext{
+  height: 50rpx;
+  width: 100%;
+  font-size: 24rpx;
+  color: #a8a8a8;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+}
+.shopview-fight-number{
+  display: flex;
+  flex-direction: column;
+  height: 150rpx;
+  width: 200rpx;
+  margin-right: 20rpx;
+}
+.shopview-fight-number-text{
+  float: left;
+  height: 50rpx;
+  width: 100%;
+  font-size: 28rpx;
+  color: #666;
+  margin-left: 170rpx;
+}
+
+.shopview-fight-pay-text{
+  float: left;
+  height: 50rpx;
+  width: 100%;
+  font-size: 28rpx;
+  color: #ff3f8b;
+  margin-left: 115rpx;
+}
+.shopview-line{
+  background-color: #f0f0f0;
+  margin: 20rpx 0rpx 10rpx 0rpx;
+  height: 1px;
+}
+.shopview-pay-text{
+  color: #ff3f8b
+}

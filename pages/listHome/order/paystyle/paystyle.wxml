@@ -1,0 +1,46 @@
+<!--pages/listHome/order/paystyle/paystyle.wxml-->
+<import src="../../../../common/toastTest/toastTest.wxml" />
+<import src="../../../../common/singJoinWXQ/singJoinWXQ" />
+
+<view class='paystyle'>
+  <view class='payview'>
+    <text class='payview-title'>支付金额</text>
+    <text class='payview-price'>{{pay_price}}元</text>
+  </view>
+  <!-- <view class='line'></view> -->
+  <view class='listview' bindtap='zfbtap' data-index="{{index}}" wx:if="{{ftask_popup == 1}}">
+    <view class='headtitle'>
+      <image class='headtitle-image' src="/iconImages/pay_icon_zfb.png"></image>
+      <text class="headtitle-text">支付宝支付<text style="color:#ff3f8b">(立减3.0元)</text></text>
+    </view>
+    <view class='more'>
+      <image class='moreimgae' src='{{wx_pay?"/iconImages/shop_select_normal.png":"/iconImages/shop_select.png"}}'></image>  
+    </view>
+  </view>
+  <view class='listview' bindtap='wxtap' data-index="{{index}}">
+    <view class='headtitle'>
+      <image class='headtitle-image' src="/iconImages/paystyle.png"></image>
+      <text class="headtitle-text">微信支付</text>
+    </view>
+    <view class='more'>
+      <image class='moreimgae' src='{{wx_pay?"/iconImages/shop_select.png":"/iconImages/shop_select_normal.png"}}'></image>
+    </view>
+  </view>
+  
+
+  <view class='backview'></view>
+  <view class='bottom-line'></view>
+  <view class='bottomview'>
+    <view class='nextview' bindtap='paytap'>
+      <view>立即支付{{time}}</view>
+    </view>
+  </view>
+</view>
+
+<!-- 成为会员后引导去APP -->
+<view class='drawer_screen_withdraw888' wx:if="{{showBecameMember}}">
+  <template is="paymember-template"></template>
+</view>
+
+<!-- 提示 -->
+<template is="toast" data="{{ ..._toast_ }}" />

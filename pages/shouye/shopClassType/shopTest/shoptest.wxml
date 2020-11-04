@@ -1,0 +1,18 @@
+<view>
+   <swiper bindchange='changecurrent' class='swiperview' indicator-dots="true" style="height:{{winHeight}}rpx">
+    <swiper-item> 
+      <scroll-view class='backview'>
+        <block wx:for="{{shoplist}}">
+          <view class='ziview'></view>
+        </block>
+      </scroll-view>
+     </swiper-item>
+    <swiper-item>
+      <view class='backview'>
+        <block wx:for="{{shoplist1}}">
+          <view class='ziview'></view>
+        </block>
+      </view>
+    </swiper-item>
+  </swiper> 
+</view>

@@ -1,0 +1,28 @@
+<!--pages/listHome/order/paystyle/paystyle.wxml-->
+<import src="../../../../common/toastTest/toastTest.wxml" />
+<view class='paystyle'>
+  <view class='payview'>
+    <text class='payview-title'>支付金额</text>
+    <text class='payview-price'>{{payMoney}}元</text>
+  </view>
+  <view class='line'></view>
+  <view class='listview' bindtap='moretap' data-index="{{index}}">
+    <view class='headtitle'>
+      <image class='headtitle-image' src="/iconImages/paystyle.png"></image>
+      <text class="headtitle-text">微信支付</text>
+    </view>
+    <view class='more'>
+      <image class='moreimgae' src='/iconImages/shop_select.png'></image>
+    </view>
+  </view>
+  <view class='backview'></view>
+  <view class='bottom-line'></view>
+  <view class='bottomview'>
+    <view class='nextview' bindtap='paytap'>
+      <view>立即支付</view>
+    </view>
+  </view>
+</view>
+
+<!-- 提示 -->
+<template is="toast" data="{{ ..._toast_ }}" />

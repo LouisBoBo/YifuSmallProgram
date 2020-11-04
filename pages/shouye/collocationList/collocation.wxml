@@ -1,0 +1,92 @@
+<view class='collocation'>
+  <view class='head-out' wx:if='{{isOtherFlag}}'>
+    <view class='head-notice' wx:if='{{!isShowFlag}}'>
+      <view class='head-notice-left'>
+        <view class='head-notice-image'>
+          <image src='../../../iconImages/icon_tongzhi.png'></image>
+        </view>
+        <text class='text-left'>{{noticeText}}</text>
+      </view>
+      <view class='head-notice-right' bindtap='clickTaskExplain'>
+        <text class='text-right'>任务说明</text>
+      </view>
+    </view>
+  </view>
+  <view class='sellection-pic' style='margin-top:{{isShowFlag?0:60}}rpx;'>
+    <view class='item-out'>
+      <block wx:for='{{collocationListData}}'>
+        <view class='item'>
+          <view class='item-top-pic' style='width:{{screenWidth}}px;height:{{screenWidth}}px;'>
+            <image mode='aspectFill' style='width:{{screenWidth}}px;height:{{screenWidth}}px;' class='item-pic' src='{{Upyun}}{{item.collocation_pic}}' bindtap='imageClick' data-code='{{item.collocation_code}}'></image>
+
+            <view class='left-tag' style='position: absolute;top:{{item.left_tag.shop_y}};right:{{item.left_tag.shop_x}};'>
+              <view class='tv-name' bindtap='tagClick' data-code='{{item.left_tag.shop_code}}' style='z-index:{{index==0?10:1}};'>
+                <text class='name-cover'>sssss{{item.left_tag.shop_name}}sssss</text>
+                <view class='v-cover'>
+                  <image src='{{Upyun}}small-iconImages/zzq/icon_left_tag.png' class='long-tag-iv'></image>
+                  <image src='{{Upyun}}small-iconImages/zzq/icon_shop_cart.png' class='long-cart-iv'></image>
+                  <view class='name'>
+                    <text>{{item.left_tag.shop_name}}</text>
+                  </view>
+                </view>
+                <view class='v-frist-notice' wx:if='{{index==0}}'>
+                  <image wx:if='{{scanTipsShow}}' class='frist-notice' src='{{Upyun}}small-iconImages/zzq/shoushi_match.png'></image>
+                </view>
+              </view>
+              <view class='tv-price'>
+                <image src='{{Upyun}}small-iconImages/zzq/icon_price.png' class='tag-price-iv'></image>
+                <text class='price'>￥{{item.left_tag.shop_se_price}}</text>
+              </view>
+            </view>
+            <view class='right-tag' style='position:absolute;top:{{item.right_tag.shop_y}};left:{{item.right_tag.shop_x}};'>
+              <view class='tv-price2'>
+                <image src='{{Upyun}}small-iconImages/zzq/icon_price.png' class='tag-price-iv'></image>
+                <text class='price'>￥{{item.right_tag.shop_se_price}}</text>
+              </view>
+              <view class='tv-name2' bindtap='tagClick' data-code='{{item.right_tag.shop_code}}'>
+                <text class='name-cover'>sssss{{item.right_tag.shop_name}}sssss</text>
+                <view class='v-cover'>
+                  <image src='{{Upyun}}small-iconImages/zzq/icon_right_tag.png' class='long-tag-iv'></image>
+                  <image src='{{Upyun}}small-iconImages/zzq/icon_shop_cart.png' class='long-cart-iv2'></image>
+                  <view class='name2'>
+                    <text>{{item.right_tag.shop_name}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class='collocation-tv'>{{item.collocation_name}}</view>
+            <view class='pic-triangle' wx:if='{{isShowFlag}}'>
+              <image style='height:30rpx;width:54rpx;' src='../../../iconImages/sanjiao.png'></image>
+            </view>
+
+          </view>
+          <scroll-view wx:if='{{isShowFlag}}' scroll-x='{{true}}' style='width:100%'>
+            <view class='srcoll-out'>
+              <block wx:for='{{item.list}}'>
+                <view class='scroll-item' bindtap='recommendShopClick' data-code="{{item.shop_code}}">
+                  <view class='scroll-item-out'>
+                    <image mode='aspectFill' style='margin:10rpx;width:{{screenWidth/4}}px;height:{{screenWidth/4}}px;' class='scroll-item-pic' src='{{item.def_pic}}'></image>
+                    <text style='overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:{{screenWidth/4-10}}px;' class='scroll-item-supplabel' wx:if='{{item.supp_label}}'>{{item.supp_label}}</text>
+                  </view>
+                  <view class='scroll-item-name'>{{item.shop_name}}</view>
+                  <view class='scroll-item-price'>￥{{item.shop_se_price}}</view>
+                </view>
+              </block>
+            </view>
+          </scroll-view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<view class='dialog-v' catchtouchmove="preventTouchMove" wx:if='{{scanTipsShow}}'>
+  <image bindtap="scan_tips_know" class='scan-tips-know' src='{{Upyun}}small-iconImages/ad_pic/but_know.png'></image>
+</view>
+
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{isShowKnow}}">
+  <view class="sign-finish-root">
+    <text class='sign-finish-content'>任务奖励就藏在商品里噢~</text>
+    <text bindtap="btnKnowClick" class='bottom-btn-know'>知道啦~</text>
+  </view>
+</view>

@@ -1,0 +1,116 @@
+<template name="singJoinWXQ-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip' >点接通客服，在客服会话中输入数字“<text class="red-import-text">1</text>”，即可加微信客服微好友，并完成任务领取奖金。</text>
+    <view class='buttonView-vip'>
+      <button catchtap="joinWXQdialogTap" class='bottom-btn-yellow5-vip'
+                 open-type='contact' form-type='submit'  
+  session-from='{"open_param":"signJoinFuliQunClick"}'
+      
+      >接通客服</button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>
+
+<!-- 关注服务号任务 -->
+<template name="attentionService-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip'>点接通客服，在客服会话中输入数字“<text class="red-import-text">2</text>”，再扫码关注服务号后，即可完成任务领取奖金。</text>
+    <view class='buttonView-vip'>
+      <button catchtap="attentionServiceTap" class='bottom-btn-yellow5-vip'
+                 open-type='contact' form-type='submit'  
+  session-from='{"open_param":"signAttentionServiceClick"}'
+      
+      >接通客服</button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>
+
+<!-- 下载APP -->
+<template name="dwongload-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip'>点接通客服，在客服会话中输入数字“<text class="red-import-text">3</text>”，再点击下载APP，并完成安装后，即可完成任务领取奖金。</text>
+    <view class='buttonView-vip'>
+      <button catchtap="dwongloadTap" class='bottom-btn-yellow5-vip'
+                 open-type='contact' form-type='submit'  
+  session-from='{"open_param":"signDownloadClick"}'
+      
+      >接通客服</button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>
+
+<!-- 从APP过来完成任务 -->
+<template name="finishTask-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>恭喜完成首个任务</text>
+    <!-- <text class='notEnough-dialog-content1-vip'>恭喜完成今天的首批任务打卡成功。新人<text class="import-text">打卡15天可领100元奖金</text>。</text> -->
+    <text class='notEnough-dialog-content1-vip'>您现在可以<text class="red-import-text">退出微信直接返回衣蝠APP提现任务奖金</text>！</text>
+    <text class='notEnough-dialog-content1-vip'>您也可以点下方按钮，输入数字“<text class="red-import-text">3</text>”，<text class="red-import-text">返回APP去提现</text>。</text>
+    <!-- <text class='notEnough-dialog-content1-vip'>提现后返回任务列表还有三批新任务，完成后可以再去提现哦。</text> -->
+    
+    <view class='buttonView-vip'>
+      <button catchtap="fromAPPFinishTaskTap" class='bottom-btn-yellow5-vip'
+                 open-type='contact' form-type='submit'  
+  session-from='{"open_param":"TiaoZhuanApp"}'
+      
+      >返回APP提现奖金</button>
+    </view>
+    <!-- <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image> -->
+  </view>
+</template>
+
+<!-- 成为会员后引导去APP -->
+<template name="becameMember-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip'>请点下方，并输入数字“<text class="red-import-text">3</text>”，去APP完成赚钱任务，领取提现奖励，或免费领商品！</text>
+    <text class='notEnough-dialog-content1-vip'>如您<text class="red-import-text">已下载APP</text>，您也可以<text class="red-import-text">退出微信后，直接打开衣蝠APP。</text></text>
+    <view class='buttonView-vip'>
+      <button catchtap="fromAPPFinishTaskTap" class='bottom-btn-yellow5-vip'
+                 open-type='contact' form-type='submit'  
+  session-from='{"open_param":"signDownloadClick"}'
+      
+      >去衣蝠APP</button>
+    </view>
+    <!-- <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image> -->
+  </view>
+</template>
+
+<!-- 买会员卡引导下载APP -->
+<template name="paymember-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip'>下载衣蝠APP，用<text class="red-import-text">支付宝支付立减3元</text>现金哦。</text>
+    <text class='notEnough-dialog-content1-vip'>点下方按钮，并输入数字“<text class="red-import-text">5</text>”，可立即下载。</text>
+    <view class='buttonView-vip'>
+      <button catchtap="fromAPPFinishTaskTap" class='bottom-btn-yellow5-vip'
+                 open-type='contact' form-type='submit'  
+  session-from='{"open_param":"cardGuideDownloadAPP"}'
+      
+      >去衣蝠APP领取<text class="yellow-import-text">3元</text>现金</button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>
+
+<!-- 与客服对话一次，与公众号对话一次 -->
+<template name="kefuService-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip'>请点下方接通客服，并输入数字“<text class="red-import-text">{{toKF}}</text>”，即可完成任务。</text>
+    <view class='buttonView-vip'>
+      <button catchtap="attentionServiceTap" class='bottom-btn-yellow5-vip'
+                 open-type='contact' form-type='submit'  
+  session-from='{"open_param":"{{kfDownloadClick}}"}'
+      
+      >接通客服</button>
+    </view>
+    <image catchtap="attentionServiceTap" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

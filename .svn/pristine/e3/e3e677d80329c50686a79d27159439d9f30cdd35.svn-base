@@ -1,0 +1,18 @@
+
+<template name="redHongbaoNewuser">
+  <form bindsubmit="Redhongsubmit" report-submit='true'>
+    <view class='redshowTixianView_upperlimit'>
+
+      <image class='newuser-headimg' mode='widthFix' src="{{upyconfig}}small-iconImages/heboImg/newuserredhongbao_headtitleImage.png"></image>
+  
+      <view class='titleview'>
+        <image class='titleview-image' src='{{upyconfig}}/small-iconImages/heboImg/daosanjiao.png'></image>
+        <text class='titleview-title'>点击下方领取</text>
+      </view>
+      <image class='redgetmoney_button' animation ="{{animationMiddleHeaderItem}}" src='{{upyconfig}}small-iconImages/heboImg/lingHongBao.png'></image>
+      <image class='rednewuser-thirty' mode='widthFix' src="{{upyconfig}}small-iconImages/heboImg/newuserredhongbao_ninety_money.png"></image>
+      <image class='closeimage-newhongbao' src="{{upyconfig}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeNewThirty'></image>
+      <button class='button_confrim_upperlimit' open-type='' form-type='submit' session-from='{"open_param":"NewUserRedHongbao"}' ></button>
+    </view>
+  </form>
+</template>

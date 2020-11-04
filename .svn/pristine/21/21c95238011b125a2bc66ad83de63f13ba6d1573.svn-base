@@ -1,0 +1,28 @@
+<template name="open-yifu-dialog">
+  <!-- <view class="open-yifu-root-tx">
+    <image class='img-close-tx' src="/iconImages/icon_close.png"></image>
+    <text class='open-yifu-text'>该功能仅在APP提供</text>
+
+    <text class='open-yifu-text'>请下载<text class="open-yifu-text-red">衣蝠</text>APP</text>
+
+    <image class='img-app-icon' src="{{Upyun}}small-iconImages/gx/open_yifu_dialog_icon.png" bindtap="previewImage"></image>
+
+    <text class='open-yifu-bottom-btn' catchtap="goAPPtx">下载衣蝠APP</text>
+  </view> -->
+
+  <form bindsubmit="downloadsubmit" report-submit='true'>
+    <view class="open-yifu-root-tx">
+      <image class='img-close-tx' src="/iconImages/icon_close.png"></image>
+      <text class='open-yifu-text'>该功能仅在APP提供</text>
+
+      <text class='open-yifu-text'>请下载<text class="open-yifu-text-red">衣蝠</text>APP</text>
+
+      <image class='img-app-icon' src="{{Upyun}}small-iconImages/gx/open_yifu_dialog_icon.png" bindtap="previewImage"></image>
+
+
+      <!-- <text class='open-yifu-bottom-btn' catchtap="goAPPtx">下载衣蝠APP</text> -->
+
+      <button class='open-yifu-bottom-btn' open-type="" catchtap="goAPPtx" form-type='submit'>下载衣蝠APP</button>
+    </view>
+  </form>
+</template>

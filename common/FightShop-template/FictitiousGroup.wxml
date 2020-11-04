@@ -1,0 +1,35 @@
+<template name="Fictitious-group">
+  <view class='join_group'>
+    <swiper class='swiper' autoplay="true" interval='5000'>
+      <block wx:key wx:for="{{swiperlist}}" wx:for-item="item" wx:key="key">
+        <swiper-item>
+          <view class='join_group-item'>
+
+            <block wx:key wx:for="{{item.userPic}}" wx:for-item="picitem" wx:for-index="index">
+              <image class="join_group-item-pic" src="{{picitem}}"></image>
+              <image class='fightview-tuanzhang-image' wx:if="{{index == 0}}" src='{{Upyun}}/small-iconImages/heboImg/tuanZhang.png'></image>
+            </block>
+            <text class='join_group-item-invit' bindtap='fictitiousinvitFriendTap'>{{item.success==true?'已成团':'去参团'}}</text>
+
+            <view class='join_group-item-tv'>
+              <text class='join_group-item-tv-text'>还差<text class='join_group-item-tv-text-num'>1</text>人拼成</text>
+              <text class='join_group-item-tv-time'>剩余{{openGroup_outTime}}</text>
+            </view>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+</template>
+
+
+<!-- 轮播 -->
+<view class='headview'>
+  <swiper class='swiper' indicator-dots="true" autoplay="true" interval='5000'>
+    <block wx:key wx:for="{{swiperlist}}" wx:for-item="item" wx:key="key">
+      <swiper-item>
+        <image mode="aspectFill" class='swiper-image' src="{{upyconfig}}/{{item.url}}" bindtap='swipertap' data-item="{{item}}"></image>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>

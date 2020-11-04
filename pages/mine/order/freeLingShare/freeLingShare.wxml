@@ -1,0 +1,29 @@
+<!--pages/mine/order/freeLingShare/freeLingShare.wxml-->
+<import src="../../../../common/FightShop-template/FightShopShare.wxml" />
+<import src="../../../../common/toastTest/toastTest.wxml" />
+<import src="../../../../common/CanvasShare-template/canvasShare.wxml" />
+
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<view class='mainView'>
+  <view class='fight_Shop'>
+    <block wx:key wx:for="{{shopList}}" wx:for-item="item">
+      <template is="fightShopShare" data="{{item,shareFightShop,Upyun,isTM,freeLingShare,isSubmitOrder}}"></template>
+    </block>
+  </view>
+  <view class='spaceline'></view>
+  <view class='share_shop'>
+    <text class='share_shop_title' wx:if="{{shareCount>=5}}">分享<text class='shareCount'>{{shareCount}}</text>件美衣到微信群，即可免费领本商品</text>
+    <text class='share_shop_title' wx:else>再分享<text class='shareCount'>{{shareCount}}</text>件美衣到微信群，即可免费领本商品</text>
+    <button class='share_shop_button' open-type='share' style="background-image:url('{{Upyun}}/small-iconImages/heboImg/share_weixinqunliao.png');" ></button>
+    <text class='share_shop_discription'>群友点及即成为您的下级好友，消费您得10%奖励金</text>
+    <!-- <button class='share_shop_button' open-type='share'>分享自己的微信群</button>
+    <text class='share_shop_discription'>定期推荐新款给自己群的群友，消费您得10%奖励金</text> -->
+  </view>
+
+  <view style='width:1px;height:1rpx;overflow:hidden;left:99999999rpx'>
+    <template is="CanvasviewTemplate"></template>
+  </view>
+</view>
+
+

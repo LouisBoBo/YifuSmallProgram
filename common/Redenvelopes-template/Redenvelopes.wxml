@@ -1,0 +1,8 @@
+<template name="open-yifu-dialog">
+  <view class="open-yifu-root" bindtap='redtap'>
+    <image src="{{Upyun}}/small-iconImages/heboImg/chaihongbao .png!450"></image>
+    <!-- <text class='open-yifu-text'>送你59元现金</text>
+    <text class='open-yifu-text2'>无需拼团，直接领取</text>
+    <text class='open-yifu-bottom-btn' catchtap="open_yifu_iknow">恭喜发财 大吉大利</text> -->
+  </view>
+</template>

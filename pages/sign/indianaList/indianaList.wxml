@@ -1,0 +1,16 @@
+
+
+<import src="../../../common/listIndianaItem-template/listIndianaItemTemplate.wxml" />
+<import src="../../../common/toastTest/toastTest.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+ <view class='list-all'>
+      <block wx:for='{{datalist}}'>
+        <view class='v-item' catchtap='shoplist_tap' data-shop_code="{{item.shop_code}}">
+          <template is='listIndianaItem' data='{{item,isShowPrice}}'></template>
+
+          <image wx:if="{{isShowIcon}}" class="image_icon" src="{{Upyun}}small-iconImages/gx/indiana_one_minuter.png"></image>
+
+        </view>
+      </block>
+    </view>

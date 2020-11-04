@@ -1,0 +1,13 @@
+<template name="couponDiscription">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>使用规则</text>
+
+    <block wx:for="{{couponDiscriptionList}}" wx:for-item="item">
+      <text class='notEnough-dialog-content1'>{{item.title}}</text>
+      <text class='notEnough-dialog-content2'>{{item.discrip}}</text>
+    </block>
+    <view class='bottomview'></view>
+
+    <image catchtap="closeCoupon" class='icon-close' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

@@ -1,0 +1,165 @@
+<!--pages/listHome/order/oneBuyLuckPan/oneBuyLuckPan.wxml-->
+<!--pages/sign/withdrawLimit/withdrawLimit.wxml-->
+<!-- <import src="../../../common/toastTest/toastTest.wxml" /> -->
+<!-- <import src="../../../common/toastTest/toastTest.wxml"  /> -->
+
+<import src="../../../../common/toastTest/toastTest.wxml" />
+<import src="../../../../common/Discount-template/Discount.wxml" />
+<import src="../../../../common/Member-template/member.wxml" />
+
+
+<template is="toast" data="{{ ..._toast_ }}" />
+
+
+
+<!-- <import src="../../../common/toastTest/toastTest.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" /> -->
+
+
+<!-- 上面数据和转盘部分 -->
+<view class="view-all-normal" bindtouchmove="out_touchmove" bindtouchend="out_touchend">
+  <!-- <view class="view-top{{isMad&&!isBalanceLottery?'-mad':''}}" style="background-image: url({{Upyun}}/small-iconImages/gx/{{isMad&&!isBalanceLottery?'bg_withdrawal_main_mad.png':'bg_withdrawal_main.jpg'}})"> -->
+
+
+  <view class="view-top" style="background-image: url({{Upyun}}/small-iconImages/qingfengpic/yiyuangou-zhuanpan.png)">
+
+
+
+    <!--转盘部分  -->
+
+    <view class='luck-pan-view-all'>
+      <view class='luck-pan-view' style="{{translatestyle}}">
+        <image class="pan {{animate}}" src='{{Upyun}}/small-iconImages/qingfengpic/onebuy_zhuanpan.png'></image>
+      </view>
+
+      <text class='canvas-btn' catchtap='startLuckBtn' wx:if="{{showStopBtn}}"></text>
+      <text class='canvas-btn-text' catchtap='startLuckBtn' wx:if="{{showStopBtn}}">停</text>
+      <!-- <button class='canvas-startbtn' catchtap='startLuckBtn' wx:else  open-type="" form-type='submit'></button> -->
+      <form bindsubmit="loginsubmit" report-submit='true'>
+        <button class='canvas-startbtn' catchtap='startLuckBtn' open-type="" form-type='submit'></button>
+      </form>
+      <image class="luck-zhizhen" src="{{Upyun}}/small-iconImages/qingfengpic/{{icon_zhizhen}}" catchtap='startLuckBtn'></image>
+    </view>
+
+  </view>
+
+  <!-- 自动滚动的列表 -->
+  <view class='list'>
+    <!-- <text>停止时旋转角度: {{angle}} </text> -->
+    <image class='list-top-image' mode='widthFix' src="{{Upyun}}/small-iconImages/qingfengpic/yiyuangou-biaoti.png"></image>
+    <scroll-view class='list-scoll' lower-threshold="{{150}}" bindscrolltolower="scrolltolower1" scroll-y="{{true}}" scroll-with-animation="{{true}}" scroll-top="{{scrollTop1}}">
+      <block wx:for='{{mListData1}}'>
+        <view class='list-item'>
+          <image mode='widthFix' src="{{item.pic}}"></image>
+          <text class='user-name'>{{item.nname}}</text>
+          <text class='user-content'>{{item.content}}</text>
+          <text class='user-money'>原价{{item.num}}元</text>
+        </view>
+
+      </block>
+    </scroll-view>
+    <scroll-view class='list-scoll-cover'></scroll-view>
+  </view>
+</view>
+
+<!-- 活动规则 -->
+<view class='dayReward' catchtap="dayReward_show">疯抢规则</view>
+
+<!--活动规则弹窗 （暂未确定） -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showGuiZe || tapshowGuiZe || showMemberGuiZe}}">
+  <view class="redPacket-root" wx:if="{{showMemberGuiZe}}">
+    <text class='redPacket-dialog-tou{'>疯抢规则</text>
+    <text class='redPacket-dialog-content'>1、{{showGuiZeTitle}}点转盘中央<text class='redPacket-dialog-content1'>"开始"</text>，转盘指针开始转动。</text>
+    <text class='redPacket-dialog-content'>2、点<text class='redPacket-dialog-content1'>"停"</text>，如转盘指针<text class='redPacket-dialog-content1'>停在中央指针处</text>，即成功领走商品。</text>
+    <text class='redPacket-dialog-content'>3、本轮你有<text class='redPacket-dialog-content1'>{{oneyuanCount}}次</text>点停机会。未使用完退出本页面会导致<text class='redPacket-dialog-content1'>次数清0</text>，切记。</text>
+    <text catchtap="activestartLuckBtn" class='bottom-btn-top'>开始</text>
+  </view>
+  <view class="redPacket-root" wx:else>
+    <text class='redPacket-dialog-tou{'>疯抢规则</text>
+    <text class='redPacket-dialog-content'>1、{{showGuiZeTitle}}点转盘中央<text class='redPacket-dialog-content1'>"开始"</text>，转盘指针开始转动。</text>
+    <text class='redPacket-dialog-content'>2、点<text class='redPacket-dialog-content1'>"停"</text>，如转盘指针<text class='redPacket-dialog-content1'>停在中央指针处</text>，疯抢成功，带走商品。</text>
+    <text class='redPacket-dialog-content'>3、未抢中拼团疯抢费<text class='redPacket-dialog-content1'>全额退款</text>，可立即提现。</text>
+    <text class='redPacket-dialog-content'>4、本轮你有<text class='redPacket-dialog-content1'>{{oneyuanCount}}次</text>疯抢机会哦。未使用完退出本页面会导致<text class='redPacket-dialog-content1'>次数清0</text>，切记。</text>
+    <text catchtap="activestartLuckBtn" class='bottom-btn-top'>开始</text>
+  </view>
+</view>
+
+
+<!--抽奖结果弹窗  -->
+<!-- 未中奖 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showChoujiangComplete}}">
+  <view class="redPacket-root">
+    <text class='redPacket-dialog-tou{'>很遗憾！</text>
+    <text class='redPacket-dialog-content'>只差一点点哦，再眼明手快些把。</text>
+    <text class='redPacket-dialog-content'>您还有<text class='redPacket-dialog-content1'>{{oneyuanCount}}次</text>疯抢机会。</text>
+    <text catchtap="startLuckBtn_Again" class='bottom-btn-top'>再抢一次</text>
+    <image catchtap="dialog_close_toBind" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+<!-- 中奖 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showChoujiangSuccessComplete}}">
+  <!-- 普通抽中 -->
+  <view class="redPacket-root" wx:if="{{showChoujiangNopay == 1}}">
+    <text class='redPacket-dialog-tou{'>点中啦！</text>
+    <text class='redPacket-dialog-title'>太厉害了，请收下我的膝盖。</text>
+    <text class='redPacket-dialog-content'>恭喜您以<text class='redPacket-dialog-text'>{{share_price}}</text>的价格买走了价值<text class='redPacket-dialog-text'>{{share_oldprice}}</text>的<text class='redPacket-dialog-text'>{{share_name}}</text></text>
+    <text catchtap="startLuckBtn_Iknow" class='bottom-btn-top'>{{showChoujiangSuccessTitle}}</text>
+  </view>
+   <!-- 首页3免费中奖 -->
+  <view class="redPacket-root" wx:elif="{{showChoujiangNopay == 0}}"> 
+    <text class='redPacket-dialog-tou{'>点中啦！</text>
+    <text class='redPacket-dialog-title'>太厉害了，请收下我的膝盖。</text>
+    <text class='redPacket-dialog-content'>恭喜免费领走了价值<text class='redPacket-dialog-text'>{{share_oldprice}}</text>的<text class='redPacket-dialog-text'>{{share_name}}。</text></text>
+    <text catchtap="startLuckBtn_Iknow" class='bottom-btn-top'>{{showChoujiangSuccessTitle}}</text>
+  </view>
+  <!-- 会员预先中奖 -->
+  <view class="redPacket-root" wx:else> 
+    <text class='redPacket-dialog-tou{'>点中啦！</text>
+    <text class='redPacket-dialog-title'>太厉害了，请收下我的膝盖。</text>
+    <text class='redPacket-dialog-content'>恭喜您以<text class='redPacket-dialog-text'>{{share_price}}</text>的价格买走了价值<text class='redPacket-dialog-text'>{{share_oldprice}}</text>的<text class='redPacket-dialog-text'>{{share_name}}</text>。请联系客服发货。</text>
+    <text catchtap="startLuckBtn_Iknow" class='bottom-btn-top'>{{showChoujiangSuccessTitle}}</text>
+  </view>
+</view>
+
+<!-- 次数用完支付前的弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showChoujiangFinish}}">
+  <view class="redPacket-root">
+    <!-- <text class='redPacket-dialog-tou{'>很遗憾！</text>
+    <text class='redPacket-dialog-content'>只差一点点哦，再眼明手快些把。</text> -->
+    <text class='redPacket-dialog-tou2{'>温馨提示</text>
+    <text class='redPacket-dialog-content'>1、因部分手机性能不足及网络延迟的原因，小程序的疯抢<text class='redPacket-dialog-content1'>转盘指针</text>会出现<text class='redPacket-dialog-content1'>点“停”后指针跳动</text>的问题。</text>
+    <text class='redPacket-dialog-content'>2、如您疯抢时出现指针跳动，可以<text class='redPacket-dialog-content1'>去衣蝠APP</text>疯抢，可完全<text class='redPacket-dialog-content1'>避免跳动</text>，大幅<text class='redPacket-dialog-content1'>提高抢中的机会</text>。</text>
+
+    <view class='buttonView'>
+      <text catchtap="goAppBtn" class='bottom-btn-yellow4'>去APP</text>
+      <text catchtap="lookMoney" class='bottom-btn-yellow3'>查看余额</text>
+    </view>
+
+    <image catchtap="dialog_close_toBind" class='icon-close' src="{{Upyun}}/small-iconImages/gx/icon_withdrawal_close.png"></image>
+  </view>
+</view>
+
+<!--活动规则弹窗 （暂未确定） -->
+<!-- <view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showGuiZe}}">
+  <view class="redPacket-root">
+    <text class='redPacket-dialog-tou{'>活动规则</text>
+    <text class='redPacket-dialog-content'>点下方“开始”按钮，转盘指针开始转动，当你看到“中央指针与转盘指针重合时”停下，你即能以1元的价格买走美衣哦!</text>
+    <text catchtap="startLuckBtn" class='bottom-btn-top'>开始</text>
+  </view>
+</view> -->
+
+<!--余额抵扣弹框-->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{moneyDiscountShowFlag}}">
+  <template is='open-Discount' data='{{Upyun,moneyDiscount,oneYuanDiscriptionTitle,oneYuanDiscription,oneYuanDiscriptionLeftButton,oneYuanDiscriptionRightButton}}'></template>
+</view>
+<!-- IOS引导下载APP -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showIOSdownload}}">
+  <image class='app-download' src="{{Upyun}}/small-iconImages/qingfengpic/guide_app4.png" catchtap="closeIOSdownload"></image>
+  <image class='img-colse-downloadapp' src='{{Upyun}}/small-iconImages/heboImg/task_icon_close.png' bindtap='closeIOSdownload'></image>
+</view>
+
+<!-- 会员红包弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{upperMemberYiFuShow}}">
+  <template is="Member" data='{{upyconfig}}'></template>
+</view>

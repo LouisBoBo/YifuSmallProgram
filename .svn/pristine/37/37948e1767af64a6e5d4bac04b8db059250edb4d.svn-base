@@ -1,0 +1,41 @@
+<template name="browseMin">
+  <view class="sign-finish-root">
+    <view class='sign-finish-top'>
+      <text class='sign-finish-top-title'>{{top_tilte}}</text>
+      <image catchtap="dialog_close_mini" class='icon-close' src="{{Upyun}}small-iconImages/gx/iconwhiteclose.png"></image>
+    </view>
+
+
+
+
+
+    <!-- <text class='sign-finish-title'>{{signFinishDialog.tilte}}</text> -->
+    <!--任务点击提示  -->
+    <text class='sign-finish-content' wx:if="{{browseMinCase==-1}}">浏览{{browseName}}<text style='color:#ff3f8b'>{{minCount}}</text>分钟就能领到blingbling的奖励完成任务哦~</text>
+    <!--开始了任务点击自己  -->
+    <text class='sign-finish-content' wx:if="{{browseMinCase==2}}">浏览{{browseName}}<text style='color:#ff3f8b'>{{minCount}}</text>分钟就能领到blingbling的奖励完成任务哦~</text>
+    <!--开始了任务点击别的分钟任务  -->
+    <text class='sign-finish-content' wx:if="{{browseMinCase==3}}">正在进行浏览<text class='sign-finish-content-nei' style='color:#ff3f8b'>{{browseName}}</text>{{minCount}}分钟任务，只有完成了该任务，才可以开始其他同类型的任务哦~</text>
+
+    <text class='sign-finish-content' wx:if="{{!showDuobaoNubmer}}">浏览剩余时间 <text class='time'>{{mm}}</text>
+    <text style='font-size: 28rpx,color: #3C3C3C'> : </text>
+    <text class='time'>{{ss}}</text></text>
+
+    <!-- 
+    <text class='sign-finish-content'>浏览剩余时间<text style='color:#ff3f8b'>{{mm}}</text>:<text style='color:#ff3f8b'>{{ss}}</text></text> -->
+
+    <view class='view-duobao' wx:if="{{showDuobaoNubmer}}">
+      <text class='sign-finish-content' wx:if="{{browseMinCase==-1}}">分钟就能领到blingbling的奖励完成任务哦~</text>
+    </view>
+
+
+    <view class='bottom-btn' wx:if="{{show2bt}}">
+      <text catchtap="btn_left" class='bottom-btn-left'>{{signFinishDialog.leftText}}</text>
+      <text catchtap="btn_rigth" class='bottom-btn-rigth'>{{signFinishDialog.rigthText}}</text>
+    </view>
+    <text catchtap="btn_one" class='bt-one'> {{showDuobaoNubmer ? "买买买":"去浏览美衣"}}  </text>
+
+  </view>
+
+
+</template>

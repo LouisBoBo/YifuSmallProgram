@@ -1,0 +1,112 @@
+<import src="../../../../common/toastTest/toastTest.wxml" />
+<import src="../../../sign/signSMtemp/signSMtemp.wxml" />
+
+<form bindsubmit="submitOrder" report-submit="true">
+  <!-- 地址 -->
+  <view wx:if="{{address}}" class='address2' bindtap='toChooseAddre'>
+    <view class="left-address">
+      <view class='name-phone'>
+        <text>收件人:</text>
+        <view class='name'>{{consignee}}</view>
+        <text class='phone'>{{phone}}</text>
+      </view>
+      <view class='area'>收货地址:{{address}}</view>
+    </view>
+
+    <view class="right-address">
+      <image class="more2" src="../../../../iconImages/icon_more.png" mode="widthFix" />
+    </view>
+
+  </view>
+  <view wx:else class="address" bindtap="toChooseWXAddreess">
+    <view class="left">
+      <!-- <image src="../../images/map.jpg" mode="widthFix" /> -->
+      <text class="red">选择您的地址</text>
+    </view>
+    <view class="right">
+      <image class="more" src="../../../../iconImages/icon_more.png" mode="widthFix" />
+    </view>
+  </view>
+
+  <view class="line"></view>
+
+  <!-- 商品信息 -->
+  <view class='shopContainer'>
+    <image class='shopContainer-img' mode="widthFix" src='{{shopData.shopPic}}'></image>
+    <view class='shopMessage'>
+      <view class='shopName-Num'>
+        <text class='shopName'>{{shopData.shopName}}</text>
+        <text class='shopNum'>x{{shopData.shopNum}}</text>
+      </view>
+      <!-- <text wx:if="{{buyType!=1}}" class='color-size'>颜色:{{shopData.color}}  尺码:{{shopData.size}}</text> -->
+      <text wx:if="{{buyType!=1}}" class='color-size'>{{shopData.color_size}}</text>
+      <view class='shopPrice-Brander'>
+        <text class='shopPrice'>¥{{shopData.shopPrice}}</text>
+        <text class='old-price'>¥{{shopData.shopOldPrice}}</text>
+        <text wx:if="{{shopData.brander}}" class='brander'>{{shopData.brander}}</text>
+      </view>
+      <!-- <text wx:if="{{buyType!=1}}" class='returnMoney'>返{{shopData.shopPrice}}元=0元购</text> -->
+    </view>
+  </view>
+
+  <!-- 卖家留言 -->
+
+  <view class='messageToSeller'>
+    <input class='messageToSeller-message' name="message" placeholder='给卖家留言...'></input>
+    <!-- <textarea class='messageToSeller-message' name="message" placeholder='给卖家留言...'></textarea>  -->
+  </view>
+
+
+  <view class="line"></view>
+
+  <!-- 商品金额、余额抵扣 -->
+  <view>
+    <view class='moneySection'>
+      <text class='moneySection-title'>商品金额</text>
+      <text class='moneySection-money'>¥{{shopTotalMoney}}</text>
+    </view>
+    <view wx:if="{{buyType==0}}" class='moneySection'>
+      <text class='moneySection-title'>余额抵扣</text>
+      <text class='moneySection-money'>-¥{{discountMoney}}</text>
+    </view>
+    <view wx:if="{{shopData.flag}}" class='moneySection'>
+      <text class='moneySection-title'>分享抵扣</text>
+      <text class='moneySection-money'>-¥{{shopData.shopPrice*shopData.shopNum-0.01}}</text>
+    </view>
+    <view  wx:if="{{showCoupon}}" class='moneySection'>
+      <text class='moneySection-title'>优惠券</text>
+      <text class='moneySection-money'>-￥{{couponPrice}}</text>
+    </view>
+
+  </view>
+
+  <!-- 底部视图 -->
+  <view class='bottomContainer'>
+    <text class='paytext'>实付款：¥{{payMoney}}</text>
+    <!-- <text wx:if="{{buyType!=1}}" class='discount'>专柜{{discountNum}}折</text> -->
+    <view class='bottmButton'>
+      <view>提交订单</view>
+      <button class='button-confrim' formType="submit"></button>
+    </view>
+  </view>
+
+</form>
+
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<!-- 余额抽奖体验红包 -->
+<!-- <view class='banlance-redpacked' wx:if='{{banlance_redpacked_show}}' catchtap="banlanceRedpacked">
+  <image class="banlance-redpacked-image" mode='widthFix' src='{{Upyun}}small-iconImages/ad_pic/icon_balance_lottory_50.png'></image>
+</view> -->
+
+<!-- 0元购说明 -->
+<!-- <view class='dayReward' catchtap="zeroBuyRemind_show">
+<text class='dayReward-text'>0元购说明</text>
+</view> -->
+
+<!-- 0元购说明 -->
+<!-- <view class="drawer_screen_withdraw" wx:if="{{showZeroBuyRemind}}" catchtouchmove="preventTouchMove"> 
+  <view class='zeroBuyRemindView'>
+    <template is="zeroBuyRemind" data='{{Upyun}}'></template>
+  </view>
+ </view>  -->

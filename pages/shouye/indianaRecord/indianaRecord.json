@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "往期揭晓",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "onReachBottomDistance": 50
+}

@@ -1,0 +1,17 @@
+.shouye-thirty {
+  display: flex;
+  flex-direction: column;
+}
+
+.img-close-tx{
+  position: absolute;
+  margin-top: 20rpx;
+  margin-left: 487rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.newuser-thirty{
+  height: 750rpx;
+  width: 590rpx
+}

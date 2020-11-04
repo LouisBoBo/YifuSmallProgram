@@ -1,0 +1,110 @@
+.notEnoughYidou-root {
+  width: 580rpx;
+  background-color: #fff;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.notEnough-dialog-title {
+  align-self: center;
+  font-size: 36rpx;
+  color: black;
+  margin-top: 35rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.notEnough-dialog-content1 {
+  align-self: center;
+  font-size: 30rpx;
+  color: #a8a8a8;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  text-align: justify;
+}
+
+.notEnough-dialog-content2 {
+  align-self: center;
+  font-size: 34rpx;
+  color: #fd215a;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.notEnough-dialog-content {
+  align-self: center;
+  font-size: 30rpx;
+  color: #fd215a;
+  margin-top: 0rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.bottom-btn {
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  margin-top: 60rpx;
+  margin-bottom: 40rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.bottom-btn-left {
+  height: 80rpx;
+  width: 250rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #fd215a;
+  background-color: white;
+  border-radius: 3px;
+  margin-right: 10rpx;
+}
+
+.bottom-btn-rigth {
+  height: 80rpx;
+  width: 250rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #fd215a;
+  background-color: #fdcc21;
+  border-radius: 3px;
+  margin-left: 10rpx;
+}
+
+.icon-close {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  padding: 20rpx;
+}
+
+.buttonView {
+  display: flex;
+  flex-direction: row;
+}
+
+.bottom-btn-yellow5 {
+  width: 520rpx;
+  height: 80rpx;
+  margin-top: 60rpx;
+  margin-bottom: 40rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  border-radius: 3px;
+  color: #fff;
+  background-color: #ff3f8b;
+  border: 2rpx solid #ff3f8b;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  text-align: center;
+}

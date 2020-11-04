@@ -1,0 +1,15 @@
+<template name="open-group">
+  <view class='join_group'>
+    <view class='join_group-item'>
+      <image class='join_group-item-pic' src='{{userPic}}'></image>
+      <image class='fightview-tuanzhang-image' src='{{Upyun}}/small-iconImages/heboImg/tuanZhang.png'></image>
+      <image class='join_group-item-pic' src='../../../iconImages/fightwenhao.png'></image>
+      <text class='join_group-item-invit' bindtap='invitFriendTap'>邀请好友</text>
+      <view class='join_group-item-tv'>
+        <text class='join_group-item-tv-text'>还差<text class='join_group-item-tv-text-num'>{{1}}</text>人拼成</text>
+        <text class='join_group-item-tv-time'>剩余{{openGroup_outTime}}</text>
+      </view>
+      
+    </view>
+  </view>
+</template>

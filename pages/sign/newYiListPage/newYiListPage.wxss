@@ -1,0 +1,13 @@
+/* pages/sign/newYiListPage/newYiListPage.wxss */
+.all-view{
+  display: flex;
+  flex-direction: column;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  padding-top: 20rpx;
+  background-color: #f4f4f4
+}
+.tou-image{
+  width: 100%;
+  margin-bottom: 20rpx;
+}

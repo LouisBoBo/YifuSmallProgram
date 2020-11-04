@@ -1,0 +1,60 @@
+<template name="share_x_shop_template_tx">
+  <view class='share-tx' catchtouchmove='preventTouchMove'>
+    <image mode='widthFix' class='top-pic' src='{{Upyun}}small-iconImages/qingfengpic/top_100.png'>
+    </image>
+    <view class='share-top' catchtouchmove='preventTouchMove'>
+      <scroll-view class='share-scroll' scroll-y='true'>
+        <!-- <view class='scroll-tv tv1'>1.分享赢提现任务可直接得提现现金哦。</view>
+        <view class='scroll-tv22'>2.点下方分享按钮，分享{{tXshareEcount*tXnum}}次美衣或赚钱小任务到不同的微信群。任意从未来过衣蝠的新朋友点击后，每{{tXshareEcount}}人点击，你可得{{tXshareEmoney}}元提现现金。今日{{tXshareEmoney*tXnum}}元封顶。
+        </view>
+        <view class='scroll-tv tv1'>3.如好友购买，你可得20%提现奖励，每日最高50元封顶。</view> -->
+
+        <view class='top-tv'>
+          <text class='top-tv1'>1.分享邀请家人，朋友或同事来衣蝠。</text>
+          <text class='top-tv1'>2.好友每消费一次。你可得<text class='top-tv1-import'>2元提现现金</text>奖励。邀请越多奖励越多。</text>
+          <text class='top-tv1'>3.分享到3个以上微信群，成功几率<text class='top-tv1-import'>提升200%</text>。</text>
+          <text class='top-tv1'>4.可以告诉你的好友，注册即可领<text class='top-tv1-import'>18元任务红包</text>，可微信提现哦。</text>
+          <!-- <image class='top-pic2' mode='widthFix' src='{{Upyun}}small-iconImages/zzq/icon_form.png'></image> -->
+        </view>
+
+        <!-- <image mode='widthFix' class='scroll-pic' src='{{Upyun}}small-iconImages/gx/biaoge_2mini.png'></image> -->
+      </scroll-view>
+      <view class='share-bottom'>
+        <view class='bottom-image'>
+          <view class='wx'>
+            <view class='wx-out'>
+              <image class='wx-pic' src='{{Upyun}}small-iconImages/zzq/icon_wx.png'>
+              </image>
+              <view class='share-right-tv'>
+                <!-- {{shareCount}} -->
+
+
+
+                <text class='share-tv-count'> {{shareCount}}</text>
+
+              </view>
+            </view>
+            <view class='wx-tv'>分享</view>
+            <button class="weixin-share-icon-btn" open-type="share" catchtap='sharetap'></button>
+          </view>
+
+          <view class='wx-centes' bindtap='goTX'>
+            <view class='wx-out'>
+              <image class='wx-pic' src='{{Upyun}}small-iconImages/qingfengpic/to_tixian.png'>
+              </image>
+              <view class='share-right-tv'>
+                <!-- {{branchCount}} -->
+
+                <text class='share-tv-count'> {{branchCount}}</text>
+              </view>
+            </view>
+            <view class='wx-tv'>去提现</view>
+          </view>
+        </view>
+      </view>
+      <view class='bottom-tv1'>分享到3个群后，</view>
+      <view class='bottom-tv2'>拿到提现奖励的机率高达98%！</view>
+    </view>
+    <image class='close' src='{{Upyun}}small-iconImages/zzq/icon_close_red.png' bindtap='bindTapcCloseShareTX'></image>
+  </view>
+</template>

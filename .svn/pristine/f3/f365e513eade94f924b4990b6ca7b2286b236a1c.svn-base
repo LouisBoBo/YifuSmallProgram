@@ -1,0 +1,38 @@
+<import src="../../../../common/toastTest/toastTest.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<view class='mainView'>
+  <form bindsubmit="submitOrder" report-submit="true">
+    <block wx:key wx:for="{{dataList}}" wx:for-index="index">
+      <view class='addCardview' wx:if="{{index < 4}}">
+        <text class='addCardview-text'>{{dataList[index]}}</text>
+        <input class='addCardview-message' name="{{dataList[index]}}" placeholder="{{placeholderList[index]}}"></input>
+      </view>
+      <view class='addCardview' wx:else>
+        <text class='addCardview-text'>{{dataList[index]}}</text>
+        <picker class="pickerView" mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{addressIndex}}" range="{{multiArray}}">
+          <view class="picker">
+            {{multiArray[0][addressIndex[0]]}}{{multiArray[1][addressIndex[1]]}}{{multiArray[2][addressIndex[2]]}}
+          </view>
+        </picker>
+      </view>
+    </block>
+    <view class='discriptionView'>
+      <!-- <text class='discriptionView-text'>为了您的账户信息安全，<text class='discriptionView-importtext'>身份证号必须正确填写，</text>平台将与银行预留信息进行比对，错误将直接导致提现失败，身份信息严格加密处理，仅用于银行验证。</text> -->
+      <text class='discriptionView-text'>仅支持绑定借记卡</text>
+    </view>
+
+    <!-- 下一步 -->
+    <view class='bottomContainer'>
+      <view class='bottmButton'>
+        <view>下一步</view>
+        <button class='button-confrim' formType="submit"></button>
+      </view>
+    </view>
+
+    <!-- 支持的银行 -->
+    <view class='supportCard' bindtap='supportTap'>
+      <text>查看支持的银行</text>
+    </view>
+  </form>
+</view>

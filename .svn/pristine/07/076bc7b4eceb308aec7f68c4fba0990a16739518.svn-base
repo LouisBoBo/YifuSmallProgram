@@ -1,0 +1,689 @@
+import config from 'config';
+import {
+  ToastPannel
+} from '/common/toastTest/toastTest';
+var mUrl = "https://www.52yifu.wang/";
+var MD5 = require('utils/md5.js');
+var base64_func = require('utils/base64.js');
+var WxNotificationCenter = require('utils/WxNotificationCenter.js');
+var loginStatus = false;
+
+var parent_id;
+App({
+  ToastPannel,
+  data: {
+
+  },
+
+  //最新的
+  onLaunch: function () {
+    // 展示本地存储能力
+    var logs = wx.getStorageSync('logs') || []
+    logs.unshift(Date.now())
+    wx.setStorageSync('logs', logs)
+
+    //清空赚钱分钟相关数据
+    wx.setStorageSync("SIGN-TASK-MM", "");
+    wx.setStorageSync("MIN_BEGIN_MIN_INDEX", "");
+    wx.setStorageSync("MIN_BEGIN_MIN_ETime", "");
+    wx.setStorageSync("countdownUseED", false)
+
+
+    // this.usergetInfomation(function () { });
+
+    this.shop_type_tagData();
+    this.oneYuan_httpData();
+    this.getSystemInfo();
+  },
+
+  //商品属性分类标签
+  shop_type_tagData: function (option) {
+    var basesData = wx.getStorageSync("shop_tag_basedata");
+    if (basesData.data) {
+      var ktype_tag_data = wx.getStorageSync("type_tag_data");
+      var ktag_data = wx.getStorageSync("tag_data");
+      var ktype_data = wx.getStorageSync("type_data");
+      var ksupp_label_data = wx.getStorageSync("supp_label_data");
+      var kfriend_circle_tag_data = wx.getStorageSync("friend_circle_tag_data");
+    }
+    var newurl = config.Host + 'shop/queryTA?' + config.Version + '&bool=true' + '&type_data=' + ktype_data + '&tag_data=' + ktag_data + '&type_tag_data=' + ktype_tag_data + '&supp_label_data=' + ksupp_label_data + '&friend_circle_tag_data=' + kfriend_circle_tag_data;
+    var url = this.Md5_httpUrl(newurl);
+
+    console.log('typeurl=', url);
+
+    wx.request({
+      url: url,
+      data: {
+        x: '',
+        y: ''
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        if (res.data.status == 1) {
+          //缓存整个属性标签数据
+          if (res.data.friend_circle_tag.length) {
+            wx.setStorageSync("shop_tag_basedata", res)
+          }
+          if (res.data.type_data.length) {
+            wx.setStorageSync("type_data", res.data.type_data)
+          }
+          if (res.data.tag_data.length) {
+            wx.setStorageSync("tag_data", res.data.tag_data)
+          }
+          if (res.data.type_tag_data.length) {
+            wx.setStorageSync("type_tag_data", res.data.type_tag_data)
+          }
+          if (res.data.supp_label_data.length) {
+            wx.setStorageSync("supp_label_data", res.data.supp_label_data)
+          }
+          if (res.data.friend_circle_tag_data.length) {
+            wx.setStorageSync("friend_circle_tag_data", res.data.friend_circle_tag_data)
+          }
+          if (res.data.shopGroupList.length) {
+            wx.setStorageSync("shopGroupList", res.data.shopGroupList)
+          }
+          //发送缓存数据完成的通知
+          WxNotificationCenter.postNotificationName("shopNotificationItem1Name", "shopfinish");
+        }
+      }
+    })
+  },
+
+  //获取赚钱页是否隐藏
+  moneyPageisHide: function () {
+    var url = config.Host + 'cfg/getlandingPage8778?' + config.Version;
+    var newurl = this.Md5_httpUrl(url);
+    console.log(newurl);
+
+    wx.request({
+      url: url,
+      data: {
+        x: '',
+        y: ''
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        if (res.data.status == 1) {
+          //data 0不隐藏 1隐藏
+          this.globalData.moneyPageHide = res.data.data;
+        }
+      }
+    })
+  },
+
+  //获取是否是一元购
+  oneYuan_httpData: function () {
+    var that = this;
+    var url = config.Host + 'cfg/on_off_3_7?' + config.Version;
+    var newurl = this.Md5_httpUrl(url);
+    console.log(newurl);
+
+    wx.request({
+      url: newurl,
+      data: {
+        x: '',
+        y: ''
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        if (res.data.status == 1) {
+          //data 0一元购 1不是一元购
+          // that.globalData.oneYuanData = res.data.data.wxcx_status;
+          that.globalData.oneYuanValue = res.data.data.wxcx_value;
+          that.globalData.oneYuanEvery = res.data.data.wxcx_every;
+          that.globalData.typePageHide = res.data.data.typePageHide;
+          //wxcx_zero >0就是0元购 等于0不是0元购
+          that.globalData.oneYuanFree = 0;
+
+          //测试用
+          // that.globalData.oneYuanValue = 9.9;
+          // that.globalData.oneYuanEvery = 3;
+          // that.globalData.oneYuanFree = 0;
+          // that.globalData.oneYuanData = 1;
+          // that.globalData.typePageHide = 0;
+
+          console.log('that.globalData.oneYuanData=', that.globalData.oneYuanData);
+          console.log('that.globalData.oneYuanValue=', that.globalData.oneYuanValue);
+        }
+      }
+    })
+  },
+
+  // 获取用户信息（去设置授权）
+  usergetInfomation_toOpenSeting: function (fun) {
+    wx.openSetting({
+      success: res => {
+        // console.log(res);
+        if (res.authSetting['scope.userInfo']) {
+          console.log('res1', res)
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.getUserInfo({
+            success: res => {
+              console.log('res2', res)
+              // 可以将 res 发送给后台解码出 unionId
+              this.globalData.userInfo = res.userInfo
+              // console.log(res.userInfo);
+              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+              // 所以此处加入 callback 以防止这种情况
+              if (this.userInfoReadyCallback) {
+                this.userInfoReadyCallback(res)
+              }
+              //授权成功登录衣蝠后台
+              // this.usergetInfomation(function () { });
+              this.New_userlogin(function () { });
+            }
+          })
+        } else {
+          var isSuccess = false;
+          fun(false);
+        }
+      }
+    })
+  },
+
+  // 获取用户信息
+  usergetInfomation: function (refreshCallBack) {
+    var that = this;
+    wx.getSetting({
+      success: res => {
+        // console.log(res);
+        if (res.authSetting['scope.userInfo']) {
+          // // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.getUserInfo({
+            success: res => {
+              // 可以将 res 发送给后台解码出 unionId
+              this.globalData.userInfo = res.userInfo
+              // console.log(res.userInfo);
+              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+              // 所以此处加入 callback 以防止这种情况
+              if (this.userInfoReadyCallback) {
+                this.userInfoReadyCallback(res)
+              }
+
+              //授权成功登录衣蝠后台
+              this.userlogin(res, function () { }, refreshCallBack);
+            }
+          })
+        } else {
+          // 未授权 弹出授权
+          wx.getUserInfo({
+            success: res => {
+              // 可以将 res 发送给后台解码出 unionId
+              this.globalData.userInfo = res.userInfo
+              // console.log(res.userInfo);
+              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+              // 所以此处加入 callback 以防止这种情况
+              if (this.userInfoReadyCallback) {
+                this.userInfoReadyCallback(res)
+              }
+              //授权成功登录衣蝠后台
+              this.userlogin(res, function () { }, refreshCallBack);
+            },
+
+            fail: function () {
+              that.getSignBG();
+              //拒绝授权
+              //发送登录完成的监听
+              WxNotificationCenter.postNotificationName("testNotificationItem1Name", "loginfinish");
+
+              wx.setStorageSync("loginfinish", "true")
+            }
+          })
+        }
+      }
+    })
+  },
+
+  //用户登录
+  userlogin: function (data, fun, refreshCallBack) {
+    var that = this;
+    // 检测用户登录状态
+    wx.checkSession({
+      success: function () {
+        console.log('微信session 未过期，并且在本生命周期一直有效')
+        //检测后台服务器登录状态
+        var rd_session = wx.getStorageSync("3rd_session")
+        if (rd_session) {
+          if (!rd_session.userToken) {
+            wx.login({
+              success: res => {
+                // that.loginHttp(data, res.code, fun, refreshCallBack);
+                that.submitCode_http(data, res.code, fun, refreshCallBack);
+              }
+            })
+          } else {
+            that.saveUserInfomation(rd_session, "", fun, refreshCallBack);
+          }
+        } else { //账号被挤掉
+
+          // 登录过期
+          wx.login({
+            success: res => {
+              // 发送 res.code 到后台换取 openId, sessionKey, unionId, 3rd_session
+              // console.log('在这里登录获取' + res.code);
+              //登录衣蝠后台
+              // that.loginHttp(data, res.code, fun, refreshCallBack);
+
+              that.submitCode_http(data, res.code, fun, refreshCallBack);
+
+            }
+          })
+        }
+      },
+      fail: function () {
+        // 登录过期
+        wx.login({
+          success: res => {
+            // 发送 res.code 到后台换取 openId, sessionKey, unionId, 3rd_session
+            // console.log('在这里登录获取' + res.code);
+            //登录衣蝠后台
+            // that.loginHttp(data, res.code, fun, refreshCallBack);
+
+            that.submitCode_http(data, res.code, fun, refreshCallBack);
+          }
+        })
+      }
+    })
+  },
+
+  // 提交code
+  submitCode_http: function (data, code, fun, refreshCallBack) {
+    var that = this;
+    var url = config.Host + 'user/submitcode?' + config.Version + '&code=' + code;
+    var newurl = this.Md5_httpUrl(url);
+    console.log(newurl);
+
+    wx.request({
+      url: url,
+      data: {
+        x: '',
+        y: ''
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        if (res.data.status == 1) {
+          that.loginHttp(data, code, fun, refreshCallBack);
+        }
+      }
+    })
+  },
+
+  //************************新登录流程********************* */
+
+  //用户登录
+  New_userlogin: function (refreshCallBack) {
+    var that = this;
+    // 检测用户登录状态
+    wx.checkSession({
+      success: function () {
+        console.log('微信session 未过期，并且在本生命周期一直有效')
+        //检测后台服务器登录状态
+        var rd_session = wx.getStorageSync("3rd_session")
+        if (rd_session) {
+          if (!rd_session.userToken) {
+            wx.login({
+              success: res => {
+
+                that.New_submitCode_http(res.code, function () { }, refreshCallBack);
+              }
+            })
+          } else {
+            that.saveUserInfomation(rd_session, "", function () { }, refreshCallBack);
+          }
+        } else { //账号被挤掉
+
+          // 登录过期
+          wx.login({
+            success: res => {
+              // 发送 res.code 到后台换取 openId, sessionKey, unionId, 3rd_session
+              // console.log('在这里登录获取' + res.code);
+              //登录衣蝠后台
+              // that.loginHttp(data, res.code, fun, refreshCallBack);
+
+              that.New_submitCode_http(res.code, function () { }, refreshCallBack);
+
+            }
+          })
+        }
+      },
+      fail: function () {
+        // 登录过期
+        wx.login({
+          success: res => {
+            // 发送 res.code 到后台换取 openId, sessionKey, unionId, 3rd_session
+            // console.log('在这里登录获取' + res.code);
+            //登录衣蝠后台
+            // that.loginHttp(data, res.code, fun, refreshCallBack);
+
+            that.New_submitCode_http(res.code, function () { }, refreshCallBack);
+          }
+        })
+      }
+    })
+  },
+
+  // 提交code
+  New_submitCode_http: function (code, fun, refreshCallBack) {
+    var that = this;
+    var url = config.Host + 'user/submitcode?' + config.Version + '&code=' + code;
+    var newurl = this.Md5_httpUrl(url);
+    console.log(newurl);
+
+    wx.request({
+      url: url,
+      data: {
+        x: '',
+        y: ''
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        if (res.data.status == 1) {
+          that.New_usergetInfomation(code, fun, refreshCallBack);
+        }
+      }
+    })
+  },
+
+  // 获取用户信息
+  New_usergetInfomation: function (code, fun, refreshCallBack) {
+    var that = this;
+    wx.getSetting({
+      success: res => {
+        // console.log(res);
+        if (res.authSetting['scope.userInfo']) {
+          // // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.getUserInfo({
+            success: res => {
+              // 可以将 res 发送给后台解码出 unionId
+              this.globalData.userInfo = res.userInfo
+              // console.log(res.userInfo);
+              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+              // 所以此处加入 callback 以防止这种情况
+              if (this.userInfoReadyCallback) {
+                this.userInfoReadyCallback(res)
+              }
+
+              this.loginHttp(res, code, fun, refreshCallBack);
+            }
+          })
+        } else {
+          // 未授权 弹出授权
+          wx.getUserInfo({
+            success: res => {
+              // 可以将 res 发送给后台解码出 unionId
+              this.globalData.userInfo = res.userInfo
+              // console.log(res.userInfo);
+              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+              // 所以此处加入 callback 以防止这种情况
+              if (this.userInfoReadyCallback) {
+                this.userInfoReadyCallback(res)
+              }
+
+              this.loginHttp(res, code, fun, refreshCallBack);
+            },
+
+            fail: function () {
+              that.getSignBG();
+              //拒绝授权
+              //发送登录完成的监听
+              WxNotificationCenter.postNotificationName("testNotificationItem1Name", "loginfinish");
+
+              wx.setStorageSync("loginfinish", "true")
+            }
+          })
+        }
+      }
+    })
+  },
+
+
+  //用户登录获取登录信息
+  loginHttp: function (data, code, fun, refreshCallBack) {
+    var that = this;
+    var nickName = data.userInfo.nickName;
+    var avatarUrl = data.userInfo.avatarUrl;
+    var gender = data.userInfo.gender;
+    var rawData = data.rawData;
+    var signature = data.signature;
+    var encryptedData = data.encryptedData;
+    var iv = data.iv;
+
+    rawData = encodeURIComponent(rawData);
+    signature = encodeURIComponent(signature);
+    encryptedData = encodeURIComponent(encryptedData);
+    iv = encodeURIComponent(iv);
+
+    var mParent_id = that.parent_id
+    var newurl
+
+    if (mParent_id) {
+      newurl = config.Host + 'user/userLogin?device=4' + config.Version + '&rawData=' + rawData + '&signature=' + signature + '&code=' + code + '&encryptedData=' + encryptedData + '&iv=' + iv + "&parent_id=" + mParent_id;
+    } else {
+      newurl = config.Host + 'user/userLogin?device=4' + config.Version + '&rawData=' + rawData + '&signature=' + signature + '&code=' + code + '&encryptedData=' + encryptedData + '&iv=' + iv;
+    }
+
+
+    var url = that.Md5_httpUrl(newurl);
+
+    wx.request({
+      url: url,
+      method: 'POST',
+      header: {
+        // 'content-type': 'application/json;charset=utf-8' // 默认值
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+
+      success: function (res) {
+        var newstatus = res.data.status;
+        if (newstatus == 1) {
+          //缓存用户登录状态标识
+          if (res.data) {
+            that.saveUserInfomation(res.data, "islogin", fun, refreshCallBack);
+          }
+        } else if (newstatus == 10031) {
+          //微信登录延迟 重新登录一次
+          if (!loginStatus) {
+            that.New_userlogin(function () { });
+            loginStatus = true;
+          }
+        } else {
+          var rd_session = wx.getStorageSync("3rd_session")
+          if (rd_session != null) {
+            that.saveUserInfomation(rd_session, "", fun, refreshCallBack);
+          } else {
+            fun(false)
+            //发送登录状态通知
+            WxNotificationCenter.postNotificationName("testNotificationItem1Name", "loginfinish");
+            wx.setStorageSync("loginfinish", "true")
+          }
+        }
+      }
+    })
+  },
+
+  //存储用户登录信息
+  saveUserInfomation: function (data, islogin, fun, refreshCallBack) {
+    // console.log(data)
+    var user = {};
+    user.orderToken = data.orderToken;
+    user.firstLogin = data.firstLogin;
+    user.h5money = data.h5money;
+    user.userToken = islogin ? data.token : data.userToken;
+    user.pic = islogin ? data.userinfo.pic : data.pic;
+    user.nickname = islogin ? data.userinfo.nickname : data.nickname;
+    user.phone = islogin ? data.userinfo.phone : data.phone;
+    user.wx_sex = islogin ? data.userinfo.wx_sex : data.wx_sex;
+    user.user_id = islogin ? data.userinfo.user_id : data.user_id;
+    user.hobby = islogin ? data.userinfo.hobby : data.hobby;
+    user.add_date = islogin ? data.userinfo.add_date : data.add_date;
+    user.person_sign = islogin ? data.userinfo.person_sign : data.person_sign;
+    user.home_address = islogin ? data.userinfo.home_address : data.home_address;
+    user.wxcx_openid = islogin ? data.userinfo.wxcx_openid : data.wxcx_openid;
+    user.unionid = islogin ? data.userinfo.unionid : data.unionid;
+    user.uid = islogin ? data.userinfo.uid : data.uid;
+    // user.uid = "oOhAjt-w73zEUBYQ6J0z9b-9uTrM";
+
+    user.addressData = '';
+    this.globalData.user = user;
+    this.globalData.weburl = 'https://www.52yifu.com/public/component/web-im-1.1.0/index.html?curChatUserId=916&userid=' + user.user_id;
+    wx.setStorageSync("3rd_session", user);
+
+    var isSuccess = true;
+    refreshCallBack();
+    fun(isSuccess);
+    this.getSignBG();
+
+    //保存H5赚的钱
+    wx.setStorageSync("h5money", data.h5money);
+
+    if (!islogin && user.userToken) {
+      this.wx_Statistics("point", "917", "9"); //小程序微信静默授权
+      console.log("小程序微信静默授权", "小程序微信静默授权");
+    }
+
+    //发送登录状态通知
+    WxNotificationCenter.postNotificationName("testNotificationItem1Name", "loginfinish");
+    wx.setStorageSync("loginfinish", "true")
+
+  },
+
+  //获取赚钱背景
+  getSignBG: function () {
+    var that = this;
+
+    var dataUrl = config.Host + "signIn2_0/isMonday" +
+      "?" + config.Version;
+
+    if (null != this.globalData.user && this.globalData.user.userToken != undefined) {
+      dataUrl = config.Host + "signIn2_0/isMonday" +
+        "?token=" + this.globalData.user.userToken +
+        "&" + config.Version;
+    } else {
+      dataUrl = config.Host + "signIn2_0/isMonday" +
+        "?" + config.Version;
+    }
+
+    dataUrl = that.Md5_httpUrl(dataUrl);
+    wx.request({
+
+      url: dataUrl,
+
+      method: 'GET',
+      //请求传参
+      data: {},
+      header: {
+        "Content-Type": "json"
+      },
+      success: function (res) {
+
+        try {
+          wx.setStorageSync("HASMOD", res.data.isMonday)
+        } catch (e) { }
+
+        var hasTicheng = false;
+        if (res.data.sup_day == 1 || res.data.fri_win == 1) {
+          hasTicheng = true;
+        }
+        try {
+          wx.setStorageSync("HASTICHENG", hasTicheng)
+        } catch (e) { }
+
+        try {
+          wx.setStorageSync("HASMEIYUEJINGXI", res.data.monthly == 1 ? true : false)
+        } catch (e) { }
+
+
+        try {
+          wx.setStorageSync("HALINGYUANGOU", res.data.zero_buy == 1 ? true : false)
+        } catch (e) { }
+
+
+        try {
+          wx.setStorageSync("HAQIANYUANHONGBAO", res.data.red_rain == 1 ? true : false)
+        } catch (e) { }
+
+      },
+
+      complete: function (res) {
+
+      },
+
+      fail: function (error) {
+
+      }
+    })
+  },
+
+  Md5_httpUrl: function (url) {
+    var oldurl = url + "yunshangshiji"
+    var autherkey = MD5.md5(oldurl);
+
+    var obj_base64 = new base64_func.Base64();
+    var I10o = obj_base64.encode(autherkey);
+    var newurl = url + "&authKey=" + autherkey + "&I10o=" + I10o;
+    return newurl;
+  },
+
+  ////数据统计接口record/add
+  wx_Statistics: function (key, type, tab_type) {
+    var that = this;
+    var token = "";
+    if (that.globalData.user != null) {
+      token = that.globalData.user.userToken;
+    }
+
+    var dataUrl = config.Host + "record/add?" + config.Version + "&token=" + token + '&key=' + key + '&type=' + type + '&tab_type=' + tab_type;
+    var url = this.Md5_httpUrl(dataUrl);
+    wx.request({
+      url: url,
+      method: 'GET',
+      header: {
+        "Content-Type": "json"
+      },
+      success: function (res) { },
+      fail: function (error) { }
+    })
+  },
+  getSystemInfo: function () {
+    var that = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        var systemInfo = '';
+        if (res.platform == "devtools") {
+          systemInfo = "PC";
+        } else if (res.platform == "ios") {
+          systemInfo = "ios";
+        } else if (res.platform == "android") {
+          systemInfo = "android";
+        }
+
+        that.globalData.systemInfo = systemInfo;
+      }
+    })
+  },
+
+  globalData: {
+    userInfo: null,
+    user: null,
+    weburl: null,
+    moneyPageHide: null,
+    typePageHide: null, //是否隐藏首页左上角 右上角角标
+    oneYuanData: null, //是否1元购 0：1元购 1：不是1元购
+    oneYuanValue: null, //x元购
+    oneYuanEvery: null, //多少元抽一次
+    oneYuanFree: null, //0元购免费次数
+    systemInfo: null, //当前设备系统
+    singtasklist: mUrl + "signIn2_0/siTaskList",
+    step: 0
+  }
+})

@@ -1,0 +1,66 @@
+<import src="../../../common/limitQuotas-template/limitQuotas.wxml" />
+
+<view class='headView'>
+  <view class='moneyView-section'>
+    <view class='money'>
+      <text>我的余额</text>
+      <text class='moneyNum'>{{balance}}</text>
+    </view>
+    <view class='money'>
+      <text>冻结余额</text>
+      <text class='moneyNum'>{{freeze_balance}}</text>
+    </view>
+  </view>
+  <view class='moneyView-section'>
+    <view class='tixian'>
+      <text>提现额度：</text>
+      <text class='tixianNum'>{{extract}}</text>
+    </view>
+    <view class='tixian'>
+      <text>提现冻结：</text>
+      <text class='tixianNum'>{{ex_free}}</text>
+    </view>
+  </view>
+  <view class='tixianButton' bindtap='tixianButtonTap'>
+    <text class='tixianButton-text'>提 现</text>
+  </view>
+</view>
+
+<view class='line'></view>
+
+<view class='sectionTitle'>
+  <block wx:for='{{topData}}' wx:key='item'>
+    <view class='top-bar-out' data-type="{{item._id}}" data-index='{{index}}' catchtap='onTapClick'>
+      <view class="top-bar-item{{index==activityIndex?'-active':''}}">{{item.name}}</view>
+      <view wx:if="{{index==2?false:true}}" class='center-line'></view>
+    </view>
+  </block>
+</view>
+
+<view class='bottom-line'></view>
+
+<view wx:if='{{activityIndex==2}}' class='remindTitle'>订单签收7天后衣豆才解冻喔～</view>
+<view wx:if='{{datalist[0]}}' class='section'>
+  <block wx:for='{{datalist}}'>
+    <view class='section-cell'>
+      <view class='cell-left'>
+        <text>{{item.p_name}}</text>
+        <text class='cell-left-time'>{{item.add_date}}</text>
+      </view>
+      <text class='cell-right'>{{item.num}}元</text>
+    </view>
+  </block>
+</view>
+<view wx:else>
+  <view class="emptyView">亲，暂时没有相关数据哦</view>
+</view>
+
+
+<view class='remindView' bindtap='remindTap'>
+  <image class='remindView-image' mode="widthFix" src="{{Upyun}}//small-iconImages/invite_friends/额度说明.png"></image>
+</view>
+
+<!-- 额度说明弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{remindShow}}">
+  <template is='limitQuotas' data='{{Upyun,remindShow}}'></template>
+</view>

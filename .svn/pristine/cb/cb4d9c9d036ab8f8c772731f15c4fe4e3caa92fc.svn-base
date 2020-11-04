@@ -1,0 +1,23 @@
+<!-- <template name="Authorization">
+  <view class='showTixianView_upperlimit'>
+    <text class="tixianview_title_upperlimit">{{uppertittle}}</text>
+    <text class="tixianview_discription_upperlimit{{isUpperNotitle?'_noTitle':''}}">{{upperdistribution}}</text>
+    <view class="tixianview_binding_upperlimit" catchtap='upperlimittap'>
+      <view>{{upperbuttontitle}}</view>
+       <button class='button_confrim_upperlimit' bindgetuserinfo='onclick' open-type = "getUserInfo"></button> 
+
+    </view>
+  </view>
+</template> -->
+
+<template name="HasJYJLshow">
+  <form bindsubmit="loginsubmit" report-submit='true'>
+    <view class='showTixianView_upperlimit'>
+      <image class='newuser-thirty'src="{{upyconfig}}small-iconImages/qingfengpic/shouquaned_has_jiaoyi_dialog.png"></image>
+
+      <image class='closeimage-newhongbao' src="{{upyconfig}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeNewThirty'></image>
+    
+      <button class='button_confrim_upperlimit' bindtap='hasJYJLtoSign'></button>
+    </view>
+  </form>
+</template>

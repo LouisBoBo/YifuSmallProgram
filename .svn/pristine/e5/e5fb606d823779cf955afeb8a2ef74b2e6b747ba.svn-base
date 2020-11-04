@@ -1,0 +1,80 @@
+<!--pages/mine/addMemberCard/addMemberCard.wxml-->
+
+<import src="../../../common/toastTest/toastTest.wxml" />
+
+<template is="toast" data="{{ ..._toast_ }}" />
+
+
+<form bindsubmit="submitOrder" report-submit="true">
+
+  <swiper class='swiper' circular='true' current='{{current}}' previous-margin='70px' next-margin='70px' bindchange="swiperChange" style='height:{{swiperH}};'>
+
+
+
+
+
+
+    <swiper-item wx:for='{{vipList}}' wx:key=''>
+    <view class='view-item-swiper'>
+      <image mode='aspectFill' class='le-img {{nowIdx==index?"le-active":""}}' bindload='getHeight' src='{{Upyun}}{{item.url}}' style='height:{{swiperH}};'></image>
+      <text class='date-text'>{{item.days}}</text>
+      <text  style='font-size:{{item.allmoneyFontSize}}' class='date-text-allmoney'>{{item.userVipMoney}}</text>
+
+      </view>
+    </swiper-item>
+
+
+
+
+
+
+  </swiper>
+  <view class='money-view'>
+    <text class='money-count'> {{payName}}</text>
+    <text class='money-count'>￥{{vipPrice}}</text>
+  </view>
+  <text class='money-count-tuikuan'>30日后无条件退款</text>
+
+
+  <view class='money-view' wx:if="{{showCount}}">
+    <text class='money-count'>数量</text>
+
+    <view class='view-count'>
+      <image class='img-jian' bindtap='jianCount' src='{{Upyun}}small-iconImages/qingfengpic/{{img_jian}}.png'></image>
+      <text class='vip-count'>{{vip_count}}</text>
+      <image class='img-jia' bindtap='jiaCount' src='{{Upyun}}small-iconImages/qingfengpic/vip_couot_jia_new.png'></image>
+
+    </view>
+
+    <!-- <view class='view-count'>
+      <image class='img-jian' bindtap='jianCount' src='{{Upyun}}small-iconImages/qingfengpic/{{img_jian}}.png'></image>
+      <text class='money-count'>{{vip_count}}</text>
+      <image class='img-jia' bindtap='jiaCount' src='{{Upyun}}small-iconImages/qingfengpic/vip_couot_jia.png'></image>
+
+    </view> -->
+  </view>
+
+
+  <view style='width: 100%;height:15rpx;background-color: #F7F7F7;margin-top: 20rpx;'></view>
+  <view class='money-view'>
+    <text class='money-count'>支付方式</text>
+    <text class='money-count'>微信支付</text>
+  </view>
+  <view class='tips-view' style='width: 100%;height:900rpx;background-color: #F7F7F7;margin-top: 20rpx;'>
+    <text style='margin-top: 20rpx;font-size: 30rpx;margin-left:40rpx; color: #5e5e5e'>会员权益</text>
+
+    <text class='tips-view-text'>1.每日可免费拼团或参团疯抢<text style='color: #ff3f8b'>{{shopPrice}}</text>元以下商品<text style='color: #ff3f8b'>{{freeCount}}</text>次</text>
+    
+    <text class='tips-view-text'>2.30日内购买任意商品可全额抵扣会员费</text>
+    <text class='tips-view-text'>3.独享赚钱小任务，月赚千元零花钱</text>
+    <text class='tips-view-text'>4.会员购衣，专享超低折扣</text>
+  </view>
+  <!-- 底部视图 -->
+  <view class='bottomContainer' wx:if='{{showPay}}'>
+    <text class='paytext'>总价：¥{{payPrice}}</text>
+    <view class='bottmButton'>
+      <view>开通并支付</view>
+      <button class='button-confrim' formType="submit"></button>
+    </view>
+  </view>
+</form>

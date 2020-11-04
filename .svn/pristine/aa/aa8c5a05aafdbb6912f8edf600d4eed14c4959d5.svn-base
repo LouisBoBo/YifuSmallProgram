@@ -1,0 +1,47 @@
+.topbarall {
+  margin-top: 10rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.top-bar-out {
+  width: 33%;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.center-line {
+  height: 40rpx;
+  width: 2rpx;
+  background-color: #dcdcdc;
+  display: flex;
+  position: absolute;
+  right: 0;
+}
+
+.topbarall {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.top-bar-item {
+  color: #3e3e3e;
+  /* font-size: 14sp; */
+  font-size: 30rpx;
+}
+
+.top-bar-item-active {
+  color: #ff3f8b;
+  font-size: 30rpx;
+}
+
+.bottom-line {
+  margin-top: 20rpx;
+  height: 2rpx;
+  width: 100%;
+  background-color: #dcdcdc;
+}

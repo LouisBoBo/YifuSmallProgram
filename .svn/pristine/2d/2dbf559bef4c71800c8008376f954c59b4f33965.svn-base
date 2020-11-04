@@ -1,0 +1,11 @@
+<template name="kaiTuanTastDialog-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip' >{{kaituanStr}}</text>
+    <view class='buttonView-vip'>
+      <button catchtap="goKaituan" class='bottom-btn-yellow5-vip'
+                  form-type='submit'>去拼团</button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

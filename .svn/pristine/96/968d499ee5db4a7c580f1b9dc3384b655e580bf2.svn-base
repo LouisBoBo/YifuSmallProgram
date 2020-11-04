@@ -1,0 +1,375 @@
+@import "/common/Discount-template/Discount.wxss";
+
+button {
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    background-color: rgba(0,0,0,0);
+    overflow: visible;
+    text-align: left;
+}
+
+button::after {
+    border: none;
+}
+
+image {
+    display: block;
+}
+
+page {
+    background-color: #F8F8F8;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.enter_record {
+    width: 640rpx;
+    height: 130rpx;
+    border-radius: 15rpx;
+    background-color: #FFF;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 0px 18px 0px rgba(143,143,143,0.25);
+    margin-top: 50rpx;
+}
+
+.enter_record .record_icon {
+    width: 86rpx;
+    height: 60rpx;
+    margin-right: 25rpx;
+    margin-left: 50rpx;
+}
+
+.enter_record .record_title {
+    width: fit-content;
+    height: fit-content;
+    font-size: 28rpx;
+    color: #232222;
+    margin-right: 148rpx;
+}
+
+.enter_record .check_record {
+    width: 180rpx;
+    height: 66rpx;
+    border-radius: 33rpx;
+    background-color: #ff3f8b;
+    text-align: center;
+    line-height: 66rpx;
+    font-size: 26rpx;
+    color: #232222;
+}
+
+.demand_box {
+    width: 670rpx;
+    height: 450rpx;
+    margin-top: 25rpx;
+    position: relative;
+}
+
+.demand_box .demand_bg {
+    width: 100%;
+    height: 100%;
+}
+
+.demand_box .demand_cont_box {
+    width: 100%;
+    height: fit-content;
+    padding-left: 57rpx;
+    padding-right: 58rpx;
+    box-sizing: border-box;
+    position: absolute;
+    top: 122rpx;
+    left: 0;
+}
+
+.demand_box .demand_cont_box .demand_cont {
+    width: 560rpx;
+    height: 240rpx;
+    font-size: 26rpx;
+    color: #545454;
+    background-color: #F8F8F8;
+    padding: 30rpx;
+    box-sizing: border-box;
+}
+
+.demand_box .demand_cont_box .img_list {
+    width: 100%;
+    height: 120rpx;
+    display: flex;
+    align-items: center;
+    margin-top: 20rpx;
+}
+
+.demand_box .demand_cont_box .img_list .img_item {
+    width: 120rpx;
+    height: 120rpx;
+    position: relative;
+    margin-right: 20rpx;
+}
+
+.demand_box .demand_cont_box .img_list .img_item .upload_img {
+    width: 120rpx;
+    height: 120rpx;
+}
+
+.demand_box .demand_cont_box .img_list .img_item .delete_img {
+    width: 46rpx;
+    height: 46rpx;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: center;
+    line-height: 46rpx;
+    font-size: 40rpx;
+}
+
+.demand_box .demand_cont_box .img_list .upload_btn {
+    width: 120rpx;
+    height: 120rpx;
+    background-color: #F8F8F8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.demand_box .demand_cont_box .img_list .upload_btn .upload_icon {
+    width: 25rpx;
+    height: 25rpx;
+}
+
+.demand_box .demand_cont_box .upload_tip {
+    width: 100%;
+    height: fit-content;
+    font-size: 24rpx;
+    color: #545454;
+    margin-top: 20rpx;
+}
+
+.match_scene {
+    width: 675rpx;
+    height: 740rpx;
+    position: relative;
+    margin-top: 7rpx;
+}
+
+.match_scene .match_scene_bg {
+    width: 675rpx;
+    height: 740rpx;
+}
+
+.match_scene .match_scene_box {
+    width: 100%;
+    height: fit-content;
+    padding-left: 53rpx;
+    padding-right: 54rpx;
+    box-sizing: border-box;
+    position: absolute;
+    top: 121rpx;
+    left: 0;
+}
+
+.match_scene .match_scene_box .scene_title {
+    width: 100%;
+    height: fit-content;
+    font-size: 26rpx;
+    color: #545454;
+    text-align: center;
+    margin-bottom: 20rpx;
+}
+
+.match_scene .match_scene_box .scene_list {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.match_scene .match_scene_box .scene_list .scene_item {
+    width: 180rpx;
+    height: fit-content;
+    margin-bottom: 40rpx;
+}
+
+.match_scene .match_scene_box .scene_list .scene_item .scene_img_box {
+    width: 180rpx;
+    height: 180rpx;
+    position: relative;
+    margin-bottom: 20rpx;
+}
+
+.match_scene .match_scene_box .scene_list .scene_item .scene_img_box .scene_img {
+    width: 180rpx;
+    height: 180rpx;
+}
+
+.match_scene .match_scene_box .scene_list .scene_item .scene_img_box .select_icon {
+    width: 30rpx;
+    height: 30rpx;
+    position: absolute;
+    bottom: 15rpx;
+    right: 15rpx;
+}
+
+.match_scene .match_scene_box .scene_list .scene_item .scene_name {
+    width: 100%;
+    height: fit-content;
+    font-size: 26rpx;
+    color: #232222;
+    text-align: center;
+    line-height: 26rpx;
+}
+
+.match_budget {
+    width: 675rpx;
+    height: 970rpx;
+    position: relative;
+    margin-top: 7rpx;
+}
+
+.match_budget .match_budget_bg {
+    width: 675rpx;
+    height: 970rpx;
+}
+
+.match_budget .match_budget_cont {
+    width: 100%;
+    height: fit-content;
+    padding-left: 57rpx;
+    padding-right: 58rpx;
+    box-sizing: border-box;
+    position: absolute;
+    top: 121rpx;
+    left: 0;
+}
+
+.match_budget .match_budget_cont .budget_item {
+    width: 100%;
+    height: fit-content;
+}
+
+.match_budget .match_budget_cont .budget_item .budget_item_title {
+    width: 100%;
+    height: fit-content;
+    font-size: 26rpx;
+    color: #232222;
+    text-align: center;
+    margin-bottom: 45rpx;
+}
+
+.match_budget .match_budget_cont .budget_item .budget_item_title .spec_txt {
+    color: #FF6600;
+    font-style: italic;
+}
+
+.match_budget .match_budget_cont .budget_item .tag_list {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35rpx;
+}
+
+.match_budget .match_budget_cont .budget_item .tag_list .tag_item {
+    width: 170rpx;
+    height: 60rpx;
+    border-radius: 30rpx;
+    box-shadow: 0px 0px 5px 0px rgba(84,84,84,0.3);
+    font-size: 26rpx;
+    color: #232222;
+    text-align: center;
+    line-height: 60rpx;
+    margin-bottom: 20rpx;
+    background-color: #FFF;
+}
+
+.match_budget .match_budget_cont .budget_item .tag_list .tag_item.active {
+    background-color: #ff3f8b;
+    color: #fff;
+}
+
+.service_ticket {
+    width: 100%;
+    height: fit-content;
+    margin-top: 34rpx;
+}
+
+.service_ticket .ticket_title {
+    width: 100%;
+    height: fit-content;
+    padding-left: 55rpx;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    margin-bottom: 35rpx;
+}
+
+.service_ticket .ticket_title .ticket_title_icon {
+    width: 32rpx;
+    height: 32rpx;
+    margin-right: 16rpx;
+}
+
+.service_ticket .ticket_title .ticket_title_cont {
+    width: fit-content;
+    height: 32rpx;
+    font-size: 28rpx;
+    color: #232222;
+    line-height: 32rpx;
+}
+
+.service_ticket .my_ticket {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.service_ticket .my_ticket .ticket_box {
+    width: 600rpx;
+    height: 220rpx;
+    position: relative;
+}
+
+.service_ticket .my_ticket .ticket_box .ticket_bg {
+    width: 600rpx;
+    height: 220rpx;
+}
+
+.service_ticket .my_ticket .ticket_box .ticket_num {
+    width: fit-content;
+    height: 42rpx;
+    position: absolute;
+    bottom: 40rpx;
+    right: 55rpx;
+    font-size: 28rpx;
+    color: #FFFFFF;
+    line-height: 28rpx;
+    border-bottom: 1rpx solid #FDEBEC;
+}
+
+.service_ticket .my_ticket .ticket_box .ticket_num_normal {
+    color: #232222;
+    border-bottom: 1rpx solid #232222;
+}
+
+.bingin_match {
+    width: 620rpx;
+    height: 80rpx;
+    border-radius: 40rpx;
+    background-color: #ff3f8b;
+    font-size: 26rpx;
+    color: #fff;
+    text-align: center;
+    line-height: 80rpx;
+    margin: 92rpx auto 50rpx;
+}

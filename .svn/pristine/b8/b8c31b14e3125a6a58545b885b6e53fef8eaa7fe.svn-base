@@ -1,0 +1,37 @@
+
+<!-- <template name="FreelingKefu">
+  <form bindsubmit="freelingShare" report-submit='true'>
+    <view class='showTixianView_upperlimit'>
+      
+      <image class='newuser-thirty' mode='widthFix' src="{{upyconfig}}small-iconImages/heboImg/free_jietongkefu_new.png"></image>
+    
+      <button open-type='contact' class="button_confrim_upperlimit" bindtap=''  session-from='{"open_param":"ApplicationForShipment"}' form-type='submit'>
+     接通客服
+          </button>
+    </view>
+  </form>
+</template> -->
+
+
+
+
+<template name="FreelingKefu">
+  <form bindsubmit="xianjinRedsubmit" report-submit='true'>
+    <view class='showTixianView_upperlimit'>
+      
+      <image class='newuser-thirty' wx:if="{{freelingMeiyi != true}}" src="{{upyconfig}}small-iconImages/heboImg/free_jietongkefu_fl.png"></image>
+      <image class='newuser-thirty' wx:else src="{{upyconfig}}small-iconImages/heboImg/free_jietongkefu_new.png"></image>
+      
+
+      <!-- <image class='closeimage-newhongbao' src="{{upyconfig}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeUpperGoYiFuShow'></image> -->
+    
+      <!-- <button open-type='contact' class="button_confrim_upperlimit" bindtap=''  session-from='{"open_param":"ApplicationForShipment"}' form-type='submit'>
+     接通客服
+      </button>    -->
+
+      <button open-type='contact' class="button_confrim_upperlimit" session-from='{"open_param":"BulidGroupShareFriend"}' show-message-card='true' send-message-title='{{shopList[0].shop_name}}' send-message-img='{{shopList[0].new_pic}}!280' send-message-path="{{path}}">
+      </button>
+    </view>
+  </form>
+</template>
+

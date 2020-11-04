@@ -1,0 +1,790 @@
+// pages/listHome/order/oneBuyLuckPan/oneBuyLuckPanLast.js
+
+
+import config from '../../../../config.js';
+// var util = require('../../../utils/util.js');
+
+// import config from '../../../../common/toastTest/toastTest.js';
+
+var util = require('../../../../utils/util.js');
+
+
+
+var app = getApp();
+var token;
+
+
+var isRunning = false;//是否正在抽奖
+
+
+var balanceLottery = 0;
+var balanceLotterySum = 0;
+
+var isFromSignBalanceLottery = false;
+
+var dataListTemp1 = [];
+var isMoving = false;
+var scollTimeOut;
+var scollTimePause;
+var wxIsNotBind = false;
+var typelist = [];//二级类目集合
+var supplabelList = [];//所有品牌集合
+var firstChou = false;
+var runDegs = 0;
+var rotate = 0;
+var WinningPrize = 1;//0中奖 1不中奖
+var realyWinningPrize = 1;//真实是否中奖 0中奖 1不中奖
+var winningOrder = '';//中奖的订单
+// var pRatio = 1;
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    Upyun: config.Upyun,
+    isMad: false,
+    animationData: {},
+    timer: null,
+    step: 0,
+
+    icon_zhizhen: "onebuy_zhizhen.png",
+    moneyDiscount: 0,
+    moneyDiscountShowFlag: false,
+    oneYuanDiscriptionTitle: '疯抢返还说明',
+
+    scrollTop1: 0,
+    scrollTop2: 0,
+    mListData1: [],
+    showGuiZe: false,
+    tapshowGuiZe: false,
+    showStopBtn: false,
+    oneyuanValue: 1,
+    oneyuanCount: 1,
+    wxcx_shop_group_price: 1,
+    type_data: '', //商品类目
+    orderList: [],
+    share_price: '',
+    share_oldprice: '',
+    share_name: '',
+  },
+  onUnload: function () {
+    console.log('App onHide');
+    clearInterval(this.data.timer);
+    // this.setData({
+    //   timer: null,
+    //   moneyDiscountShowFlag:true,
+    // })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    new app.ToastPannel();
+    token = app.globalData.user.userToken;
+    runDegs = 0;
+    rotate = 0;
+    isRunning = false;//是否正在抽奖
+    balanceLottery = 0;
+    balanceLotterySum = 0;
+    dataListTemp1 = [];
+    isMoving = false;
+    wxIsNotBind = false;
+    firstChou = true;
+
+    this.setOneyuanCount();
+    this.setData({
+      showGuiZe: true,
+    });
+
+    wx.setNavigationBarTitle({
+      title: "疯抢人气大牌",
+    })
+
+    wx.setStorageSync("discountShow", false);
+
+    var basesData = wx.getStorageSync("shop_tag_basedata");
+    typelist = basesData.data.type_tag;
+    //  supplabelList = basesData.data.supp_label;
+    //只取type = 1的
+
+    var basesData = wx.getStorageSync("shop_tag_basedata");
+    var supAll = basesData.data.supp_label;
+    for (var i = 0; i < supAll.length; i++) {
+      var type = supAll[i].type;
+      if (type == 1) {
+        supplabelList.push(supAll[i]);
+      }
+    }
+    console.log("品牌列表" + supplabelList)
+
+    if (this.data.isBalanceLottery) {
+      //体验抽余额红包 剩余次数
+      balanceLottery = wx.getStorageSync("BALANCE_LOTTERY");
+      if (!balanceLottery) {
+        balanceLottery = 0;
+      }
+      isFromSignBalanceLottery = options.isFromSignBalanceLottery;
+    }
+
+    this.initData(false);
+    // pRatio = wx.getSystemInfoSync().pixelRatio;
+    if (scollTimeOut) {
+      clearInterval(scollTimeOut);
+      scollTimeOut = null;
+    }
+    if (scollTimePause) {
+      clearInterval(scollTimePause);
+      scollTimePause = null;
+    }
+
+    this.lotteryDrawHttp(false);
+    this.updateChoujiangResult();
+    this.initLimitAwardsList();
+
+    console.log("^^^^^^^^^^^^^^^^^" + app.globalData.systemInfo);
+  },
+
+  dialog_close: function () {
+    this.setData({
+
+    });
+  },
+
+  //设置抽奖次数
+  setOneyuanCount: function () {
+    var group_price = wx.getStorageSync('wxcx_shop_group_price');
+    var YuanCount = 1;
+    if (group_price > 0 && app.globalData.oneYuanEvery > 0) {
+      YuanCount = Math.ceil(group_price / app.globalData.oneYuanEvery);
+    }
+    this.setData({
+      oneyuanCount: YuanCount,
+      oneyuanValue: group_price,
+      wxcx_shop_group_price: group_price
+    })
+  },
+
+  //活动规则
+  dayReward_show: function () {
+    this.setData({
+      tapshowGuiZe: true,
+    })
+  },
+
+  initData: function (isRefresh) {
+    var that = this;
+    var dataUrl = config.Host + "wallet/myWallet" +
+      "?token=" + token + config.Version;
+    util.httpNeedLogin(dataUrl, function (data) {
+      if (data.status != 1) {
+        that.showToast(data.message, 2000);
+        return;
+      }
+
+
+
+      that.setData({
+
+
+      });
+
+
+
+
+    }, this.reInitData);
+  },
+  reInitData: function () {
+    token = app.globalData.user.userToken;
+    this.initData();
+  },
+  //刚进来的时候的弹窗
+  initDialog: function () {
+    var that = this;
+
+  },
+
+
+
+  //抽奖结果弹窗上面的X
+  dialog_close_toBind: function () {
+    this.setData({
+      showChoujiangComplete: false,
+      showChoujiangSuccessComplete: false,
+    });
+  },
+
+
+
+  /**
+  * 开始抽奖
+  */
+  startLuckBtn: function (event) {
+    var that = this;
+    that.dialog_close();
+    // that.showToast("旋转开始", 2000);
+
+
+    if (!firstChou && this.data.oneyuanCount < 1) { //如果已经抽过了，再点抽奖按钮就需要下单
+      that.submitOrder();
+      return;
+    } else 
+    {
+      //随机一个不中奖的区域1-63
+      // that.roateStartLuck(parseInt(Math.random() * 63 + 1));
+
+      setTimeout(function () {
+        that.roateStartLuck(parseInt(Math.random() * 63 + 1));
+      }, 10);
+    }
+
+    // firstChou = false;
+
+    that.setData({
+      showGuiZe: false,
+      tapshowGuiZe: false,
+    })
+  },
+
+  //我知道了去订单详情
+  startLuckBtn_Iknow: function (event) {
+
+    //关闭抽奖结果弹窗
+    this.setData({
+      showChoujiangSuccessComplete: false,
+    })
+
+    winningOrder.orderstatus = "待发货";
+    wx.setStorageSync("orderitem", winningOrder);
+    wx.redirectTo({
+      url: '../../../mine/order/orderDetail/orderDetail?item=' + winningOrder,
+    })
+  },
+
+  //再抽一次
+  startLuckBtn_Again: function (event) {
+
+    //关闭抽奖结果弹窗
+    this.setData({
+      showChoujiangComplete: false,
+    })
+
+    this.startLuckBtn();
+  },
+  //活动规则上的开始抽奖
+  activestartLuckBtn: function (event) {
+    if (!isRunning) {
+      this.startLuckBtn();
+    }
+    this.setData({
+      showGuiZe: false,
+      tapshowGuiZe: false,
+    })
+  },
+  /**
+   * 开始动画
+   * awardIndex 停的位置，0为中奖
+   */
+  roateStartLuck: function (awardIndex) {
+    var that = this;
+    var runNum = 6;
+
+    if (isRunning) {
+
+      isRunning = false;
+      if (rotate % 360 >= 355 || rotate % 360 < 6) {
+        WinningPrize = realyWinningPrize;//点中了真实可以中奖
+        rotate += WinningPrize == 0 ? 0 : 10;
+        //当点停的时候 如果指针所转角度在355~360 或者 0~5 再向前偏移10度
+
+        var animationRun = wx.createAnimation({
+          duration: 0,
+          timingFunction: 'linear'
+        });
+        animationRun.rotate(rotate).step({ duration: 300 })
+        that.setData({
+          animationRun: animationRun,
+          animationData: animationRun.export(),
+        })
+        clearInterval(that.data.timer)
+
+      } else {
+        WinningPrize = 1;//没有点中不可以中奖
+        var animationRun = wx.createAnimation({
+          duration: 0,
+          timingFunction: 'linear'
+        });
+
+        animationRun.rotate(rotate).step({ duration: 100 })
+        that.setData({
+          animationRun: animationRun,
+          animationData: animationRun.export(),
+        })
+        clearInterval(that.data.timer)
+      }
+
+      // that.animiComplete();
+
+      setTimeout(function () {
+        //显示抽奖结果
+        that.animiComplete();
+      },
+        1000
+      );
+
+      that.setData({
+        timer: null,
+        showStopBtn: false,
+        // animationData: that.animationRun.export(),
+        oneyuanCount: that.data.oneyuanCount - 1,
+      })
+
+    } else {
+
+      var awardIndex = Math.random() * 64 >>> 0;
+      isRunning = true;
+
+      that.setData({
+        showChoujiangComplete: false
+      });
+
+      //转盘分成多少份
+      var uniform = 64;
+      runDegs = runDegs + (360 - runDegs % 360) + (360 * runNum - awardIndex * (360 / uniform));
+      var animationRun = wx.createAnimation({
+        duration: 1080000,
+        timingFunction: 'linear'
+      });
+      that.animationRun = animationRun;
+      // animationRun.rotate(runDegs).step();
+      animationRun.rotate(90000).step();
+      that.setData({
+        showStopBtn: true,
+        animationData: animationRun.export(),
+      });
+
+      if (that.data.timer == null) {
+        var timer = setInterval(function () {
+          rotate += 1
+          console.log('**************roate=', rotate);
+          that.animationRun.rotate(1).step();
+        }, 12);
+
+        that.setData({
+          timer: timer,
+          // animationData: that.animationRun.export(),
+        })
+      }
+
+
+      // // 显示抽奖结果
+      // setTimeout(function () {
+      //   that.animiComplete();
+      //   isRunning = false;
+      // }, 4200);
+    }
+
+  },
+
+  //获取用户是否可以中奖
+  updateChoujiangResult: function () {
+
+    var that = this;
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+
+    var oldurl = config.Host + 'order/getOrderRaffleOrNotPrize?' + config.Version + '&token=' + token;
+    util.http(oldurl, that.ResultCallBack);
+
+    this.top_shopType();
+  },
+
+  ResultCallBack: function (data) {
+    realyWinningPrize = data.OrNotPrize;
+  },
+
+  //初始化对应订单的抽奖数据
+  lotteryDrawHttp: function (paysuccess) {
+    var that = this;
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+
+    var oldurl = config.Host + 'order/lotteryDraw?' + config.Version + '&token=' + token + '&order_code=' + wx.getStorageSync("oneYuan_order_code");
+
+    if (paysuccess == true) {
+      util.http(oldurl, that.lotteryCallBack);
+    } else {
+      util.http(oldurl, function () { });
+    }
+  },
+  lotteryCallBack: function (data) {
+    var that = this;
+
+    //支付成功自动抽奖
+    firstChou = true;
+    that.setOneyuanCount();
+    //随机一个不中奖的区域1-63
+    that.roateStartLuck(parseInt(Math.random() * 63 + 1));
+  },
+
+  //反馈后台抽奖结果
+  updateChoujiangStatus: function () {
+
+    var that = this;
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+
+    var oldurl = config.Host + 'order/luckDraw?' + config.Version + '&token=' + token
+      + '&order_code=' + wx.getStorageSync("oneYuan_order_code") + '&whether_prize=' + WinningPrize;
+    util.http(oldurl, that.updateCallBack);
+  },
+
+  updateCallBack: function (data) {
+    firstChou = false;
+
+    //中奖订单信息
+    if (WinningPrize == 0 && data.status == 1) {
+      winningOrder = data.order;
+
+      var orderShops = winningOrder.orderShops;
+      var shop_from = orderShops.shop_from;
+      var last_time = orderShops.last_time;
+      var issue_status = orderShops.issue_status;
+      var orderstaus = orderShops.status;
+      var change = orderShops.change;
+      var item = orderShops;
+      var orderstatus = "";
+      var ordershopstatus = "";
+      var shop_pic = "";
+      var shopcode = "";
+      var newshopname = "";
+      var pay_money = "";
+      var shop_price = "";
+      var orderButtonStatus = [];
+
+      for (var j = 0; j < orderShops.length; j++) {
+        shop_pic = orderShops[j].shop_pic;
+        shopcode = orderShops[j].shop_code;
+        shop_price = orderShops[j].shop_price;
+        newshopname = orderShops[j].shop_name;
+        pay_money = pay_money;
+        shop_from = shop_from;
+
+        orderShops[j].shop_price = shop_price.toFixed(1);
+        if (shop_pic != null) {
+          //商品图片
+          var newcode = shopcode.substr(1, 3);
+          var new_pic = newcode + '/' + shopcode + '/' + shop_pic;
+
+          //商品名称
+          if (newshopname.length > 9) {
+            newshopname = newshopname.substr(0, 9) + '... ';
+          }
+          orderShops[j]["new_shop_pic"] = new_pic;
+          orderShops[j]["new_shopname"] = newshopname;
+        }
+      }
+
+      this.showChoujiangSuccess();//弹出用户中奖提示弹框
+    } else {
+      that.showToast(data.message, 2000);
+    }
+  },
+
+  //中奖后弹框
+  showChoujiangSuccess: function () {
+    var shopData = wx.getStorageSync("order_shop_data");
+    var brander = shopData.brander ? shopData.brander : '衣蝠';
+    var discription = "";
+    var share_price = shopData.shopPrice + '元';
+    var share_oldprice = shopData.shopOldPrice + '元';
+    var share_name = '';
+
+    if (this.data.type_data != undefined && this.data.type_data != "" && this.data.type_data != null) {
+      share_name = brander + this.data.type_data;
+    } else {
+      share_name = shopData.shopName;
+    }
+    this.setData({
+      showChoujiangSuccessComplete: true,
+      showChoujiangSuccessData: discription,
+      share_price: share_price,
+      share_oldprice: share_oldprice,
+      share_name: share_name,
+    });
+  },
+
+  //获取二级类目
+  top_shopType: function () {
+    var that = this;
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+    var shopData = wx.getStorageSync("order_shop_data");
+
+    var oldurl = config.Host + 'shop/queryShopType2?' + config.Version + '&token=' + token + '&shop_code=' + shopData.shopCode;
+    util.http(oldurl, that.type_data);
+  },
+  type_data: function (data) {
+    if (data.status == 1) {
+      this.setData({
+        type_data: data.type2
+      })
+    }
+  },
+
+  //抽奖结果
+  animiComplete: function () {
+
+    //未中奖弹窗
+    if (WinningPrize != 0) {
+      setTimeout
+      this.setData({
+        showChoujiangComplete: true
+      });
+    }
+
+    //更新后台抽奖状态
+    this.updateChoujiangStatus();
+
+    //获取用户是否可以中奖
+    this.updateChoujiangResult();
+  },
+
+  //获取数据     1元购抢购列表
+  initLimitAwardsList: function () {
+    var that = this;
+    for (var i = 0; i < 50; i++) {
+      dataListTemp1.push(that.addToLimitList());
+    }
+    that.setData({
+      mListData1: dataListTemp1
+    });
+    that.count_down();
+  },
+
+
+
+  count_down: function () {
+    var that = this;
+    if (scollTimeOut) {
+      clearInterval(scollTimeOut);
+      scollTimeOut = null;
+    }
+    if (isMoving) {
+      return;
+    }
+
+    if (!this.data.isMad || this.data.isBalanceLottery) {
+      this.setData({
+        scrollTop1: this.data.scrollTop1 + 61,
+        scrollTop2: this.data.scrollTop2 + 61
+      });
+    } else {
+      this.setData({
+        scrollTop1: this.data.scrollTop1 + 61
+      });
+    }
+    scollTimeOut = setTimeout(function () {
+      that.count_down();
+    }, 1000)
+  },
+  scrolltolower1: function () {
+    var temp1 = this.data.mListData1;
+    // for (var i in dataListTemp1) {
+    //   temp1.push(dataListTemp1[i]);
+    // }\
+    Array.prototype.push.apply(temp1, dataListTemp1);
+    this.setData({
+      mListData1: temp1
+    });
+  },
+
+
+  out_touchend: function () {
+    var that = this;
+    if (isMoving) {
+      isMoving = false;
+      if (scollTimePause) {
+        clearInterval(scollTimePause);
+        scollTimePause = null;
+      }
+      scollTimePause = setTimeout(function () {
+        that.count_down();
+      }, 1500);
+    }
+    // console.log("out_touchend", isMoving);
+  },
+  out_touchmove: function () {
+    isMoving = true;
+    if (scollTimeOut) {
+      clearInterval(scollTimeOut);
+      scollTimeOut = null;
+    }
+    // console.log("out_touchmove", isMoving);
+  },
+
+  addToLimitList: function () {
+    var limitData = {};
+    limitData["nname"] = util.getVirtualName() + "***" + util.getVirtualName();
+    limitData["num"] = parseInt(Math.random() * 300 + 100) + ".0";
+
+    //随机品牌
+    var randomSub = supplabelList[parseInt(Math.random() * (supplabelList.length - 1))].name;
+
+    //随机二级类目
+
+    var randomType2 = typelist[parseInt(Math.random() * (typelist.length - 1))].class_name;
+
+    //x元购
+    var buypriceData = ["9.9", "19.9", "29.9", ""];
+    var buyprice = buypriceData[parseInt(Math.random() * (buypriceData.length - 1))];
+
+    limitData["content"] = buyprice + "元买走了" + randomSub + randomType2;
+
+    limitData["pic"] = config.Upyun + "defaultcommentimage/" + util.getDefaultImg();
+    return limitData;
+  },
+
+  // 提交订单
+  submitOrder: function () {
+
+    var that = this;
+    var dataUrl = wx.getStorageSync("oneYuanOrderUrl");
+    util.http(dataUrl, that.confirmorderResult);
+    this.setData({
+      dataurl: dataUrl,
+      tapshowGuiZe: false
+    });
+  },
+
+
+  // 提交订单结果
+  confirmorderResult: function (data) {
+
+    var that = this;
+
+    if (data.status == 1) {
+      this.setData({ totalAccount: data.price })
+      // wxpaycx / wapUinifiedOrder 单个;wxpaycx / wapUinifiedOrderList 多个
+      var payUrl = 'wxpaycx/wapUinifiedOrderList?';
+      if (data.url == 1 || this.data.buyType == 1)
+        payUrl = 'wxpaycx/wapUinifiedOrder?';
+
+      var order_code = data.order_code;
+      wx.setStorageSync("oneYuan_order_code", order_code);
+
+      //保存当前1元下单的链接
+      wx.setStorageSync("oneYuanOrderUrl", this.data.dataurl);
+
+      if (data.price == 0) { //新用户  直接开始抽奖
+
+        //随机一个不中奖的区域1-63
+        that.roateStartLuck(parseInt(Math.random() * 63 + 1));
+        return;
+      }
+
+      //不是新用户就需要支付
+      wx.login({
+        success: res => {
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId, 3rd_session
+          if (res.code) {
+            var dataUrl = config.PayHost + payUrl + config.Version + "&token=" + app.globalData.user.userToken + '&order_code=' + order_code + '&order_name=我的' + '&code=' + res.code;
+            util.http(dataUrl, that.orderPayResult)
+          } else {
+            console.log('获取用户登录态失败！' + res.errMsg)
+            that.showToast('获取用户登录态失败！' + res.errMsg, 2000);
+          }
+        }
+      })
+
+    } else {
+      this.showToast(data.message, 2000);
+    }
+  },
+
+  // 支付
+  //   appId: "wxeb7839c8cbeef680"
+  // nonceStr: "zr73uq589vbk59tlntcri8a1dgxkk44w"
+  // package: "prepay_id=wx2017112416500900940db3290184964231"
+  // paySign: "2DADDBA31784C2D2271FA0343A1B10AD"
+  // signType: "MD5"
+  // timeStamp: 1511858924066
+  orderPayResult: function (data) {
+    var that = this;
+    if (data.status == 1) {
+      var xml = data.xml;
+      wx.requestPayment({
+        'timeStamp': xml.timeStamp + "",
+        'nonceStr': xml.nonceStr,
+        'package': xml.package,
+        'signType': xml.signType,
+        'paySign': xml.paySign,
+        'success': function (res) {
+
+          //支付成功后初始化抽奖信息
+          that.lotteryDrawHttp(true);
+
+          // //支付成功自动抽奖
+          // firstChou = true;
+          // that.setOneyuanCount();
+          // //随机一个不中奖的区域1-63
+          // that.roateStartLuck(parseInt(Math.random() * 63 + 1));
+        },
+        'fail': function (res) {
+          that.showToast('支付失败', 2000);
+
+          //第一次点关闭的时候弹1元购返还说明弹框 后面不用再弹
+          if (wx.getStorageSync("discountShow") != true) {
+            that.top_shopHttp();
+          }
+        }
+      })
+    } else {
+      that.showToast(data.message, 2000);
+    }
+
+  },
+
+
+  //获取可抵扣余额
+  top_shopHttp: function () {
+    var that = this;
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+    var oldurl = config.Host + 'order/getZeroOrderDeductible?' + config.Version + '&token=' + token;
+    util.http(oldurl, that.discount_data);
+  },
+  discount_data: function (data) {
+    if (data.status == 1) {
+      this.setData({
+        moneyDiscountShowFlag: true,
+        moneyDiscount: data.order_price.toFixed(1),
+      })
+
+      wx.setStorageSync("discountShow", true);
+    }
+  },
+
+  //余额抵扣弹窗点击知道了 关闭
+  getYiDouBtn: function () {
+    this.setData({ moneyDiscountShowFlag: false })
+  },
+
+  //查看余额
+  getYueBtn: function () {
+    wx.navigateTo({
+      url: '../../../mine/wallet/wallet',
+    })
+    this.setData({ moneyDiscountShowFlag: false })
+  },
+})

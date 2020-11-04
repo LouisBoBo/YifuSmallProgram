@@ -1,0 +1,19 @@
+<template name="open-buySuccess">
+  <view class="notEnoughYidou-root">
+        <!-- <image catchtap="closeTixianComplete" class='icon-close2' src="/iconImages/icon_close.png"></image> -->
+    <view class='title'>
+      <text class='notEnough-dialog-title'>支付成功</text>
+      <image class='notEnough-dialog-image' src='/iconImages/fight_Success.png'></image>
+    </view>
+
+    <image class='notEnough-content-image' src='{{Upyun}}small-iconImages/qingfengpic/go_next_down.png'></image>
+    <text class='notEnough-dialog-content1'>恭喜!获得现金红包</text>
+    <text class='notEnough-dialog-content2'>￥<text class='notEnough-dialog-content3'>{{rawardMondy}}</text></text>
+    <text></text>
+    <image class='notEnough-content-image' src='{{Upyun}}small-iconImages/qingfengpic/go_next_down.png'></image>
+    <view class='buttonView'>
+      <text catchtap="getMoneyTap" class='bottom-btn-yellow5'>立即领取</text>
+    </view>
+    <image catchtap="closeFight" class='icon-close' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

@@ -1,0 +1,175 @@
+.titleview {
+  color: #666;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  margin-top: 10rpx;
+  line-height: 44rpx;
+  letter-spacing: 2px;
+  font-size: 32rpx;
+}
+
+.section-title {
+  color: #666;
+  margin: 20rpx 20rpx 20rpx 20rpx;
+  line-height: 44rpx;
+  letter-spacing: 2px;
+  font-size: 32rpx;
+}
+
+.section-tabs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 20rpx;
+}
+
+.section-tabs-item {
+  text-align: center;
+  margin: 0rpx 20rpx 20rpx 0rpx;
+  width: 223rpx;
+  height: 70rpx;
+}
+.section-tabs-item-image{
+  position: absolute;
+  margin-left: -110rpx;
+  height: 70rpx;
+  width: 223rpx;
+  vertical-align: middle;
+}
+.section-tabs-item-text {
+  font-size: 30rpx;
+  position: absolute;
+  margin-top: 15rpx;
+  margin-left: -100rpx;
+  height: 70rpx;
+  width: 200rpx;
+  color: #666;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.section2-tabs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 20rpx;
+}
+
+.section2-tabs-item {
+  text-align: center;
+  margin: 0rpx 20rpx 20rpx 0rpx;
+  width: 223rpx;
+  height: 223rpx;
+}
+
+.section2-tabs-item-image {
+  width: 223rpx;
+  height: 223rpx;
+}
+
+.section2-tabs-item-select-image {
+  position: absolute;
+  margin-top: 20rpx;
+  margin-left: -50rpx;
+  height: 40rpx;
+  width: 40rpx;
+  border-radius: 20rpx;
+}
+
+.section2-tabs-item-text {
+  font-size: 30rpx;
+  position: absolute;
+  margin-top: 170rpx;
+  margin-left: -210rpx;
+  height: 40rpx;
+  width: 200rpx;
+  color: white;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.section4-tabs-message {
+  display: flex;
+  flex-direction: row;
+  height: 80rpx;
+  align-items: center;
+  margin: 20rpx;
+  border-radius: 13rpx;
+  margin-bottom: 50rpx;
+}
+
+.section4-tabs-message-title {
+  color: #666;
+  font-size: 32rpx;
+  margin-top: 35rpx;
+  width: 100rpx;
+  height: 80rpx;
+}
+
+.section4-tabs-message-heigh {
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  margin-right: 5rpx;
+  height: 80rpx;
+  width: 85%;
+  border: 1rpx solid #eee;
+  border-radius: 8rpx;
+}
+
+.section4-tabs-message-weight {
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  margin-right: 5rpx;
+  height: 80rpx;
+  width: 85%;
+  border: 1rpx solid #eee;
+  border-radius: 8rpx;
+}
+
+.bottmButton {
+  display: flex;
+  flex-direction: row;
+}
+
+.canclebutton {
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 40%;
+  height: 80rpx;
+  background: red;
+  display: block;
+  text-align: center;
+  line-height: 80rpx;
+  background-color: white;
+  border-radius: 8rpx;
+  color: #ff3f8b;
+  border: 1rpx solid #ff3f8b;
+}
+
+.okbutton {
+  margin-left: 5%;
+  display: block;
+  width: 40%;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 80rpx;
+  overflow: hidden;
+  background-color: #ff3f8b;
+  border-radius: 8rpx;
+  color: white;
+}
+
+.button-confrim {
+  opacity: 0;
+  background-color: green;
+  width: 40%;
+  height: 80rpx;
+  margin-left: 55%;
+  margin-top: -70rpx;
+  position: absolute;
+  left: 0;
+}
+.bottomview{
+  height: 50rpx;
+  width: 100%;
+}

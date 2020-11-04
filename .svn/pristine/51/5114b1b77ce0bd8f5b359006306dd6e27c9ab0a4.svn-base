@@ -1,0 +1,119 @@
+/*模态框*/
+.modals {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.modals-cancel {
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.bottom-dialog-body {
+  position: absolute;
+  z-index: 10001;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0rpx;
+  height: 600rpx;
+  background-color: #eee;
+}
+/*动画前初始位置*/
+.bottom-pos {
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+}
+
+.firstview{
+  width: 100%;
+  height: 20%;
+  margin-left: 10rpx;
+  border-width: 0 0 1px 0;
+  border-color: #e2e2e2;
+  border-style: solid;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.secondview{
+  width: 100%;
+  height: 30%;
+  margin-left: 10rpx;
+  border-width: 0 0 1px 0;
+  border-color: #e2e2e2;
+  border-style: solid;
+  display: flex;
+  flex-direction: row;
+}
+.thirdview{
+  width: 100%;
+  height: 30%;
+  margin-left: 10rpx;
+  border-width: 0 0 1px 0;
+  border-color: #e2e2e2;
+  border-style: solid;
+  display: flex;
+  flex-direction: row;
+}
+.botttomview{
+  display: flex;
+  background-color: #e2e2e2;
+  width: 100%;
+  height: 20%;
+  align-items: center;
+  justify-content: center;
+}
+
+.firstview-image{
+  margin-left: 15rpx;
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 26rpx;
+}
+.firstview-text{
+  margin-left: 20rpx;
+  font-size: 24rpx;
+}
+
+.spaceview{
+  display: flex;
+  flex-direction: column;
+  margin-top: -10rpx;
+  margin-right: 30rpx;
+  width: 100rpx;
+  height: 100%;
+}
+.spaceview_btn{
+  opacity: 0;
+   position: absolute;
+   z-index: 10002;
+   margin-left: 0;
+   margin-top: 10rpx;
+   width: 100rpx;
+   height: 150rpx;
+}
+.spaceview-image{
+  display: flex;
+  margin-top: 30rpx;
+  margin-left: 10rpx;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 10rpx;
+  justify-content: center;
+}
+.spaceview-text{
+  margin-top: 10rpx;
+  font-size: 20rpx;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}

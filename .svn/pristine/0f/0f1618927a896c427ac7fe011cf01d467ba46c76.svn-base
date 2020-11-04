@@ -1,0 +1,31 @@
+<view class='invite-friends'>
+  <view class='invite-top'>
+    <image class='top-pic' mode='widthFix' src='{{Upyun}}small-iconImages/zzq/icon_top_big_200.png'></image>
+    <view class='top-tv'>
+          <text class='top-tv1'>1.分享微信群，邀请家人，朋友或同事来衣蝠。</text>
+          <text class='top-tv1'>2.好友每次消费，你可得<text class='top-tv1-import'>10%奖励金</text>。</text>
+          <text class='top-tv1'>3.分享到3个以上微信群，拿到奖励金的概率<text class='top-tv1-import'>提升200%</text>。</text>
+          <text class='top-tv1'>4.坚持分享30天，拿到<text class='top-tv1-import'>200元+奖励金</text>的概率<text class='top-tv1-import'>高达98%</text>。</text>
+    </view>
+  </view>
+  <view class='invite-bottom'>
+    <view class='bottom-red'>分享到3个群后,</view>
+    <view class='bottom-red2'>拿到提现奖励的几率高达98%！</view>
+    <!-- <view class='bottom-tv'>分享到</view> -->
+    <view class='bottom-center'>
+      <view class='bottom-center-out-left'>
+        <view class='share-cover'>
+          <image class='bottom-center-wx' src='{{Upyun}}small-iconImages/qingfengpic/icon_wechat_touming.png'> </image>
+          <text class='share-tv'>点我分享到微信群</text>
+          <button class="weixin-share-icon-btn" open-type="share"></button>
+        </view>
+      </view>
+      <!-- <view class='bottom-center-out-right'>
+      <view class='share-cover'>
+        <image class='bottom-center-friends' src='{{Upyun}}small-iconImages/zzq/icon_friends.png'></image>
+        <button class="weixin-share-icon-btn" open-type="share"></button>
+      </view>
+    </view> -->
+    </view>
+  </view>
+</view>

@@ -1,0 +1,13 @@
+
+
+
+<template name="FreelingKefu_wallet">
+  <form bindsubmit="xianjinRedsubmit" report-submit='true'>
+    <view class='showTixianView_upperlimit-wallet'>
+      <image class='newuser-thirty-wallet'  src="{{Upyun}}small-iconImages/heboImg/thirty_redhongbao_wallet.png"></image>
+      <button open-type='contact' class="button_confrim_upperlimit-wallet" session-from='{"open_param":"NewUserRedHongbao"}' form-type='submit'>
+      </button>
+    </view>
+  </form>
+</template>
+

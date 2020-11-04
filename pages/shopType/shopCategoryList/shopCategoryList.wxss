@@ -1,0 +1,37 @@
+@import "../../../common/listHomeTemplate/listtemplate.wxss";
+ @import "../../../common/toptap.wxss"; 
+
+.shopContainer {
+  margin-top: 80rpx;
+  /* display: flex; */
+  z-index: 1;
+}
+
+.topbarall {
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  position: fixed;
+  flex: none;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin-top: 0;
+  padding-bottom: 20rpx;
+  z-index: 5;
+}
+
+.top-bar-item {
+  color: #3e3e3e;
+  font-size: 14sp;
+}
+
+.top-bar-item-active {
+  color: #ff3f8b;
+}
+
+.emptyView {
+  padding-top: 50%;
+  text-align: center;
+  color: #666666;
+}

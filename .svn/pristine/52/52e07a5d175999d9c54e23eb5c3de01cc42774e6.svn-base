@@ -1,0 +1,167 @@
+/* sku选择 */
+@import "../addReduce-template/addReduce.wxss";
+
+.dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.7);
+  /* display: none; */
+}
+
+.dialog__container {
+  position: fixed;
+  bottom: 0;
+  /* width: 750rpx; */
+  width: 100%;
+  background: white;
+  transform: translateY(150%);
+  transition: all 0.4s linear;
+  z-index: 11;
+}
+
+.dialog--show .dialog__container {
+  transform: translateY(0);
+}
+
+.dialog--show .dialog__mask {
+  display: block;
+}
+
+.sku-top {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30rpx;
+}
+
+.shop-pic {
+  width: 120rpx;
+  height: 140rpx;
+  z-index: 12;
+  margin-left: 30rpx;
+}
+
+.shop-pic image {
+  height: 140rpx;
+  width: 120rpx;
+  /* border-radius: 20rpx; */
+}
+
+.image-close {
+  width: 40rpx;
+  height: 40rpx;
+  position: fixed;
+  right: 20rpx;
+  top: 15rpx;
+}
+
+.sku-shop {
+  margin-left: 20rpx;
+  margin-right: 100rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+/* .border-line {
+  width: 100%;
+  height: 2rpx;
+  display: inline-block;
+  margin: 30rpx 0rpx;
+  background-color: gainsboro;
+  text-align: center;
+} */
+
+.sku-name {
+  color: #000;
+  font-size: 28rpx;
+  font-weight: 500rpx;
+}
+
+.sku-price {
+  margin-top: 15rpx;
+  color: #000;
+  font-size: 28rpx;
+  font-weight: 500rpx;
+}
+
+.sku-attr {
+  margin-left: 30rpx;
+  margin-top: 20rpx;
+}
+
+.sku-bottm {
+  margin-top: 100rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  background-color: #ff3f8b;
+  margin-bottom: 30rpx;
+}
+
+.button-confrimss {
+  background-color: #ff3f8b;
+  color: #fff;
+}
+
+.attr-list {
+  display: flex;
+  flex-direction: row;
+   flex-wrap: wrap;
+}
+
+.single-out {
+  /* width: 20%; */
+  height: 50rpx;
+  margin-top: 20rpx;
+  margin-right: 30rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.single {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25rpx;
+  color: #ff3f8b;
+  height: 50rpx;
+  /* width: 110rpx; */
+  border: 0.7px solid #dcdcdc;
+}
+
+.single-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25rpx;
+  color: #fff;
+  height: 50rpx;
+  /* width: 110rpx; */
+  background-color: #ff3f8b;
+}
+
+.spacename{
+  opacity: 0;
+}
+
+.tv-style {
+  color: #000;
+  font-size: 28rpx;
+  font-weight: 500rpx;
+}
+
+.add-reduce {
+  margin-top: 10rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.stock-count {
+  margin-left: 15rpx;
+  display: flex;
+  color: #3e3e3e;
+  font-size: 25rpx;
+}

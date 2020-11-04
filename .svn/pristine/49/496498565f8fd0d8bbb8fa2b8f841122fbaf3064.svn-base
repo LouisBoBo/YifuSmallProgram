@@ -1,0 +1,545 @@
+<import src="../../common/toastTest/toastTest.wxml" />
+<import src="shareshop/shareshop.wxml" />
+
+<import src="shareShopTX/shareShopTX.wxml" />
+
+
+<import src="signItemTemp/signItemTemp.wxml" />
+
+<import src="browseMinTemp/browseMinTemp.wxml" />
+
+<import src="signhintTemp/signhintTemp.wxml" />
+
+<import src="signLingYTemp/signLingYTemp.wxml" />
+
+<import src="meiyueTishiTemp/meiyueTishiTemp.wxml" />
+
+
+<import src="signSMtemp/signSMtemp.wxml" />
+<import src="../../common/openYifu-template/openYifu.wxml" />
+
+
+<import src="../../common/signfinish-template/signfinish.wxml" />
+
+<import src="../../common/Upperlimit-template/Upperlimit.wxml" />
+
+<import src="../../common/bubbleRemind-template/bubbleRemind.wxml" />
+
+<import src="../../common/HasJYJLdialog-template/HasJYJLdialog-template" />
+
+<import src="../../common/GetHongBao-template/makeMoneyHongbao" />
+
+<import src="../../common/signGetVip-template/signGetVip" />
+<import src="../../common/signNoShowPage/signNoShowPage" />
+<import src="../../common/singJoinWXQ/singJoinWXQ" />
+<import src="../../common/FirstDaySignComplete/FirstDaySignComplete" />
+<import src="../../common/SecondDayTishi/SecondDayTishi" />
+
+
+<import src="../../common/kaiTuanTastDialog-template/kaiTuanTastDialog-template" />
+
+<import src="../../common/completeTastTastToZhuanpanBack/completeTastTastToZhuanpanBack" />
+
+
+
+<import src="../../common/yaoqingCantuanBackDialog-template/yaoqingCantuanBackDialog-template" />
+
+
+<import src="../../common/yaoqingCantuanDialog-template/yaoqingCantuanDialog-template" />
+
+
+<import src="../../common/CanvasShare-template/canvasShare.wxml" />
+<import src="../../common/Member-template/guidebecome_member" />
+
+
+<view class="allallview">
+
+
+
+<view class='sign-view' style='background-image: url({{Upyun}}small-iconImages/ad_pic/{{signBG}})'>
+
+
+
+
+  <!-- <view class="count-tou-share" wx:if="{{isLoginSucess}}">
+    <text class="leijifenxiang">累计分享数 : {{userDataData.shareCount}}</text>
+    <text class="leijijiangli">累计奖励：{{userDataData.shareMoneyCount}}元</text>
+    <image class="chakanxiangqing" src='{{Upyun}}small-iconImages/ad_pic/xiangqing_aaa.png' bindtap='chakanxiangqingTap'> </image>
+  </view> -->
+
+
+<!-- <view class='view-InviteFriends' wx:if='{{showInviteFriends}}' style='background-image: url({{Upyun}}small-iconImages/qingfengpic/InviteFriends_img.png'
+catchtap = 'toInviteFriends'
+>
+
+      <image class='invite-friend-close' src="{{upyconfig}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeInviteFriends'></image>
+
+  </view> -->
+
+
+  <view class='view-InviteFriends' wx:if='{{showInviteFriends && new_showInviteFriends}}' style='background-image: url({{Upyun}}small-iconImages/qingfengpic/InviteFriends_img2.jpg'
+catchtap = 'toInviteFriends'
+>
+
+      <image class='invite-friend-close' src="{{Upyun}}small-iconImages/heboImg/task_icon_close.png" 
+      catchtap='closeInviteFriends'></image>
+  </view>
+
+
+
+
+  <view class='all-page'>
+
+
+
+    <image class='taskShuoming-image' src="{{Upyun}}small-iconImages/qingfengpic/but_tast_shuoming.png" bindtap='renwushuomingTap'
+    wx:if="{{showSignPage}}"
+    ></image>
+
+
+    <!-- <view class="view-view" style='margin-top:{{task_page_margin_top}}'> -->
+        <view class="view-view" style='margin-top:10rpx'>
+
+
+
+      <!--用账户信息 ---不要了 -->
+
+
+
+      <!--背景中间文字---如邀请好友做任务 赢取150元奖励  -->
+      <image class='img-center' src='{{Upyun}}small-iconImages/ad_pic/{{BGWord}}' wx:if="{{showBGWord}}" style='width: {{BGWordWidth}}; height: {{BGWordHeight}}'></image>
+
+      <!--零元购才显示的  -->
+      <view class='maomi-di-ling' wx:if="{{showFanxian}}">
+        <!--今日已返 -->
+        <text class='maomi-yue' style='color:#ffffff ;font-size: 23rpx'>{{jinriyifan}}</text>
+        <view class='shuxian' style='background-color:#ffffff'></view>
+        <!--累计已返 -->
+        <text class='maomi-ketixian' style='color:#ffffff ;font-size: 23rpx'>{{leijiyifan}}</text>
+        <view class='shuxian' style='background-color:#ffffff'></view>
+        <!--累计提现  -->
+        <text class='maomi-tixianzhong' style='color:#ffffff ;font-size: 23rpx'>{{leijitixian}}</text>
+      </view>
+
+
+
+      <view class='maomi' style='height:360rpx;background-image: url({{Upyun}}/small-iconImages/qingfengpic/{{maomi_bg}}); margin-top: {{maomi_margin_top}}' wx:if="{{!isCrazyMon && showSignPage }}">
+
+
+        <!--今日赚的文字和+提现额度  -->
+        <view class='maojinrizhuan-old'  style="margin-top: {{jinrizhuan_marginTop}};" wx:if="{{showCenterTop}}">
+          <text class='jinrizhuan-old'>今日赚(元)</text>
+          <!-- <image class='jiatixian' mode='widthFix' src='{{Upyun}}small-iconImages/qingfengpic/but_tixianedu.png' bindtap='andTX'></image> -->
+
+           <form bindsubmit="loginsubmit" report-submit='true'>
+          <button class='button_confrim_upperlimit4-invfriend' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+        </form>
+
+        </view>
+        <text class='jinrizhuancount' wx:if="{{showCenterTop}}">{{jinrizhuan}}</text>
+
+
+
+        <!--今日赚的文字和+提现额度  -->
+        <view class='maojinrizhuan' wx:if="{{!showCenterTop}}">
+
+
+          <text class='jinrizhuan'>完成任务赚现金</text>
+
+          <!-- <image class='jiatixian' mode='widthFix' src='{{Upyun}}small-iconImages/qingfengpic/but_tixianedu.png' catchtap='andTX'></image> -->
+
+           <form bindsubmit="loginsubmit" report-submit='true'>
+          <button class='button_confrim_upperlimit4-invfriend' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+        </form>
+
+        </view>
+
+
+
+        <view class='maomi-center' wx:if="{{!showCenterTop}}">
+          <view class='miao-ceter-view-left'>
+            <view class='miao-center-count-view'>
+              <text class='miao-center-count'>1</text>
+            </view>
+            <text class='maomi-dianjirenwu' style='font-size: 30rpx'> 点击任务</text>
+          </view>
+
+
+          <view class='miao-ceter-view'>
+            <view class='miao-center-count-view'>
+              <text class='miao-center-count'>2</text>
+            </view>
+            <text class='maomi-ketixian-yindao' style='font-size: 30rpx;margin-left: 0rpx'>进入任务页</text>
+          </view>
+
+
+          <view class='miao-ceter-view-right'>
+            <view class='miao-center-count-view'>
+              <text class='miao-center-count'>3</text>
+            </view>
+            <text class='maomi-lingqujiangli' style='font-size: 30rpx'>领取现金</text>
+          </view>
+        </view>
+
+
+        <view class='maomi-di'>
+          <!--余额  -->
+        <text class='maomi-yue' bindtap='bindtap_yue'>可提现{{keTiXian}}</text> 
+        <view class='shuxian'></view>  
+          <!--可提现  -->
+          <text class='maomi-ketixian' bindtap='bindtap_yue'>已提现{{yiTiXian}}</text>
+          <view class='shuxian'></view>
+          <text class='maomi-tixianzhong' bindtap='bindtap_tixianzhong'>提现中{{tiXianZhong}}</text>
+
+          <form  class='button-login-from' bindsubmit="loginsubmit" report-submit='true'>
+            <button class='button-login' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+         </form>
+        </view>
+
+      </view>
+
+
+
+
+      <!--新衣节专用  -->
+      <view class='maomi-newyi' style='background-image: url({{Upyun}}small-iconImages/ad_pic/madmonday.png); ;height: 300rpx' wx:if="{{isCrazyMon}}">
+
+        <view class='maomi-di-newyi'>
+          <!--余额  -->
+          <text class='maomi-yue' bindtap='bindtap_yue'>余额{{yuE}}</text>
+          <!--可提现  -->
+          <text class='maomi-ketixian' bindtap='bindtap_yue'>可提现{{keTiXian}}</text>
+          <!--提现中  -->
+
+
+          <!-- <image class='jiatixian-newyi' style='margin-right: 30rpx' mode='widthFix' src='{{Upyun}}small-iconImages/ad_pic/but_tixianedu_old.png' bindtap='andTX'></image> -->
+
+
+
+
+        </view>
+
+      </view>
+
+
+
+
+
+
+      <!-- <text class="quyuming">每日必做任务</text> -->
+      <view class='quyubg' wx:if="{{isShowbizuo_tou}}">
+        <image class="quyuming-img" src='{{Upyun}}small-iconImages/qingfengpic/zuizuo_tou.png' wx:if="{{isShowbizuo_tou}}"></image>
+        <block wx:for="{{biZuoList}}" wx:key="key" wx:for-item="item">
+          <template is="sign_item_temp" data='{{Upyun,item,isShowAuthorization,isLoginSucess}}' />
+        </block>
+      </view>
+
+
+
+
+<view class='all'  wx:if="{{showCalender}}" style="height: {{weekHeight}}rpx;">
+  <view class="bar">
+    <!-- 上一个月 -->
+    <view class="previous" bindtap="handleCalendar" data-handle="prev">
+      <image src='../../iconImages/rilijiantou_left.png'></image>
+    </view>
+    <!-- 显示年月 -->
+    <view class="rili-data">
+    <text class="rili-month">{{showMonth || "--"}}</text>
+    <text>{{cur_year || "--"}}</text>
+        </view>
+    <!-- 下一个月 -->
+    <view class="next" bindtap="handleCalendar" data-handle="next">
+      <image src='../../iconImages/rilijiantou_right.png'></image>
+    </view>
+  </view>
+  <!-- 显示星期 -->
+  <view class="week">
+    <view wx:for="{{weeks_ch}}" wx:key="key" data-idx="{{index}}">{{item}}</view>
+  </view>
+  <view class='days'>
+    <!-- 列 -->
+    <view class="columns" wx:for="{{days.length/7}}" wx:for-index="i" wx:key="i">
+      <view wx:for="{{days}}" wx:for-index="j" wx:key="j">
+        <!-- 行 -->
+        <view class="rows" wx:if="{{j/7 == i}}">
+          <view class="rows" wx:for="{{7}}" wx:for-index="k" wx:key="k">
+            <!-- 每个月份的空的单元格 -->
+            <view class='cell' wx:if="{{days[j+k].date == null}}">
+              <text decode="{{true}}">&nbsp;&nbsp;</text>
+            </view>
+            <!-- 每个月份的有数字的单元格 -->
+            <view class='cell'  wx:else>
+
+
+              <!-- 当前日期已签到 -->
+              <view wx:if="{{days[j+k].isSign == true}}">
+
+                    <view wx:if="{{days[j+k].isStartDay == true}}" class='daka-date-quan' style="background: #ff3f8b;">
+                      <text class="day-text" style="color: #fff;">始</text>
+                    </view>
+                    <view wx:elif="{{days[j+k].isNowDay == true}}" class='daka-date-quan' style="background: #ff3f8b;">
+                      <text class="day-text" style="color: #fff;">今</text>
+                    </view>
+                    <view  wx:else class='daka-date-quan' style="background: #ff3f8b;">
+                      <text class="day-text" style="color: #fff;">{{days[j+k].date}}</text>
+                    </view>
+              </view>
+              <!-- 未签到 包含漏签的-->
+              <view  wx:else>
+
+
+                    <!-- 漏签的 -->
+                  <view wx:if="{{days[j+k].isStartDay == true}}" class='daka-date-quan' style="background: #dcdee1;">
+                      <text class="day-text" style="color: #fff;">始</text>
+                    </view>
+
+                   <view wx:elif="{{days[j+k].isLouQian == true}}" class='daka-date-quan' style="background: #dcdee1;">
+                      <text class="day-text" style="color:#ffffff" >{{days[j+k].date}}</text>
+                    </view>
+
+
+                     <view wx:elif="{{days[j+k].isNowDay == true}}" class='daka-date-quan' style="background: #dcdee1;">
+                      <text class="day-text" style="color:#ffffff" >今</text>
+                    </view>
+
+                    <!-- 未签的 -->
+                    <view  wx:else class='daka-date-quan' style="background:transparent ;">
+                      <text class="day-text" >{{days[j+k].date}}</text>
+                    </view>
+
+
+
+              </view>
+
+
+
+
+
+
+
+
+
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{showSignCalenderTishi}}" class="rili-tishi"> 
+      <text>未打卡</text>
+      <view class="view-weidaka"></view>
+      <text>已打卡</text>
+      <view class="view-yidaka"></view>
+    </view>
+
+  </view>
+</view>
+
+
+
+
+
+
+
+ 
+
+
+    </view>
+  </view>
+</view>
+<view class='bottom-yifu'>
+  <!-- <image src='{{Upyun}}small-iconImages/ad_pic/ic_launcher.png'></image>
+  <text class='bottom-yifu-text'>更多任务，更多奖励，尽在衣蝠APP</text>
+  <text class='bottom-yifu-open' bindtap='yifu_open'>下载</text> -->
+
+  <form bindsubmit="moneysubmit" report-submit='true'>
+    <image src='{{Upyun}}small-iconImages/ad_pic/ic_launcher.png'></image>
+    <text class='bottom-yifu-text'>更多任务，更多奖励，尽在衣蝠APP</text>
+    <button class='bottom-yifu-open' bindtap='yifu_open' form-type='submit'>下载</button>
+
+  </form>
+
+  <view>
+    <template is="CanvasviewTemplate"></template>
+  </view>
+</view>
+
+
+<!-- Toast -->
+<template is="toast" data="{{ ..._toast_ }}" />
+<!--后面模糊层  -->
+<view class='drawer_screen' catchtouchmove="preventTouchMove" catchtap='{{true}}' wx:if="{{showModalStatusBg}}"></view>
+
+
+
+
+<!--开始： 弹框层 分享X件商品 -->
+<view class="drawer_screen_transparent" wx:if="{{showModalStatus}}" catchtouchmove="preventTouchMove">
+  <template is='share_x_shop_template' data='{{Upyun,share_x_shop_swiper_img,shareXShopType_data}}'></template>
+</view>
+<!--结束： 弹框层 分享X件商品 -->
+
+
+
+<!--开始： 弹框层 老分享赢提现 -->
+<view class="drawer_screen_withdraw" wx:if="{{showOldShareTixian}}" catchtouchmove="preventTouchMove">
+  <template is="share_x_shop_template_tx" data='{{Upyun,shareCount,branchCount,tXshareEcount,tXshareEmoney,tXnum}}'></template>
+</view>
+
+<!--结束： 弹框层 分享X件商品 -->
+
+
+<!--开始： 弹框层 浏览分钟提示   和夺宝号提示共用-->
+<view class="drawer_screen_withdraw" wx:if="{{showBrowseMin}}" catchtouchmove="preventTouchMove">
+  <template is='browseMin' data='{{Upyun,minCount,top_tilte,mm,ss,browseName,browseMinCase,showDuobaoNubmer,duobaoNumber}}'></template>
+</view>
+<!--结束： 弹框层 浏览分钟提示 -->
+
+
+<!--新衣节弹窗  -->
+<view class="drawer_screen_withdraw" wx:if="{{showNewYI}}" catchtouchmove="preventTouchMove">
+  <view class='view-xinyijie'>
+    <image class='yi-close' src='{{Upyun}}small-iconImages/ad_pic/free_icon_close.png' bindtap='newYiCloseTap'></image>
+    <image class='yi-bg-img' mode='aspectFit' src='{{Upyun}}small-iconImages/ad_pic/bg_hdxq.png' bindtap='newYIxiangqingTap'></image>
+    <view class='view-newyi-go' bindtap='newYIgoTap'></view>
+  </view>
+</view>
+<!--新衣节弹窗  结束-->
+
+<!--赚钱提示  -->
+<view class="drawer_screen_withdraw" wx:if="{{showSignHint}}" catchtouchmove="preventTouchMove">
+  <template is="signhint-temp" data='{{Upyun,signHintTitle,signHintTitle1,h5money,lingyuangouMoney}}'></template>
+</view>
+<!--赚钱提示 结束 -->
+<!--零元购提示弹窗  -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{zeroBuyDialogShowFlag}}">
+  <template is='zero-buy-red' data='{{Upyun}}'></template>
+</view>
+<!--零元购提示弹窗 结束 -->
+
+<!-- 任务说明 -->
+<view class="drawer_screen_withdraw" wx:if="{{showSignSM}}" catchtouchmove="preventTouchMove">
+  <template is="signhint-sm" data='{{Upyun,signHintTitle,signHintTitle1}}'></template>
+</view>
+
+<!-- 任务说明 结束-->
+
+
+<!-- <view class="dingzhi-bg" wx:if="{{showZhiding}}" catchtouchmove="preventTouchMove" bindtap='catcjtap_zhidingshou'>
+</view>
+<image class='dingzhi-shou' mode='widthFix' src='{{Upyun}}small-iconImages/qingfengpic/guide_app5.png' wx:if="{{showZhiding}}"></image> -->
+<!-- 置顶衣蝠小程序，关注公众号，下载APP 共用    -->
+<view class="add_drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showZhiding}}" catchtap='zhidingTap'>
+  <image class='add-app-download' mode='widthFix' src="{{Upyun}}/small-iconImages/qingfengpic/{{yindaoPic}}"></image>
+</view>
+
+<!-- 置顶引导结束 -->
+
+<!-- 下载打开衣蝠 APP-->
+<view class="drawer_screen_withdraw" wx:if="{{openYifuDialogShow}}" catchtouchmove="preventTouchMove">
+  <template is="open-yifu-dialog" data='{{Upyun}}'></template>
+</view>
+<!-- 下载打开衣蝠 APP-->
+
+
+
+<!-- 赚钱任务完成弹窗  -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{signFinishShow}}">
+  <template is='sign-finish-dialog' data='{{Upyun,signFinishDialog}}'></template>
+</view>
+
+<!--老分享赢提现完成任务弹窗  -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{oldShareTXShow}}">
+  <template is="upperlimit" data='{{uppertittle,upperdistribution,upperbuttontitle}}'></template>
+</view>
+
+
+<!--每月惊喜任务提示  -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{meiyueTishiShow}}">
+  <template is="meiyuejingxitishi" data='{{Upyun}}'></template>
+</view>
+
+
+<!-- IOS引导下载APP -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showIOSdownload}}">
+  <image class='app-download' src="{{Upyun}}/small-iconImages/qingfengpic/guide_app4.png" catchtap="closeIOSdownload"></image>
+</view>
+
+<!-- 已经授权过的用户有交易记录弹窗 -- 红色50元弹窗 -->
+<view class="drawer_screen_withdraw1" catchtouchmove="preventTouchMove" wx:if="{{hasJYJLdialog&&!showendofpromotionDialog}}">
+  <template is="makeMoneyHongbao" data='{{upyconfig}}'></template>
+</view>
+<!-- 开通vip提示 -->
+<view class='drawer_screen_withdraw' wx:if="{{showGetVipDialog&&!showendofpromotionDialog}}">
+  <template is="sign-getvip"></template>
+</view>
+<!-- 大促销已结束 -->
+<view class='drawer_screen_withdraw99' wx:if="{{showendofpromotionDialog}}">
+  <template is="sign-endofpromotion"></template>
+</view>
+<!-- 不显示完整赚钱提示 -->
+<view class='drawer_screen_withdraw' wx:if="{{showNoPageDialog}}">
+  <template is="signNoShowPage"></template>
+</view>
+
+<!-- 加入衣蝠福利群 -->
+<view class='drawer_screen_withdraw' wx:if="{{showJoinWXQ}}">
+  <template is="singJoinWXQ-template"></template>
+</view>
+
+<!-- 关注服务号任务 -->
+<view class='drawer_screen_withdraw' wx:if="{{showService}}">
+  <template is="attentionService-template"></template>
+</view>
+
+<!-- 下载APP -->
+<view class='drawer_screen_withdraw' wx:if="{{showDwongload}}">
+  <template is="dwongload-template"></template>
+</view>
+
+<!-- 完成首日全部任务出弹窗 -->
+<view class='drawer_screen_withdraw' wx:if="{{showFrirstDayCopleteDialog&&!showendofpromotionDialog}}">
+  <template is="FirstDaySignComplete-template"></template>
+</view>
+
+<!-- 第二日任务提示 -->
+<view class='drawer_screen_withdraw' wx:if="{{showSecondDayTishi&&!showendofpromotionDialog}}">
+  <template is="SecondDayTishi-template" data="{{dayStr}}" ></template>
+</view>
+
+<!-- 点击完成任务的任务去转盘后回来的提示 -->
+<view class='drawer_screen_withdraw' wx:if="{{clickCompleteTaskBackTishi&&!showendofpromotionDialog}}">
+  <template is="completeTastTastToZhuanpanBack-template" data="{{taskBackTishiCount}}"></template>
+</view>
+
+<!-- 开团任务提示 -->
+<view class='drawer_screen_withdraw' wx:if="{{showKaituanTishi&&!showendofpromotionDialog}}">
+  <template is="kaiTuanTastDialog-template" data="{{kaituanStr}}"></template>
+</view>
+
+ 
+<!-- 邀请参团任务提示 -->
+<view class='drawer_screen_withdraw' wx:if="{{showYaoqingCantuanTishi&&!showendofpromotionDialog}}">
+  <template is="yaoqingCantuanDialog-template" data="{{canTuanStr,canTuanBTnStr}}"></template>
+</view>
+
+
+<!-- 点击邀请参团任务后回到赚钱的提示 -->
+<view class='drawer_screen_withdraw' wx:if="{{showYaoqingCantuanBackTishi&&!showendofpromotionDialog}}">
+  <template is="yaoqingCantuanBackDialog-template" ></template>
+</view>
+
+<!-- 引导购买免拼卡 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{guidefightCouponShow&&!showendofpromotionDialog}}" >
+  <template is="guideFreefight_coupon" data='{{Upyun,time}}'></template>
+</view>
+
+<!-- 买完第二张发货卡免拼卡进入 -->
+<view class='drawer_screen_withdraw' wx:if="{{showGoFinishTaskDialog && !showGetVipDialog && !guidefightCouponShow && !clickCompleteTaskBackTishi && !showSecondDayTishi && !showFrirstDayCopleteDialog}}">
+  <template is="sign-deliver_fight"></template>
+</view>
+
+<view class="only-white-page-view" wx:if= "{{showAllWhitePage}}" > </view>
+
+</view>

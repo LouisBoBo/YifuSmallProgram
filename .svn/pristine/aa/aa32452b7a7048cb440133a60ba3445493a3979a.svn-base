@@ -1,0 +1,130 @@
+.limit-root {
+  width:590rpx;
+  background-color: #FD215A;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.limit-root2 {
+  width:590rpx;
+  background-color: #ffffff;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+
+}
+.daojishi-text{
+  color: #ff3f8b;
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-top: 15rpx;
+  margin-bottom: 30rpx;
+}
+.zuanshiDaojishi-img{
+  width: 477rpx;
+  height: 553rpx;
+  margin-top: 30rpx;
+}
+.limit-dialog-title{
+  align-self: center;
+  font-size: 36rpx;
+  color: #FDCC21;
+  margin-top: 35rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.limit-dialog-content{
+  align-self: center;
+  font-size: 30rpx;
+  color: #FFFFFF;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.limit-bottom-btn{
+  width:100%;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  margin-top: 0rpx;
+  margin-bottom: 40rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  
+}
+.limit-bottom-btn-left{
+  height: 80rpx;
+  width: 250rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #FD215A;
+  background-color: white;
+  border-radius: 3px;
+  margin-right: 10rpx;
+}
+.limit-bottom-btn-rigth{
+  height: 80rpx;
+  width: 250rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #FD215A;
+  background-color: #FDCC21;
+  border-radius: 3px;
+  margin-left: 10rpx;
+}
+
+
+.limit-bottom-btn-login{
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #FD215A;
+  background-color: #FDCC21;
+  border-radius: 3px;
+  width:500rpx;
+  height: 80rpx;
+  margin-top: 50rpx;
+  margin-bottom: 40rpx;
+  align-self: center;
+
+}
+.button-confrim {
+  opacity: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  position: absolute;
+}
+
+.limit-icon-close{
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  padding: 20rpx;
+}
+.zuansi-icon-close{
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: -20rpx;
+  margin-top: -70rpx;
+  padding: 20rpx;
+}
+.limit-content-scoll{
+  height: 530rpx;
+  width: 100%;
+}
+.limit-content-scoll-view{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+

@@ -1,0 +1,11 @@
+<template name="open-FightSuccess">
+  <view class="notEnoughYidou-root">
+    <text class='notEnough-dialog-title'>恭喜你</text>
+    <text class='notEnough-dialog-content1'>拼团成功!现在立即去疯抢,1折带走商品！</text>
+    
+    <view class='buttonView'>
+      <text catchtap="getFight" class='bottom-btn-yellow5'>去疯抢</text>
+    </view>
+    <image catchtap="closeFight" class='icon-close' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

@@ -1,0 +1,238 @@
+@import "../wallet-template/wallet-template.wxss";
+@import "../../../../common/openYifu-template/openYifu.wxss";
+@import "../../../../common/Upperlimit-template/Upperlimit.wxss";
+@import "../../../../common/Forward-template/Forward.wxss";
+@import "../../../../common/ForwardSuccess-template/forwardSuccess.wxss";
+@import "../../../../common/ThrityRedTX-templete/ThrityRedTX.wxss";
+@import "../../../../common/Member-template/supplement-member";
+
+page {
+  background-color: #eee;
+}
+.suspendview {
+  float: right;
+  margin-left: 690rpx;
+  margin-top: 10rpx;
+  position: fixed;
+}
+
+.suspendview-image {
+  height: 180rpx;
+  width: 60rpx;
+}
+.mainview {
+  background-color: white;
+   margin-bottom: 20rpx; 
+}
+.section-first{
+  background: white;
+  width: 100%;
+   margin-bottom: 20rpx; 
+}
+.baseview{
+  height: 0rpx;
+}
+.section-first-title{
+  border-bottom: 1px solid #eee;
+  height: 70rpx;
+  display: flex;
+  flex-direction: column;
+}
+.section-first-title-text{
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  font-size: 26rpx;
+  color: #666;
+  vertical-align: middle;
+  justify-content: center;
+  align-items:center;
+}
+.section-second-title{
+  border-top: 1px solid #eee;
+  height: 70rpx;
+  display: flex;
+  flex-direction: column;
+}
+.section-first-title-distription
+{
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  font-size: 26rpx;
+  color: #666;
+  vertical-align: middle;
+  justify-content: center;
+  align-items:center;
+}
+.section-first-title-input{
+  margin-left: 30rpx;
+  margin-right: 10rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  color: #666;
+  /* font-size: 30rpx; */
+}
+
+.headtitle{
+  float: left;
+}
+.headtitle-textselect{
+  vertical-align: middle;
+  margin-right: 10rpx;
+  color:#666;
+  font-size: 32rpx;
+}
+.headtitle-textdefault{
+  vertical-align: middle;
+  margin-right: 10rpx;
+  color: #a8a8a8;
+  font-size: 32rpx;
+}
+.headtitle image{
+  vertical-align: middle;
+  margin-right: 10rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+.other{
+  padding: 25rpx 30rpx 80rpx;
+  border-bottom: 1px solid #eee;
+}
+.other-more{
+  float: right;
+}
+.more-text{
+  vertical-align: middle;
+  margin-right: 10rpx;
+  color: #a8a8a8;
+  font-size: 30rpx;
+}
+.other-more-img{
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: middle;
+}
+.bottomview{
+  bottom: 0;
+  position: fixed;
+  height: 120rpx;
+  width: 100%;
+  background: white;
+}
+.nextview {
+  margin-top: 20rpx;
+  margin-left: 3%;
+  width: 94%;
+  margin-right: 3%;
+  text-align: center;
+  line-height: 80rpx;
+  overflow: hidden;
+  /* background-color: #ff3f8b; */
+  border-radius: 8rpx;
+  color: white;
+}
+
+/* 提现说明 */
+.showTixianView {
+  width: 580rpx;
+  background-color: white;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 35rpx;
+}
+
+.icon-close {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  padding: 20rpx;
+}
+
+.tixianview_title {
+  margin-top: 50rpx;
+  text-align: center;
+  font-size: 34rpx;
+}
+
+.tixianview_discription {
+  margin: 20rpx;
+  color: #666;
+  font-size: 30rpx;
+}
+
+.tixianview_inputview {
+  margin: 0 20rpx 20rpx 20rpx;
+  border: 1rpx solid #f0f0f0;
+  border-radius: 8rpx;
+  height: 70rpx;
+}
+
+.tixianview_inputview-input {
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+  margin-top: 10rpx;
+  color: #a8a8a8;
+}
+
+.tixianview_binding {
+  margin: 20rpx;
+  text-align: center;
+  line-height: 80rpx;
+  overflow: hidden;
+  background-color: #ff3f8b;
+  border-radius: 8rpx;
+  color: white;
+  font-size: 32rpx;
+  position: relative;
+}
+
+.button-confrim {
+  opacity: 0;
+  background-color: green;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.app-download {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+.drawer_screen_withdraw_thirty {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 998;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.button_confrim {
+  opacity: 0;
+  background-color: green;
+  width: 600rpx;
+  height: 350px;
+  position: absolute;
+  top: 250rpx;
+  left: 80rpx;
+}
+.confrim_upperlimit {
+  opacity: 0;
+  background-color: green;
+  height: 200px;
+  position: absolute;
+  bottom: 250rpx;
+  left: 20%;
+  right: 20%;
+}

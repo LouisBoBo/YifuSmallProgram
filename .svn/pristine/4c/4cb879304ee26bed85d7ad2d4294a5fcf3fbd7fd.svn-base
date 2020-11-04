@@ -1,0 +1,30 @@
+<template name="completeTastTastToZhuanpanBack-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <!-- <text class='notEnough-dialog-content1-vip' >恭喜，赠送您1次提现机会，请点接通客服，在客服会话中输入数字“1”，即可加微信客服微好友，领取1次提现。</text> -->
+    <text class='notEnough-dialog-content1'>惊喜，得到赠送<text class='notEnough-dialog-conten-import'>{{taskBackTishiCount}}次</text>提现机会，请联系客服领取。</text>
+    <view class='buttonView-vip'>
+
+      <button open-type='contact' class="bottom-btn-yellow5-vip" bindtap='completeTastTastToZhuanpanBackGoKefu'  
+      session-from='{"open_param":"completeTastTastToZhuanpanBack"}' 
+      >
+     接通客服
+          </button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>
+
+<template name="isBuyTixianCoupon-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip' >您确定要放弃新人专享的：</text>
+    <text class='notEnough-dialog-content1-vip' ><text style="color:red;font-size:32rpx;font-weight: bold;">{{tixian_count==1?'保底25元，最高200元':'保底6元，最高70元'}}</text>，</text>
+    <text class='notEnough-dialog-content1-vip' >立即打入微信零钱的提现机会吗？</text>
+
+    <view class='buttonView-vip'>
+      <button class="bottom-btn-yellow5-vip" bindtap='completeTastTastToZhuanpanBackGoTixianVip'>立即领取{{tixian_count==1?'200':'70'}}元提现</button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

@@ -1,0 +1,24 @@
+<import src="shopClassType-template.wxml" />
+
+<view class='content'>
+  <view class='loginTitle'>
+    <block wx:key wx:for="{{typeNames}}">
+      <view class="{{currentTab==index?'select':'default'}}" data-current="{{index}}" bindtap="switchNav">{{item}}</view>
+    </block>
+  </view>
+  <view class='line_view'></view>
+  <swiper bindchange='changecurrent' class='swiperview' current="{{currentTab}}" style="height:{{winHeight}}px">
+    <block wx:key wx:for="{{typeNames}}">
+      <swiper-item>
+        <view style="margin-top:5rpx;solid #cccccc;width:100%;height:100%">
+          <view class="flex-wrp">
+            <block wx:key wx:for="{{shopData}}">
+              <!-- template -->
+              <template is="shopClassType" data="{{...item}}" />
+            </block>
+          </view>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>

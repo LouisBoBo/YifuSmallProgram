@@ -1,0 +1,27 @@
+<template name="FirstDaySignComplete-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <!-- <text class='notEnough-dialog-content1-vip' >恭喜您完成今天的首批任务打卡成功，<text style='color: #ff3f8b;font-weight: bold'>新人打卡3天可领66元可提现奖金。</text>记得每天来哦。</text>
+    <text class='notEnough-dialog-content1-vip' >提现完奖金后<text style='color: #ff3f8b;font-weight: bold'>返回本页，还有3批新任务。</text>完成后可<text style='color: #ff3f8b;font-weight: bold'>再提现3次任务奖金</text>哦。</text> -->
+    <text class='notEnough-dialog-content1-vip'>请去提现任务奖金，提现完成后本任务即完成。</text>
+    <view class='buttonView-vip'>
+      <button catchtap="fistSignComplestTap" class='bottom-btn-yellow5-vip'
+                  form-type='submit'>提现任务奖金</button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>
+
+<template name="New-FirstDaySignComplete-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>恭喜完成首个任务</text>
+    <!-- <text class='notEnough-dialog-content1-vip' >现在可以去提现任务奖金啦。去<text class="import-text">衣蝠APP</text>提现！<text class="import-text">保底提现5元</text>。</text> -->
+    <text class='notEnough-dialog-content1-vip' >请去<text class="import-text">衣蝠APP</text>提现任务奖金，<text class="import-text">保底提现5元</text>。</text>
+    <text class="notEnough-dialog-content1-vip">点下方按钮后，输入数字“<text class="import-text">7</text>”即可下载APP。</text>
+    <text class="notEnough-dialog-content2-vip">提现完成后本任务即完成。</text>
+    <view class='buttonView-vip'>
+      <button catchtap="fistSignComplestTap" class='bottom-btn-yellow5-vip' open-type='contact' form-type='submit' session-from='{"open_param":"taskGuideDownloadAPP"}'>下载APP提现<text class="yellow-import-text">5元</text>奖金</button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

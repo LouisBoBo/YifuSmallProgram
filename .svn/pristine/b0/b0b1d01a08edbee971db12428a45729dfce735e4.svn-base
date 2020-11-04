@@ -1,0 +1,42 @@
+<template name="listTemplate">
+  <view class='selection'>
+    <view class='list-all'>
+      <block wx:for='{{recommendListData}}'>
+        <view class='v-item' style='height:{{listItemHeight}}px;width:{{listItemWidth}}px;' bindtap='recommendShopItemClick' data-shop_code='{{item.shop_code}}'>
+          <view class='image-item' style='height:{{listItemHeight}}px;width:{{listItemWidth}}px;'>
+            <image class='image-pic' src='{{Upyun}}{{item.def_pic}}'>
+            </image>
+            <!-- <image wx:if="{{item.discount}}" class='discountview-images' src='{{Upyun}}small-iconImages/heboImg/TFActivityShopVC_zhebg.png'></image> -->
+            <!-- <view class='discountview-image-texts' wx:if="{{item.discount}}">{{item.discount}}折</view> -->
+
+            <!-- <view class='discountview-titles' wx:if="{{item.discount}}">
+              <view>已售{{item.virtual_sales}}</view>
+            </view> -->
+          </view>
+          <view class='v-bottom'>
+            <!-- <view class="v-suppley" wx:if="{{item.supp_label}}">
+              <text class='tv-suppley'>{{item.supp_label}}</text>
+            </view> -->
+            <!-- <view class='v-text'>
+              <text class='tv-name'>{{item.shop_name}}</text>
+              <view class='tv-price-all'>
+                <text class='tv-price'>￥{{item.shop_se_price}}</text>
+                <text class='tv-price-shoppe'>专柜价￥{{item.shop_price}}</text>
+              </view>
+            </view> -->
+
+            <view class='v-text'>
+                <text class='tv-kickback'>{{item.supp_label}}</text>
+                <text class='tv-name'>{{item.shop_name}}</text>
+                <view class='tv-price-all'>
+                  <text class='tv-price'>￥{{item.shop_se_price}}</text>
+                  <text class='tv-price-shoppe'>原价￥{{item.shop_price}}</text>
+                </view>
+              </view>
+          </view>
+          <button class='button' form-type='submit'></button>
+        </view>
+      </block>
+    </view>
+  </view>
+</template>

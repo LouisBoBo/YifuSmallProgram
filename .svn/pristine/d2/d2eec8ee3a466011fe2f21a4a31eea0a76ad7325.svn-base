@@ -1,0 +1,4 @@
+<!--pages/mine/toexamine_test/toexamine_test.wxml-->
+<view>
+  <image class="toexamine_test" mode="widthFix" src="{{Upyun}}small-iconImages/heboImg/toexamine_test.png"></image>
+</view>

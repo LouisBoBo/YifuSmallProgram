@@ -1,0 +1,69 @@
+<import src="../../../common/toastTest/toastTest.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+<form bindsubmit='hobbysubmit' report-submit='true'>
+  <view>
+    <view class='titleview'>{{title}}</view>
+    <view class='section1'>
+      <view class='section-title'>{{sectiontitle1}}</view>
+      <view class='section-tabs'>
+        <block wx:key wx:for="{{HabitData}}" wx:for-item="item">
+          <view class='section-tabs-item' data-current="{{index}}" bindtap="habittap">
+            <image class='section-tabs-item-image' src="{{item.select!=1?age_normol:age_select}}"></image>
+            <text class='section-tabs-item-text' style="{{item.select!=1?'color:#666':'color:#ff3f8b'}}">{{HabitData[index].like_name}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <view class='section2'>
+      <view class='section-title'>{{sectiontitle2}}</view>
+      <view class='section2-tabs'>
+        <block wx:key wx:for="{{styleData}}" wx:for-item="item">
+          <view class='section2-tabs-item' bindtap='styletap' data-current="{{index}}">
+            <image class='section2-tabs-item-image' src="{{Upyun}}/{{styleData[index].like_pic}}"></image>
+            <image class='section2-tabs-item-select-image' src="{{item.select!=1?'/iconImages/shop_select_normal.png':'/iconImages/shop_select.png'}}"></image>
+            <text class='section2-tabs-item-text'></text>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <view class='section3'>
+      <view class='section-title'>{{sectiontitle3}}</view>
+      <view class='section-tabs'>
+        <block wx:key wx:for="{{ageData}}" wx:for-item="item">
+          <view class='section-tabs-item' data-current="{{index}}" bindtap="agetap">
+            <image class='section-tabs-item-image' src="{{item.select!=1?age_normol:age_select}}"></image>
+            <text class='section-tabs-item-text' style="{{item.select!=1?'color:#666':'color:#ff3f8b'}}">{{ageData[index].like_name}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <view class='section4'>
+      <view class='section-title'>{{sectiontitle4}}</view>
+      <view class='section4-tabs'>
+        <view class='section4-tabs-message'>
+          <text class='section4-tabs-message-title'>身高:</text>
+          <input class='section4-tabs-message-heigh' name="heightinput" type="number" bindfocus="heighFocus" placeholder="{{height}}" placeholder-style=''></input>
+        </view>
+        <view class='section4-tabs-message'>
+          <text class='section4-tabs-message-title'>体重:</text>
+          <input class='section4-tabs-message-weight' name="weightinput" type="number" bindfocus="heighFocus" placeholder="{{weight}}"></input>
+        </view>
+      </view>
+    </view>
+
+    <view class='bottmButton'>
+      <view class='canclebutton' bindtap='cancletap'>
+        <view>取消</view>
+      </view>
+      <view class='okbutton'>
+        <view>确定</view>
+        <button class='button-confrim' formType="submit"></button>
+      </view>
+    </view>
+    <view class='bottomview'></view>
+  </view>
+</form>

@@ -1,0 +1,45 @@
+<!-- 未登录弹框 -->
+<template name="Authorization">
+  <form bindsubmit="xianjinRedsubmit" report-submit='true'>
+    <view class='showTixianView_upperlimit'>
+      <image class='newuser-thirty' mode="withFix" src="{{upyconfig}}small-iconImages/heboImg/newestredhongbao_getnewuser_ninetymoney.png!450"></image>
+      
+      <image class='getmoney_button' animation ="{{animationMiddleHeaderItem}}" src='{{upyconfig}}small-iconImages/heboImg/newestredhongbao_kai.png'></image>
+      <image class='closeimage-newhongbao' wx:if="{{!notClose}}" src="{{upyconfig}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeNewThirty'></image>
+    
+      <button class='button_confrim_upperlimit' wx:if="{{clickLogin && channel_type !=1}}" bindgetuserinfo='hongbaoclick' open-type="getUserInfo" form-type='submit' session-from='{"open_param":"NewUserRedHongbao"}' ></button>
+      <button class='button_confrim_upperlimit' wx:else bindgetuserinfo='hongbaoclick' form-type='submit' session-from='{"open_param":"NewUserRedHongbao"}' ></button>
+    </view>
+  </form>
+</template>
+
+<!-- 任务奖励弹框 -->
+<template name="Authorization_taskReward">
+  <form bindsubmit="xianjinRedsubmit" report-submit='true'>
+    <view class='showTixianView_upperlimit'>
+      <image class='newuser-thirty' mode="withFix" src="{{upyconfig}}small-iconImages/heboImg/newestredhongbao_task_ninetymoney.png!450"></image>
+      
+      <image class='gettixianmoney_button' animation ="{{animationMiddleHeaderItem}}" src='{{upyconfig}}small-iconImages/heboImg/newestredhongbao_ling.png'></image>
+      <image class='closeimage-newhongbao' src="{{upyconfig}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeNewThirty'></image>
+    
+      <button class='button_confrim_upperlimit' wx:if="{{clickLogin && channel_type !=1}}" bindgetuserinfo='hongbaoclick' open-type="getUserInfo" form-type='submit' session-from='{"open_param":"NewUserRedHongbao"}' ></button>
+      <button class='button_confrim_upperlimit' wx:else bindgetuserinfo='hongbaoclick' form-type='submit' session-from='{"open_param":"NewUserRedHongbao"}' ></button>
+    </view>
+  </form>
+</template>
+
+<!-- 提现弹框 -->
+<template name="Authorization_tixian">
+  <form bindsubmit="xianjinRedsubmit" report-submit='true'>
+    <view class='showTixianView_upperlimit'>
+      <image class='newuser-tixian' mode="withFix" src="{{upyconfig}}small-iconImages/heboImg/newestredhongbao_freeling_money.png!450"></image>
+      <image class='closeimage-newhongbao' src="{{upyconfig}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeNewThirty'></image>
+      <text class="newuser-money" style="bottom: 420rpx;">你有</text>
+      <text class="newuser-money" style="bottom: 330rpx;font-size: 70rpx;font-weight: bold;"><text class="jiaji-money">￥</text>{{nRaffle_Money}}</text>
+      <text class="newuser-money" style="bottom: 290rpx;">等待提现</text>
+      <text class="newuser-time">{{time}}后现金失效</text>
+      <button class='button_confrim_upperlimit_tixian' bindgetuserinfo='' open-type="" form-type='submit' ></button>
+      
+    </view>
+  </form>
+</template>

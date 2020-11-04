@@ -1,0 +1,67 @@
+<template name="open-Discount">
+  <view class="notEnoughYidou-root" wx:if="{{oneYuanDiscriptionTitle == '本轮未点中哦'}}">
+    <text class='notEnough-dialog-title'>{{oneYuanDiscriptionTitle}}</text>
+
+    <text class='notEnough-dialog-content1' wx:if="{{oneYuanDiscriptionTitle == '本轮未点中哦'}}">{{oneYuanDiscription}}</text>
+
+    <view class='buttonView' wx:if="{{oneYuanDiscriptionLeftButton && oneYuanDiscriptionRightButton}}">
+      <text catchtap="getYueBtn" class='bottom-btn-yellow1'>{{oneYuanDiscriptionLeftButton}}</text>
+      <text catchtap="getYiDouBtn" class='bottom-btn-yellow2'>{{oneYuanDiscriptionRightButton}}</text>
+    </view>
+    <view class='buttonView' wx:elif="{{oneYuanDiscriptionRightButton}}">
+      <text catchtap="getYiDouBtn" class='bottom-btn-yellow'>{{oneYuanDiscriptionRightButton}}</text>
+    </view>
+    <image wx:if="{{oneYuanDiscriptionRightButton != '免费再抢一轮' && oneYuanDiscriptionLeftButton != '免费再抢一轮' && oneYuanDiscriptionRightButton != '再免费领一轮'}}" catchtap="closeYiDouBtn" class='icon-close' src="/iconImages/icon_close.png" ></image>
+  </view>
+  <view class="notEnoughYidou-root" wx:else>
+    <text class='notEnough-dialog-title' wx:if="{{oneYuanDiscriptionTitle == '奖励金清0' || oneYuanDiscriptionTitle == '分享赚说明'}}">温馨提示</text>
+    <text class='notEnough-dialog-title' wx:else>{{oneYuanDiscriptionTitle}}</text>
+
+    <text class='notEnough-dialog-content1' wx:if="{{oneYuanDiscriptionTitle == '疯抢返还说明'}}">疯抢费已全额退款至你衣蝠账号的可提现余额中，可直接提现或用来购买商品。</text>
+    <text class='notEnough-dialog-content1' wx:elif="{{oneYuanDiscriptionTitle == '余额抵扣说明'}}">预充值的会员卡费与赚钱任务赢得的可提现现金，均可全额用于购买商品哦。</text>
+    <text class='notEnough-dialog-content1' wx:elif="{{oneYuanDiscriptionTitle == '本轮未抢中哦'}}">疯抢费已原路退还至你的支付账号。1-2个工作日内到账。请注意查收。</text>
+    <text class='notEnough-dialog-content1' wx:elif="{{oneYuanDiscriptionTitle == '免费领未成功通知'}}">因在规定时间内参团人数不足，您的免费领拼团未成功。本次免费领资格失效。下次再来吧。</text>
+    <text class='notEnough-dialog-content1' wx:elif="{{oneYuanDiscriptionTitle == '疯抢退款说明'}}">疯抢费已原路退还至你的支付账号。1-2个工作日内到账。请注意查收。</text>
+    <text class='notEnough-dialog-content1' wx:elif="{{oneYuanDiscriptionTitle == '提交成功'}}">感谢您的配合，搭配方案会在1-2天内由您的搭配顾问在微信上提交给您，记得查收方案并及时反馈哦。\n本次服务会为您搭配到满意为止，有任何需求和不满意的地方，可以直接联系您的搭配顾问。</text>
+    <text class='notEnough-dialog-content1' wx:elif="{{oneYuanDiscriptionTitle == '恭喜您'}}">您已有下级好友成为付费会员，<text class='import-mark'>{{rawardMoney}}元奖励金</text>已存入账户，可立即提现。</text>
+    <text class='notEnough-dialog-content1' wx:elif="{{oneYuanDiscriptionTitle == '奖励金清0'}}">您已有<text class='import-mark'>{{rawardMoney}}元</text>奖励金被清0，请尽快成为会员，否则接下来的奖励金收益会在5日后再次清0。</text>
+    <text class='notEnough-dialog-content1' wx:elif="{{oneYuanDiscriptionTitle == '分享赚说明'}}">分享商品到微信群，有人购买您立即得奖励金。可直接提现或用于购买商品。</text>
+
+
+
+  
+    <text class='notEnough-dialog-content2' wx:if="{{oneYuanDiscriptionTitle == '余额抵扣说明' || oneYuanDiscriptionTitle == '提交成功'}}"></text>
+    <text class='notEnough-dialog-content2' wx:elif="{{oneYuanDiscriptionTitle == '疯抢返还说明' || oneYuanDiscriptionTitle == '拼团疯抢费已返还'}}">累计已退{{moneyDiscount}}元</text>
+
+    <text class='notEnough-dialog-content' wx:if="{{oneYuanDiscriptionTitle == '余额抵扣说明' || oneYuanDiscriptionTitle == '提交成功'}}"></text>
+    <text class='notEnough-dialog-content' wx:elif="{{oneYuanDiscriptionTitle == '疯抢返还说明' || oneYuanDiscriptionTitle == '拼团疯抢费已返还'}}">(可全额抵扣商品价格)</text>
+
+    <view class='buttonView' wx:if="{{oneYuanDiscriptionTitle == '余额抵扣说明'}}">
+       <text catchtap="getMoneyBtn" class='bottom-btn-yellow'>去赚余额</text>
+    </view>
+    <view class='buttonView' wx:elif="{{oneYuanDiscriptionTitle == '免费领未成功通知'}}">
+       <text catchtap="closeYiDouBtn" class='bottom-btn-yellow'>继续免费领</text>
+    </view>
+    <view class='buttonView' wx:elif="{{oneYuanDiscriptionTitle == '提交成功' || oneYuanDiscriptionTitle == '分享赚说明'}}">
+       <text catchtap="closeGogoTab" class='bottom-btn-yellow'>我知道了</text>
+    </view>
+    <view class='buttonView' wx:elif="{{oneYuanDiscriptionTitle == '恭喜您'}}">
+       <text catchtap="closeTixianBtn" class='bottom-btn-yellow'>立即提现</text>
+    </view>
+    <view class='buttonView' wx:elif="{{oneYuanDiscriptionTitle == '奖励金清0'}}">
+      <text catchtap="zijingmingxiBtn" class='bottom-btn-yellow2'>查看清空详情</text>
+      <text catchtap="becomeMenberBtn" class='bottom-btn-yellow1' >立即成为会员</text>
+    </view>
+
+    <view class='buttonView' wx:else>
+      <text catchtap="getYiDouBtn" class='bottom-btn-yellow2' wx:if="{{oneYuanDiscriptionTitle == '本轮未抢中哦'}}">再抢一轮</text>
+      <text catchtap="getYiDouBtn" class='bottom-btn-yellow2' wx:elif="{{oneYuanDiscriptionTitle == '拼团疯抢费已返还'}}">查看订单</text>
+      <text catchtap="getYiDouBtn" class='bottom-btn-yellow2' wx:else>知道了</text>
+
+      <text catchtap="getYueBtn" class='bottom-btn-yellow1' wx:if="{{oneYuanDiscriptionTitle == '本轮未抢中哦'}}">退款进度</text>
+      <text catchtap="getRefundSchedule" class='bottom-btn-yellow1' wx:elif="{{oneYuanDiscriptionTitle == '疯抢退款说明'}}">退款进度</text>
+      <text catchtap="getYueBtn" class='bottom-btn-yellow1' wx:else>查看余额</text>
+    </view>
+    <image catchtap="closeYiDouBtn" class='icon-close' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

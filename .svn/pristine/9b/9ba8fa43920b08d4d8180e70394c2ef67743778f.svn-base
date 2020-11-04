@@ -1,0 +1,9 @@
+<import src="../../shouye/detail/detail-list-template/list-template.wxml" />
+
+<!-- 热卖列表 -->
+<view class='selection'>
+    <template is='listTemplate' data='{{recommendListData,Upyun,listItemHeight,listItemWidth,supply_isShow,freeling_isshow}}'></template>
+</view>
+<view wx:if="{{emptyViewShow}}">
+  <view class="emptyView">暂无数据</view>
+</view>

@@ -1,0 +1,21 @@
+<!--分类 template -->
+
+<template name="categoryContainer">
+  <view class="categoryContainer">
+    <view class='categoryHeader'>
+      <text class='categoryHeader-text-all'>{{typename}}</text>
+    </view>
+    <view class='selection'>
+      <view class='categoryContent'>
+        <block wx:for="{{types}}" wx:for-item="type">
+          <view class="categoryContent-item" catchtap="onMoreTap" data-id='{{type.id}}'>
+            <image src="{{type.img}}"></image>
+            <view>
+              <text class='categoryContent-shop-name'>{{type.name}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</template>

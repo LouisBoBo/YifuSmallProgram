@@ -1,0 +1,12 @@
+<template name="SecondDayTishi-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <!-- <text class='notEnough-dialog-content1-vip' >完成今天的全部任务即打卡成功。再打卡{{dayStr}}天可领100元现金。加油！</text> -->
+    <text class='notEnough-dialog-content1-vip' >完成今天的全部任务即打卡成功。再打卡3天可领66元现金。加油！</text>
+    <view class='buttonView-vip'>
+      <button catchtap="secondDayKnowTap" class='bottom-btn-yellow5-vip'
+                  form-type='submit'>知道了</button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

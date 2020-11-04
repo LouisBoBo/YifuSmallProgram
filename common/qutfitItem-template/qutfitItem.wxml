@@ -1,0 +1,16 @@
+<template name="qutfit_item">
+    <image class="in_item_image" src="{{item.show_pic}}" style="width:100%;height:{{item.imgHeight}}px"></image>
+    <view class='bottom-tv'>
+    <text class='item-content'>{{item.content}}</text>
+    <view class='item-bottom'>
+      <view class='item-user-info'>
+        <image src="{{item.head_pic}}"></image>
+        <text>{{item.nickname}}</text>
+      </view>
+      <view class='item-applaud'>
+        <image src="{{Upyun}}/small-iconImages/ad_pic/{{item.applaud_status==1 ? 'sweet_icon_xihuan_pre.png':'sweet_icon_xihuan.png'}}"></image>
+        <text>{{item.applaud_num}}</text>
+      </view>
+    </view>
+    </view>
+</template>

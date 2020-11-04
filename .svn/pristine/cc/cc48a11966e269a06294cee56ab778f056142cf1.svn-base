@@ -1,0 +1,49 @@
+.open-yifu-root {
+  width: 584rpx;
+  height: 740rpx;
+  background-color: rgb(255, 0, 99);
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  padding-top: 60rpx;
+}
+
+.open-yifu-text{
+  align-self: center;
+  font-size: 40rpx;
+  color: rgb(255, 220, 0);
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
+.open-yifu-text2{
+  align-self: center;
+  font-size: 30rpx;
+  color: #fff;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
+.open-yifu-text-red {
+  font-size: 36rpx;
+  color: #ff3f8b;
+}
+.open-yifu-root image{
+  width: 584rpx;
+  height: 740rpx;
+  align-self: center;
+  margin-top: 0rpx;
+  margin-left: 0;
+}
+
+.open-yifu-bottom-btn {
+  height: 80rpx;
+  width: 520rpx;
+  font-size: 40rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #fff;
+  /* background-color: #ff3f8b; */
+  border-radius: 3px;
+  align-self: center;
+  margin-top: 20rpx;
+  margin-bottom: 40rpx;
+}

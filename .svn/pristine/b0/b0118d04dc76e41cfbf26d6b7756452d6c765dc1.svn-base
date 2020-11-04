@@ -1,0 +1,166 @@
+/**app.wxss**/
+
+/*  #ff3f8b 玫瑰红
+    #FE9BC5 浅玫红
+    #a8a8a8 灰色字体颜色 
+    #dcdcdc  
+    #f0f0f0 线条颜色
+    #3e3e3e 黑色标题     
+*/
+    
+
+/*推送模板消息跳转界面
+赚钱任务： pages/sign/sign
+帐户明细： pages/mine/wallet/accountDetail/accountDetail？messagefrom=true  
+*/
+@import "/common/toastTest/toastTest.wxss";
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}
+
+.drawer_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 998;
+  background: #000;
+  opacity: 0.5;
+  overflow: hidden;
+}
+
+.drawer_screen_withdraw {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 998;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.drawer_screen_transparent{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 998;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0); 
+}
+
+/* 页面文字颜色 -----------------start*/
+
+.public-12-3e3e3e {
+  color: #3e3e3e;
+  font-size: 25rpx;
+}
+
+.public-14-3e3e3e {
+  color: #3e3e3e;
+  font-size: 30rpx;
+}
+
+.public-16-3e3e3e {
+  color: #3e3e3e;
+  font-size: 35rpx;
+}
+
+.public-12-ff3f8b {
+  color: #ff3f8b;
+  font-size: 25rpx;
+}
+
+.public-14-ff3f8b {
+  color: #ff3f8b;
+  font-size: 30rpx;
+}
+
+.public-16-ff3f8b {
+  color: #ff3f8b;
+  font-size: 35rpx;
+}
+
+.public-12-a8a8a8 {
+  color: #a8a8a8;
+  font-size: 25rpx;
+}
+
+.public-14-a8a8a8 {
+  color: #a8a8a8;
+  font-size: 30rpx;
+}
+
+.public-16-a8a8a8 {
+  color: #a8a8a8;
+  font-size: 35rpx;
+}
+
+.public-12-ffffff {
+  color: #fff;
+  font-size: 25rpx;
+}
+
+.public-14-ffffff {
+  color: #fff;
+  font-size: 30rpx;
+}
+
+.public-16-ffffff {
+  color: #fff;
+  font-size: 35rpx;
+}
+
+.public-12-7d7d7d {
+  color: #7d7d7d;
+  font-size: 25rpx;
+}
+
+.public-14-7d7d7d {
+  color: #7d7d7d;
+  font-size: 30rpx;
+}
+
+.public-16-7d7d7d {
+  color: #7d7d7d;
+  font-size: 35rpx;
+}
+
+.public-12-c5c5c5 {
+  color: #c5c5c5;
+  font-size: 25rpx;
+}
+
+.public-14-c5c5c5 {
+  color: #c5c5c5;
+  font-size: 30rpx;
+}
+
+.public-16-c5c5c5 {
+  color: #c5c5c5;
+  font-size: 35rpx;
+}
+.public-line-f0f0f0 {
+  background-color: #f0f0f0;
+  height: 1px;
+}
+
+/* 页面文字颜色 -----------------end*/
+/* //   {
+    //     "pagePath": "pages/shopType/shopType",
+    //     "text": "购物",
+    //     "iconPath": "iconImages/tarbarImages/icon_shoping_normal.png",
+    //     "selectedIconPath": "iconImages/tarbarImages/icon_shopping_pressed.png"
+    //   } */

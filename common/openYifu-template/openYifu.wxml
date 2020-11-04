@@ -1,0 +1,29 @@
+<template name="open-yifu-dialog">
+  <form bindsubmit="downloadsubmit" report-submit='true'>
+    <view class="open-yifu-root-tx">
+      <image class='img-close-tx' src="/iconImages/icon_close.png"></image>
+      <!-- <text class='open-yifu-text'>该功能仅在APP提供</text>
+      <text class='open-yifu-text'>请下载<text class="open-yifu-text-red">衣蝠</text>APP</text> -->
+
+      <text class='open-yifu-text'>该功能仅在<text class="open-yifu-text-red">衣蝠APP</text>提供。请点下方按钮后，输入数字“<text class="open-yifu-text-red">3</text>”即可下载APP。</text>
+      <image class='img-app-icon' src="{{Upyun}}small-iconImages/gx/open_yifu_dialog_icon.png" bindtap="previewImage"></image>
+
+      <!-- <button class='open-yifu-bottom-btn' open-type="" catchtap="goAPPtx" form-type='submit'>点击按钮接通芝麻客服</button> -->
+      <button catchtap="dwongloadTap" class='open-yifu-bottom-btn' open-type='contact' form-type='submit' session-from='{"open_param":"signDownloadClick"}'>下载衣蝠APP</button>
+    </view>
+  </form>
+</template>
+
+<template name="new-open-yifu-dialog">
+  <form bindsubmit="downloadsubmit" report-submit='true'>
+    <view class="open-yifu-root-tx">
+      <!-- <image class='img-close-tx' bindtap="closeToTX" src="/iconImages/icon_close.png"></image> -->
+      <text class="open-yifu-text-red"></text>
+      <text class='open-yifu-text'>去<text class="open-yifu-text-red">衣蝠APP</text>赠送<text class="open-yifu-text-red">50次</text>提现！保底提现<text class="open-yifu-text-red">5元</text>。点下方按钮后，输入数字“<text class="open-yifu-text-red">6</text>”即可下载APP。</text>
+
+      <image class='img-app-icon' src="{{Upyun}}small-iconImages/gx/open_yifu_dialog_icon.png" bindtap="previewImage"></image>
+
+      <button catchtap="closeToTX" class='open-yifu-bottom-btn' open-type='contact' form-type='submit' session-from='{"open_param":"signGuideDownloadAPP"}'>下载衣蝠APP</button>
+    </view>
+  </form>
+</template>

@@ -1,0 +1,20 @@
+<template name="makeMoneyHongbao">
+  <image class='hongBaonewuser-thirty'src="{{upyconfig}}small-iconImages/qingfengpic/shouquaned_has_jiaoyi_dialog.png"></image>
+  <image class='closeimage-newhongbao' src="{{upyconfig}}small-iconImages/heboImg/task_icon_close.png" catchtap='closeNewThirty'></image>
+  <button class='button_confrim' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+</template>
+
+<template name="Authorization_199">
+  <view class="mainview">
+    <image class='hongBaonewuser-thirty'src="{{upyconfig}}small-iconImages/heboImg/{{pagestyle==2?'firstfree_99yuancoupon.png':'firstactive_99yuancoupon.png'}}"></image>
+    <image class='hongBaonewuser_button' animation ="{{animationMiddleHeaderItem}}" src='{{upyconfig}}small-iconImages/heboImg/newestredhongbao_kai.png'></image>
+    <button class='hongBaonewuser_confrim' bindgetuserinfo='onclick' open-type="getUserInfo" form-type='submit'></button>
+  </view>
+</template>
+
+<template name="Authorization_message">
+  <view class="mainview">
+    <image class='hongBaonewuser-thirty'src="{{upyconfig}}small-iconImages/heboImg/App_Message.png"></image>
+    <button open-type='contact' class="hongBaonewuser_message" session-from='{"open_param":""}' form-type='submit'></button>
+  </view>
+</template>

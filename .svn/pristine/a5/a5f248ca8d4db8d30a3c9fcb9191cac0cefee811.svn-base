@@ -1,0 +1,55 @@
+<!--index.wxml-->
+
+<!--商品分类  -->
+
+
+<import src="../../common/category-template/category-template.wxml" />
+<import src="../../common/FightSuccess-template/FightSuccess" />
+<import src="../../common/Discount-template/Discount.wxml" />
+<import src="../../common/SuspensionHongBao-template/SuspensionHongBao.wxml" />
+
+<!--搜索按钮  -->
+<view class="wxSearch-section">
+  <view class="search-container">
+  <image mode='widthFix' bindtap='typeTap' class='typeimage' src='{{Upyun}}/small-iconImages/ad_pic/icon_fenlei_black.png'></image>
+  <view class="wxSearch-pancel" bindtap="wxSerchFocus">
+    <icon bindtap="searchClickEvent" type="search" size="20"/> 
+    <text class="wxSearch-input">{{searchPlacehorder}}</text>
+  </view>
+  <image wx:if='{{isShowMakeMoney}}' mode='widthFix' class='moneyimage' bindtap='moneytap' src='{{Upyun}}/small-iconImages/ad_pic/icon_zhuanqian_black.png'></image>
+</view>
+</view>
+
+<!-- <view class='brandsContainer' wx:if="{{allBrandsData[0]}}">
+  <block wx:for="{{allBrandsData}}" wx:for-item="type">
+    <view wx:if="{{index<11}}" class="brandsContainer-item" catchtap="onBrandTap" data-id='{{type.id}}' data-name='{{type.name}}' data-pic='{{type.pic}}' data-remark='{{type.remark}}'>
+      <image mode='widthFix' src='{{Upyun}}{{type.icon}}'>
+      </image>
+    </view>
+    <view wx:if="{{index==11}}" class="brandsContainer-item" catchtap="onMoreBrandTap">
+     <view class='moreBrand'>MORE ></view>
+    </view>
+  </block>
+</view> -->
+
+<!--分类  -->
+<view class="typeContainer" wx:if="{{allTypes[0]}}">
+  <block wx:for="{{allTypes}}" wx:for-item="types">
+    <template is="categoryContainer" data="{{...types,Upyun}}" />
+  </block>
+</view>
+
+<!-- 悬浮红包 -->
+<view wx:if="{{suspensionHongBao_isShow}}">
+  <template is="suspensionHongBao" data="{{Upyun,SmallRedHongBao,xuanfuanimationMiddleHeaderItem}}"></template>
+</view>
+
+<!-- 拼团成功提示弹窗 -->
+<view class='drawer_screen_withdraw' wx:if="{{openFightSuccessShow}}">
+  <template is="open-FightSuccess" data="{{Upyun,ptSuccessUserName}}"></template>
+</view>
+
+<!--拼团失败返还弹框-->
+<!-- <view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{moneyDiscountShowFlag}}">
+  <template is='open-Discount' data='{{moneyDiscount,oneYuanDiscriptionTitle,oneyuanValue}}'></template>
+</view> -->

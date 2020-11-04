@@ -1,0 +1,42 @@
+<import src="../../../common/toastTest/toastTest.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+<!-- 余额、提现 -->
+<view class="view-top" style="background-image: url({{Upyun}}/small-iconImages/heboImg/member_invite.jpg)" mode='aspectFit'>
+  <view class='view-top-money-out'>
+    <view class='view-top-money' style='background-image: url({{Upyun}}/small-iconImages/gx/withdrawal_top_bg.png)'>
+      <view class='view-sum'>
+        <text class='text-sum_1'>{{mSumBalance_data}}</text>
+        <text class='text-sum_2'>总余额(元)</text>
+      </view>
+      <view class='view-sum'>
+        <text class='text-sum_1'>{{mLimit_data}}</text>
+        <text class='text-sum_2'>可提现(元)</text>
+      </view>
+      <view bindtap="bind_tap_not" class='view-sum'>
+        <button class='text-to-withdraw' open-type="getUserInfo" bindgetuserinfo='onclick'>提现</button>
+        
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 活动规则 -->
+<view class='inviteContainer'>
+  <view class='invite-whiteBg'>
+    <image class='title-img' mode='aspectFit' src='{{Upyun}}/small-iconImages/invite_friends/invite_hdgz.png'></image>
+    <image class='rull-img' mode='widthFix' src="{{Upyun}}/small-iconImages/heboImg/share_invfriend_freebuy2.jpg"></image>
+  </view>
+</view>
+<view class='baseview'></view>
+<view class='bottomview'>
+  <!-- <form bindsubmit="membersubmit" report-submit='true'> -->
+      <button class='sharemember' open-type="share">立即分享邀请好友</button>
+
+    <!-- <button class='becomemember' bindgetuserinfo='onclick' open-type="getUserInfo"   catchtap='becomeMember'>立即成为至尊会员</button> -->
+
+      <button class='becomemember' bindgetuserinfo='onclick' open-type="getUserInfo"   catchtap='becomeMember'>联系客服申请发货</button>
+       
+  <!-- </form> -->
+</view>
+<!-- 今日奖励 -->
+<view class='dayReward' catchtap="dayReward_show">我的好友</view>

@@ -1,0 +1,11 @@
+<template name="FirstDaySignComplete-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip' >恭喜完成今天的全部任务，今日打卡成功。<text style='color: #ff3f8b;font-weight: bold'>打卡15天后可领200元现金。</text>记得明天再来哦。</text>
+    <view class='buttonView-vip'>
+      <button catchtap="fistSignComplestTap" class='bottom-btn-yellow5-vip'
+                  form-type='submit'>提现今天的奖金</button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

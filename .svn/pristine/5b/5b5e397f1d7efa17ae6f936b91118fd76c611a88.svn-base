@@ -1,0 +1,194 @@
+// pages/sign/inviteFriends/inviteFriends.js
+
+import config from '../../../config';
+var util = require('../../../utils/util.js');
+var app = getApp();
+
+
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    Upyun: config.Upyun,
+    is_showDayReward: 0,
+    is_showShareSuccess: 0,
+    mSumBalance_data: 0,      //总金额
+    mLimit_data: 0,           //可提现
+    friendNum1: 0,            //位好友赢得余额
+    friendNum2: 0,            //位好友赢得提现
+    friendMoney1: 0,          //余额
+    friendMoney2: 0,          //提现
+    friendMyMoney1: 0,        //我获得的余额
+    friendMyMoney2: 0,        //我获得的提现
+    shareTitle: '',
+    sharePath: '',
+    shareImageUrl: '',
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    new app.ToastPannel();
+    var dataUrl = config.Host + "wallet/myWallet?" + config.Version + "&token=" + app.globalData.user.userToken;
+    util.http(dataUrl, this.myMoney)
+    // this.getDayReward();
+
+    // var requestUrl = config.Upyun + "paperwork/paperwork.json";
+    // util.http(requestUrl, this.shareData)
+
+    // util.httpUpyunJson(this.shareData)
+
+  },
+  // 今日奖励 数据
+  getDayReward: function () {
+    var dataUrl = config.Host + "wallet/getTcToDayCount?" + config.Version + "&token=" + app.globalData.user.userToken;
+    util.http(dataUrl, this.dayReward)
+  },
+  dayReward: function (data) {
+    if (data.status == 1)
+      this.setData({
+        friendNum1: data.xj_num,
+        friendNum2: data.ed_num,
+        friendMoney1: data.f_money,
+        friendMoney2: data.f_extra,
+        friendMyMoney1: data.money,
+        friendMyMoney2: data.extra,
+      })
+  },
+  // 总余额、可提现
+  myMoney: function (data) {
+    if (data.status == 1)
+      this.setData({
+        mSumBalance_data: data.balance.toFixed(2),
+        mLimit_data: (data.extract + data.ex_free).toFixed(2),
+      })
+  },
+  // 去提现
+  bind_tap_not: function () {
+    // this.showToast("只能到App才能查看哦~", 2000);
+    util.navigateTo('../../mine/wallet/Withdrawals/Withdrawals'); 
+  },
+  // 我要去赚赚赚
+  share_toMake: function () {
+    wx.navigateBack({
+
+    })
+  },
+  continueShare: function () {
+    this.setData({
+      is_showShareSuccess: 0
+    })
+  },
+  // 分享弹框关闭
+  share_close: function () {
+    this.setData({
+      is_showShareSuccess: 0
+    })
+  },
+  // 今日奖励
+  dayReward_show: function () {
+    // this.setData({
+    //   is_showDayReward: 1
+    // })
+    wx.navigateTo({
+      url: 'friendsReward',
+    })      
+  },
+  dayReward_close: function () {
+    this.setData({
+      is_showDayReward: 0
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function (res) {
+    var randomImg = Math.floor(Math.random() * 3 + 1);
+    var shareImageUrl = config.Upyun + "small-iconImages/qingfengpic/sign_money_" + randomImg + ".png"
+
+    var that = this;
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+    }
+    return {
+      // title: '群里的亲们帮点一下，一起来做赚钱任务领59元可提现现金>>',
+      // path: 'pages/sign/sign?' + "isShareFlag=true" + "&user_id=" + app.globalData.user.user_id,
+      // title: '50+一线大牌，2000款新款全场1元。错过后悔一年',
+
+      title: '50+一线大牌，2000款新款全场19.9元包邮！错过后悔一年~',
+      path: '/pages/shouye/redHongBao?shouYePage=ThreePage' + "isShareFlag=true" + "&user_id=" + app.globalData.user.user_id,
+      imageUrl: shareImageUrl,
+      success: function (res) {
+        var dataUrl = config.Host + "share/addShareCount?" + config.Version + "&token=" + app.globalData.user.userToken;
+        util.http(dataUrl, '')
+        util.task_share_Statistics("qdfx", "702", "7");//赚钱任务分享成功统计
+        // 转发成功
+        that.setData({
+          is_showShareSuccess: 1
+        })
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
+  },
+
+  // 分享数据
+  shareData:function(data) {
+    var shareTitle = data.hytc_h5_fx.title;
+    var share_pic = config.Upyun + data.hytc_h5_fx.icon;
+    //设置分享的文案
+    this.setData({
+      shareTitle: shareTitle,
+      // sharePath: "/pages/shouye/detail/detail?shop_code=" + shop_code,
+      shareImageUrl: share_pic
+    });
+  }
+
+})

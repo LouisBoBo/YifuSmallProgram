@@ -1,0 +1,2214 @@
+import config from '../../../config';
+var util = require('../../../utils/util.js');
+var publicUtil = require('../../../utils/publicUtil.js');
+
+var app = getApp();
+var token;
+var order_channel;
+var mSumBalance = 0; //总余额
+var mLimit = 0; //总额度
+var usedYidou = 0; //可用衣豆
+var unUsedYidou = 0; //冻结衣豆
+var usedBalance = 0; //可用余额
+var unUsedBalance = 0; //冻结余额
+var isRunning = false; //是否正在抽奖
+var raffleType = 0; //抽中红包类型
+var redPacketValue = 0; //红包金额
+var isFromPaySuccess = false; //是否支付成功后
+var totalAccount = 0; //支付金额 待换算为抽奖次数
+var cutdown_total_micro_second = 0; //邀请好友倒计时时间
+var balanceLottery = 0;
+var balanceLotterySum = 0;
+
+var isFromSignBalanceLottery = false;
+
+var dataListTemp1 = [];
+var dataListTemp2 = [];
+var isMoving = false;
+var scollTimeOut;
+var scollTimePause;
+var wxIsNotBind = false;
+var is_invitshare = false;
+var runDegs = 0;
+var countDownTimer;
+var choujiangCount = 0;
+var formId;
+var tixianCouponBack = false;
+var tixianCoupon_count = 1;//赠送的抽奖次数
+// var pRatio = 1;
+var animationTimer;
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    Upyun: config.Upyun,
+    upyconfig:config.Upyun,
+    isMad: false,
+
+
+    zp_animationData: {},
+    mSumBalance_data: 0.00.toFixed(2),
+    mLimit_data: 0.00.toFixed(2),
+    usedYidou_data: "可用衣豆：" + usedYidou,
+    unUsedYidou_data: "冻结衣豆：" + unUsedYidou,
+    lotterynumber: 0, //疯狂新衣节 剩余抽奖次数
+    redPacketValue_data: 0, //抽中红包金额
+    twofoldness_data: 1, //衣豆减半抽奖倍数
+    raffleNum_data: 0, //非支付成功进来 提醒有多少次抽奖机会
+    raffleType_data: 0, //抽中红包类型
+    payYiDouNumber: 0, //完成订单 获得衣豆的数量
+    payLotteryNumber: 0, //完成订单 疯狂新衣节 抽奖获得次数
+
+    isBalanceLottery: false, //5次体验抽余额机会
+    balanceLottery_data: 0, //体验抽余额红包的次数
+    balanceLotterySum_data: 0, //体验抽余额红包的总金额
+    balanceLotteryCount_data: 0, //体验抽余额红包的总次数
+
+
+    notEnoughYidouShow: false, //衣豆不足
+    getYuEShow: false, //如何获得余额
+    getYiDouShow: false, //如何获得衣豆
+    LuckWarnShow: false, //是否使用衣豆抽奖
+    raffleNumShow: false, //非支付成功进来 提醒有多少次抽奖机会
+    noRedPacketShow: false, //没有抽中红包
+    openRedPacketShow: false, //普通抽中红包 拆红包弹窗
+    redPacketOpenedShow: false, //普通抽中红包 拆红包后显示金额
+    madOpenRedPacketShow: false, //疯狂新衣节 拆红包弹窗
+    madRedPacketOpenedShow: false, //疯狂新衣节  拆红包后显示金额
+    buyObtainYidouShow: false, //支付成功获得衣豆弹窗
+    obtainMadDialogShow: false, //支付成功 疯狂新衣节 抽奖获得次数弹窗
+    limitDialogShow: false, //额度说明弹窗
+
+    balanceLotteryShow: false, //体验抽余额红包的次数弹窗
+    balanceLotteryOverShow: false, //体验抽余额红包的次数用完弹窗
+    noRedPacketBalanceShow: false, //抽余额红包未中红包
+    openRedPacketBalanceShow: false, //体验余额抽奖 抽中红包
+    redPacketOpenedBalanceShow: false, //体验余额抽奖 拆开红包后得到金额弹窗
+    wxIsNotBindShow: false, //wxIsBindShow 用户未绑定微信提现账户的提示弹窗
+    tixianBecomeMember: false, //用户提现过来的提示用户办会员
+    zeroBuyDialogShowFlag: false, //0元购弹窗
+    pagetoBecomeMember: false,
+    redPacketluckOver: false,
+    redPacketBecomeMember:false,
+    luckOrBecomeMember:false,
+    guideTixianCouponShow:false,
+    invitfriendslist: ['', ''],
+    newuser_draw:false,
+
+    scrollTop1: 0,
+    scrollTop2: 0,
+    mListData1: [],
+    mListData2: [],
+    showStartTishi: false,
+    type:'2',
+
+    hideModal: true, //模态框的状态  true-隐藏  false-显示
+    animationData: {},
+    length: 0,
+    secondimgData: ['complaint_1.png', 'complaint_2.png', 'complaint_3.png'],
+    secondtextData: ['发送给朋友', '添加到我的小程序', '添加到桌面'],
+    thirdimgData: ['complaint_4.png', 'complaint_5.png', 'complaint_6.png', 'complaint_7.png'],
+    thirdtextData: ['浮窗', '设置', '反馈与投诉', '重新进入小程序'],
+  },
+
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    new app.ToastPannel();
+
+    var that = this;
+    runDegs = 0;
+    mSumBalance = 0;
+    mLimit = 0;
+    usedYidou = 0;
+    unUsedYidou = 0; //可用衣豆 ，冻结衣豆
+    usedBalance = 0;
+    unUsedBalance = 0; //可用余额 冻结余额
+    isRunning = false; //是否正在抽奖
+    raffleType = 0; //抽中红包类型
+    redPacketValue = 0; //红包金额
+    balanceLottery = 0;
+    balanceLotterySum = 0;
+    dataListTemp1 = [];
+    dataListTemp2 = [];
+    isMoving = false;
+    wxIsNotBind = false;
+
+    order_channel = wx.getStorageSync("advent_channel")
+    order_channel ? order_channel = '&order_channel=' + order_channel : ''
+
+    choujiangCount = 0;
+
+    if(options.type !=undefined)
+    {
+      that.setData({
+        type:options.type
+      })
+    }
+
+    if (options.isFirstChongJiang == '1')
+    {
+      that.setData({
+        newuser_draw:true,
+        isFirstChongJiang: options.isFirstChongJiang
+      })
+    }
+    
+    if (app.globalData.user) {
+      //大促销已结束
+      if (app.globalData.user.showSpecialPage != 1) {
+        that.setData({
+          showMainPage: true,
+          showendofpromotionDialog: true
+        })
+      } else {
+        token = app.globalData.user.userToken;
+
+        if (that.data.newuser_draw) {
+          that.newuser_luckdraw();//虚拟抽奖
+        } else {
+          that.normal_luckdraw(options);
+        }
+
+        cutdown_total_micro_second = 30 * 60 * 1000;
+        var picdatas = [];
+        // 获取用户邀请好友状态
+        util.get_selInviteInfo(function (data) {
+          var inviteNum = data.data.inviteNum;
+          if (data.status == 1 && data.data.upics) {
+
+            for (var i = 0; i < inviteNum; i++) {
+              if (data.data.upics[i]) {
+                picdatas.push(data.data.upics[i]);
+              } else {
+                picdatas.push(config.Upyun + 'small-iconImages/heboImg/luck_invitButton.png')
+              }
+            }
+          } else {
+            for (var i = 0; i < inviteNum; i++) {
+              picdatas.push(config.Upyun + 'small-iconImages/heboImg/luck_invitButton.png')
+            }
+          }
+          that.setData({
+            invitfriendslist: picdatas
+          })
+        });
+        that.setData({
+          showMainPage:true
+        })
+      }
+
+
+    } else {
+      //大促销已结束
+      var showendofpromotionDialog = app.globalData.channel_type == 1 ? false : true;
+      that.setData({
+        showMainPage: true,
+        showendofpromotionDialog: showendofpromotionDialog
+      })
+      
+      if (app.globalData.channel_type == 1) {
+        if (!that.data.newuser_draw) {
+          that.setData({
+            showLoginDialog: true
+          })
+        } else {
+          that.newuser_luckdraw();//虚拟抽奖
+        }
+      }
+    }
+    
+    
+
+    if (scollTimeOut) {
+      clearInterval(scollTimeOut);
+      scollTimeOut = null;
+    }
+    if (scollTimePause) {
+      clearInterval(scollTimePause);
+      scollTimePause = null;
+    }
+    this.hongBaoAnimation();
+    this.initLimitAwardsList();
+    if (!this.data.isMad || this.data.isBalanceLottery) {
+      this.initYiDouAwardsList();
+    }
+  },
+  onUnload: function() {
+    if (this.data.choujiangCount <= 0) {
+      wx.setStorageSync("clickCompleteTaskFinish", true);
+      clearTimeout(countDownTimer);
+    }
+  },
+  onShow: function() {
+    var that = this;
+    if (is_invitshare) {
+      that.showToast('分享成功，别忘记让好友点进来并微信授权哦。', 2000);
+      is_invitshare = false;
+    }
+
+    util.get_vip_tofreelingPage2();//有79元免费领未领取自动跳转免费领列表页2
+
+    if (tixianCouponBack || that.data.pagetoBecomeMember)
+    {
+      //购买提现卡、会员卡成功后返回
+      var kttxkSuccessBack = wx.getStorageSync("KTtxkSuccessBack")
+      var kvipSuccessBack = wx.getStorageSync('KvipSuccessBack')
+      if (kttxkSuccessBack == '1' || kvipSuccessBack == '1') {
+        var that = this;
+        token = app.globalData.user.userToken;
+
+        //查询是否可以抽奖
+        var dataUrl = config.Host + "wallet/queryUserLotteryQualification" +
+          "?token=" + token +
+          "&" + config.Version + '&type=' + that.data.type;
+
+        util.http(dataUrl, function (data) {
+
+          if (data.status == 1) {
+            choujiangCount = data.data;
+            var all_count = data.all_count; //当天可以抽奖的总次数
+            var all_money = (data.all_money * 1).toFixed(2); //当天累计的总抽奖金额（虚拟不可提现）
+
+            that.setData({
+              dayall_count: all_count,
+              dayall_money: all_money,
+              choujiangCount: choujiangCount,
+              totalchoujiangCount: choujiangCount,
+              redPacketValue_totaldata: all_money, //累计抽中金额
+              is_vip: data.isVip != undefined ? data.isVip : 0, //0不是 1是
+              maxType: data.maxType,
+            })
+
+            if (kttxkSuccessBack == '1')//有购买过提现卡
+            {
+              if (choujiangCount > 0) {
+                that.setData({
+                  redPacketOpenedShow: false,
+                  luckOrBecomeMember: false,
+                  redPacketluckOver: false,
+                  tixianBecomeMember: false,
+                  redPacketBecomeMember: false,
+                  showStartTishi: true,
+                })
+              }
+            } else if (kvipSuccessBack == '1')//有购买过会员卡
+            {
+              that.setData({
+                redPacketOpenedShow: false,
+                luckOrBecomeMember: false,
+                redPacketluckOver: false,
+                tixianBecomeMember: false,
+                redPacketBecomeMember: false,
+                comefrom: '',
+              });
+              
+              var pages = getCurrentPages() //获取加载的页面
+              var currentPage = pages[pages.length - 2] //获取上一页面的对象
+              if (currentPage.route == "pages/sign/sign") {
+                wx.navigateBack({})
+              } else {
+                wx.redirectTo({
+                  url: '/pages/sign/sign',
+                })
+              }
+
+              //如果是会员回来自动抽奖
+              // if ((data.isVip > 0 && data.isVip != 3) || (data.isVip == 3 && data.maxType == 4)) {
+              //   that.getLimitValue();
+
+              //   that.setData({
+              //     redPacketOpenedShow: false,
+              //     luckOrBecomeMember: false,
+              //     redPacketluckOver: false,
+              //     tixianBecomeMember: false,
+              //     redPacketBecomeMember: false,
+              //     comefrom: '',
+              //   });
+              // }
+            }
+
+            var tixian_count = data.tixian_count;
+            var tixianCoupon = '';
+            if ((data.isVip > 0 && data.isVip != 3) || (data.isVip == 3 && data.maxType == 4))//是会员
+            {
+              tixianCoupon = 'giveoneTixianCoupon.png';
+              tixianCoupon_count = 1;
+            } else {
+              //tixian_count = 1 买过一次提现卡
+              tixianCoupon = tixian_count == 1 ? 'givefiftyTixianCoupon.png' : 'givetenTixianCoupon.png';
+              tixianCoupon_count = tixian_count == 1 ? 50 : 10;
+            }
+            that.setData({
+              tixian_count: tixian_count,
+              tixianCoupon: tixianCoupon,
+              tixian_twoCount: data.tixian_twoCount,
+              tixianCoupon_count: tixianCoupon_count
+            })
+
+            wx.setStorageSync("KTtxkSuccessBack", 0)
+            wx.setStorageSync('KvipSuccessBack', 0)
+          } else {
+            that.showToast(data.message, 2000);
+            wx.setStorageSync("KTtxkSuccessBack", 0)
+            wx.setStorageSync('KvipSuccessBack', 0)
+          }
+        });
+
+      } else if (that.data.pagetoBecomeMember){
+        if (that.data.redPacketBecomeMember) {
+          that.setData({
+            redPacketluckOver: false,
+            tixianBecomeMember: false,
+            redPacketBecomeMember: false,
+            luckOrBecomeMember: true
+          })
+        }
+      } else if (tixianCouponBack){
+        // cutdown_total_micro_second = 30 * 60 * 1000;
+        clearTimeout(countDownTimer);
+        // this.countdown();
+        // that.setData({
+        //   guidebecomeMemberShow: true
+        // })
+        // wx.setStorageSync('tixian_count', that.data.tixian_count.toString())
+
+        // if (this.data.comefrom == 'wallet')
+        // {
+        //   wx.redirectTo({
+        //     url: '/pages/sign/sign',
+        //   })
+        // }else{
+        //   wx.navigateBack({})
+        // }
+
+        var pages = getCurrentPages() //获取加载的页面
+        var currentPage = pages[pages.length - 2] //获取上一页面的对象
+        if (currentPage.route == "pages/sign/sign") {
+          wx.navigateBack({})
+        } else {
+          wx.redirectTo({
+            url: '/pages/sign/sign',
+          })
+        }
+
+      }
+
+      tixianCouponBack = false;
+      that.setData({
+        pagetoBecomeMember: false
+      })
+    }
+    
+    if (!that.data.showendofpromotionDialog) {
+      wx.onUserCaptureScreen(function (res) {
+        console.log('……………………………………………………用户截屏了')
+        setTimeout(function () {
+          that.showModal();
+        }, 1000)
+      })
+    }
+
+  },
+
+  dialog_close: function() {
+    this.setData({
+      notEnoughYidouShow: false,
+      getYuEShow: false,
+      getYiDouShow: false,
+      LuckWarnShow: false,
+      raffleNumShow: false,
+      noRedPacketShow: false,
+      openRedPacketShow: false,
+      redPacketOpenedShow: false,
+      madOpenRedPacketShow: false,
+      madRedPacketOpenedShow: false,
+      buyObtainYidouShow: false,
+      obtainMadDialogShow: false,
+      limitDialogShow: false,
+      balanceLotteryShow: false,
+      balanceLotteryOverShow: false,
+      noRedPacketBalanceShow: false,
+      openRedPacketBalanceShow: false,
+      redPacketOpenedBalanceShow: false,
+      wxIsNotBindShow: false,
+    });
+  },
+
+  //正常过来抽奖
+  normal_luckdraw: function (options){
+    var that = this;
+    token = app.globalData.user.userToken;
+
+    //查询是否可以抽奖
+    var dataUrl = config.Host + "wallet/queryUserLotteryQualification" +
+      "?token=" + token +
+      "&" + config.Version + '&type=' + that.data.type;
+
+    util.http(dataUrl, function (data) {
+
+      if (data.status == 1) {
+        choujiangCount = data.data;
+        var all_count = data.all_count; //当天可以抽奖的总次数
+        var all_money = (data.all_money * 1).toFixed(2); //当天累计的总抽奖金额（虚拟不可提现）
+        var tixian_count = data.tixian_count;//是否购买提现卡 1是 0不是
+        if (options.comefrom == 'wallet') //从钱包界面过来的
+        {
+          that.setData({
+            comefrom: options.comefrom,
+            choujiangCount: choujiangCount,
+            totalchoujiangCount: choujiangCount,
+            dayall_count: all_count,
+            dayall_money: all_money,
+            redPacketValue_totaldata: all_money, //钱包里面累计抽中金额
+            tixian_count: tixian_count,
+            tixian_twoCount: data.tixian_twoCount,
+            is_vip: data.isVip != undefined ? data.isVip : 0, //0不是 1是
+            maxType: data.maxType
+          })
+
+          if (that.data.redPacketValue_totaldata > 0) //当用户从钱包页进入没有抽中的金额或者没有抽奖次数
+          {
+            that.setData({
+              tixianBecomeMember: true,
+            })
+          } else {
+
+            if (choujiangCount <= 0) {
+              that.needCountTishi();
+            } else {
+              that.setData({
+                showStartTishi: true
+              })
+            }
+          }
+
+        } else {
+          that.setData({
+            dayall_count: all_count,
+            dayall_money: all_money,
+            choujiangCount: choujiangCount,
+            totalchoujiangCount: choujiangCount,
+            redPacketValue_totaldata: all_money, //累计抽中金额
+            tixian_count: tixian_count,
+            tixian_twoCount: data.tixian_twoCount,
+            is_vip: data.isVip != undefined ? data.isVip : 0, //0不是 1是
+            maxType: data.maxType
+          })
+
+          if (choujiangCount <= 0) {
+            if (that.data.redPacketValue_totaldata > 0) //当日有抽中未能提现的会员提现额度时弹此框
+            {
+              that.setData({
+                redPacketluckOver: true,
+              })
+            } else {
+              that.needCountTishi();
+            }
+
+          } else {
+            that.setData({
+              showStartTishi: true
+            })
+          }
+        }
+
+        var tixianCoupon = '';
+        if ((data.isVip > 0 && data.isVip != 3) || (data.isVip == 3 && data.maxType == 4))//是会员
+        {
+          tixianCoupon = 'giveoneTixianCoupon.png';
+          tixianCoupon_count = 1;
+        } else {
+          //tixian_count = 1 买过一次提现卡
+          tixianCoupon = tixian_count == 1 ? 'givefiftyTixianCoupon.png' : 'givetenTixianCoupon.png';
+          tixianCoupon_count = tixian_count == 1 ? 50:10;
+        }
+        that.setData({
+          tixianCoupon_count: tixianCoupon_count,
+          tixianCoupon:tixianCoupon
+        })
+      } else {
+        that.showToast(data.message, 2000);
+      }
+
+    });
+  },
+  newuser_luckdraw: function (btntap){
+    choujiangCount = 1;
+    this.setData({
+      dayall_count: 1,
+      dayall_money: 27.2,
+      choujiangCount: 1,
+      totalchoujiangCount: 1,
+    })
+    //自动抽奖
+    this.newuser_getLimitValue(btntap);
+  },
+  newuser_onclick:function(e){
+    var that = this;
+
+    wx.getUserInfo({
+      //允许授权 获取用户信息
+      success: function (res) {
+        if (!app.globalData.user) {
+          wx.showLoading({
+            title: '请稍后',
+            mask: true,
+          })
+          //授权成功去登录
+          app.New_userlogin(function (data) {
+            wx.hideLoading();
+            if (app.globalData.user && app.globalData.user.userToken != undefined) //登录成功
+            {
+              that.setData({
+                redPacketOpenedShow:false
+              })
+              util.httpPushFormId(formId);
+
+              var token = app.globalData.user.userToken;
+
+              //查询是否抽过奖
+              var dataUrl = config.Host + "wallet/judgeUserFirstIntoRaffle" +
+                "?token=" + token + config.Version;
+              util.http(dataUrl, function (data) {
+                if (data.status == 1 && data.data == 1) {
+                  that.setData({
+                    isFirstChongJiang: 1
+                  })
+                } else{
+                  that.setData({
+                    isFirstChongJiang: 0
+                  })
+                }
+
+                //同步第一次抽奖数据
+                util.newuser_luckdraw(redPacketValue, function (data) {
+                  if (data.status == 1) {
+                    wx.redirectTo({
+                      url: '/pages/sign/sign?isFirstChongJiang=' + that.data.isFirstChongJiang,
+                    })
+                  }
+                });
+              });
+            } else if (app.globalData.user.userToken == undefined && app.globalData.channel_type == 1) {
+              that.setData({
+                redPacketOpenedShow: false
+              })
+              that.showToast('不符合条件', 2000);
+            }
+          });
+        } else if (app.globalData.user.userToken == undefined && app.globalData.channel_type == 1) {
+          that.setData({
+            redPacketOpenedShow: false
+          })
+          that.showToast('不符合条件', 2000);
+        }
+      },
+      fail: function () {
+
+      }
+    })
+  },
+  //授权弹窗
+  onclick: function(e) {
+    var that = this;
+    wx.getUserInfo({
+      //允许授权 获取用户信息
+      success: function(res) {
+        if (!app.globalData.user) {
+          wx.showLoading({
+            title: '请稍后',
+            mask: true,
+          })
+          //授权成功去登录
+          app.New_userlogin(function(data) {
+            wx.hideLoading();
+            if (app.globalData.user && app.globalData.user.userToken != undefined) //登录成功
+            {
+              var showendofpromotionDialog = app.globalData.user.showSpecialPage != 1 ? true : false;
+              that.setData({
+                showLoginDialog:false,
+                showendofpromotionDialog: showendofpromotionDialog
+              })
+              if (that.data.showendofpromotionDialog) {
+                wx.setStorageSync("comefrom", 'showendofpromotionDialog');
+                wx.switchTab({
+                  url: '/pages/shouye/shouye?comefrom=showendofpromotionDialog',
+                })
+                return;
+              }
+
+              wx.hideLoading();
+              token = app.globalData.user.userToken;
+              //查询抽奖次数
+              var dataUrl = config.Host + "wallet/queryUserLotteryQualification" +
+                "?token=" + token +
+                "&" + config.Version + '&type=' + that.data.type;
+              util.http(dataUrl, function(data) {
+
+                if (data.status != 1) {
+                  that.showToast(data.message, 2000);
+                  return
+                }
+                choujiangCount = data.data;
+                if (choujiangCount <= 0) {
+                  that.setData({
+                    tixianCoupon_count:tixianCoupon_count
+                  })
+                  that.needCountTishi();
+                  
+                } else {
+                  that.setData({
+                    choujiangCount: choujiangCount,
+                    showStartTishi: true
+                  })
+                }
+              });
+
+              cutdown_total_micro_second = 30 * 60 * 1000;
+              var picdatas = [];
+              // 获取用户邀请好友状态
+              util.get_selInviteInfo(function (data) {
+                var inviteNum = data.data.inviteNum;
+                if (data.status == 1 && data.data.upics) {
+
+                  for (var i = 0; i < inviteNum; i++) {
+                    if (data.data.upics[i]) {
+                      picdatas.push(data.data.upics[i]);
+                    } else {
+                      picdatas.push(config.Upyun + 'small-iconImages/heboImg/luck_invitButton.png')
+                    }
+                  }
+                } else {
+                  for (var i = 0; i < inviteNum; i++) {
+                    picdatas.push(config.Upyun + 'small-iconImages/heboImg/luck_invitButton.png')
+                  }
+                }
+                that.setData({
+                  invitfriendslist: picdatas
+                })
+              });
+            } else if (app.globalData.user.userToken == undefined && app.globalData.channel_type == 1) {
+              that.showToast('不符合条件', 2000);
+            } else{
+              if (that.data.showendofpromotionDialog) {
+                wx.setStorageSync("comefrom", 'showendofpromotionDialog');
+                wx.switchTab({
+                  url: '/pages/shouye/shouye?comefrom=showendofpromotionDialog',
+                })
+              }
+            }
+          });
+        }else{
+          if (that.data.showendofpromotionDialog) {
+            wx.setStorageSync("comefrom", 'showendofpromotionDialog');
+            wx.switchTab({
+              url: '/pages/shouye/shouye?comefrom=showendofpromotionDialog',
+            })
+          }
+        }
+      },
+      fail: function() {
+
+      }
+    })
+  },
+
+
+  // //自动登录
+  // globalLogin: function () {
+  //   var that = this;
+  //   util.autoLogin(loginCount, function (loginfailYiFuShow, login_discribution, login_buttontitle, newloginCount) {
+  //     wx.hideLoading();
+  //     loginCount = newloginCount;
+  //     if (loginCount == 1) //登录成功
+  //     {
+  //       that.onShow();
+  //     } else {
+  //       that.setData({
+  //         loginfailYiFuShow: loginfailYiFuShow,
+  //         login_discribution: login_discribution,
+  //         login_buttontitle: login_buttontitle,
+  //       })
+  //     }
+  //   })
+  // },
+
+
+
+
+
+  //关闭相关弹窗时候 用户是否绑定提现微信则另一个弹窗提示
+  dialog_close_toBind: function() {
+
+    //引导开会员  extract_money == 0
+    if (this.data.redPacketOpenedShow && this.data.extract_money == 0 && !this.data.newuser_draw) {
+      this.setData({
+        // redPacketBecomeMember: true
+        redPacketOpenedShow:false,
+        luckOrBecomeMember: true
+      })
+    }else{
+      this.setData({
+        raffleNumShow: false,
+        noRedPacketShow: false,
+        redPacketOpenedShow: false,
+        madRedPacketOpenedShow: false,
+        luckOrBecomeMember: false
+      });
+    }
+  },
+  dialog_close_toluck: function() {
+
+    if (this.data.redPacketNotenoughOne){
+      this.setData({
+        redPacketNotenoughOne:false
+      })
+    }
+    if (this.data.redPacketBecomeMember) {
+      this.setData({
+        luckOrBecomeMember: true,
+        redPacketluckOver: false,
+        tixianBecomeMember: false,
+        redPacketBecomeMember:false
+      })
+    }
+
+    if (this.data.redPacketluckOver || this.data.tixianBecomeMember){
+      cutdown_total_micro_second = 30 * 60 * 1000;
+      clearTimeout(countDownTimer);
+      this.countdown();
+      this.setData({
+        // guidebecomeMemberShow:true,
+        // guideTixianCouponShow:true,
+        redPacketluckOver: false,
+        tixianBecomeMember:false
+      })
+
+      //当是会员或者2次买提现卡后不再弹出提现卡弹窗
+      if ((this.data.is_vip > 0 && this.data.is_vip != 3) || (this.data.is_vip == 3 && this.data.maxType == 4) || this.data.tixian_twoCount == 1)//是会员
+      {
+        this.setData({
+          guidebecomeMemberShow: true
+        })
+      }else{
+        this.setData({
+          guideTixianCouponShow: true
+        })
+      }
+    }
+  },
+  //成为会员
+  becomeMember: function(e) {
+    
+    this.setData({
+      pagetoBecomeMember: true
+    })
+    wx.navigateTo({
+      url: '/pages/mine/addMemberCard/addMemberCard?memberComefrom=' + 'draw_vip',
+    })
+  },
+
+  //提交formid
+  submitFormID:function(e){
+    formId = e.detail.formId;
+    if (app.globalData.user != null) {
+      util.httpPushFormId(e.detail.formId);
+    }
+  },
+  confirmFormID:function(e){
+    formId = e.detail.formId;
+    if (app.globalData.user != null) {
+      util.httpPushFormId(e.detail.formId);
+    }
+  },
+  //0元购美衣弹窗关闭
+  zeroBuyCloseClick: function() {
+    this.setData({
+      zeroBuyDialogShowFlag: false,
+    });
+  },
+
+  // initData: function(isRefresh) {
+  //   var that = this;
+  //   var dataUrl = config.Host + "wallet/myWallet" +
+  //     "?token=" + token + config.Version;
+  //   util.httpNeedLogin(dataUrl, function(data) {
+  //     if (data.status != 1) {
+  //       that.showToast(data.message, 2000);
+  //       return;
+  //     }
+
+  //     usedYidou = data.peas; //可用衣豆 
+  //     unUsedYidou = data.peas_free; // 冻结衣豆
+  //     usedBalance = data.balance; //可用余额 
+  //     unUsedBalance = data.freeze_balance; // 冻结余额
+  //     mSumBalance = usedBalance + unUsedBalance;
+  //     mLimit = data.extract + data.ex_free;
+
+  //     that.setData({
+  //       mSumBalance_data: mSumBalance.toFixed(2),
+  //       mLimit_data: mLimit.toFixed(2),
+  //       usedYidou_data: "可用衣豆：" + usedYidou,
+  //       unUsedYidou_data: "冻结衣豆：" + unUsedYidou,
+  //     });
+
+
+  //     if (!isRefresh) {
+  //       that.autoLimitDialog();
+  //       that.initDialog();
+  //     }
+
+  //   }, this.reInitData);
+  // },
+  // reInitData: function() {
+  //   token = app.globalData.user.userToken;
+  //   this.initData();
+  // },
+  //刚进来的时候的弹窗
+  initDialog: function() {
+    var that = this;
+    if (that.data.isBalanceLottery) {
+      //   setBalanceInit();
+      if (balanceLottery > 0) {
+        that.getBalanceLottery(1); //获得免费抽奖机会
+      } else {
+        that.getBalanceLottery(2); //免费抽奖机会用完
+      }
+
+    } else if (that.data.isMad) {
+      //完成订单 获取疯狂抽奖次数 弹框
+      if (isFromPaySuccess && totalAccount > 0) {
+        that.obtainMadDialog();
+      }
+      that.queryMadData();
+    } else {
+      //完成订单 获得到衣豆数量 弹框
+      if (isFromPaySuccess && totalAccount > 0) {
+        if (is_guidPay) { //引导付款的 需要知道减半的倍数
+          that.getTwofoldness(true);
+        } else {
+          that.buyObtainYidou(1);
+        }
+      }
+    }
+  },
+  autoLimitDialog: function() {
+    if (!isFromPaySuccess && !this.data.isBalanceLottery) {
+      var Times = wx.getStorageSync("WithdrawLimitDialog");
+      if (Times < 2) {
+        // this.limitDialog();
+        wx.setStorageSync("WithdrawLimitDialog", Times + 1);
+      } else {
+        this.getRaffleNum();
+      }
+      // wx.removeStorageSync("WithdrawLimitDialog");
+    }
+
+  },
+
+
+  //疯狂新衣节 获取疯狂抽奖次数并显示在界面
+  queryMadData: function() {
+    var that = this;
+    var dataUrl = config.Host + "signIn2_0/getCount" +
+      "?token=" + token +
+      "&" + config.Version;
+    util.http(dataUrl, function(data) {
+      if (data.status != 1) {
+        return;
+      }
+      // console.log(res.data.data);
+      that.setData({
+        lotterynumber: data.LotteryNumber
+      });
+    });
+  },
+
+  //获取转盘抽奖总次数 弹框提示
+  getRaffleNum: function() {
+    var that = this;
+    var dataUrl = config.Host + "wallet/getRaffleNum" +
+      "?token=" + token + config.Version;
+    util.http(dataUrl, function(data) {
+      if (data.status != 1) {
+        return;
+      }
+      var raffleNum = data.data;
+      if (raffleNum > 0) {
+        that.getRaffleNumDialog(raffleNum);
+      }
+    });
+  },
+
+  /**
+   * 虚拟开始抽奖
+   */
+  newuserstartLuckBtn:function(e){
+    var that = this;
+    
+    if(app.globalData.user != null && app.globalData.user.userToken != undefined)
+    {
+      util.newuser_luckdraw(redPacketValue, function (data) {
+        if (data.status == 1) {
+          wx.redirectTo({
+            url: '/pages/sign/sign?isFirstChongJiang=' + that.data.isFirstChongJiang,
+          })
+        }
+      });
+    }
+  },
+  /**
+   * 开始抽奖
+   */
+  startLuckBtn: function(event) {
+
+    var that = this;
+    if (isRunning) {
+      return;
+    }
+    that.statisticsLuck();
+    //当次数用完时
+    if (choujiangCount <= 0) {
+      if (that.data.redPacketOpenedShow && that.data.redPacketValue_totaldata > 0) { //抽奖弹此框提示次数已经用完
+        that.setData({
+          redPacketluckOver: true
+        })
+      } else if (that.data.luckOrBecomeMember) { //离开
+        wx.navigateBack({});
+      } else {
+        that.needCountTishi();
+      }
+    } else {
+      //extract_money == 0引导用户去买会员
+      if (that.data.extract_money == 0) {
+        that.setData({
+          // redPacketBecomeMember: true,
+          luckOrBecomeMember: true
+        })
+      } else if (that.data.redPacketNotenoughOne){
+        that.setData({
+          redPacketNotenoughOne: false
+        })
+        that.getLimitValue();
+      } else if (that.data.redPacketValue_data > 0 && that.data.redPacketValue_data < 1){
+        that.setData({
+          redPacketNotenoughOne: true
+        })
+      } else {
+        that.getLimitValue();
+      }
+    }
+
+    that.setData({
+      redPacketOpenedShow: false,
+    });
+  },
+
+  //引导用户购买会员后的再次抽奖
+  laststartLuckBtn: function(event) {
+
+    var that = this;
+    if (isRunning) {
+      return;
+    }
+    //虚拟抽奖
+    if(that.data.newuser_draw)
+    {
+      that.newuser_luckdraw(true);
+      return;
+    }
+    
+    that.statisticsLuck();
+    //当次数用完时
+    if (choujiangCount <= 0) {
+      if (that.data.redPacketOpenedShow && that.data.redPacketValue_totaldata > 0) { //抽奖弹此框提示次数已经用完
+        that.setData({
+          redPacketluckOver: true
+        })
+      } else if (that.data.luckOrBecomeMember) { //离开
+        wx.navigateBack({});
+      } else {
+        that.needCountTishi();
+      }
+    } else {
+      that.getLimitValue();
+    }
+
+    that.setData({
+      luckOrBecomeMember: false,
+      redPacketOpenedShow: false
+    });
+
+
+  },
+
+  //继续提现
+  laststartInvitBtn: function(e) {
+    cutdown_total_micro_second = 30 * 60 * 1000;
+    clearTimeout(countDownTimer);
+    this.countdown();
+    this.setData({
+      redPacketluckOver: false,
+      tixianBecomeMember:false,
+      getYuEShow:false
+    })
+
+    //当是会员不再弹出提现卡弹窗
+    if ((this.data.is_vip > 0 && this.data.is_vip != 3) || (this.data.is_vip == 3 && this.data.maxType == 4))//是会员
+    {
+      this.setData({
+        guidebecomeMemberShow: true
+      })
+    } else {
+      this.setData({
+        guideTixianCouponShow: true
+      })
+    }
+  },
+
+  //邀请好友
+  guideInvit_friendsTap:function(e){
+    var formId = e.detail.formId;
+    if (app.globalData.user != null) {
+      util.httpPushFormId(e.detail.formId);
+    }
+  },
+  //统计抽奖次数
+  statisticsLuck: function() {
+    var click_id = wx.getStorageSync('luck_gdt_vid')
+    var timestamp = Date.parse(new Date());
+    if (click_id) {
+      var clickUrl = config.Host + 'wxMarkting/marketing_order?' + config.Version +
+        '&click_id=' + click_id +
+        '&order_code=' + timestamp +
+        "&channel=" + wx.getStorageSync("advent_channel") +
+        "&token=" + app.globalData.user.userToken +
+        order_channel;
+
+      util.http(clickUrl, function(data) {
+        if (data.status == 1) {
+          wx.setStorageSync('luck_gdt_vid', '')
+        }
+      });
+    }
+  },
+  usedYiDouAwards: function(twofoldness) {
+    if (usedYidou >= 10 || unUsedYidou >= (10 / twofoldness) || usedBalance >= 10) {
+      if (!wx.getStorageSync("withdraw_isWran")) {
+        //抽奖提示
+        this.LuckWarn(twofoldness);
+        wx.setStorageSync("withdraw_isWran", true);
+      } else {
+        //无提示 直接开始抽奖
+        this.getLimitValue(twofoldness);
+      }
+    } else {
+      // 衣豆不足提醒
+      this.notEnoughYidou();
+    }
+  },
+
+  closeChoujiangTishi: function() {
+    this.setData({
+      showStartTishi: false
+    })
+  },
+
+  //冻结衣豆抽奖 获取衣豆减半倍数
+  getTwofoldness: function(is_guidPay) {
+    var that = this;
+    var dataUrl = config.Host + "wallet/yiDouHalve" +
+      "?token=" + token + config.Version;
+    util.http(dataUrl, function(data) {
+      if (data.status != 1) {
+        that.showToast(data.message, 2000);
+        return;
+      }
+      if (!data.data && data.data.is_open == 1 &&
+        data.data.end_date > data.now) {
+        var twofoldness = 1;
+        twofoldness = data.data.twofoldness;
+
+        if (is_guidPay) {
+          that.buyObtainYidou(twofoldness); //支付引导弹窗
+        } else {
+          that.usedYiDouAwards(twofoldness);
+        }
+      } else {
+        if (is_guidPay) {
+          that.buyObtainYidou(1); //支付引导弹窗
+        } else {
+          that.usedYiDouAwards(1);
+        }
+      }
+    });
+  },
+
+  //开始抽奖
+  getLimitValue: function() {
+    var that = this;
+
+
+    if (choujiangCount <= 0) {
+      // that.showToast("活动已结束", 2000);
+
+      that.needCountTishi();
+
+      return
+    }
+
+
+    // var redPacketValue = Math.floor(Math.random() * 10 + 1);　 //输出1～10之间的随机整数
+    // that.showToast(redPacketValue, 2000);
+
+    that.setData({
+      showStartTishi: false
+    })
+
+    // raffleType = 0;//重置抽中红包类型
+    // redPacketValue = 0;///重置前一次的抽奖金额
+    // that.roateStartLuckBefor();
+
+    // wx.showLoading({
+    //   title: '抽奖中……',
+    // })
+
+
+
+    var runningtime ;
+    var dataUrl = config.Host + "wallet/getnewUserRaffleMoney" +
+      "?token=" + token + config.Version + '&data=' + choujiangCount;
+    util.http(dataUrl, function(data) {
+      if (data.status == 1) {
+        isRunning = false;
+        runningtime = 4200;
+        redPacketValue = data.raffle_money;
+        choujiangCount = data.residual_num;
+      } else {
+        if(that.data.newuser_draw){
+          runningtime = 5200;
+          redPacketValue = 27.2;//模拟虚假的抽奖金额
+        }else{
+          that.showToast(data.message, 2000);
+          return;
+        } 
+      }
+
+      // choujiangCount--;
+      isRunning = true;
+
+      that.setData({
+        choujiangCount: choujiangCount,
+        // is_vip: data.is_vip != undefined ? data.is_vip : 0 //0不是 1是
+      })
+
+      var awardIndex = 0;
+      if (redPacketValue >= 0 && redPacketValue < 5) {
+        awardIndex = 0;
+      } else if (redPacketValue >= 5 && redPacketValue < 15) {
+        awardIndex = 2;
+      } else if (redPacketValue >= 15 && redPacketValue < 50) {
+        awardIndex = 1;
+      } else if (redPacketValue >= 50 && redPacketValue < 70) {
+        awardIndex = 3;
+      } else if (redPacketValue >= 100 && redPacketValue < 200) {
+        awardIndex = 4;
+      } else if (redPacketValue >= 200 && redPacketValue < 300) {
+        awardIndex = 5;
+      }
+
+
+
+
+      that.roateStartLuck(awardIndex);
+
+      // 显示抽奖结果
+      setTimeout(function() {
+        that.setData({
+          redPacketValue_data: redPacketValue, //单次抽奖金额
+          extract_money: (data.extract_money * 1).toFixed(2), //发放金额
+          redPacketValue_totaldata: (data.all_money * 1).toFixed(2), //累计抽中金额
+        });
+
+        //真实抽奖金额放大多少倍
+        if (data.multiple >=1)
+        {
+          var total_extract_money = data.multiple * data.raffle_money;
+          var surplus_extract_money = (data.multiple - 1) * data.raffle_money;
+          that.setData({
+            multiple: data.multiple,//虚拟倍数
+            surplus_day: data.day,//天数
+            total_extract_money: total_extract_money.toFixed(2),//虚拟发放总金额
+            surplus_extract_money: surplus_extract_money.toFixed(2),//剩余发放金额
+          })
+        }
+        that.openRedPacket();
+
+        isRunning = false;
+      }, runningtime);
+    });
+  },
+  newuser_getLimitValue:function(btntap){
+    var that = this;
+
+    if (choujiangCount <= 0) {
+      that.needCountTishi();
+      return
+    }
+
+    redPacketValue = 27.2;//模拟虚假的抽奖金额
+    choujiangCount--;
+    isRunning = true;
+
+    that.setData({
+      choujiangCount: choujiangCount,
+    })
+
+    var awardIndex = 0;
+    if (redPacketValue >= 0 && redPacketValue < 5) {
+      awardIndex = 0;
+    } else if (redPacketValue >= 5 && redPacketValue < 10) {
+      awardIndex = 2;
+    } else if (redPacketValue >= 10 && redPacketValue < 15) {
+      awardIndex = 4;
+    } else if (redPacketValue >= 15 && redPacketValue < 30) {
+      awardIndex = 1;
+    } else if (redPacketValue >= 30 && redPacketValue < 50) {
+      awardIndex = 3;
+    } else if (redPacketValue >= 50 && redPacketValue < 70) {
+      awardIndex = 5;
+    }
+
+    //延迟1.5s转盘自动开始转
+    if (!btntap){
+      wx.showLoading({
+        title: '请稍后',
+        mask: true,
+      })
+    }
+    var time = btntap?500:1500;
+    setTimeout(function(){
+      wx.hideLoading();
+      that.roateStartLuck(1);
+    }, time)
+
+    // 显示抽奖结果
+    setTimeout(function () {
+      that.setData({
+        redPacketValue_data: redPacketValue, //单次抽奖金额
+        redPacketValue_totaldata: redPacketValue, //累计抽中金额
+        extract_money: 0 //发放金额
+      });
+      that.openRedPacket();
+      isRunning = false;
+    }, 5500);
+  },
+  needCountTishi: function() {
+    var that = this;
+
+    if (that.data.tixian_twoCount == 1)
+    {
+      if((that.data.is_vip >0 && that.data.is_vip !=3) || (that.data.is_vip==3 && that.data.maxType==4)){
+        that.showToast("您今日的提现机会已用完。", 5000);
+      }else{
+        that.setData({
+          redPacketluckOver: true,
+        })
+      }
+    }else{
+      util.httpUpyunJson(function (data) {
+        that.setData({
+          yaoqinghaoyouTips: data.new_raffle_info,
+          getYuEShow: true
+        })
+      })
+    }
+  },
+
+  roateStartLuck: function(awardIndex) {
+    var that = this;
+    var runNum = 6;
+    runDegs = runDegs + (360 - runDegs % 360) + (360 * runNum - awardIndex * (360 / 6));
+    var animationRun = wx.createAnimation({
+      duration: 4000,
+      timingFunction: 'ease-out'
+    });
+    that.animationRun = animationRun;
+    animationRun.rotate(runDegs).step();
+    that.setData({
+      zp_animationData: animationRun.export(),
+    });
+  },
+
+  roateStartLuckBefor: function() {
+    var that = this;
+    var runNum = 18;
+    var awardIndex = 3;
+    runDegs = runDegs + (360 - runDegs % 360) + (360 * runNum - awardIndex * (360 / 4));
+    var animationRun = wx.createAnimation({
+      duration: 12000,
+      timingFunction: 'ease-in'
+    });
+    that.animationRun = animationRun;
+    animationRun.rotate(runDegs).step();
+    that.setData({
+      zp_animationData: animationRun.export(),
+    });
+  },
+
+  // roateStartLuckStop: function () {
+  //   var that = this
+  //   var runNum =1
+  //   var awardIndex = 7;
+  //   // console.log(awardIndex)
+  //   runDegs = runDegs + (360 - runDegs % 360) + (360 * runNum - awardIndex * (360 / 8))
+  //   var animationRun = wx.createAnimation({
+  //     duration: 500,
+  //     timingFunction: 'ease-out'
+  //   })
+  //   that.animationRun = animationRun
+  //   animationRun.rotate(runDegs).step()
+  //   that.setData({
+  //     animationData: animationRun.export(),
+  //   });
+  // },
+
+  //抽奖提醒
+  LuckWarn: function(twofoldness) {
+    this.setData({
+      LuckWarnShow: true,
+      twofoldness_data: twofoldness
+    });
+  },
+  //抽奖提醒 确定开始抽奖
+  LuckWarnRigth: function() {
+    this.setData({
+      LuckWarnShow: false
+    });
+    this.getLimitValue(this.data.twofoldness_data);
+  },
+
+  //总共有多少次抽奖机会弹窗
+  getRaffleNumDialog: function(raffleNum) {
+    this.setData({
+      raffleNum_data: raffleNum,
+      raffleNumShow: true //显示
+    });
+  },
+
+  //衣豆不足弹窗
+  notEnoughYidou: function() {
+    this.setData({
+      notEnoughYidouShow: true
+    });
+  },
+  //如何获得余额
+  getYuE: function() {
+    this.setData({
+      notEnoughYidouShow: false,
+      getYuEShow: true
+    });
+  },
+  getYuEBtnLeft: function() {
+    this.setData({
+      getYuEShow: false
+    });
+    this.toSignPager();
+  },
+  getYuEBtnRigth: function() {
+    if (wx.getStorageSync("LingYUANGOUTishi_toGetYuE") == 1) {
+      //0元购美衣
+      this.setData({
+        getYuEShow: false,
+        zeroBuyDialogShowFlag: true,
+      });
+      wx.setStorageSync("LingYUANGOUTishi_toGetYuE", 1)
+    } else {
+      this.toMainPager();
+    }
+  },
+
+  //0元购美衣 去0元购
+  zeroBuyNowClick: function() {
+    this.toMainPager();
+  },
+  //如何获得衣豆
+  getYiDou: function() {
+    this.setData({
+      notEnoughYidouShow: false,
+      getYiDouShow: true
+    });
+  },
+  getYiDouBtn: function() {
+    this.toMainPager();
+  },
+
+  //普通 抽中红包 拆红包弹窗显示
+  openRedPacket: function() {
+    this.setData({
+      openRedPacketShow: true
+    });
+  },
+  //点击拆红包按钮  
+  redPacketOpened: function() {
+
+
+
+
+
+    if (this.data.extract_money != 0 && !this.data.newuser_draw) {
+      var dataUrl = config.Host + "wallet/newUserDoRaffle" +
+        "?token=" + token + config.Version;
+      util.http(dataUrl, function(data) {});
+    }
+
+
+
+    this.setData({
+      openRedPacketShow: false,
+      redPacketOpenedShow: true
+    });
+    // this.initData(true);
+  },
+
+  //疯狂新衣节中红包 拆红包弹窗显示
+  madOpenRedPacket: function() {
+    this.setData({
+      madOpenRedPacketShow: true
+    });
+  },
+
+  //疯狂新衣节中红包 点击拆红包
+  madRedPacketOpened: function() {
+    this.setData({
+      madOpenRedPacketShow: false,
+      madRedPacketOpenedShow: true
+    });
+    // this.initData(true);
+  },
+
+
+  //没有抽中红包
+  noRedPacket: function() {
+    this.setData({
+      noRedPacketShow: true
+    });
+  },
+
+  //支付成功 获得衣豆弹窗
+  buyObtainYidou: function(twofoldness) {
+    var num = Math.ceil(totalAccount);
+    this.setData({
+      payYiDouNumber: num,
+      twofoldness_data: twofoldness,
+      buyObtainYidouShow: true
+    });
+
+  },
+
+  //支付成功 新衣节获得疯狂抽奖机会弹窗
+  obtainMadDialog: function() {
+    var num = Math.ceil(totalAccount / 5);
+    this.setData({
+      payLotteryNumber: num,
+      obtainMadDialogShow: true
+    });
+  },
+
+  //额度说明
+  limitDialog: function() {
+    this.setData({
+      limitDialogShow: true
+    });
+  },
+
+
+  //买买买去首页
+  toMainPager: function() {
+    wx.switchTab({
+      url: '../../shouye/shouye',
+    });
+  },
+
+  //去赚钱页面
+  toSignPager: function() {
+    // var pages = getCurrentPages();
+    // var currPage = pages[pages.length - 1];   //当前页面
+    // var prevPage = pages[pages.length - 2];  //上一个页面
+    // // console.log("prevPage", prevPage);
+    // if (prevPage.route == "pages/sign/sign") {
+    //   this.backPager(1);
+    // }else{
+    //   wx.redirectTo({
+    //     url: '../sign',
+    //   });
+    // }
+    util.backToSignPager('../sign');
+  },
+
+  bind_tap_not: function() {
+    this.showToast("只能到App才能查看哦~", 2000);
+  },
+
+
+  bottomTap: function(e) {
+    util.httpPushFormId(e.detail.formId); //表单 调用  传给后台
+    // console.log(e.detail.formId);
+    if (!this.data.isMad || this.data.isBalanceLottery) {
+      this.getYiDou();
+    } else {
+      //疯狂新衣节
+      this.toMainPager();
+    }
+
+    // wx.navigateTo({
+    //   url: "../../../pages/listHome/lookShopListHome/index?shopsName=热卖" 
+    // })
+  },
+
+  backPager: function(delta) {
+    wx.navigateBack({
+      delta: delta
+    });
+  },
+
+  /**
+   * 获取数据  奖励列表   额度
+   */
+  initLimitAwardsList: function() {
+    var that = this;
+    // var dataUrl = config.Host + "wallet/extractNewData" +
+    //   "?" + config.Version;
+    // util.http(dataUrl, function(data) {
+    //   if (data.status != 1 || !data.data) {
+    //     for (var i = 0; i < 50; i++) {
+    //       dataListTemp1.push(that.addToLimitList());
+    //     }
+    //     that.setData({
+    //       mListData1: dataListTemp1
+    //     });
+    //     that.count_down();
+    //     return;
+    // }
+    // var dts = data.data;
+    // var result1 = [];
+
+    // for (var i in dts) {
+    //   var datas = JSON.parse(dts[i]);
+    //   var pic = datas.pic;
+    //   if (!pic.startsWith('http')) {
+    //     datas["pic"] = config.Upyun + pic;
+    //   }
+    //   result1 = result1.concat(datas);
+    // }
+    // for (var i = 0; i < 50; i++) {
+    //   if (i < result1.length * 2) { //前面result1.size()*2条数据互相穿插数据
+    //     if (i % 2 == 0) {
+    //       dataListTemp1.push(result1[i / 2]); //添加到总集合  键值和虚拟添加的键值保持一致
+    //     } else {
+    //       dataListTemp1.push(that.addToLimitList());
+    //     }
+    //   } else {
+    //     dataListTemp1.push(that.addToLimitList());
+    //   }
+    // }
+    //   that.setData({
+    //     mListData1: dataListTemp1
+    //   });
+    //   that.count_down();
+    // });
+
+    for (var i = 0; i < 50; i++) {
+      dataListTemp1.push(that.addToLimitList());
+    }
+    that.setData({
+      mListData1: dataListTemp1
+    });
+    that.count_down();
+
+
+  },
+
+  count_down: function() {
+    var that = this;
+    if (scollTimeOut) {
+      clearInterval(scollTimeOut);
+      scollTimeOut = null;
+    }
+    if (isMoving) {
+      return;
+    }
+
+    if (!this.data.isMad || this.data.isBalanceLottery) {
+      this.setData({
+        scrollTop1: this.data.scrollTop1 + 61,
+        scrollTop2: this.data.scrollTop2 + 61
+      });
+    } else {
+      this.setData({
+        scrollTop1: this.data.scrollTop1 + 61
+      });
+    }
+    scollTimeOut = setTimeout(function() {
+      that.count_down();
+    }, 1000)
+  },
+  scrolltolower1: function() {
+    var temp1 = this.data.mListData1;
+    // for (var i in dataListTemp1) {
+    //   temp1.push(dataListTemp1[i]);
+    // }\
+    Array.prototype.push.apply(temp1, dataListTemp1);
+    this.setData({
+      mListData1: temp1
+    });
+  },
+  scrolltolower2: function() {
+    var temp2 = this.data.mListData2;
+    // for (var i in dataListTemp2) {
+    //   temp2.push(dataListTemp2[i]);
+    // }
+    Array.prototype.push.apply(temp2, dataListTemp2);
+    this.setData({
+      mListData2: temp2
+    });
+  },
+
+  out_touchend: function() {
+    var that = this;
+    if (isMoving) {
+      isMoving = false;
+      if (scollTimePause) {
+        clearInterval(scollTimePause);
+        scollTimePause = null;
+      }
+      scollTimePause = setTimeout(function() {
+        that.count_down();
+      }, 1500);
+    }
+    // console.log("out_touchend", isMoving);
+  },
+  out_touchmove: function() {
+    isMoving = true;
+    if (scollTimeOut) {
+      clearInterval(scollTimeOut);
+      scollTimeOut = null;
+    }
+    // console.log("out_touchmove", isMoving);
+  },
+
+  addToLimitList: function() {
+    var limitData = {};
+    limitData["nname"] = util.getVirtualName() + "***" + util.getVirtualName();
+
+
+    var num = parseInt(Math.random() * (16 - 8) + 8);
+    if (num == 8 || num == 15) {
+      limitData["num"] = num + ".00";
+
+    } else {
+      limitData["num"] = num + util.getVirtualDecimalAwardsWithdrawal();
+
+    }
+
+
+
+
+
+    limitData["pic"] = config.Upyun + "defaultcommentimage/" + util.getDefaultImg();
+    limitData["type"] = 1;
+    return limitData;
+  },
+
+  /**
+   * 获取数据  奖励列表   衣豆
+   */
+  initYiDouAwardsList: function() {
+    var that = this;
+    var dataUrl = config.Host + "wallet/getNewData" +
+      "?" + config.Version;
+    util.http(dataUrl, function(data) {
+      if (data.status != 1 || !data.data) {
+        for (var i = 0; i < 50; i++) {
+          dataListTemp2.push(that.addToYiDouList());
+        }
+        that.setData({
+          mListData2: dataListTemp2
+        });
+        return;
+      }
+      var dts = data.data;
+      var result2 = [];
+
+      for (var i in dts) {
+        var datas = JSON.parse(dts[i]);
+        var pic = datas.pic;
+        if (!pic.startsWith('http')) {
+          datas["pic"] = config.Upyun + pic;
+        }
+        result2 = result2.concat(datas);
+      }
+      for (var i = 0; i < 50; i++) {
+        if (i < result2.length * 2) { //前面result1.size()*2条数据互相穿插数据
+          if (i % 2 == 0) {
+            dataListTemp2.push(result2[i / 2]); //添加到总集合  键值和虚拟添加的键值保持一致
+          } else {
+            dataListTemp2.push(that.addToYiDouList());
+          }
+        } else {
+          dataListTemp2.push(that.addToYiDouList());
+        }
+      }
+      that.setData({
+        mListData2: dataListTemp2
+      });
+    });
+  },
+
+  /**
+   * 添加虚拟数据到 衣豆奖励集合
+   * 
+   */
+  addToYiDouList: function() {
+    var yiDouData = {};
+    yiDouData["nname"] = util.getVirtualName() + "***" + util.getVirtualName();
+    yiDouData["num"] = parseInt(Math.random() * (401 - 10) + 10);
+    yiDouData["p_name"] = "完成订单获得衣豆";
+    yiDouData["pic"] = config.Upyun + "defaultcommentimage/" + util.getDefaultImg();
+    return yiDouData;
+  },
+
+  bind_tap_yidou: function() {
+    // if (isFromPaySuccess) {
+    //   wx.redirectTo({
+    //     url: '../yidouDetail/yidouDetail'
+    //   });
+    // } else {
+    //   wx.navigateTo({
+    //     url: '../yidouDetail/yidouDetail'
+    //   });
+    // }
+    util.navigateTo('../yidouDetail/yidouDetail');
+  },
+
+  //去提现
+  bind_tap_withdraw: function() {
+    wx.redirectTo({
+      // url: '../../mine/wallet/wallet'
+      url: '../../mine/wallet/Withdrawals/Withdrawals'
+    });
+  },
+
+  //额度明细
+  bind_tap_withdraw_detail: function() {
+    // if (isFromPaySuccess){
+    //   wx.redirectTo({
+    //     url: '../yidouDetail/tixianDetail'
+    //   });
+    // }else{
+    //   wx.navigateTo({
+    //     url: '../yidouDetail/tixianDetail'
+    //   });
+    // }
+    util.navigateTo('../yidouDetail/tixianDetail');
+
+    this.setData({
+      redPacketOpenedShow: false,
+      madRedPacketOpenedShow: false,
+    });
+  },
+
+  ////////////////////////////体验抽余额红包//////////////////////////////////////////////
+  //  使用免费机会抽余额红包 接口
+  getBalanceValue: function() {
+    var that = this;
+    isRunning = true;
+    redPacketValue = 0; ///重置前一次的抽奖金额
+
+    // wx.showToast({
+    //   title: '抽奖中……',
+    //   icon: 'loading',
+    //   duration: 2000
+    // });
+    // wx.showLoading({
+    //   title: '抽奖中……',
+    // })
+    var dataUrl = config.Host + "order/doRaffle" +
+      "?token=" + token + config.Version;
+    util.http(dataUrl, function(data) {
+      console.log("data---->", data);
+      if (data.status != 1) {
+        // setTimeout(function () {
+        //   // wx.hideLoading();
+        //   isRunning = false;
+        //   that.showToast(data.message, 2000);
+        // }, 100);
+        isRunning = false;
+        that.showToast(data.message, 2000);
+        return;
+      }
+
+      if (data.status == 1) {
+        //获取抽奖结果
+        if (balanceLottery > 0) { //是虚拟抽奖  扣除剩余次数
+          balanceLottery--;
+          wx.setStorageSync("BALANCE_LOTTERY", balanceLottery) //剩余次数
+        }
+
+        redPacketValue = data.data; //红包金额
+        //保存当日抽中的总数
+        balanceLotterySum = wx.getStorageSync("BALANCE_LOTTERY_SUM_VALUE");
+        if (!balanceLotterySum) {
+          balanceLotterySum = 0;
+        }
+        balanceLotterySum += redPacketValue;
+        wx.setStorageSync("BALANCE_LOTTERY_SUM_VALUE", balanceLotterySum) //当前抽中的总金额
+
+      }
+
+      var awardIndex = 0;
+      if (redPacketValue >= 0.01 && redPacketValue < 5) {
+        awardIndex = 6;
+      } else if (redPacketValue >= 5 && redPacketValue < 10) {
+        awardIndex = 5;
+      } else if (redPacketValue >= 10 && redPacketValue < 50) {
+        awardIndex = 4;
+      } else if (redPacketValue >= 50 && redPacketValue < 100) {
+        awardIndex = 3;
+      } else if (redPacketValue >= 100 && redPacketValue < 200) {
+        awardIndex = 2;
+      } else if (redPacketValue >= 200 && redPacketValue < 500) {
+        awardIndex = 1
+      } else if (redPacketValue >= 500 && redPacketValue <= 1000) {
+        awardIndex = 0;
+      } else {
+        awardIndex = 7;
+      }
+      that.roateStartLuck(awardIndex);
+
+      //显示抽奖结果
+      setTimeout(function() {
+        if (redPacketValue > 0) {
+          that.setData({
+            redPacketValue_data: redPacketValue //抽奖金额
+          });
+          that.openRedPacketBalance();
+        } else {
+          that.noRedPacketBalance();
+        }
+        // wx.hideLoading();
+        isRunning = false;
+      }, 4200);
+    });
+  },
+
+  /**
+   * type  =1 获得5次抽奖机.
+    type  =2 5次抽奖机会 用完
+   */
+  getBalanceLottery: function(type) {
+    if (type == 1) {
+      this.setData({
+        balanceLottery_data: balanceLottery,
+        balanceLotteryShow: true
+      });
+    } else if (type == 2) {
+      var balanceLotteryCount = wx.getStorageSync("BALANCE_LOTTERY_SUM_COUNT");
+      if (!balanceLotteryCount) {
+        balanceLotteryCount = 0;
+      }
+      balanceLotterySum = wx.getStorageSync("BALANCE_LOTTERY_SUM_VALUE");
+      if (!balanceLotterySum) {
+        balanceLotterySum = 0;
+      }
+      this.setData({
+        balanceLotterySum_data: balanceLotterySum.toFixed(2),
+        balanceLotteryCount_data: balanceLotteryCount,
+        balanceLotteryOverShow: true
+      });
+    }
+  },
+
+  balanceLotteryOver_btn: function() {
+    this.setData({
+      balanceLotteryOverShow: false
+    });
+    if (isFromSignBalanceLottery) {
+      this.toMainPager();
+    } else {
+      this.backPager(1);
+    }
+
+  },
+  //接通客服
+  messageTap: function() {
+
+    var dataUrl = config.Host + "signIn2_0/inspectHideTask" +
+      "?token=" + token + config.Version;
+    util.http(dataUrl, function(data) {});
+  },
+  //抽中红包 (余额抽奖)
+  openRedPacketBalance: function() {
+    this.setData({
+      openRedPacketBalanceShow: true
+    });
+  },
+  //点击拆红包按钮 (余额抽奖)
+  redPacketOpenedBalance: function() {
+    this.setData({
+      openRedPacketBalanceShow: false,
+      redPacketOpenedBalanceShow: true
+    });
+    // this.initData(true);
+  },
+  //没有抽中红包 (余额抽奖)
+  noRedPacketBalance: function() {
+    this.setData({
+      noRedPacketBalanceShow: true
+    });
+  },
+
+  //关闭邀请弹框
+  closeInvitImage: function() {
+    this.setData({
+      guidebecomeMemberShow: false
+    })
+  },
+
+  //引导去购买提现券
+  tixiancouponTap:function(){
+    tixianCouponBack = true;
+    this.setData({
+      guideTixianCouponShow: false,
+    })
+    wx.navigateTo({
+      url : '/pages/mine/addMemberCard/addMemberCard?memberComefrom=' + 'draw'
+    })
+  },
+  //关闭提现券弹框
+  closeTixianCoupon:function(){
+    cutdown_total_micro_second = 30 * 60 * 1000;
+    clearTimeout(countDownTimer);
+    this.countdown();
+    this.setData({
+      guideTixianCouponShow:false,
+      guidebecomeMemberShow:true
+    })
+  },
+
+  //邀请好友点问号
+  wenhaoTap: function() {
+    this.showToast('邀请好友仅限首次来衣蝠的女性用户', 2000);
+  },
+
+  to_bind_wx: function() {
+    wx.navigateTo({
+      url: '../../mine/wallet/wallet?withdrawToBindWx=true'
+    });
+    this.setData({
+      wxIsNotBindShow: false,
+    });
+  },
+
+  //拼团倒计时
+  countdown: function() {
+    var that = this;
+    that.dateformat(cutdown_total_micro_second);
+    if (cutdown_total_micro_second <= 0) {
+      //时间截至
+      that.setData({
+        clock_hr: "00",
+        clock_min: "00",
+        clock_ss: "00",
+        time: hr + ':' + min + ':' + sec
+      });
+      return;
+    }
+
+    countDownTimer = setTimeout(function() {
+      cutdown_total_micro_second -= 1000;
+      that.countdown();
+    }, 1000)
+  },
+
+  dateformat: function(micro_second) {
+
+    var that = this;
+    // 总秒数
+    var second = Math.floor(micro_second / 1000);
+
+    // 天数
+    var day = "" + Math.floor(second / 3600 / 24);
+    // 小时
+    var hr = "" + Math.floor(second / 3600 % 24);
+    // 分钟
+    var min = "" + Math.floor(second / 60 % 60);
+    // 秒
+    var sec = "" + Math.floor(second % 60);
+
+
+    if (hr.length < 2) {
+      hr = '0' + hr;
+    }
+
+    if (min.length < 2) {
+      min = '0' + min;
+    }
+
+    if (sec.length < 2) {
+      sec = '0' + sec;
+    }
+
+    that.setData({
+      clock_hr: hr,
+      clock_min: min,
+      clock_ss: sec,
+      time: hr + ':' + min + ':' + sec
+    });
+  },
+
+  onShareAppMessage: function(res) {
+    var that = this;
+    var title = '';
+    var path = '';
+    var imageUrl = '';
+    if (res.from == 'button') {
+      is_invitshare = true;
+      title = "90元微信红包，直接打入微信零钱，点击领取 👆"
+      if (app.globalData.user) {
+        path = "/pages/sign/sign?isShareFlag=true&user_id=" + app.globalData.user.user_id + "&showSignPage=true";
+      } else {
+        path = "/pages/sign/sign?isShareFlag=true&showSignPage=true";
+      }
+      imageUrl = config.Upyun + "small-iconImages/heboImg/shareuserredhongbao_ninety_money.png"
+
+    } else {
+      title = '👇点击提现您的90元新人红包';
+      imageUrl = config.Upyun + '/small-iconImages/heboImg/shareuserredhongbao_ninety_money.png';
+      if (app.globalData.user != null && app.globalData.user.user_id != undefined) {
+        path = '/pages/mine/withdrawLimitTwo/withdrawLimitTwo?' + "isShareFlag=true" + "&user_id=" + app.globalData.user.user_id;
+      } else {
+        path = '/pages/mine/withdrawLimitTwo/withdrawLimitTwo?' + "isShareFlag=true";
+      }
+    }
+
+    return {
+
+      title: title,
+      path: path,
+      imageUrl: imageUrl,
+      success: function(res) {
+        // 转发成功
+        this.showToast('分享成功', 2000);
+      },
+      fail: function(res) {
+        // 转发失败
+        this.showToast('分享失败', 2000);
+      }
+    }
+  },
+
+  //红包缩放动画
+  hongBaoAnimation: function () {
+    var circleCount = 0;
+    // 心跳的外框动画  
+    this.animationMiddleHeaderItem = wx.createAnimation({
+      duration: 500, // 以毫秒为单位  
+      timingFunction: 'linear',
+      delay: 100,
+      transformOrigin: '50% 50%',
+      success: function (res) {
+        console.log("***************************");
+      }
+    });
+    animationTimer = setInterval(function () {
+      if (circleCount % 2 == 0) {
+        this.animationMiddleHeaderItem.scale(1.15).step();
+      } else {
+        this.animationMiddleHeaderItem.scale(1.0).step();
+      }
+
+      this.setData({
+        animationMiddleHeaderItem: this.animationMiddleHeaderItem.export() //输出动画
+      });
+
+      circleCount++;
+      if (circleCount == 1000) {
+        circleCount = 0;
+      }
+    }.bind(this), 500);
+  },
+
+  // 显示遮罩层
+  showModal: function () {
+    var that = this;
+    that.setData({
+      hideModal: false
+    })
+    var animation = wx.createAnimation({
+      duration: 600,//动画的持续时间 默认600ms   数值越大，动画越慢   数值越小，动画越快
+      timingFunction: 'ease',//动画的效果 默认值是linear
+    })
+    this.animation = animation
+    setTimeout(function () {
+      that.fadeIn();//调用显示动画
+    }, 200)
+  },
+
+  // 隐藏遮罩层
+  hideModal: function () {
+    var that = this;
+    var animation = wx.createAnimation({
+      duration: 800,//动画的持续时间 默认800ms   数值越大，动画越慢   数值越小，动画越快
+      timingFunction: 'ease',//动画的效果 默认值是linear
+    })
+    this.animation = animation
+    that.fadeDown();//调用隐藏动画   
+    setTimeout(function () {
+      that.setData({
+        hideModal: true
+      })
+    }, 500)//先执行下滑动画，再隐藏模块
+
+  },
+
+  //动画集
+  fadeIn: function () {
+    this.animation.translateY(0).step()
+    this.setData({
+      animationData: this.animation.export()//动画实例的export方法导出动画数据传递给组件的animation属性
+    })
+  },
+  fadeDown: function () {
+    this.animation.translateY(600).step()
+    this.setData({
+      animationData: this.animation.export(),
+    })
+  },
+
+  //点击反馈内容
+  itemtap: function (e) {
+    var clciktext = e.currentTarget.dataset.id;
+    if (clciktext == "反馈与投诉") {
+      console.log('clciktext=', clciktext);
+      this.setData({
+        hideModal: true
+      })
+      wx.navigateTo({
+        url: '/pages/mine/Complaint/Complaint?path=/inviteFriends/memberFriendsReward',
+      })
+    }
+  },
+  //投诉分享
+  complain_shareTap: function () {
+    this.setData({
+      hideModal: true
+    })
+  },
+
+})

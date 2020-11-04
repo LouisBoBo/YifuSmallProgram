@@ -1,0 +1,65 @@
+<template name="limitQuotas">
+  <view class="limit-root">
+    <text class='limit-dialog-title'>提现额度说明</text>
+    <scroll-view class='limit-content-scoll' scroll-y="{{true}}">
+      <view class='limit-content-scoll-view'>
+        <text class='limit-dialog-content'>1、完成每天的赚钱小任务可赢得账户余额。</text>
+        <text class='limit-dialog-content'>2、账户余额用来抽取1分-50元不等的提现现金。每次消耗10元余额。</text>
+        <text class='limit-dialog-content'>3、完成赚钱小任务里的惊喜提现任务可直接赢得提现现金。</text>
+        <text class='limit-dialog-content'>4、单独购买美衣每消耗1元获得一个衣豆，衣豆用来抽取1分-50元不等的提现现金，交易成功后方可提现。</text>
+        
+      </view>
+    </scroll-view>
+    <view class='limit-bottom-btn'>
+      <text catchtap="dialog_close" class='limit-bottom-btn-left'>知道了</text>
+      <text catchtap="startLuckBtn" class='limit-bottom-btn-rigth'>抽取提现额度</text>
+    </view>
+    <image catchtap="dialog_close" class='limit-icon-close' src="{{Upyun}}/small-iconImages/{{remindShow?'ad_pic/icon_close_new.png':'gx/icon_withdrawal_close.png'}}"></image>
+  </view>
+</template>
+
+
+
+<template name="buquanZuanshiTemplate">
+  <view class="limit-root2">
+     <image bindtap="colseShowTXtishi" class="zuanshiDaojishi-img" 
+     src="{{Upyun}}/small-iconImages/qingfengpic/zuanshi_update_dishi.png"></image>
+      <text class="daojishi-text">{{zuanshiDaoJishiStr}}</text>
+  </view>
+</template>
+
+
+<template name="newChoujiangLogin">
+  <view class="limit-root">
+
+        <button class='button-confrim' formType="submit"  open-type="getUserInfo" bindgetuserinfo='onclick'></button>
+
+    <text class='limit-dialog-title'>温馨提示</text>
+
+        <text class='limit-dialog-content'>您还未登录，请先登录。</text>
+    
+      <text catchtap="dialog_close" class='limit-bottom-btn-login'>登录</text>
+
+  </view>
+</template>
+
+
+
+
+<template name="yidouRemindtemplate">
+  <view class="limit-root">
+    <text class='limit-dialog-title'>如何获取衣豆？</text>
+    <scroll-view class='limit-content-scoll' scroll-y="{{true}}">
+      <view class='limit-content-scoll-view'>
+        <text class='limit-dialog-content'>1.衣豆可以通过平台购买下单获得平台消费1元(不足1元将按1元计算)可获得1个衣豆；</text>
+        <text class='limit-dialog-content'>2.用户下单成功后，相应衣豆将会冻结在衣豆账户中，订单签收7天后(订单完结)，订单产生的衣豆将会解冻；如果发生退款退货，冻结衣豆将会被扣除；</text>
+        <text class='limit-dialog-content'>3.参与送衣豆任务，也可获得相应衣豆奖励。</text>
+      </view>
+    </scroll-view>
+    <view class='limit-bottom-btn'>
+      <text catchtap="dialog_close" class='limit-bottom-btn-left'>知道了</text>
+      <text catchtap="startLuckBtn" class='limit-bottom-btn-rigth'>抽取提现额度</text>
+    </view>
+    <image catchtap="dialog_close" class='limit-icon-close' src="{{Upyun}}/small-iconImages/ad_pic/icon_close_new.png"></image>
+  </view>
+</template>

@@ -1,0 +1,85 @@
+<import src="../../../common/toastTest/toastTest.wxml" />
+<import src="../../../common/openYifu-template/openYifu.wxml" />
+<import src="../../../common/openAppTXtemplate/openAppTXtemplate.wxml" />
+
+
+<template is="toast" data="{{ ..._toast_ }}" />
+<import src="../../../common/Upperlimit-template/Upperlimit.wxml" />
+<import src="wallet-template/wallet-template.wxml" />
+<import src="../../../common/Forward-template/Forward.wxml"/>
+
+<view class='suspendview' bindtap='suspendtap'>
+  <image class='suspendview-image' src="{{Upyun}}/small-iconImages/heboImg/+提现额度.png"></image>
+</view>
+<view class='mainview'>
+  <template is="wallet-head" data="{{balance,extract,freeze_balance,ex_free}}" />
+  <view class='tixianview' bindtap='tixiantap'>
+    <view>提现</view>
+  </view>
+  <view class='lineview'></view>
+  <view class='otherview'>
+    <block wx:key wx:for="{{datalist}}" wx:for-item="item">
+      <view class='listview' bindtap='moretap' data-index="{{index}}">
+        <view class='headtitle'>
+          <image class='headtitle-image' src="{{Upyun}}{{imagedata[index]}}"></image>
+          <text class="headtitle-text">{{item}}</text>
+        </view>
+        <view class='more'>
+          <image class='moreimgae' src='/iconImages/icon_more.png'></image>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
+
+<!-- 绑定用户弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{is_showTixianView}}">
+  <view class='showTixianView'>
+    <image catchtap="tixianview_close" class='icon-close' src="/iconImages/icon_close.png"></image>
+    <text class='tixianview_title'>提示</text>
+    <text class='tixianview_discription'>系统检测到你尚未绑定微信提现账户，微信授权后即可绑定。提现款项将直接打入你绑定的微信提现账户</text>
+    <form bindsubmit="addWx" report-submit="true">
+      <view class='tixianview_inputview'>
+        <input class='tixianview_inputview-input' name="message" type="text" bindinput="searchInputEvent" bindfocus="wxSerchFocus" placeholder="姓名（必须填写本人真实姓名）" style='font-size:30rpx'></input>
+      </view>
+
+      <view class='tixianview_binding'>
+        <view>现在授权并绑定微信帐户</view>
+        <button class='button-confrim' formType="submit"></button>
+      </view>
+    </form>
+  </view>
+</view>
+
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{upperGoYiFuShow}}">
+  <template is="upperlimit" data='{{isUpperNotitle,upperdistribution,upperbuttontitle}}'></template>
+</view>
+
+<!--未完成功能 下载打开衣蝠APP弹框提示 -->
+<view class="drawer_screen_withdraw" wx:if="{{openYifuDialogShow}}"  catchtap='closeToApp'>
+  <template is="open-yifu-dialog" data="{{Upyun}}"></template>
+</view>
+<!-- 下载打开衣蝠APP弹框提示 -->
+
+<!-- 余额不足弹窗 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{upperForwardShow}}">
+  <template is="Forward" data='{{isUpperNotitle,upperdistribution_list,upperbuttontitle_list,uppertittle}}'></template>
+</view>
+
+
+<!-- 下载打开衣蝠 提现专用 APP-->
+<view class="drawer_screen_withdraw" wx:if="{{openYifuDialogShowTZX}}" catchtouchmove="preventTouchMove">
+  <template is="open-yifu-dialog-tx" data='{{Upyun}}'></template>
+</view>
+
+
+<!-- IOS引导下载APP -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showIOSdownload}}">
+  <image class='app-download' src="{{Upyun}}/small-iconImages/qingfengpic/guide_app4.png" catchtap="closeIOSdownload"></image>
+</view>
+
+<!-- 提现额度不足提示 -->
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{showNeedTiXian}}" bindtap="closeTixianComplete">
+  <image class='successimage' src="{{Upyun}}/small-iconImages/qingfengpic/guide_app7.png" catchtap="forwardsuccesstap"></image>
+</view>
+

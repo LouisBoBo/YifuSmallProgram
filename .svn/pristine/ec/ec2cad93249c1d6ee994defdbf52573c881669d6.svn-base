@@ -1,0 +1,12 @@
+<import src="../../../common/toptap.wxml" />
+<import src="../../../common/listHomeTemplate/listtemplate.wxml" />
+
+
+<view class='v-out' style='margin-top: {{outMmargeintop}}rpx'>
+  <view class='selection'>
+    <template is='topbar' data='{{topData,activityIndex}}'></template>
+  </view>
+  <view class='selection'>
+    <template is='listTemplate' data='{{datalist,Upyun,showSub,isKT}}'></template>
+  </view>
+</view>

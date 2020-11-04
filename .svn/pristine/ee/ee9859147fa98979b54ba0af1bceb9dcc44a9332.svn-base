@@ -1,0 +1,250 @@
+@import "../../common/openYifu-template/openYifu.wxss";
+@import "../../common/Discount-template/Discount.wxss";
+
+page {
+  background-color: #eee;
+}
+
+.mainview {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: white;
+}
+
+.head-img {
+  width: 100%;
+  height: 350rpx;
+  -webkit-filter: blur(10px);
+}
+
+.user {
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 350rpx;
+  display: flex;
+  flex-direction: column;
+  background-color:rgba(0, 0, 0, 0.2);
+}
+
+.userhead {
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+.userimage {
+  margin: 60rpx 50rpx 50rpx 50rpx;
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 70rpx;
+}
+
+.username_mark {
+  display: flex;
+  flex-direction: column;
+  /* margin-top: 80rpx; */
+}
+
+.username {
+  color: white;
+  font-size: 32rpx;
+  margin-bottom: 15rpx;
+}
+
+.usermark {
+  color: white;
+  font-size: 28rpx;
+  width: 430rpx;
+}
+
+.goimage {
+  margin-top: 100rpx;
+  width: 50rpx;
+  height: 50rpx;
+  margin-left: 20rpx;
+}
+
+.button_confrim_upperlimit1{
+   opacity: 0;
+  background-color: green;
+  width: 100%;
+  height: 200rpx;
+  position: absolute;
+  top: 0rpx;
+  left: 0;
+}
+.wlaetview {
+  display: flex;
+  flex-direction: row;
+  margin-top: 40rpx;
+}
+
+.walet {
+  width: 49%;
+  height: 80rpx;
+  display: flex;
+  flex-direction: column;
+}
+ .wallet-line{
+   margin-top: 20rpx;
+   height: 60rpx;
+   width: 1px;
+   background-color: white;
+ }
+ .button_confrim_upperlimit2 {
+  opacity: 0;
+  background-color: green;
+  width: 50%;
+  height: 100rpx;
+  position: absolute;
+  top: 250rpx;
+  left: 0;
+}
+.card {
+  width: 50%;
+  height: 80rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.cashtitle {
+  text-align: center;
+  color: white;
+  font-size: 34rpx;
+}
+
+.cash {
+  text-align: center;
+  color: white;
+  font-size: 30rpx;
+}
+
+.order-head {
+  padding: 20rpx 30rpx 80rpx;
+  border-bottom: 1px solid #eee;
+}
+
+.button_confrim_upperlimit3{
+  opacity: 0;
+  background-color: green;
+  width: 100%;
+  height: 280rpx;
+  position: absolute;
+  top: 350rpx;
+  left: 0;
+}
+.slogan {
+  float: left;
+}
+
+.slogan-img {
+  width: 46rpx;
+  height: 46rpx;
+  vertical-align: middle;
+}
+
+.slogan-text {
+  vertical-align: middle;
+  margin-right: 10rpx;
+  margin-left: 10rpx;
+  color: #666;
+  font-size: 32rpx;
+}
+
+.more {
+  float: right;
+}
+
+.more-text {
+  vertical-align: middle;
+  margin-right: 10rpx;
+  color: #666;
+  font-size: 30rpx;
+}
+
+.more-img {
+  width: 40rpx;
+  height: 40rpx;
+  vertical-align: middle;
+}
+
+.zw-tabs {
+  flex-direction: row;
+  display: flex;
+  background-color: #fff;
+  padding-top: 11rpx;
+  padding-bottom: 11rpx;
+  border-bottom: 1px solid #e2e2e2;
+  width: 100%;
+}
+
+.zw-tabs-item {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 0 15rpx 0;
+}
+
+.labview {
+  width: 34rpx;
+  height: 34rpx;
+  background: #ff3f8b;
+  margin-left: 90rpx;
+  margin-top: -80rpx;
+  position: absolute;
+  border-radius: 17rpx;
+  color: white;
+  font-size: 24rpx;
+}
+
+.zw-tabs-item image {
+  width: 54rpx;
+  height: 54rpx;
+  display: inline-block;
+}
+
+.zw-tabs-item text {
+  color: #a5a5a5;
+  font-size: 24rpx;
+  margin-top: -10rpx;
+}
+
+.other-tabs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: #eee;
+}
+
+.other-tabs-item {
+  text-align: center;
+  padding: 10rpx 0 10rpx 0;
+  width: 24.65%;
+  height: 25%;
+  border-bottom: 1px solid #e2e2e2;
+  border-right: 1px solid #e2e2e2;
+  overflow: hidden;
+  background-color: white;
+}
+
+.other-tabs-item image {
+  width: 90rpx;
+  height: 90rpx;
+  display: inline-block;
+  border-radius: 45rpx;
+  margin-top: 10rpx;
+}
+
+.other-tabs-item text {
+  color: #666;
+  font-size: 28rpx;
+  margin-top: -10rpx;
+}
+
+.app-download {
+  width: 100%;
+  height: 100%;
+}

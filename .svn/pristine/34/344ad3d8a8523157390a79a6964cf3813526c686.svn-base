@@ -1,0 +1,82 @@
+<import src="../order-shop-template.wxml" />
+<import src="../orderHandle-template.wxml" />
+<import src="../../../../common/NormalBuySuccess/buySuccess" />
+<import src="../../../../common/Member-template/guidebecome_member" />
+
+<view>
+  <view class='orderDetailView'>
+    <view class='orderDetailView-head'>
+      <text class='orderDetailView-text'>{{orderdetail.orderstatus}}</text>
+      <text class='orderDetailView-text'>订单金额(包邮)：￥{{orderdetail.pay_money}}</text>
+      <text class='orderDetailView-text'>订单号：{{orderdetail.order_code}}</text>
+      <text class='orderDetailView-text'>下单时间：{{orderpaytime}}</text>
+    </view>
+    <view class='orderDetailView-address'>
+      <image class='orderDetailView-address-image' src='{{upyconfig}}/small-iconImages/heboImg/地址.png' mode='aspectFit'></image>
+      <view class='orderDetailView-address-content'>
+        <view>
+          <text class='orderDetailView-address-content-name'>收件人：{{orderdetail.consignee}}</text>
+          <text class='orderDetailView-address-content-phone'>{{orderdetail.phone}}</text>
+        </view>
+        <view>
+          <text class='orderDetailView-address-content-address'>收货地址：{{orderdetail.address}}</text>
+        </view>
+      </view>
+    </view>
+    <view class='orderDetailView-shop'>
+      <block wx:for="{{orderList}}" wx:for-item="item">
+        <template is="order-shopview" data="{{item,upyconfig,isorderdetail,delivery_time}}" />
+        <view class='orderline'></view>
+      </block>
+    </view>
+    <view class='orderDetailView-freight'>
+      <view class='orderDetailView-freight-title1'>
+        <text class='orderDetailView-freight-title1-text1'>运费：</text>
+        <text class='orderDetailView-freight-title1-text2'>￥{{orderdetail.postage}}</text>
+      </view>
+
+      <view class='orderDetailView-freight-title1'>
+        <text class='orderDetailView-freight-title1-text1'>实付费(含运费)：</text>
+        <text class='orderDetailView-freight-title1-text3'>￥{{orderdetail.pay_money}}</text>
+      </view>
+    </view>
+    <view class='customerview'>
+      <view class='customerview-message' bindtap='messagetap'>
+        <image class='customerview-message-image' src='{{upyconfig}}/small-iconImages/heboImg/联系卖家.png'></image>
+
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:0rpx; ">
+        </contact-button>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:40rpx; ">
+        </contact-button>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:80rpx; ">
+        </contact-button>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:120rpx; ">
+        </contact-button>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:160rpx; ">
+        </contact-button>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:200rpx; ">
+        </contact-button>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:240rpx; ">
+        </contact-button>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:260rpx; ">
+        </contact-button>
+      </view>
+      <view class='customerview-phone' bindtap='phonetap'>
+        <image class='customerview-message-image' src='{{upyconfig}}/small-iconImages/heboImg/拨打电话.png'></image>
+      </view>
+    </view>
+  </view>
+  <!-- <view class='oredrhandleView'>
+    <template is="orderHandleView" data="{{item}}"/>
+  </view> -->
+</view>
+
+<!-- 单独购买成功提示弹窗 -->
+<view class='drawer_screen_withdraw' catchtouchmove="preventTouchMove" catchtap="closeFight" wx:if="{{openBuySuccessShow}}">
+  <template is="open-buySuccess" data="{{Upyun,rawardMondy}}"></template>
+</view>
+
+<!-- 免拼卡 发货卡发货 -->
+  <view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{guideFightDeliverShow}}" >
+    <template is="guide_fight_deliver" data='{{Upyun,cardslist,time,free_num,is_deliver}}'></template>
+  </view>

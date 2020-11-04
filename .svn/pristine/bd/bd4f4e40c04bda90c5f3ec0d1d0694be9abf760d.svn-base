@@ -1,0 +1,28 @@
+<!--分类 template -->
+
+<template name="categoryContainer">
+  <view class="categoryContainer">
+    <view class='categoryHeader'>
+      <view class='categoryHeader-top-line'></view>
+      <text class='categoryHeader-text-all'>{{typename}}</text>
+    </view>
+    <view class='selection'>
+      <view class='categoryContent'>
+        <block wx:for="{{types}}" wx:for-item="type" wx:key="key">
+          <view class="categoryContent-item" catchtap="categoryTap" data-id='{{type.id}}' data-name='{{type.class_name}}'>
+            <image mode="widthFix" src="{{type.newpic}}"></image>
+            <view class='hot_showimage' wx:if="{{type.is_hot==1}}">
+              <image src='{{Upyun}}/small-iconImages/ad_pic/hot_classfication.png' mode="widthFix"></image>
+            </view>
+            <view class='hot_showimage' wx:if="{{type.is_new==1}}">
+              <image src='{{Upyun}}/small-iconImages/ad_pic/new_classfication.png' mode="widthFix"></image>
+            </view>
+            <view>
+              <text class='categoryContent-shop-name'>{{type.class_name}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</template>

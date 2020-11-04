@@ -1,0 +1,32 @@
+<view class='invite-friends'>
+  <view class='invite-top'>
+    <image class='top-pic' mode='widthFix' src='{{Upyun}}small-iconImages/zzq/icon_top_big_200.png'></image>
+    <view class='top-tv'>
+      <text class='top-tv1'>1.分享邀请家人，朋友或同事来衣蝠。</text>
+      <text class='top-tv1'>2.好友每消费一次。你可得<text class='top-tv1-import'>2元提现现金</text>奖励。邀请越多奖励越多。</text>
+      <text class='top-tv1'>3.分享到3个以上微信群，成功几率<text class='top-tv1-import'>提升200%</text>。</text>
+      <text class='top-tv1'>4.可以告诉你的好友，注册即可领<text class='top-tv1-import'>18元任务红包</text>，可微信提现哦。</text>
+      <!-- <image class='top-pic2' mode='widthFix' src='{{Upyun}}small-iconImages/zzq/icon_form.png'></image> -->
+    </view>
+  </view>
+  <view class='invite-bottom'>
+    <view class='bottom-red'>分享到3个群后,</view>
+    <view class='bottom-red2'>拿到提现奖励的几率高达98%！</view>
+    <!-- <view class='bottom-tv'>分享到</view> -->
+    <view class='bottom-center'>
+      <view class='bottom-center-out-left'>
+        <view class='share-cover'>
+          <image class='bottom-center-wx' src='{{Upyun}}small-iconImages/qingfengpic/icon_wechat_touming.png'> </image>
+          <text class='share-tv'>点我分享到微信群</text>
+          <button class="weixin-share-icon-btn" open-type="share"></button>
+        </view>
+      </view>
+      <!-- <view class='bottom-center-out-right'>
+      <view class='share-cover'>
+        <image class='bottom-center-friends' src='{{Upyun}}small-iconImages/zzq/icon_friends.png'></image>
+        <button class="weixin-share-icon-btn" open-type="share"></button>
+      </view>
+    </view> -->
+    </view>
+  </view>
+</view>

@@ -1,0 +1,12 @@
+<template name="suspensionHongBao">
+  <view class='custom'>
+    <view class='v-custom'>
+      <form bindsubmit="signHongBaosubmit" report-submit="true">
+        <image class='custom-icon' animation ="{{xuanfuanimationMiddleHeaderItem}}" src= '{{SmallRedHongBao}}'> </image>
+        <view class='custom-list'>
+          <button class='hongbao_upperlimit' open-type='{{channel_type==1?"":"getUserInfo"}}' bindgetuserinfo='hongbaoclick' id="xuanfu" form-type='submit' session-from='{"open_param":"NewUserRedHongbao"}' ></button>
+        </view>
+      </form>
+    </view>
+  </view>
+</template>

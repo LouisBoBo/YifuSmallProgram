@@ -1,0 +1,14 @@
+<import src="../../../common/toptap.wxml" />
+<!-- <import src="../shop-list-template/shop-list-template.wxml" /> -->
+<import src="../../../common/listHomeTemplate/listtemplate.wxml" />
+
+<view class='selection'>
+  <template is='topbar' data='{{topData,activityIndex}}'></template>
+</view>
+
+<view wx:if="{{datalist[0]}}" class="shopContainer">
+  <template is="listTemplate" data="{{datalist,Upyun}}" />
+</view>
+<view wx:else>
+  <view class="emptyView">暂无数据</view>
+</view>

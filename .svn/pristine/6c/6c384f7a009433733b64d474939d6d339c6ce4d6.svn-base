@@ -1,0 +1,109 @@
+<template name="orderHandleView">
+  <view class='foothandleview' wx:if="{{item.orderButtonStatus.length>0}}" data-index="{{index}}">
+    <block wx:key="key" wx:for="{{item.orderButtonStatus}}" wx:for-item="item2">
+
+
+      <!-- 打卡前 -->
+
+      <view class='foothandleview-view' style='background:red' data-butonindex="{{index}}"   bindtap='foothandleviewtap' data-item="{{item}}" 
+      data-title="{{item2}}" wx:if="{{item2 =='去赚钱任务' && item.new_free==1 && item.status==2 && clockIn == 0}}">
+        <form bindsubmit="fightsubmit" report-submit='true'>
+          <view>
+            <text class='foothandleview-view-text'>{{item2}}</text>
+          </view>
+                  <!-- <button open-type='contact' class="button_confrim" 
+                  session-from='{"open_param":"NewUserThroughToCustomerService24before"}' 
+                  show-message-card='true' 
+                  send-message-title='{{item.orderShops[0].shop_name}}' 
+                  send-message-img='{{upyconfig}}/{{item.orderShops[0].new_shop_pic}}!280'>
+          </button> -->
+        </form>
+      </view>
+
+
+      <!-- 打卡后 -->
+      <view class='foothandleview-view' style='background:red' bindtap='foothandleviewtap' data-butonindex="{{index}}" data-item="{{item}}" 
+      data-title="{{item2}}" wx:elif="{{item2 =='申请发货' && item.new_free==1 && item.status==2 && clockIn == 1}}">
+        <!-- <view>
+          <text class='foothandleview-view-text'>{{item2}}</text>
+        </view> -->
+
+        <form bindsubmit="fightsubmit" report-submit='true'>
+          <view>
+            <text class='foothandleview-view-text'>{{item2}}</text>
+          </view>
+                  <!-- <button open-type='contact' class="button_confrim" 
+                  session-from='{"open_param":"NewUserThroughToCustomerService24after"}' show-message-card='true' 
+                  send-message-title='{{item.orderShops[0].shop_name}}' 
+                  send-message-img='{{upyconfig}}/{{item.orderShops[0].new_shop_pic}}!280'>
+          </button> -->
+        </form>
+      </view>
+
+
+
+
+
+
+
+      <view class='foothandleview-view' style='background:red' bindtap='foothandleviewtap' data-butonindex="{{index}}" 
+      data-item="{{item}}" data-title="{{item2}}"
+       wx:elif="{{item2 =='邀请好友拼团' || item2 =='会员免费领' || item2 =='申请发货' || item2 =='建群分享好友' || item2 =='分享好友免费领'|| item2 =='分享群聊'|| item2 =='接通微信客服' || item2 =='去付款' || item2 =='已付款' || item2 == '使用免拼卡直接发货' }}">
+        <!-- <view>
+          <text class='foothandleview-view-text'>{{item2}}</text>
+        </view> -->
+
+        <form bindsubmit="fightsubmit" report-submit='true'>
+          <view>
+            <text class='foothandleview-view-text'>{{item2}}</text>
+          </view>
+          <button class='button_confrim' open-type="" form-type='submit'></button>
+        </form>
+      </view>
+
+
+
+
+
+
+
+
+
+
+
+      <view class='foothandleview-view' style='background:black' bindtap='foothandleviewtap' data-butonindex="{{index}}" data-item="{{item}}" data-title="{{item2}}" wx:elif="{{item2 !='联系卖家'}}">
+        <!-- <view>{{item2}}</view> -->
+        <!-- <view>
+          <text class='foothandleview-view-text'>{{item2}}</text>
+        </view> -->
+        <form bindsubmit="fightsubmit" report-submit='true'>
+          <view>
+            <text class='foothandleview-view-text'>{{item2}}</text>
+          </view>
+          <button class='button_confrim' open-type="" form-type='submit'></button>
+        </form>
+      </view>
+
+
+
+
+      <view class='foothandleview-view' style='background:black' bindtap='foothandleviewtap' data-butonindex="{{index}}" data-item="{{item}}" data-title="{{item2}}" wx:else>
+        <!-- <view>
+          <text class='foothandleview-view-text'>{{item2}}</text>
+        </view> -->
+        <form bindsubmit="fightsubmit" report-submit='true'>
+          <view>
+            <text class='foothandleview-view-text'>{{item2}}</text>
+          </view>
+          <button class='button_confrim' open-type="" form-type='submit'></button>
+        </form>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:0rpx; ">
+        </contact-button>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:50rpx; ">
+        </contact-button>
+        <contact-button class="customerview-message-weapp" size="30" session-from="weapp" style="left:100rpx; ">
+        </contact-button>
+      </view>
+    </block>
+  </view>
+</template>

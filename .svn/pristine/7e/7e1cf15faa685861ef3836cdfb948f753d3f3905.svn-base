@@ -1,0 +1,12 @@
+<!-- <view>
+  <text wx:if="{{total_micro_second<=0}}">剩余时间：已经截止</text>
+  <text wx:if="{{clock!='已经截止'}}">剩余时间：{{clock}}</text>
+
+  <view class='contact_ciew' bindtap='messagetap'>
+    <web-view src="https://www.52yifu.wang"></web-view>
+    <contact-button type='default-light' size='20' session-from='weapp'></contact-button>
+  </view>
+</view>  -->
+<view>
+  <web-view class='webview' src="https://www.52yifu.wang/zp/index.html"></web-view>
+</view>

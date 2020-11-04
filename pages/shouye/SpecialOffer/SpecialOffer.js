@@ -1,0 +1,120 @@
+import config from '../../../config.js';
+var util = require('../../../utils/util.js');
+var app = getApp();
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    currentTab: 0,
+    currentpage: 1,
+    UpyunConfig: config.Upyun,
+    Coloropacity:0,
+    curTabId: "hall",
+  },
+  
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    new app.ToastPannel();
+    this.http_shoplist();
+
+    this.setData({ Coloropacity: "0"})
+  },
+  
+  //列表加载更多
+  onReachBottom: function () {
+    this.http_shoplist();
+  },
+  //下拉刷新
+  onPullDownRefresh: function () {
+    this.setData({
+      currentpage: 1,
+    })
+    this.http_shoplist();
+  },
+  
+  //处理数据
+  http_shoplist: function () {
+    var token = "";
+    if (app.globalData.user != null) {
+      token = app.globalData.user.userToken;
+    }
+    
+    var page = this.data.currentpage;
+    
+    var url = config.Host + 'shop/queryPackageList?pager.order=desc' + config.Version + '&pager.pageSize=30' + '&pager.curPage=' + page +'&p_type=0';
+    util.http(url, this.shoplistData);
+
+  },
+
+  shoplistData: function (data) {
+    wx.stopPullDownRefresh();
+    if (this.data.currentpage == 1) {
+      this.data.shoplist = [];
+    }
+    if (data.status == 1) {
+
+      var page = this.data.currentpage + 1;
+      this.data.currentpage = page;
+      for (var i = 0; i < data.pList.length;i++)
+      {
+        this.newshoplist(data.pList[i].shop_list, data.pList[i].code, data.pList[i].assmble_price, data.pList[i].def_pic);
+      }
+    } else {
+      this.showToast(data.message, 2000);
+    }
+  },
+  newshoplist: function (obj, code, assmble_price, def_pic) {
+    
+    for (var i = 0; i < obj.length; i++) {
+      var new_clde = obj[i].shop_code.substr(1, 3);
+      var shop_se_price = (obj[i].shop_se_price).toFixed(1);
+      var newshopname = obj[i].shop_name;
+      if (newshopname.length > 24) {
+        newshopname = '... ' + newshopname.substr(newshopname.length - 24, 24);
+      }
+      obj[i].def_pic = def_pic;
+      obj[i].shop_name = newshopname;
+      obj[i].shop_se_price = shop_se_price;
+
+      if (this.data.currentTab == 0) {
+        var discount = (obj[i].shop_se_price / obj[i].shop_price * 9).toFixed(1)
+        obj[i]["discount"] = discount;
+      }
+
+      if (app.globalData.oneYuanData == 0)//是1元购
+      {
+        var se_price = assmble_price ? assmble_price.toFixed(1) : (obj[i].assmble_price * 1).toFixed(1);
+
+        obj[i].shop_se_price = se_price;
+        obj[i].shop_price = shop_se_price;
+        obj[i]["SupperLab"] = 0;
+      } else {
+        obj[i].shop_se_price = shop_se_price;
+        obj[i]["SupperLab"] = 1;
+      }
+    }
+    var all_shoplists = this.data.shoplist;
+    for (var j = 0; j < obj.length; j++) {
+      all_shoplists.push(obj[j]);
+    }
+    this.setData({
+      shoplist: all_shoplists,
+      showSub: app.showSub
+
+    })
+  },
+  
+  //商品详情
+  first_list_tap: function (event) {
+    var shopcode = event.currentTarget.dataset.shop_code;
+    wx.navigateTo({
+      url: '../../shouye/detail/detail?' + "shop_code=" + shopcode +"&shop_type=2",
+
+      // url: 'SpecialOfferDetail?' + "shop_code=" + shopcode + "&shop_type=1",
+    })
+  }
+})

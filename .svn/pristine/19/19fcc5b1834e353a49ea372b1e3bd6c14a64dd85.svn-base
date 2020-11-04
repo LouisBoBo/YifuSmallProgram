@@ -1,0 +1,34 @@
+ .supportCardView{ 
+   margin: 20rpx; 
+   height: 80rpx;
+   border-bottom: 1rpx solid #eee; 
+ } 
+
+.slogan {
+  float: left;
+}
+
+.slogan-img {
+  width: 46rpx;
+  height: 46rpx;
+  vertical-align: middle;
+}
+
+.slogan-text {
+  vertical-align: middle;
+  margin-right: 10rpx;
+  margin-left: 10rpx;
+  color: #666;
+  font-size: 32rpx;
+}
+
+.more {
+  float: right;
+}
+
+.more-text {
+  vertical-align: middle;
+  margin-right: 10rpx;
+  color: #666;
+  font-size: 30rpx;
+}

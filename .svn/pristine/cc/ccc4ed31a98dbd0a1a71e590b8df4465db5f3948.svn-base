@@ -1,0 +1,73 @@
+<import src="../../../../common/toastTest/toastTest.wxml" />
+
+
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<!-- 商品信息 -->
+<view wx:if="{{datalist[0]}}" class="shoplistContainer">
+  <block wx:for='{{datalist}}'>
+    <view class='shopContainer'>
+      <view class='shopSelectContainer' bindtap='shopSelectClick' data-shopitem='{{item}}' data-index='{{index}}'>
+        <image class='shopSelectImg' mode="widthFix" src="{{Upyun}}/small-iconImages/ad_pic/{{item.isSelected?'icon_dapeigou_celect.png':'icon_dapeigou_normal.png'}}"></image>
+      </view>
+      <image class='shopImg' mode="aspectFill" src='{{Upyun}}{{item.shopPic}}'></image>
+      <view class='shopMessage'>
+        <view class='section'>
+          <text class='shopName'>商品名{{item.shop_name}}</text>
+        </view>
+        <text class='color-size'>颜色：{{item.color}}  尺码：{{item.size}}</text>
+        <view class='section1'>
+          <view class='v-out'>
+            <view class='v-style' bindtap='btnReduceClick' data-shopitem='{{item}}' data-index='{{index}}'>
+              <view class='image-style'>
+                <image src='{{Upyun}}small-iconImages/zzq/icon_reduce.png'></image>
+              </view>
+            </view>
+            <view class='line'></view>
+            <view class='v-style-center'>
+              <view class='buy-num'>{{item.shop_num}}</view>
+            </view>
+            <view class='line'></view>
+            <view class='v-style' bindtap='btnAddClick' data-shopItem='{{item}}' data-index='{{index}}'>
+              <view class='image-style'>
+                <image src='{{Upyun}}small-iconImages/zzq/icon_add.png'></image>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='shopPriceRightView'>
+        <text class='shopPrice'>¥{{item.shop_se_price}}</text>
+        <text class='shopOldPrice'>¥{{item.shop_price}}</text>
+        <image class='shopDeleteImg' mode="widthFix" src='{{Upyun}}/small-iconImages/ad_pic/icon_del_intiamte.png' bindtap='btnDeleteClick' data-shopItem='{{item}}' data-index='{{index}}'></image>
+      </view>
+    </view>
+  </block>
+</view>
+<view wx:else class='emptyCart'>
+  <image class='empty-shopcartImg' mode="aspectFill" src='{{Upyun}}/small-iconImages/ad_pic/icon_gouwuche_empty.png'></image>
+  <text class='empty-shoptitle'>你的购物车空空如也</text>
+  <text class='empty-shopdetail'>快去挑选宝贝吧～</text>
+  <view class='addShops' bindtap='addShopsClick'>
+    <text class='addShops-text'>去逛逛</text>
+  </view>
+</view>
+
+
+<!-- 底部视图 -->
+<form bindsubmit="toOrderClick" report-submit="true">
+  <view wx:if="{{datalist[0]}}" class='bottomContainer'>
+    <view class='selectContainer' catchtap='allSelectTap'>
+      <image class='shopAllSelectImg' mode="widthFix" src="{{Upyun}}/small-iconImages/ad_pic/{{isAllSelected?'icon_dapeigou_celect.png':'icon_dapeigou_normal.png'}}"></image>
+      <text>全选</text>
+    </view>
+    <view class='payMoney'>
+      <text class='allMoney'>合计：¥{{allPayMoney}}</text>
+      <text class='reduceMoney'>为专柜节省：¥{{reduceMoney}}</text>
+    </view>
+    <view class="bottmButton{{haveSelected?'-select':''}}">
+      <view>结算</view>
+      <button class='button-confrim' formType="submit"></button>
+    </view>
+  </view>
+</form>

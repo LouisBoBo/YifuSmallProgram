@@ -1,0 +1,46 @@
+<template name="singJoinWXQ-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip' >点接通客服，在客服会话中输入数字“<text class="import-text">1</text>”，即可加微信客服微好友，并完成任务领取奖金。</text>
+    <view class='buttonView-vip'>
+      <button catchtap="joinWXQdialogTap" class='bottom-btn-yellow5-vip'
+                 open-type='contact' form-type='submit'  
+  session-from='{"open_param":"signJoinFuliQunClick"}'
+      
+      >接通客服</button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>
+
+<!-- 关注服务号任务 -->
+<template name="attentionService-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip'>点接通客服，在客服会话中输入数字“<text class="import-text">2</text>”，再扫码关注服务号后，即可完成任务领取奖金。</text>
+    <view class='buttonView-vip'>
+      <button catchtap="attentionServiceTap" class='bottom-btn-yellow5-vip'
+                 open-type='contact' form-type='submit'  
+  session-from='{"open_param":"signAttentionServiceClick"}'
+      
+      >接通客服</button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>
+
+<!-- 下载APP -->
+<template name="dwongload-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip'>点接通客服，在客服会话中输入数字“<text class="import-text">3</text>”，再点击下载APP，并完成安装后，即可完成任务领取奖金。</text>
+    <view class='buttonView-vip'>
+      <button catchtap="dwongloadTap" class='bottom-btn-yellow5-vip'
+                 open-type='contact' form-type='submit'  
+  session-from='{"open_param":"signDownloadClick"}'
+      
+      >接通客服</button>
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

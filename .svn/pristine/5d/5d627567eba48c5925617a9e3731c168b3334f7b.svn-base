@@ -1,0 +1,511 @@
+/* pages/mine/addMemberCard/addMemberCard.wxss */
+@import "../../../common/limitQuotas-template/limitQuotas.wxss";
+
+.swiper {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #f7f7f7;
+}
+
+.view-item-swiper {
+  display: flex;
+  flex-direction: column;
+}
+
+.view-quanyi-money {
+  display: flex;
+  flex-direction: column;
+}
+
+.type4-quanyi1-image {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 25rpx;
+  margin-left: 25rpx;
+}
+
+.type4-quanyi1-image-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.text-daojika-tishi {
+  display: flex;
+  flex-direction: row;
+  font-size: 27rpx;
+  color: black;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  justify-content: center;
+  font-weight: bold
+}
+
+.img-quanyi {
+  width: 100%;
+  height: 2117rpx;
+}
+
+.type7quanyiImg {
+  width: 700rpx;
+  height: auto;
+  align-self: center;
+}
+
+.type7-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.type7-quanyistr-view {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20rpx;
+  margin-top: 55rpx;
+  align-items: center;
+  justify-content: center;
+}
+
+.tixiankatishi-img {
+  width: 580rpx;
+  height: 667rpx;
+}
+
+.type7-quanyi-img {
+  width: 25rpx;
+  height: 25rpx;
+  padding: 10rpx;
+  justify-content: center;
+}
+
+.type7-quanyi-text {
+  color: black;
+  font-size: 35rpx;
+  font-weight: bold;
+}
+
+.sign-finish-root {
+  padding-left: 50rpx;
+  padding-right: 50rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom {
+  position: fixed;
+  bottom: 100rpx;
+  display: flex;
+  flex-direction: row;
+  right: 20rpx;
+  align-items: center;
+}
+
+.custom-tv {
+  height: 90rpx;
+  width: 450rpx;
+  margin-right: 10rpx;
+}
+
+.custom-icon {
+  height: 120rpx;
+  width: 120rpx;
+}
+
+.custom-list {
+  opacity: 0;
+  width: 120rpx;
+  height: 120rpx;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  top: 30rpx;
+}
+
+.sign-finish-content {
+  display: flex;
+  width: 480rpx;
+  font-size: 30rpx;
+  color: #7d7d7d;
+  margin-top: 50rpx;
+  justify-content: center;
+  /* margin-left: 30rpx;
+  margin-right: 30rpx; */
+}
+
+.sign-pay-suc-root-view {
+  width: 480rpx;
+  padding-left: 50rpx;
+  padding-right: 50rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pay-suc-center-view-text-top {
+  font-weight: bold;
+  display: flex;
+  font-size: 30rpx;
+  color: black;
+  margin-top: 30rpx;
+  justify-content: center;
+  margin-bottom: 20rpx;
+}
+
+.pay-suc-center-view{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+
+.pay-suc-center-view-text {
+  font-size: 25rpx;
+  color: #8f8f8f;
+}
+
+.pay-suc-center-view-text-bot {
+  font-size: 28rpx;
+  color: #7a7a7a;
+}
+
+.bottom-btn-know-pay-suc {
+  margin-top: 40rpx;
+  margin-bottom: 50rpx;
+  border-radius: 8rpx;
+  width: 100%;
+  height: 70rpx;
+  font-size: 32rpx;
+  background-color: #ff3f8b;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.bottom-btn-know {
+  margin-top: 40rpx;
+  margin-bottom: 50rpx;
+  border-radius: 8rpx;
+  width: 500rpx;
+  height: 70rpx;
+  font-size: 32rpx;
+  background-color: #ff3f8b;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-view {
+  position: absolute;
+  top: 100rpx;
+  left: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.date-text {
+  /* position: absolute; */
+  font-size: 28rpx;
+  color: white;
+  /* top: 110rpx;
+  left: 58rpx */
+}
+
+.view-tips-img {
+  width: 100%;
+  /* height: 1200rpx; */
+  margin-top: 40rpx;
+  background-color: #f7f7f7;
+}
+
+.img-tpis {
+  width: 100%;
+  height: 546rpx;
+}
+
+.name-text {
+  position: absolute;
+  font-size: 45rpx;
+  color: white;
+  top: 40rpx;
+  left: 40rpx;
+}
+
+.date-text-allmoney {
+  position: absolute;
+  color: white;
+  font-size: 40rpx;
+  top: 200rpx;
+  right: 40rpx;
+}
+
+.le-img {
+  width: 100%;
+  display: block;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+.le-img.le-active {
+  transform: scale(1);
+}
+
+.bottomContainer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  height: 100rpx;
+  border-top: 1rpx solid #eee;
+  display: flex;
+  flex-direction: row;
+}
+
+.paytext {
+  font-size: 30rpx;
+  color: #ff3f8b;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.bottomContainer .bottmButton {
+  position: absolute;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  color: white;
+  font-size: 30rpx;
+  background-color: #ff3f8b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bottmButton .button-confrim {
+  opacity: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.money-view {
+  padding-left: 80rpx;
+  padding-right: 80rpx;
+  margin-top: 30rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+}
+
+.count-view {
+  padding-left: 80rpx;
+  padding-right: 80rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.money-count {
+  font-size: 30rpx;
+  color: black;
+}
+
+.money-count-tuikuan {
+  margin-left: 80rpx;
+  font-size: 27rpx;
+  color: #5e5e5e;
+  padding-bottom: 10rpx;
+  padding-top: 10rpx;
+}
+
+.money-count-tuikuan2 {
+  margin-left: 80rpx;
+  font-size: 27rpx;
+  color: #5e5e5e;
+  padding-bottom: 10rpx;
+  padding-top: 0rpx;
+}
+
+.tips-view {
+  display: flex;
+  flex-direction: column;
+}
+
+.tips-view-text {
+  margin-top: 15rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  font-size: 29rpx;
+  color: #5e5e5e;
+}
+
+.tips-view-text6 {
+  width: 90%;
+  font-size: 29rpx;
+  color: #5e5e5e;
+}
+
+.text-wenhao {
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ff3f8b;
+  width: 35rpx;
+  height: 35rpx;
+  border-style: solid;
+  border-radius: 100%;
+}
+
+.text-view6 {
+  display: flex;
+  flex-direction: row;
+  margin-top: 15rpx;
+  margin-left: 80rpx;
+  margin-right: 80rpx;
+}
+
+.img-jia {
+  /* background-color: firebrick; */
+  width: 65rpx;
+  height: 46rpx;
+  border-right: 1px solid #e5e5e5;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  border-radius: 0rpx 10rpx 10rpx 0rpx;
+}
+
+.img-jian {
+  /* background-color: forestgreen; */
+  width: 65rpx;
+  height: 46rpx;
+  border-left: 1px solid #e5e5e5;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  border-radius: 10rpx 0rpx 0rpx 10rpx;
+}
+
+.vip-count {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 46rpx;
+  width: 90rpx;
+  font-size: 30rpx;
+  color: black;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.text-count {
+  color: black;
+  font-size: 30rpx;
+}
+
+.view-count {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.view-InviteFriends {
+  height: 75px;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  background-size: 100% 100%;
+}
+
+.invite-friend-close {
+  height: 30rpx;
+  width: 30rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+}
+
+.cent-view {
+  display: flex;
+  flex-direction: column;
+}
+
+.jiantou {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+}
+
+.jiantou-view {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: absolute;
+}
+
+.button_confrim_upperlimit4-invfriend {
+  opacity: 0;
+  width: 90%;
+  height: 140rpx;
+  position: absolute;
+}
+
+.weihao1-img {
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.top-fanhuan-view {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10rpx;
+  padding-left: 80rpx;
+  align-items: center;
+}
+
+.top-fanhuan-view-yucun {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.wenhao {
+  font-size: 27rpx;
+  color: #5e5e5e;
+}
+
+.money-count-tuikuan-top-fan {
+  font-size: 27rpx;
+  color: #5e5e5e;
+  margin-right: 10rpx;
+}

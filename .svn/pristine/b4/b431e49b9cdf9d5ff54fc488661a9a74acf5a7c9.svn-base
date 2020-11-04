@@ -1,0 +1,14 @@
+<import src="../specialDetail/FlowWater-template.wxml" />
+<import src="../../../common/toastTest/toastTest.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<!-- <view class='selectTitle'>
+  <block wx:for="{{titlelist}}">
+    <view class="{{currentTab==index?'select':'default'}}" data-current="{{index}}" bindtap="switchNav">{{item}}</view>
+  </block>
+</view> -->
+<view class='first_list'>
+  <block wx:for="{{shoplist}}" wx:for-item="item">
+    <template is="flowWater" data="{{item,UpyunConfig,Coloropacity,curTabId}}" />
+  </block>
+</view>

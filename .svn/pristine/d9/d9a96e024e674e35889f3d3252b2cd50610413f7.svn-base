@@ -1,0 +1,259 @@
+var util = require('../../../utils/util.js');
+import config from '../../../config.js';
+var app = getApp();
+var hobby = '';//用户喜好
+var agecurrent = '-1'; //选择年龄当前下标
+var habit_style_ages = new Array();//修改前选择的喜好
+var height_weights = new Array();//修改前身高体重
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    Upyun: config.Upyun,
+    title: "为了能让衣蝠更加了解你，从而智能为你推荐美衣，所以需要填写一下信息。填写完成后可以随时到个人中心进行修改。",
+    sectiontitle1: "1.消费习惯（多选）",
+    sectiontitle2: "2.喜爱风格（多选）",
+    sectiontitle3: "3.年龄段（单选）",
+    sectiontitle4: "4.身高体重（必填）",
+    age_normol: config.Upyun +"/small-iconImages/heboImg/wodexihao_moren.png",
+    age_select: config.Upyun +"/small-iconImages/heboImg/wodexihao_xuanzhong.png",
+  },
+
+  onShow: function (options) {
+    util.toAuthorizeWx(function (isSuccess) {
+      if (isSuccess == true) {
+
+      }
+    });
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.hobbyHttp();
+    new app.ToastPannel();
+  },
+  //网络请求喜好数据
+  hobbyHttp: function (options) {
+    var usertoken = ""
+    if (app.globalData.user != null) {
+      usertoken = app.globalData.user.userToken;
+    }
+    var url = config.Host + 'shop/ getUserHobbyData?token=' + usertoken + config.Version;
+    util.http(url, this.httpData);
+  },
+  httpData: function (data) {
+    var userhobby = ""
+    if (app.globalData.user != null) {
+      userhobby = app.globalData.user.hobby;
+    }
+    if (userhobby != null && userhobby != "" && userhobby != "0") {
+      var hobbys = userhobby.split('_');
+      var userheight = '100-200CM';
+      var userweight = '30-100KG';
+      if (hobbys.length > 0) {
+        habit_style_ages = hobbys[0].split(',');
+        height_weights = hobbys[1].split(',');
+        //身高体重
+        if (height_weights.length > 0) {
+          userheight = height_weights[0];
+          userweight = height_weights[1];
+        }
+      }
+    }
+
+    if (data.status == 1) {
+      var habit = data['1'];
+      for (var i = 0; i < habit.length; i++) {
+        var likeid = habit[i].like_id;
+        habit[i]['select'] = '0';
+        for (var j = 0; j < habit_style_ages.length; j++) {
+          var oldlikeid = habit_style_ages[j];
+          if (likeid == oldlikeid) {
+            habit[i]['select'] = '1';
+          }
+        }
+      }
+      var style = data['2'];
+      for (var i = 0; i < style.length; i++) {
+        style[i]['select'] = '0';
+        var likeid = style[i].like_id;
+        for (var j = 0; j < habit_style_ages.length; j++) {
+          var oldlikeid = habit_style_ages[j];
+          if (likeid == oldlikeid) {
+            style[i]['select'] = '1';
+          }
+        }
+      }
+      var age = data['3'];
+      for (var i = 0; i < age.length; i++) {
+        var likeid = age[i].like_id;
+        age[i]['select'] = '0';
+        for (var j = 0; j < habit_style_ages.length; j++) {
+          var oldlikeid = habit_style_ages[j];
+          if (likeid == oldlikeid) {
+            age[i]['select'] = '1';
+            agecurrent = i;
+          }
+        }
+      }
+      this.setData({
+        HabitData: habit,
+        styleData: style,
+        ageData: age,
+        height: userheight,
+        weight: userweight,
+      })
+    } else {
+      this.showToast(data.message, 2000);
+    }
+  },
+  //选择消费习惯
+  habittap: function (event) {
+    var currenttab = event.currentTarget.dataset.current;
+    console.log(currenttab);
+    var obj = this.data.HabitData;
+    if (obj[currenttab]['select'] == '0') {
+      obj[currenttab]['select'] = '1';
+    } else if (obj[currenttab]['select'] == '1') {
+      obj[currenttab]['select'] = '0';
+    }
+
+    this.setData({
+      HabitData: obj,
+    })
+  },
+  //选择喜爱风格
+  styletap: function (event) {
+    var currenttab = event.currentTarget.dataset.current;
+    console.log(currenttab);
+
+    var obj = this.data.styleData;
+    if (obj[currenttab]['select'] == '0') {
+      obj[currenttab]['select'] = '1';
+    } else if (obj[currenttab]['select'] == '1') {
+      obj[currenttab]['select'] = '0';
+    }
+    this.setData({
+      styleData: obj,
+    })
+  },
+  //选择年龄
+  agetap: function (event) {
+    var currenttab = event.currentTarget.dataset.current;
+    console.log(currenttab);
+
+    var obj = this.data.ageData;
+    for (var i = 0; i < obj.length; i++) {
+      if (i == currenttab) {
+        if (obj[currenttab]['select'] == '0') {
+          obj[currenttab]['select'] = '1';
+          agecurrent = currenttab;
+        } else if (obj[currenttab]['select'] == '1') {
+          obj[currenttab]['select'] = '0';
+          agecurrent = '-1';
+        }
+      } else {
+        obj[i]['select'] = '0';
+      }
+    }
+    this.setData({
+      ageData: obj,
+    })
+  },
+
+  //处理喜好数据
+  hobbysubmit: function (event) {
+    util.httpPushFormId(event.detail.formId);
+    var habitstr = '';
+    for (var i = 0; i < this.data.HabitData.length; i++) {
+      var seclet = this.data.HabitData[i].select;
+      if (seclet == 1) {
+        var likeid = this.data.HabitData[i].like_id;
+        if (habitstr.length > 0) {
+          habitstr = habitstr + ',' + likeid;
+        } else {
+          habitstr = habitstr + likeid;
+        }
+      }
+    }
+    var stylestr = '';
+    for (var i = 0; i < this.data.styleData.length; i++) {
+      var seclet = this.data.styleData[i].select;
+      if (seclet == 1) {
+        var likeid = this.data.styleData[i].like_id;
+        if (stylestr.length > 0) {
+          stylestr = stylestr + ',' + likeid;
+        } else {
+          stylestr = stylestr + likeid;
+        }
+      }
+    }
+    var age = agecurrent >= 0 ? this.data.ageData[agecurrent].like_id : '';
+    var height = event.detail.value.heightinput.length > 0 ? event.detail.value.heightinput : this.data.height;
+    var weight = event.detail.value.weightinput.length > 0 ? event.detail.value.weightinput : this.data.weight;
+
+    var submitstr = habitstr + ',' + stylestr + ',' + age + '_' + height + ',' + weight;
+    console.log(submitstr);
+
+    if (habitstr.length == 0) {
+      this.showToast('请选择消费习惯', 2000);
+      return;
+    }
+    if (stylestr.length == 0) {
+      this.showToast('请选择喜爱风格', 2000);
+      return;
+    }
+    if (age.length == 0) {
+      this.showToast('请选择年龄段', 2000);
+      return;
+    }
+    if (height.length == 0) {
+      this.showToast('请填写身高', 2000);
+      return;
+    } else {
+      if (parseFloat(height) > 200 || parseFloat(height) < 100) {
+        this.showToast('身高范围在100-200CM', 2000);
+        return;
+      }
+    }
+    if (weight.length == 0) {
+      this.showToast('请填写体重', 2000);
+      return;
+    } else {
+      if (parseFloat(weight) > 100 || parseFloat(weight) < 30) {
+        this.showToast('体重范围在30-100KG', 2000);
+        return;
+      }
+    }
+    if (submitstr == app.globalData.user.hobby) {
+      this.showToast('没有修改内容', 2000);
+      return;
+    }
+    this.httpSubmit(submitstr);
+  },
+  //提交喜好到服务器
+  httpSubmit: function (hobbystr) {
+    hobby = hobbystr;
+    var usertoken = app.globalData.user.userToken;
+    var url = config.Host + 'user / update_userinfo ?' + config.Version + '&token=' + usertoken + '&hobby=' + hobbystr;
+    util.http(url, this.httpsubmit)
+  },
+  httpsubmit: function (data) {
+    if (data.status == 1) {
+      app.globalData.user.hobby = hobby;
+      this.showToast(data.message, 2000);
+      setTimeout(this.goback, 1000);
+    } else {
+      this.showToast(data.message, 2000);
+    }
+  },
+  cancletap:function(){
+    wx.navigateBack();
+  },
+  goback: function () {
+    wx.navigateBack();
+  }
+})

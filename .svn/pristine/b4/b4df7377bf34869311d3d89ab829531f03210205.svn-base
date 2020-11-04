@@ -1,0 +1,131 @@
+/* pages/sign/signActiveShop/signActivityShop.wxss */
+/* @import "../../../common/toptap.wxss";  */
+@import "../../shouye/specialDetail/FlowWater-template.wxss";
+::-webkit-scrollbar{
+  height: 0;
+  width: 0;
+  color: transparent;
+}
+.task-explain-icon{
+  position: fixed;
+  width: 60rpx;
+  height: 150rpx;
+  top: 120rpx;
+  right:0;
+  z-index: 10;
+}
+.v-out {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.head-pic {
+  width: 100%;
+}
+.head-pic image {
+  width: 100%;
+}
+
+.first_list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 1%;
+  margin-bottom: 1%;
+  background: #eee;
+}
+
+.topbarall {
+  margin-top: 10rpx;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.top-bar-item {
+  color: #3e3e3e;
+}
+
+.top-bar-item-active {
+  color: #ff3f8b;
+}
+
+
+.explain-root {
+  width: 590rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.explain-top {
+  width: 100%;
+  height: 80rpx;
+  background-color: #ff3f8b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+}
+
+.explain-top-title {
+  font-size: 36rpx;
+  color: #fff;
+  align-self: center;
+}
+
+.icon-close {
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 0;
+  padding: 15rpx;
+}
+
+.explain-title-red{
+  align-self: center;
+  font-size: 32rpx;
+  color: #ff3f8b;
+  margin-top: 40rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+.explain-title {
+  align-self: center;
+  font-size: 32rpx;
+  color: #3e3e3e;
+  font-weight:700;
+  margin-top: 30rpx;
+  margin-left: 25rpx;
+  margin-right: 25rpx;
+}
+
+.explain-content {
+  font-size: 28rpx;
+  color: #7d7d7d;
+  margin-top: 15rpx;
+  margin-left: 35rpx;
+  margin-right: 35rpx;
+  align-self: center;
+}
+
+.bottom-btn {
+  height: 80rpx;
+  width: 520rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #fff;
+  background-color: #ff3f8b;
+  border-radius: 3px;
+  align-self: center;
+  margin-top: 40rpx;
+  margin-bottom: 40rpx;
+}

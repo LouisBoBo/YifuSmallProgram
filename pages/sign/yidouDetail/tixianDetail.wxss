@@ -1,0 +1,252 @@
+/* pages/sign/yidouDetail/tixianDetail.wxss */
+
+.headView {
+
+}
+
+.moneyView-section {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: space-around;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+.moneyView-section .money {
+   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  color: #a8a8a8;
+  font-size: 30rpx;
+}
+.moneyNum {
+  color: #ff3f8b;
+  font-size: 50rpx;
+  margin-bottom: 20rpx;
+}
+.tixian {
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+   color: #3e3e3e;
+  font-size: 30rpx;
+}
+.tixianNum {
+   color: #ff3f8b;
+}
+
+.tixianButton {
+  /* position: fixed; */
+  /* display: block; */
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 14px;
+  padding-right: 14px;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 2.55555556;
+  overflow: hidden;
+  background-color: white;
+  font-size: 30rpx;
+  border-radius: 5px;
+}
+.tixianButton-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 20rpx;
+  margin-top: 20rpx;
+  border-radius: 5px;
+  color: white;
+  background-color: #ff3f8b;
+}
+
+.line {
+  background-color: #f0f0f0;
+  width: 100%;
+  height: 20rpx;
+}
+.sectionTitle {
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.top-bar-out {
+  width: 33%;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: center;
+}
+.center-line {
+  height: 40rpx;
+  width: 2rpx;
+  background-color: #dcdcdc;
+  display: flex;
+  position: absolute;
+  right: 0;
+}
+.top-bar-item {
+  color: #3e3e3e;
+  font-size: 30rpx;
+}
+.top-bar-item-active {
+  color: #ff3f8b;
+  font-size: 30rpx;
+  display: flex;
+  position: relative;
+}
+.top-bar-item-active::after {
+  display: block;
+  position: absolute;
+  content: "";
+  bottom: -20rpx;
+  margin: auto;
+  height: 2px;
+  width: 100%;
+  background-color: #ff3f8b;
+}
+
+.bottom-line {
+  margin-top: 20rpx;
+  height: 2rpx;
+  width: 100%;
+  background-color: #dcdcdc;
+}
+
+.section {
+  margin-bottom: 50px;
+}
+.section-cell {
+  margin-top: 20rpx;
+  padding-bottom: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+.cell-left {
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+  color: #3e3e3e;
+  font-size: 30rpx;
+}
+.cell-left-time {
+  color: #a8a8a8;
+  font-size: 24rpx;
+}
+.cell-right {
+  margin-right: 20rpx;
+  color: #ff3f8b;
+  font-size: 40rpx;
+}
+
+.remindTitle {
+  color: #ff3f8b;
+  font-size: 24rpx;
+  display: flex;
+  justify-content: center;
+  margin-top: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.emptyView {
+  padding-top: 50%;
+  text-align: center;
+  font-size: 30rpx;
+  color: #666666;
+}
+
+.remindView {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  text-align: center;
+  width: 60rpx;
+  height: 150rpx;
+  top: 0;
+  right: 0;
+}
+
+/*额度明细wxss  */
+.limit-root {
+  width:580rpx;
+  background-color: white;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.limit-dialog-title{
+  align-self: center;
+  font-size: 36rpx;
+  color: #3e3e3e;
+  margin-top: 35rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.limit-dialog-content{
+  align-self: center;
+  font-size: 30rpx;
+  color: #a8a8a8;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.limit-bottom-btn{
+  width:100%;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  margin-top: 60rpx;
+  margin-bottom: 40rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  
+}
+.limit-bottom-btn-left{
+  height: 80rpx;
+  width: 250rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #FD215A;
+  background-color: white;
+  border-radius: 3px;
+  border: 1px solid #FD215A;
+  margin-right: 10rpx;
+}
+.limit-bottom-btn-rigth{
+  height: 80rpx;
+  width: 250rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: white;
+  background-color: #ff3f8b;
+  border-radius: 3px;
+  margin-left: 10rpx;
+}
+.limit-icon-close{
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  padding: 20rpx;
+}
+
+.limit-content-scoll{
+  height: 530rpx;
+  width: 100%;
+}
+.limit-content-scoll-view{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,42 @@
+<template name="flowWater">
+  <view bindtap='first_list_tap' class='first_list_item' data-shop_code="{{item.shop_code}}">
+    <image class='imageview' src="{{UpyunConfig}}/{{item.def_pic}}!382" mode='widthFix'>
+
+    </image>
+    <!-- <view class='brandview' wx:if="{{item.supp_label}}">{{item.supp_label}}制造商出品</view> -->
+    <view class='discountview' wx:if="{{item.discount}}">
+      <!-- <image class='discountview-image' src='{{UpyunConfig}}small-iconImages/heboImg/TFActivityShopVC_zhebg.png'></image>
+      <view class='discountview-image-text'>{{item.discount}}折</view> -->
+      <!-- <view class='discountview-title'>
+        <view>已售{{item.virtual_sales}}</view>
+      </view> -->
+    </view>
+    <!-- 
+    <view class='backview'>
+    
+    </view> -->
+    <!-- 不再展示品牌 -->
+    <!-- <view class='nameview' style='opacity:{{Coloropacity}}'>
+      <text class='nameview_text' style='opacity:{{Coloropacity}}'>{{item.supp_label}}</text>
+    </view> -->
+
+    <view class='brandview'  style='margin-top: -130rpx'>
+      <text class='brandview_text' style='height:95rpx'>{{item.shop_name}}</text>
+    </view>
+
+
+    <!-- 特卖 -->
+    <!-- <view class='brandview' wx:if="{{curTabId == 'hall'}}" style='margin-top: -130rpx'>
+      <text class='brandview_text' style='height:95rpx'>{{item.shop_name}}</text>
+    </view> -->
+    <!-- 普通 -->
+    <!-- <view class='brandview' wx:else style='margin-top: -82rpx'>
+      <text class='brandview_text' style='height:40rpx'>{{item.shop_name}}</text>
+    </view> -->
+
+    <view class="flex-wrp">
+      <view class="first_list_item_flex1"><text class='first_list_item_flex0'>￥</text>{{item.shop_se_price}}</view>
+      <view class="first_list_item_flex2">已拼{{item.virtual_sales}}件</view>
+    </view>
+  </view>
+</template>

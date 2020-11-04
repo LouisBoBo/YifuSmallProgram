@@ -1,0 +1,29 @@
+<template name='Complaint-template'>
+  <view class="modals modals-bottom-dialog" hidden="{{hideModal}}">
+    <view class="modals-cancel" bindtap="hideModal"></view>
+    <view class="bottom-dialog-body bottom-pos" animation="{{animationData}}">
+      <view class="firstview">
+        <image class="firstview-image" src="{{Upyun}}small-iconImages/ad_pic/ic_launcher.png"></image>
+        <text class="firstview-text">衣蝠</text>
+      </view>
+      <view class="secondview">
+          <block wx:key wx:for="{{secondimgData}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+            <view class="spaceview" bindtap="itemtap" data-id="{{secondtextData[index]}}">
+              <image class="spaceview-image" src='{{Upyun}}small-iconImages/heboImg/{{item}}'></image>
+              <text class="spaceview-text">{{secondtextData[index]}}</text>
+            </view>
+          </block>    
+          <button class="spaceview_btn" bindtap="complain_shareTap" open-type="share"></button>
+      </view>
+      <view class="thirdview">
+        <block wx:key wx:for="{{thirdimgData}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+        <view class="spaceview" bindtap="itemtap" data-id="{{thirdtextData[index]}}">
+          <image class="spaceview-image" src='{{Upyun}}small-iconImages/heboImg/{{item}}'></image>
+          <text class="spaceview-text">{{thirdtextData[index]}}</text>
+        </view>
+        </block>    
+      </view>
+      <view class="botttomview" bindtap="hideModal">取消</view>
+    </view>
+  </view>
+</template>

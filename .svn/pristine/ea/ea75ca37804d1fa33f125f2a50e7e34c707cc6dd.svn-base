@@ -1,0 +1,21 @@
+<template name="listIndianaItem">
+  <view class='image-item'>
+    <image mode="widthFix" src='{{item.show_def_pic}}'>
+    </image>
+  </view>
+  <view class='v-bottom'>
+
+    <text class='tv-name'>{{item.shop_name}}</text>
+    <view wx:if="{{isShowPrice}}" class='tv-price-all'>
+      <text class='tv-price'>￥{{item.shop_se_price}}</text>
+    </view>
+    <view class='tv-take-part-all'>
+     <view class='tv-take-part-num'>
+        <text >已有{{item.involved_people_num}}人正在参与</text>
+        <progress class = 'tv-take-part-num-progress' percent="{{(item.involved_people_num/item.active_people_num)*100}}" activeColor="#FF3F8B" backgroundColor ="#F0F0F0" />
+     </view>
+     <text class='tv-take-part-btn'>立即参与</text>
+    </view>
+
+  </view>
+</template>

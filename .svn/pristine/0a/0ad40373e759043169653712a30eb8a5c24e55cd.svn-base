@@ -1,0 +1,23 @@
+<!--pages/mine/myInviNumber/myselfQRcode.wxml-->
+
+<import src="../../../common/toastTest/toastTest.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<!-- <view class='all-view'>
+  <form bindsubmit="saveQRcode" report-submit="true">
+    <image class='basebigImg' mode='widthFix' src='{{Upyun}}small-iconImages/heboImg/newmyself_QRcode.png!450'></image>
+    <view class='qrcodeview'>
+        <canvas canvas-id="shareCanvas" style="width:100px;height:110px"></canvas>
+    </view>
+    <button class='bottmButton-view' formType="submit">保存二维码</button>
+  </form>
+</view> -->
+
+<view class='all-view'>
+  <form bindsubmit="saveQRcode" report-submit="true">
+    <view class='testqrcodeview'>
+        <canvas canvas-id="newshareCanvas" style="width:323px;height:421px"></canvas>
+    </view>
+    <button class='bottmButton-view' formType="submit" wx:if="{{showBtn}}">保存二维码</button>
+  </form>
+</view>

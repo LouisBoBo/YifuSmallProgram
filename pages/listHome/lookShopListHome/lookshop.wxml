@@ -1,0 +1,67 @@
+<import src="../../../common/toptap.wxml" />
+<import src="../../../common/listHomeTemplate/listtemplate.wxml" />
+
+<!-- <view class='v-toast'  style='opacity:{{number}}'>
+     <view class='v-toast-all' style='opacity:{{number2}}'>
+      <text class='v-toast'>hello</text>
+    </view> 
+  </view> -->
+
+<view class='selection'>
+  <view class='head-notice' wx:if='{{isLiulanshuoming}}'>
+    <view class='head-notice-left'>
+      <view class='head-notice-image'>
+        <image src='../../../iconImages/icon_tongzhi.png'></image>
+      </view>
+      <text class='text-left'>{{noticeText}}</text>
+    </view>
+    <view class='head-notice-right' bindtap='clickTaskExplain'>
+      <text class='text-right'>任务说明</text>
+    </view>
+  </view>
+</view>
+<view class='v-out' style='margin-top: {{outMmargeintop}}rpx'>
+  <view class='selection'>
+    <!-- <view class='head-pic' wx:if='{{isShowHeadPic}}'>
+      <image mode="widthFix" class='head-pic-image' src='{{Upyun}}{{shopsbanner}}'></image>
+    </view> -->
+  </view>
+  <view class='selection'>
+    <template is='topbar' data='{{topData,activityIndex}}'></template>
+  </view>
+  <view class='selection'>
+    <template is='listTemplate' data='{{datalist,Upyun,showSub}}'></template>
+  </view>
+  <!-- <view class='selection'>
+    <view class='list-all'>
+      <block wx:for='{{datalist}}'>
+        <view class='v-item'>
+          <view class='image-item'>
+            <image mode="widthFix" src='{{Upyun}}{{item.cut_shop_code}}/{{item.shop_code}}/{{item.def_pic}}'>
+            </image>
+          </view>
+          <view class='v-bottom'>
+            <view class="v-suppley" wx:if="{{item.supp_label}}">
+              <text class='tv-suppley'>{{item.supp_label}}制造商出品</text>
+            </view>
+            <view class='v-text'>
+              <text class='tv-name'>{{item.shop_name}}</text>
+              <view class='tv-price-all'>
+                <text class='tv-price'>￥{{item.shop_se_price}}</text>
+                <text class='tv-price-shoppe'>专柜价￥{{item.shop_price}}</text>
+              </view>
+              <text class='tv-kickback'>返{{item.shop_se_price}}元=0元</text>
+            </view>
+
+          </view>
+        </view>
+      </block>
+    </view>
+  </view> -->
+</view>
+<view class="drawer_screen_withdraw" catchtouchmove="preventTouchMove" wx:if="{{isShowKnow}}">
+  <view class="sign-finish-root">
+    <text class='sign-finish-content'>任务奖励就藏在商品里噢~</text>
+    <text bindtap="btnKnowClick" class='bottom-btn-know'>知道啦~</text>  
+  </view>
+</view>

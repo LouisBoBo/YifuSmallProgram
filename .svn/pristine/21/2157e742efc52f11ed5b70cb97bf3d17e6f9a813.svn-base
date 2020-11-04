@@ -1,0 +1,10 @@
+<!--pages/sign/newYiListPage/newYiListPage.wxml-->
+
+<import src="../newYiListImgTemp/newYiListImgTemp.wxml" />
+
+<view class='all-view'>
+  <image class='tou-image' src='{{Upyun}}sign_in/crazy/crazyPic.jpg' mode='widthFix'></image>
+  <block wx:for="{{newYiList}}" wx:key="key" wx:for-item="item">
+    <template is="newYiListImag" data='{{Upyun,item}}' />
+  </block>
+</view>

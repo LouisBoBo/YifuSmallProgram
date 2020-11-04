@@ -1,0 +1,104 @@
+/* pages/listHome/order/paystyle/paystyle.wxss */
+.payview {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 3px;
+  margin-left: 12px;
+  margin-right: 10px;
+  background: white;
+}
+
+.payview-title {
+  font-size: 32rpx;
+  color: #a8a8a8;
+}
+
+.payview-price {
+  margin-top: 4rpx;
+  font-size: 26rpx;
+  color: #ff3f8b;
+}
+
+.line{
+  margin-top: 10rpx;
+  width: 100%;
+  height: 1px;
+  background-color: #eee;
+}
+
+.listview {
+  border-bottom: 1px solid #eee;
+  width: 100%;
+  height: 90rpx;
+  margin-top: 30rpx;
+  background: white;
+}
+
+.headtitle {
+  margin-left: 20rpx;
+  float: left;
+  color: #666;
+}
+
+.headtitle-image {
+  margin-left: 10rpx;
+  width: 60rpx;
+  height: 60rpx;
+  vertical-align: middle;
+}
+
+.headtitle-text {
+  margin-left: 20rpx;
+  vertical-align: middle;
+  font-size: 32rpx;
+}
+
+.more {
+  float: right;
+  margin-right: 20rpx;
+  margin-top: 8rpx;
+}
+
+.moreimgae {
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: middle;
+}
+
+.backview
+{
+  width: 100%;
+  height: 90%; 
+  position: fixed;
+  /* margin-top: 0;
+  margin-bottom: 121rpx; */
+  background: #eee;
+}
+.bottom-line {
+  bottom: 121rpx;
+  position: fixed;
+  height: 1px;
+  width: 100%;
+  background: #eee;
+}
+
+.bottomview{
+  bottom: 0;
+  position: fixed;
+  height: 120rpx;
+  width: 100%;
+  background: white;
+}
+.nextview {
+  margin-top: 20rpx;
+  margin-left: 3%;
+  width: 94%;
+  margin-right: 3%;
+  text-align: center;
+  line-height: 80rpx;
+  overflow: hidden;
+  background-color: #ff3f8b;
+  border-radius: 8rpx;
+  color: white;
+}

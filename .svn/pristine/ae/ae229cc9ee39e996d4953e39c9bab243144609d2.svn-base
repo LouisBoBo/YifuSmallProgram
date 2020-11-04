@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "衣蝠",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "onReachBottomDistance":50,
+  "navigationBarBackgroundColor": "#eee",
+  "usingComponents": {
+    "float-tab": "../../components/float-tab/float-tab"
+  }
+  
+}

@@ -1,0 +1,24 @@
+<template name="completeTastTastToZhuanpanBack-template">
+  <view class="notEnoughYidou-root-vip">
+    <text class='notEnough-dialog-title-vip'>温馨提示</text>
+    <text class='notEnough-dialog-content1-vip' >恭喜，赠送您1次提现机会，请点接通客服，在客服会话中输入数字“1”，即可加微信客服微好友，领取1次提现。</text>
+    <view class='buttonView-vip'>
+
+
+
+
+      <!-- <button catchtap="fistSignComplestTap" class='bottom-btn-yellow5-vip'
+                  form-type='submit'>接通微信客服</button> -->
+
+
+      <button open-type='contact' class="bottom-btn-yellow5-vip" bindtap='completeTastTastToZhuanpanBackGoKefu'  
+      session-from='{"open_param":"completeTastTastToZhuanpanBack"}' 
+      >
+     接通客服
+          </button>
+
+
+    </view>
+    <image catchtap="closeVipDialog" class='icon-close-vip' src="/iconImages/icon_close.png"></image>
+  </view>
+</template>

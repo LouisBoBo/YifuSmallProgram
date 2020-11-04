@@ -1,0 +1,83 @@
+<template name="signhint-sm">
+
+
+  <view class='share-sm' catchtouchmove='preventTouchMove'>
+
+    <view class='sign-finish-top'>
+      <text class='sign-finish-top-title'>赚钱任务说明</text>
+      <image catchtap="bindTapcCloseShareTX" class='icon-close-shuoming' src="{{Upyun}}small-iconImages/gx/iconwhiteclose.png"></image>
+    </view>
+    <!-- <scroll-view class='srcoll-vv' scroll-y='true'> -->
+
+
+      <view class='view-item-yugao-sm'>
+        <text class='yugao-count-sm'>1</text>
+        <text class='mingri-text' style='font-size: 30rpx'>完成当天全部任务后，即可进行提现。提现金额实时打入微信零钱。</text>
+      </view>
+
+
+      <view class='view-item-yugao-sm'>
+        <text class='yugao-count-sm'>2</text>
+        <text class='mingri-text' style='font-size: 30rpx'>完成当天全部任务，即当日打卡成功。</text>
+      </view>
+
+
+
+      <view class='view-item-yugao-sm'>
+        <text class='yugao-count-sm'>3</text>
+        <text class='mingri-text-sm' style='font-size: 30rpx'>累计打卡15天后可领100元现金。100元一次全额到账，打入微信零钱。</text>
+      </view> 
+
+      <!-- <view class='view-item-yugao-sm'>
+        <text class='yugao-count-sm'>4</text>
+        <text class='mingri-text' style='font-size: 25rpx'>浏览XX商品X分钟任务需浏览够相应时长，即可完成任务，若途中关闭、退出衣蝠，下次启动后需重新开启任务；</text>
+      </view>
+
+      <view class='view-item-yugao-sm'>
+        <text class='yugao-count-sm'>5</text>
+        <text class='mingri-text' style='font-size: 25rpx'>浏览X件(套)商品需浏览完相应商品详情，即可完成任务；</text>
+      </view>
+      <view class='view-item-yugao-sm'>
+        <text class='yugao-count-sm'>6</text>
+        <text class='mingri-text' style='font-size: 25rpx'>浏览X条穿搭话题需浏览完相应商品详情，即可完成任务；</text>
+      </view>
+
+      <view class='view-item-yugao-sm' style='margin-bottom: 30rpx'>
+        <text class='yugao-count-sm'>7</text>
+        <text class='mingri-text' style='font-size: 25rpx'>赚钱任务仅限女性用户参与，最终解释权归衣蝠所有。</text>
+      </view> -->
+
+    <!-- </scroll-view> -->
+
+
+  </view>
+
+</template>
+
+<template name="kefuYindao">
+  <view class="notEnoughYidou-root">
+    <!-- <text class='notEnough-dialog-title'>支付成功</text> -->
+
+
+    <view class='first_g_title'>
+      <image class='notEnough-dialog-image' src='/iconImages/fight_Success.png'></image>
+      <text class='notEnough-dialog-title-first'>支付成功</text>
+    </view>
+
+    <text class='notEnough-dialog-content1'>恭喜您成功参与会员免费领美衣活动，您是新人，请点下方按钮，接通微信客服申请发货。</text>
+
+
+      
+
+      <!-- <text catchtap="copyWXH" class='bottom-btn-yellow5' >复制客服微信号</text> -->
+      <!-- bindtap='closeConfirm' -->
+
+      <button open-type='contact' class="bottom-btn-yellow5" bindtap='closeShowLXKF'  
+      session-from='{"open_param":"NewUserThroughToCustomerService24before"}' show-message-card='true' 
+      send-message-title='{{fromShopData.shopName}}' send-message-img='{{fromShopData.shopPic}}!280'>
+     接通微信客服
+          </button>
+
+
+  </view>
+</template>

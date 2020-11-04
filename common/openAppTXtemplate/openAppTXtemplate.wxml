@@ -1,0 +1,13 @@
+<template name="open-yifu-dialog-tx">
+  <view class="open-yifu-root-tx">
+    <image catchtap="closeToTX" class='img-close-tx' src="/iconImages/icon_close.png"></image>
+
+    <text class='open-yifu-text'>去<text class="open-yifu-text-red">衣蝠</text>APP申请提现</text>
+    <text class='open-yifu-text'>到账速度加快一倍</text>
+
+    <image  class='img-app-icon' src="{{Upyun}}small-iconImages/gx/open_yifu_dialog_icon.png" bindtap="previewImage"></image>
+
+    <!-- <image src="/iconImages/扫码下载.png" bindtap="previewImage"></image> -->
+    <text class='open-yifu-bottom-btn' catchtap="goAPPtx">去衣蝠APP</text>
+  </view>
+</template>

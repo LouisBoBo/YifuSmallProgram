@@ -1,0 +1,36 @@
+<view>
+  <view class='selectTitle'>
+    <block wx:for="{{typeNames}}">
+      <view class="{{currentTab==index?'select':'default'}}" data-current="{{index}}" bindtap="switchNav">{{item}}</view>
+    </block>
+  </view>
+  <view class='bigview' wx:if="{{currentTab==0?true:false}}">
+    <block wx:for="{{indialist}}" wx:for-item="item">
+      <view class='baseview' bindtap='shopdetailtap' data-shopcode="{{item.shop_code}}">
+        <view class='spaceview'></view>
+        <view class='titleview'>
+          <view class='stageview'>第{{item.issue_code}}期</view>
+          <view class='timeview'>揭晓时间:{{item.newotime}}</view>
+          <view class='lineview'></view>
+        </view>
+        <image class='headimage' src="{{item.in_head}}"></image>
+        <view class='contentview'>
+          <view>
+            <text class='winner'>获奖者:</text>
+            <text class='in_name'>{{item.in_name}}</text>
+          </view>
+          <view class='participate'>
+            <text>本期参与:</text>
+            <text class='activecount'>{{item.num}}</text>
+            <text>人次</text>
+          </view>
+          <view class='luckcode'>幸运号码:{{item.in_code}}</view>
+        </view>
+        <view class='moreview'>查看详情 ></view>
+      </view>
+    </block>
+  </view>
+  <view class='bigview' wx:else>
+    <image class='bigimageview' mode="aspectFill" src="{{upyconfig}}/shop_comment/share_order/default.png"></image>
+  </view>
+</view>

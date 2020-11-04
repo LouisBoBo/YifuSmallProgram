@@ -1,0 +1,120 @@
+/* pages/sign/inviteFriends/friendsReward.wxss */
+.notEnoughYidou-root {
+  width: 100%;
+  /* background-color: #fd215a; */
+  /* border-radius: 15rpx; */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 35rpx;
+  border-bottom: 20rpx solid #f0f0f0;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.notEnough-dialog-title {
+  align-self: center;
+  font-size: 36rpx;
+  color: #3e3e3e;
+  margin-top: 35rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.notEnough-dialog-title2 {
+  align-self: center;
+  font-size: 36rpx;
+  color: #ff3f8b;
+  margin-top: 35rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.notEnough-dialog-content {
+  align-self: center;
+  font-size: 30rpx;
+  color: #3e3e3e;
+  /* margin-top: 0; */
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  /* background-color: rebeccapurple; */
+}
+
+.notEnough-dialog-myReward {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+}
+
+.notEnough-dialog-myRewardContent {
+  align-self: center;
+  align-items: center;
+  text-align: center;
+  font-size: 30rpx;
+  color: #ff3f8b;
+   margin-top: 5rpx; 
+  margin-left: 50rpx;
+  margin-right: 50rpx;
+}
+.middleLine {
+  margin-top: 30rpx;
+  height: 60rpx;
+  width: 1px;
+  background-color: #ff3f8b;
+}
+
+.friendTodayReward {
+  font-size: 36rpx;
+  color: #3e3e3e;
+  width: 100%;
+  text-align: center;
+  margin-top: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.friendsReward {
+  display: flex;
+  margin-top: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  align-items: center;
+}
+.friends-headImg {
+  margin-left: 20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  /* background-color: rebeccapurple; */
+  border-radius: 50rpx;
+}
+.friends-right {
+  margin-left: 20rpx;
+  font-size: 30rpx;
+  color: #ff3f8b;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  /* background-color: rebeccapurple; */
+}
+.friends-top {
+  font-size: 30rpx;
+  color: #3e3e3e;
+}
+.friends-top-time {
+  margin-left: 60rpx;
+  color: #a8a8a8;
+}
+.friends-bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;  
+}
+.friends-bottom-rightMoney {
+  display: flex;
+  padding-right: 20rpx; 
+  text-align: right;
+}
+
+.emptyView {
+  padding-top: 40%;
+  text-align: center;
+  font-size: 30rpx;
+}
